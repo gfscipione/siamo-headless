@@ -24,3 +24,31 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* --- Siamo hero demo --- */
+:root { --hero-overlay: .25; }
+
+header.hero{
+  height: 100vh;
+  background: url("/assets/img/hero.webp") no-repeat 50% 50% / cover;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+header.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,var(--hero-overlay));
+}
+
+header.hero h1{
+  color:#fff;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: clamp(40px, 9vw, 120px);
+  line-height: 1.05;
+  text-align:center;
+  padding: 0 3vw;
+}
