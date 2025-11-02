@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ParallaxDemo from "./components/ParallaxDemo";
 
 export const revalidate = 60; // revalidate WP fetch every 60s
 
@@ -57,23 +57,5 @@ export default async function Home() {
   const title =
     wp?.title && wp.title.toLowerCase() !== "home" ? wp.title : DEFAULT_TITLE;
 
-  return (
-    <main className="relative min-h-screen overflow-hidden">
-      <Image
-        src={hero}
-        alt="Siamo Design hero"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      <div className="absolute inset-0 bg-black/35" />
-
-      <section className="relative z-10 mx-auto max-w-6xl px-6 py-28">
-        <h1 className="whitespace-pre-line font-serif text-white text-5xl md:text-7xl leading-tight drop-shadow">
-          {title}
-        </h1>
-      </section>
-    </main>
-  );
+  return <ParallaxDemo />;
 }
