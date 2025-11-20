@@ -1,8 +1,144 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { playfairFont } from "../fonts";
+
+const useIsomorphicLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
+
+const mobileDrawerSocialStyles: {
+  container: CSSProperties;
+  link: CSSProperties;
+  icon: CSSProperties;
+} = {
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "14px",
+    marginBottom: "var(--menu-social-y-m, 20px)",
+  },
+  link: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 44,
+    height: 44,
+    border: "1px solid rgba(17,17,17,0.25)",
+    borderRadius: "999px",
+    color: "#111",
+  },
+  icon: {
+    width: 20,
+    height: 20,
+    color: "currentColor",
+    fill: "currentColor",
+  },
+};
+
+// Helper: SSR-safe video that fades in after loaded
+function LazyVideo({
+  src,
+  poster = "/assets/img/hero.webp",
+  className = "",
+  ariaLabel,
+  playOnView = true,
+}: {
+  src: string;
+  poster?: string;
+  className?: string;
+  ariaLabel?: string;
+  playOnView?: boolean;
+}) {
+  const [ready, setReady] = useState(false);
+  const [active, setActive] = useState(!playOnView);
+  const vRef = useRef<HTMLVideoElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const v = vRef.current;
+    if (!v) return;
+    const handleReady = () => setReady(true);
+
+    if (v.readyState >= 1) {
+      handleReady();
+      return;
+    }
+
+    v.addEventListener("loadedmetadata", handleReady, { once: true });
+    return () => v.removeEventListener("loadedmetadata", handleReady);
+  }, []);
+
+  useEffect(() => {
+    if (!playOnView) return;
+    const node = containerRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      setActive(true);
+      return;
+    }
+
+    let didActivate = false;
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting && !didActivate) {
+          didActivate = true;
+          setActive(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.25, rootMargin: "0px 0px -20% 0px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [playOnView]);
+
+  useEffect(() => {
+    const v = vRef.current;
+    if (!v || !active) return;
+    const playPromise = v.play();
+    if (playPromise?.catch) playPromise.catch(() => {});
+  }, [active]);
+
+  const showPoster = !ready || !active;
+
+  return (
+    <div
+      ref={containerRef}
+      className={`media ${ready && active ? "is-ready" : ""}`}
+      style={{ position:'relative', width:'100%', paddingTop:'75%', background:'#e7e3da', overflow:'hidden', contain:'layout paint style' }}
+    >
+      {/* SSR-friendly poster to avoid black flash */}
+      {showPoster && (
+        <Image
+          src={poster}
+          alt=""
+          fill
+          sizes="(max-width:860px) 92vw, 360px"
+          style={{ objectFit:'cover' }}
+          priority={false}
+        />
+      )}
+      <video
+        ref={vRef}
+        className={`media-video ${className}`}
+        style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover', background:'#e7e3da' }}
+        autoPlay={active}
+        muted
+        loop
+        playsInline
+        preload={playOnView ? "none" : "metadata"}
+        poster={poster}
+        aria-label={ariaLabel}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
+  );
+}
 
 function WwdTriptych() {
   return (
@@ -10,19 +146,14 @@ function WwdTriptych() {
       {/* 01 · DISEÑO VIRTUAL */}
       <article className="triptych-card pos1">
         <Link href="/services#virtual" className="hit" aria-label="Abrir Diseño virtual">
-          <div className="media">
-            <video
-              className="media-video"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/images/wwd-virtual.jpg"
-              aria-label="Diseño virtual (video)"
-            >
-              <source src="/assets/videos/virtual-design.mp4" type="video/mp4" />
-            </video>
+          <div className="media virtual-media" style={{ position:'relative', width:'100%', paddingTop:'75%', background:'#e7e3da', overflow:'hidden', contain:'layout paint style' }}>
+            <Image
+              src="/assets/img/virtual.png"
+              alt="Diseño virtual"
+              fill
+              sizes="(max-width:860px) 92vw, 360px"
+              style={{ objectFit:'cover' }}
+            />
           </div>
         </Link>
       </article>
@@ -30,9 +161,10 @@ function WwdTriptych() {
       {/* 02 · DISEÑO &amp; EJECUCIÓN EN SITIO */}
       <article className="triptych-card pos2">
         <Link href="/services#on-site" className="hit" aria-label="Abrir Diseño y ejecución en sitio">
-          <div className="media">
+          <div className="media onsite-media" style={{ position:'relative', width:'100%', paddingTop:'75%', background:'#e7e3da', overflow:'hidden', contain:'layout paint style' }}>
             <Image
-              src="/assets/videos/content.webp"
+              src="/assets/img/onsite.png"
+              style={{ objectFit:'cover' }}
               alt="Diseño y ejecución en sitio"
               fill
               sizes="(max-width:860px) 92vw, 360px"
@@ -44,81 +176,305 @@ function WwdTriptych() {
       {/* 03 · CONTENIDO / STUDIO LOG */}
       <article className="triptych-card pos3">
         <Link href="/content" className="hit" aria-label="Abrir Studio Log y contenidos">
-          <div className="media">
-            <video
-              className="media-video"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/images/wwd-content.jpg"
-              aria-label="Studio Log y contenidos (video)"
-            >
-              <source src="/assets/videos/wwd-onsite.mp4" type="video/mp4" />
-            </video>
+          <div className="media content-media" style={{ position:'relative', width:'100%', paddingTop:'75%', background:'#e7e3da', overflow:'hidden', contain:'layout paint style' }}>
+            <Image
+              src="/assets/img/content.png"
+              alt="Studio Log y contenidos"
+              fill
+              sizes="(max-width:860px) 92vw, 360px"
+              style={{ objectFit:'cover' }}
+            />
           </div>
         </Link>
       </article>
 
       {/* Styles scoped to this component */}
-      <style jsx>{`
-        .triptych-wrapper{
-          /* knobs para alinear con las líneas 01/02/03 de tu sección */
-          --triptych-offset: 72px;  /* distancia desde los números a las tarjetas */
-          --col-01: 25%;            /* x de la línea del 01 (ajusta si tus guías cambian) */
-          --col-02: 50%;            /* x de la línea del 02 */
-          --col-03: 75%;            /* x de la línea del 03 */
 
-          position: relative;
-          width: 100%;
-          margin-top: var(--triptych-offset);
-          min-height: clamp(420px, 36vw, 560px);
-          z-index: 1;
-        }
-        .triptych-card{
-          position: absolute;
-          top: 0;
-          /* move all three cards equally via knobs coming from parent container */
-          transform: translate(var(--wwd-cards-x, 0px), var(--wwd-cards-y, 0px)) translateX(-50%);
-          width: min(28vw, 360px);
-          background: #fff;
-          border: none;
-          border-radius: 0;
-          overflow: clip;
-          box-shadow: none;
-        }
-        .pos1{ left: var(--col-01); }
-        .pos2{ left: calc(var(--col-02) + var(--wwd-cards-gap, 0px)); }
-        .pos3{ left: calc(var(--col-03) + calc(var(--wwd-cards-gap, 0px) * 2)); }
+    </section>
+  );
+}
 
-        .hit{ display:block; color:inherit; text-decoration:none; }
-        .media{ position:relative; width:100%; aspect-ratio:4/3; }
-        .media :global(img){ object-fit: cover; }
-        .media :global(video){
-          position:absolute;
-          inset:0;
-          width:100%;
-          height:100%;
-          object-fit: cover;
-        }
+function TestimonialReel({
+  videos = [],
+  quotes = [],
+  varsStyle = {},
+  posters = [],
+}: {
+  videos?: string[];
+  quotes?: { quote: string; author?: string }[];
+  varsStyle?: any;
+  posters?: string[];
+}) {
+  const [idx, setIdx] = useState(0);
+  const n = Math.max(1, videos.length || 0);
+  const prevIdx = (idx - 1 + n) % n;
+  const nextIdx = (idx + 1) % n;
+  const q = quotes[idx] || quotes[0] || { quote: "From creating the perfect layout to finding pieces I absolutely loved, my designer really took my space to the next level. I never dreamed my home could look — and feel — this good!", author: "JAN" };
+  const reelRef = useRef<HTMLDivElement | null>(null);
+  const [reelActive, setReelActive] = useState(false);
+  const [reelPlaying, setReelPlaying] = useState(false);
+  const reelStartedRef = useRef(false);
+  const [isMobileReel, setIsMobileReel] = useState(false);
+  const defaultReelPoster = "/assets/videos/testimonials-thumb.webp";
+  const getPosterForIndex = (i: number) => {
+    const direct = posters[i];
+    if (direct) return direct;
+    const src = videos[i];
+    if (!src) return defaultReelPoster;
+    const lastDot = src.lastIndexOf(".");
+    if (lastDot <= 0) return defaultReelPoster;
+    return `${src.slice(0, lastDot)}-thumb.webp`;
+  };
+  const currentPoster = getPosterForIndex(idx);
 
-        @media (max-width: 1024px){
-          .triptych-card{ width: min(42vw, 360px); }
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 860px)");
+    const handleChange = (event?: MediaQueryListEvent) => {
+      setIsMobileReel(event ? event.matches : mq.matches);
+    };
+    handleChange();
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", handleChange);
+      return () => mq.removeEventListener("change", handleChange);
+    }
+    mq.addListener(handleChange);
+    return () => mq.removeListener(handleChange);
+  }, []);
+
+  const goPrev = () => setIdx((i) => (i - 1 + n) % n);
+  const goNext = () => setIdx((i) => (i + 1) % n);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const node = reelRef.current;
+    if (!node) {
+      setReelActive(true);
+      reelStartedRef.current = true;
+      return;
+    }
+    if (typeof IntersectionObserver === "undefined") {
+      setReelActive(true);
+      reelStartedRef.current = true;
+      return;
+    }
+    if (reelStartedRef.current) {
+      setReelActive(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          reelStartedRef.current = true;
+          setReelActive(true);
+          obs.disconnect();
         }
-        @media (max-width: 860px){
-          .triptych-wrapper{ min-height: unset; display: grid; gap: var(--wwd-cards-gap-mobile, 18px); }
-          .triptych-card{ position: relative; left: auto; transform: none; width: min(92vw, 520px); margin: 0 auto; }
-        }
-      `}</style>
+      },
+      { threshold: 0.35, rootMargin: "0px 0px -20% 0px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const node = reelRef.current;
+    if (!node) return;
+    const vids = Array.from(node.querySelectorAll("video"));
+    setReelPlaying(false);
+    vids.forEach((video) => {
+      video.pause();
+      try {
+        video.currentTime = 0;
+      } catch {
+        /* ignore */
+      }
+    });
+  }, [idx, prevIdx, nextIdx]);
+
+  const playCenterVideo = () => {
+    const node = reelRef.current;
+    const center = node?.querySelector<HTMLVideoElement>('.reel-item.is-center video');
+    if (!center) return;
+    const p = center.play();
+    if (p && typeof p.then === "function") {
+      p.then(() => setReelPlaying(true)).catch(() => {});
+      return;
+    }
+    setReelPlaying(true);
+  };
+
+  return (
+    <section className="testi-reel" style={varsStyle} aria-label="Testimonials" ref={reelRef}>
+      <div className="reel-wrap">
+        <div className="reel-track">
+          {/* LEFT (previous) */}
+          <div
+            className="reel-item is-left"
+            role="button"
+            tabIndex={0}
+            aria-label="Ver testimonio anterior"
+            onClick={goPrev}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && goPrev()}
+          >
+            {videos[prevIdx] ? (
+              <video
+                className="reel-video"
+                src={videos[prevIdx]}
+                muted
+                playsInline
+                loop
+                preload="none"
+                poster={getPosterForIndex(prevIdx)}
+                aria-hidden="true"
+                data-reel-role="prev"
+              />
+            ) : null}
+          </div>
+
+          {/* CENTER (active) */}
+          <div className="reel-item is-center" aria-live="polite">
+            <div
+              className={`reel-video__media${isMobileReel && !reelPlaying ? " has-poster" : ""}`}
+            >
+              {isMobileReel && !reelPlaying && (
+                <div className="reel-video__poster" aria-hidden="true">
+                  <img src={currentPoster} alt="" />
+                </div>
+              )}
+              {videos[idx] ? (
+                <video
+                  className="reel-video"
+                  src={videos[idx]}
+                  muted
+                  playsInline
+                  loop
+                  preload="none"
+                  poster={currentPoster}
+                  data-reel-role="center"
+                  controls={reelPlaying}
+                />
+              ) : null}
+            </div>
+            {!reelPlaying && (
+              <button
+                type="button"
+                className="reel-play"
+                aria-label="Reproducir testimonio"
+                onClick={playCenterVideo}
+              >
+                <span className="reel-play__icon" aria-hidden="true">▶</span>
+              </button>
+            )}
+          </div>
+
+          {/* RIGHT (next) */}
+          <div
+            className="reel-item is-right"
+            role="button"
+            tabIndex={0}
+            aria-label="Ver siguiente testimonio"
+            onClick={goNext}
+            onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && goNext()}
+          >
+            {videos[nextIdx] ? (
+              <video
+                className="reel-video"
+                src={videos[nextIdx]}
+                muted
+                playsInline
+                loop
+                preload="none"
+                poster={getPosterForIndex(nextIdx)}
+                aria-hidden="true"
+                data-reel-role="next"
+              />
+            ) : null}
+          </div>
+        </div>
+
+        {/* RIGHT ASIDE (quote) */}
+        <aside className="reel-aside" aria-live="polite">
+          <div className={`qm ${playfairFont.className}`} aria-hidden="true">“</div>
+          <p className={`q-text ${playfairFont.className}`}>{q.quote}</p>
+          {q.author ? <p className="q-author">{q.author}</p> : null}
+        </aside>
+      </div>
+      {n > 1 ? (
+        <div className="reel-nav-mobile" aria-label="Cambiar testimonio">
+        <div className="reel-nav-mobile__line" aria-hidden="true"></div>
+          <button
+            type="button"
+            className="reel-nav-mobile__btn"
+            onClick={goPrev}
+            disabled={idx === 0 || n <= 1}
+            aria-label="Anterior testimonio"
+          >
+            ‹
+          </button>
+          <span className="reel-nav-mobile__indicator">
+            {String(idx + 1).padStart(2, '0')} | {String(n).padStart(2, '0')}
+          </span>
+          <button
+            type="button"
+            className="reel-nav-mobile__btn"
+            onClick={goNext}
+            disabled={idx >= n - 1}
+            aria-label="Siguiente testimonio"
+          >
+            ›
+          </button>
+        </div>
+      ) : null}
+      <div className="reel-thumbs" role="list" aria-label="Choose a testimonial">
+        {Array.from({ length: 3 }).map((_, i) => {
+          const v = videos[i];
+          const isActive = idx === i;
+          const hasVideo = !!v;
+
+          return (
+            <button
+              key={i}
+              className={`thumb${isActive ? ' is-active' : ''}${hasVideo ? '' : ' is-fallback'}`}
+              onClick={() => hasVideo && setIdx(i)}
+              aria-pressed={isActive}
+              aria-label={hasVideo ? `Open testimonial ${i + 1}` : `Placeholder testimonial ${i + 1}`}
+              disabled={!hasVideo}
+            >
+              {hasVideo && (
+                <video
+                  src={v}
+                  muted
+                  playsInline
+                  preload="none"
+                  poster={getPosterForIndex(i)}
+                  onError={(e) => {
+                    const btn = e.currentTarget.parentElement as HTMLElement | null;
+                    btn?.classList.add('is-fallback');
+                  }}
+                />
+              )}
+              <span className="ph" aria-hidden="true" />
+            </button>
+          );
+        })}
+      </div>
+
     </section>
   );
 }
 
 export default function ParallaxDemo({
   bgUrl = "/assets/img/hero.webp",
+  bgUrlMobile = "/assets/img/herores.jpg",
+  useDesktopHeroOnMobile = true,
+  initialIsMobile = null,
+  heroOverlay = 0.32,
+  heroOverlayMobile = 0.32,
   title = "Designing your dream space \njust became a reality",
+  titleMobile = "YOUR DREAM SPACE, ANYWHERE.",
   titlePx = 55,
+  titleMobilePx = 20,
   typewriter = true,
   typingSpeedMs = 85,
   startDelayMs = 300,
@@ -127,21 +483,37 @@ export default function ParallaxDemo({
   caretY = 12,
   caretScaleX = 0.65,
   heroSublineGap = 15,
+  heroSublineGapMobile = heroSublineGap,
+  heroSublineXMobile = 0,
+  heroSublineYMobile = -25,
   heroSublineW = 350,
-  aboutHeightPx = 6000,
+  heroLetterSpacing = -0.04,
+  heroLineHeight = 1.2,
+  heroWordSpacing = 0.1,
+  aboutHeightPx = 6100,
+  aboutHeightPxMobile = 1950,
   scrollEase = 0.07,
   wwdTitleX = 470,
   wwdTitleY = -500,
+  wwdTitleXMobile = 8,
+  wwdTitleYMobile = -800,
   wwdTextX = 470,
   wwdTextY = -450,
+  wwdTextXMobile = 8,
+  wwdTextYMobile = -280,
+  wwdLeadFs = 18,
+  wwdLeadFsMobile = 24,
+  wwdLeadMaxWMobile = 280,
   wwdTitleFs = 15,
   wwdTitleW = 500,
+  wwdTitleFsMobile = 12,
   wwdGuideLblGap = 26,
   wwdTextMaxW = 2400,
   projectsTextMaxW = 1200,
   projectsTextX = 18,
   projectsTextY = 100,
-  projectsGridGap = 0,
+  projectsGridGap = 1,
+  projectsGridGapMobile = 1,
   projectsGridX = 20,
   projectsGridY = 260,
   projectsCol1X = -25,
@@ -150,14 +522,35 @@ export default function ParallaxDemo({
   projectsCol4X = 27,
   projectsMetaX = -37,
   projectsMetaY = 80,
+  projectsMetaXM = 0,
+  projectsMetaYM = 30,
+  projectsTitleXM = -46,
+  projectsTitleYM = 45,
+  projectsTitleMaxWM = 720,
   projectsCardGrow = 15,
+  projectsCardSizeMobile = 210,
+  projectsCardOverlapMobile = 35,
+  projectsCarouselViewport = 120,
+  projectsCarouselOffsetXMobile = 21,
+  projectsCarouselOffsetYMobile = 0,
+  projectsCarouselItemsMobile = 2,
+  projectsCarouselShiftPage1 = 0,
+  projectsCarouselShiftPage2 = 5,
+  projectsCarouselBlockOffsetYMobile = -110,
+  projectsCarouselNavOffsetYMobile = -20,
+  projectsCarouselWindowPadMobile = 110,
+  projectsNavHeightMobile = 30,
+  projectsNavInnerOffsetY = 0,
+  projectsNavArrowOffsetY = -2,
   wwdContainerMaxW = 1160,
   wwdPadTop = 420,
   wwdPadBottom = 120,
+  wwdPadTopMobile = 120,
   wwdGutterL = 0,
   wwdGutterR = 70,
+  wwdPadBottomMobile = -40,
   wwdGuideW = 2,
-  wwdGuideLblTop = 84,
+  wwdGuideLblTop = 10,
   wwdGuideLblFs = 16,
   wwdGuideLblW = 500,
   wwdGuideLblColor = '#5f6b5e',
@@ -165,6 +558,10 @@ export default function ParallaxDemo({
   wwdCardsY = 270,
   wwdCardsGap = 15,
   wwdCardsGapMobile = 18,
+  wwdCardWM = 180,
+  wwdCardAspectMobile = 320,
+  wwdVirtualCardXM = 131,
+  wwdVirtualCardYM = -300,
   wwdSecTitle1 = "VIRTUAL DESIGN",
   wwdSecTitle2 = "ON-SITE DESIGN & EXECUTION",
   wwdSecTitle3 = "CONTENT / STUDIO LOG",
@@ -173,12 +570,12 @@ export default function ParallaxDemo({
   wwdSecTitleFs = 16,
   wwdSecTitleW,
   wwdSecTitleColor,
-  wwdSecTitleGapV = 52,
+  wwdSecTitleGapV = 115,
   wwdSecTitleX = 0,
-  wwdSecTitleY = 50,
-  wwdDesc1 = "Proyectos llave en mano para transformar tu espacio.",
-  wwdDesc2 = "Convierte tu espacio con nuestras guías personalizadas.",
-  wwdDesc3 = "Potencia tu entorno para alcanzar tus metas.",
+  wwdSecTitleY = -20,
+  wwdDesc1 = "We design remotely, from brief to final styling. You relax.",
+  wwdDesc2 = "We build on-site, from demo to final styling. You move in.",
+  wwdDesc3 = "New drops, behind-the-scenes looks, and studio updates.",
   wwdDescFs = 20,
   wwdDescW,
   wwdDescColor,
@@ -189,20 +586,55 @@ export default function ParallaxDemo({
   wwdDescSepX = 0,
   wwdDesc1X = 0,
   wwdDesc1Y = 0,
-  wwdDesc2X = 20,
-  wwdDesc2Y = 0,
+  wwdDesc1XM = -97,
+  wwdDesc1YM = -625,
+  wwdDesc1MaxWM = 200,
+  wwdDesc2X = 13,
+  wwdDesc2Y = 1,
+  wwdDesc2MaxWM = 220,
+  wwdDesc2XM = -296,
+  wwdDesc2YM = -215,
+  wwdOnsiteCardMX = 131,
+  wwdOnsiteCardMY = -85,
+  wwdContentCardMX = 132,
+  wwdContentCardMY = 145,
   wwdDesc3X = 30,
   wwdDesc3Y = 0,
+  wwdDesc3XM = 173,
+  wwdDesc3YM = -45,
+  wwdSvc02TitleMaxWM = 120,
   wwdCtaX = 42,
-  wwdCtaY = 90,
+  wwdCtaY = 89,
   wwdCtaTxtX = -25,
   wwdCtaTxtY = -5,
+  wwdCtaTxtXM = 5,
   wwdCta1X = 0,
   wwdCta1Y = 0,
+  wwdCtaMobileX = -296,
+  wwdCtaMobileY = -420,
   wwdCta3X = 34,
   wwdCta3Y = 0,
+  wwdCta3MobileX = -785,
+  wwdCta3MobileY = -25,
   wwdEyebrow1X = 18,
   wwdEyebrow1Y = 350,
+  wwdEyebrow1XM = -290,
+  wwdEyebrow1YM = -200,
+  wwdLbl01XM = -20,
+  wwdLbl01YM = -630,
+  wwdTitle01XM = -20,
+  wwdTitle01YM = -575,
+  wwdLbl02 = "02",
+  wwdLbl02MobileX = 186,
+  wwdLbl02MobileY = -525,
+  wwdTitle02MobileX = 0,
+  wwdTitle02MobileY = 20,
+  wwdLbl03 = "03",
+  wwdLbl03MobileX = -508,
+  wwdLbl03MobileY = -140,
+  wwdTitle03MobileX = 0,
+  wwdTitle03MobileY = 30,
+  wwdDesc3MaxWM = 220,
   /* === ABOUT TITLE KNOBS ===
      aboutTitleX / aboutTitleY: offsets in px applied via CSS transform to <h3.about-title>
      aboutTitleGap: bottom margin (px) between the title and the video
@@ -210,39 +642,163 @@ export default function ParallaxDemo({
   aboutTitle = "ABOUT US",
   aboutTitleX = 20,
   aboutTitleY = 570,
+  aboutTitleXMobile = -100,
+  aboutTitleYMobile = -60,
   aboutTitleGap = 16,
   aboutCaption = "Art Direction & Styling, Head of Design & 3D\nHead of Style & Materials.",
   aboutCaptionX = 20,
   aboutCaptionY = 680,
+  aboutCaptionXMobile = -120,
+  aboutCaptionYMobile = -660,
   aboutCaptionShiftY = -50,
   aboutCaptionGap = 202,
   /* === ABOUT CTA (line-from-guide button above video) === */
   aboutCtaLabel = "get to know us",
   aboutCtaX = 16,
   aboutCtaY = 1030,
-  aboutCtaUnderlineW = 220,
+  aboutCtaUnderlineW = 175,
   aboutCtaLineGap = 10,
   aboutCtaTxtX = -25,
   aboutCtaTxtY = -5,
+  aboutCtaTxtYMobile = 5,
+  aboutCtaTxtXMobile = -10,
+  aboutCtaMobileX = -15,
+  aboutCtaMobileY = -930,
+  aboutCtaMobileWidth = 195,
+  aboutCtaMobileHeight = 40,
   /* === Full-bleed video knobs === */
   aboutVideoSrc = "/assets/videos/about.mp4",
   aboutVideoPoster = "",
   aboutVideoH = 640,          // px height for the video area (desktop) — a bit taller so top/bottom aren’t cropped
   aboutVideoGapTop = 80,      // px gap above the video (distance from Projects grid)
   aboutVideoY = 400,           // px translateY to fine-tune vertical placement of the video
+  aboutVideoYMobile = -300,
   aboutVideoFit = "cover",
   aboutVideoPosY = 50,
   aboutVideoAspect = "16/9",
-  aboutVideoOverlayPct = 44,
+  aboutVideoOverlayPct = 50,
+  aboutHlineGap = 180,          // px: distance BELOW the video to draw the horizontal guide
   wwdBlockY = 500,
+  wwdBlockYMobile = 420,
   navColGap = 0,
   navInnerMaxW = 1600,
   navItemGap = 44,
   navTitleFs = 14,
+  navTitleFsMobile = 12,
+  navBarHeight = 50,
+  heroCtaFontSizeMobile = 11,
+  brandFontSize = 22,
+  brandFontSizeMobile = 14,
+  brandLogoHeightMobile = 32,
+  navCtaPadX = 42,
+  navCtaPadY = 14,
+  heroCtaPadXMobile = 22,
+  heroCtaPadYMobile = 8,
+  heroCtaYOffsetMobile = -35,
+  navBarHeightMobile = 40,
+  navCtaBg = '#F4F2EA',
+  navCtaInk = '#111111',
+  navCtaBgHover = '#F4F2EA',
+  centerlineTopOffset = 420,
+  centerlineBottomOffset = 1295,
+  menuDrawerHeaderYMobile = 0,
+  menuDrawerHeaderRowYOffsetMobile = 10,
+  menuDrawerLinksTopLineYMobile = 10,
+  menuDrawerLinksXMobile = 0,
+  menuDrawerLinksYMobile = 30,
+  menuDrawerFollowYMobile = 250,
+  menuDrawerFollowDividerYOffsetMobile = 80,
+  menuDrawerCtaYOffsetMobile = 40,
+  menuDrawerSocialBlockYOffsetMobile = 0,
+  menuDrawerSocialLineYMobile = 0,
+  menuDrawerCtaYMobile = 25,
+  menuDrawerBrandFontSizeMobile = 18,
+  menuDrawerBrandLetterSpacingMobile = 0.08,
+  menuDrawerCloseFontSizeMobile = 12,
+  menuDrawerCloseLetterSpacingMobile = 0.08,
+  reelX = -400,
+  reelY = 560,
+  reelW = 980,
+  reelWMobile = 400,
+  reelH = 552,
+  reelHMobile = 100,
+  reelGap = 36,
+  reelSideScale = 0.68,
+  reelSideOpacity = 0.55,
+  reelArrowSize = 34,
+  reelArrowOffset = 24,
+  reelBoxGrow = -100,
+  reelBoxGrowMobile = 0,
+  reelXMobile = -348,
+  reelYMobile = -140,
+  reelScaleMobile = 1,
+  reelRightExtraMobile = 0,
+  reelRadius = 12,
+  reelNavWidthMobile = 100,
+  reelNavXMobile = -7,
+  reelNavYMobile = -80,
+  reelQuoteX = 150,
+  reelQuoteY = 0,
+  reelQuoteXMobile = -8,
+  reelQuoteYMobile = -55,
+  wwdNarrativeXM = 115,
+  wwdNarrativeYM = 1639,
+  wwdNarrativeDesktopX = 40,
+  wwdNarrativeDesktopY = 2795,
+  wwdNarrativeMaxWM = 300,
+  testiAsideW = 620,
+  testiTitleX = 60,
+  testiTitleY = 450,
+  testiTitleXMobile = 0,
+  testiTitleYMobile = -260,
+  testiBlockXMobile = 0,
+  testiBlockYMobile = -90,
+  testiBlockX = 355,
+  testiBlockY = 0,
+  reelThumbsX = 70,
+  reelThumbsY = 100,
+  testiHlineGap = 850,
+  testiHlineX = 0,
+  testiHlineY = 0,
+  testiHlineXMobile = 0,
+  testiHlineYMobile = -1120,
+  followHandle = "@siamodesign",
+  followX = 0,
+  followY = 140,
+  followGap = 22,
+  followGapMobile = 10,
+  followMaxW = 1100,
+  followMaxWMobile = 1000,
+  followTitleX = -615,
+  followTitleY = -100,
+  followTitleXMobile = -5,
+  followTitleYMobile = -1230,
+  followGridX = 30,
+  followGridXMobile = 10,
+  followGridYMobile = -1180,
+  followCardSizeMobile = 160,
+  followCols = 6,
+  followCardGrow = 40,
+  followCardGap = 100,
+  followItems = [],
+  footerLift = 30,          // px: manual lift (positive lifts UP) to close any tiny seam above the footer
+  footerOverlap = 50,        // desktop/global overlap (px) to hide seams between sections
+  footerPadTopMobile = 55,
+  footerOverlapMobile = 40,
+  wwdFooterSpacerMobile = 0,
+  footerH = 250,           // px: footer height override (keeps bottom offset in sync)
+  footerBottomMaxW = 1100, // px: max width for bottom footer content (Explore + Legal)
 }: {
   bgUrl?: string;
+  bgUrlMobile?: string;
+  useDesktopHeroOnMobile?: boolean;
+  initialIsMobile?: boolean | null;
+  heroOverlay?: number;
+  heroOverlayMobile?: number;
   title?: string;
+  titleMobile?: string;
   titlePx?: number;         // knob (px) already supported; we drive the CSS var here
+  titleMobilePx?: number;   // knob (px) for MOBILE hero title size; if unset, defaults to clamp
   typewriter?: boolean;     // enable/disable typing
   typingSpeedMs?: number;   // speed per character
   startDelayMs?: number;    // delay before typing starts
@@ -251,33 +807,88 @@ export default function ParallaxDemo({
   caretY?: number;        // knob: px vertical offset for the typewriter caret/dash (positivo = baja)
   caretScaleX?: number;   // knob: scale factor (0..1+) to compress/expand the caret width (1 = normal, 0.6 = más corto)
   heroSublineGap?: number; // knob: px gap between the H1 title and the subline in the hero
+  heroSublineGapMobile?: number;
+  heroSublineXMobile?: number;
+  heroSublineYMobile?: number;
   heroSublineW?: number;   // knob: numeric font-weight for the hero subline
+  heroLetterSpacing?: number; // knob: em tracking for hero title (can be negative)
+  heroLineHeight?: number; // knob: unitless line-height for hero title
+  heroWordSpacing?: number; // knob: em gap between words in hero title
   aboutHeightPx?: number;
+  aboutHeightPxMobile?: number;
   scrollEase?: number;  // knob: 0..1 easing factor for smooth scrolling
   wwdTitleX?: number; // knob: px offset X for WHAT WE DO title
   wwdTitleY?: number; // knob: px offset Y for WHAT WE DO title
+  wwdTitleXMobile?: number; // MOBILE override for X (falls back to wwdTitleX)
+  wwdTitleYMobile?: number; // MOBILE override for Y (falls back to wwdTitleY)
   wwdTextX?: number;  // knob: px offset X for lead paragraph
   wwdTextY?: number;  // knob: px offset Y for lead paragraph
+  wwdTextXMobile?: number; // MOBILE override for X (falls back to 0px if unset)
+  wwdTextYMobile?: number; // MOBILE override for Y (falls back to 0px if unset)
+  wwdLeadFs?: number;        // knob: px font-size for WWD lead paragraph (desktop)
+  wwdLeadFsMobile?: number;  // knob: px font-size for WWD lead paragraph (mobile override)
+  wwdLeadMaxWMobile?: number;  // knob: px max-width for WWD lead paragraph on mobile
   wwdTitleFs?: number; // knob: px font-size for WHAT WE DO title (eyebrow)
   wwdTitleW?: number; // knob: numeric font-weight for WHAT WE DO title (eyebrow)
+  wwdTitleFsMobile?: number; // MOBILE-only font-size for WHAT WE DO (falls back to wwdTitleFs)
   wwdGuideLblGap?: number; // knob: px horizontal gap to place labels to the RIGHT of the guide line
   wwdTextMaxW?: number; // knob: px max-width for WHAT WE DO paragraph
   projectsTextMaxW?: number; // knob: px max-width for PROJECTS headline
   projectsTextX?: number;   // knob: px horizontal offset for PROJECTS paragraph
   projectsTextY?: number;   // knob: px vertical offset for PROJECTS paragraph
+  projectsBandBg?: string;
+  projectsBandPadY?: number;
+  projectsBandPadYMobile?: number;
   projectsGridGap?: number;   // knob: px gap entre recuadros del grid de Projects (anula responsive por defecto)
+  projectsGridGapMobile?: number; // knob: px gap entre recuadros en mobile
   projectsGridX?: number;     // knob: px offset X para mover TODO el grid de Projects
   projectsGridY?: number;     // knob: px offset Y para mover TODO el grid de Projects
   projectsCol1X?: number;   // knob: px microajuste horizontal col1
   projectsCol2X?: number;   // knob: px microajuste horizontal col2
+  menuDrawerHeaderYMobile?: number; // knob: px offset Y para CLOSE + Siamo Design dentro de la gaveta móvil
+  menuDrawerHeaderRowYOffsetMobile?: number; // knob: px offset Y adicional para la fila CLOSE + Siamo Design (translate)
+  menuDrawerLinksTopLineYMobile?: number; // knob: px offset Y para la línea superior del bloque de links del menú móvil
+  menuDrawerLinksXMobile?: number;   // knob: px offset X para links del menú móvil (en conjunto)
+  menuDrawerLinksYMobile?: number;   // knob: px offset Y para links del menú móvil (en conjunto)
+  menuDrawerFollowYMobile?: number;  // knob: px offset Y para el label FOLLOW en la gaveta móvil
+  menuDrawerFollowDividerYOffsetMobile?: number; // knob: px offset Y para la línea divisoria antes de FOLLOW
+  menuDrawerCtaYOffsetMobile?: number;  // knob: px offset Y para el CTA GET STARTED dentro de la gaveta móvil
+  menuDrawerSocialBlockYOffsetMobile?: number; // knob: px offset Y para la fila de iconos sociales dentro de la gaveta móvil
+  menuDrawerSocialLineYMobile?: number; // knob: px offset Y para la línea inferior de los social links (gaveta móvil)
+  menuDrawerCtaYMobile?: number;   // knob: px offset Y para el CTA inferior en la gaveta móvil
+  menuDrawerBrandFontSizeMobile?: number; // knob: px font-size para el pseudologo (texto) dentro de la gaveta móvil
+  menuDrawerBrandLetterSpacingMobile?: number; // knob: em tracking para el pseudologo dentro de la gaveta móvil
+  menuDrawerCloseFontSizeMobile?: number; // knob: px font-size para el botón CLOSE dentro de la gaveta móvil
+  menuDrawerCloseLetterSpacingMobile?: number; // knob: em tracking para el botón CLOSE dentro de la gaveta móvil
   projectsCol3X?: number;   // knob: px microajuste horizontal col3
   projectsCol4X?: number;   // knob: px microajuste horizontal col4
-  projectsMetaX?: number;   // knob: px horizontal offset for ALL meta texts (year + title)
-  projectsMetaY?: number;   // knob: px vertical offset for ALL meta texts (year + title)
+  projectsMetaX?: number;   // knob: px horizontal offset for ALL meta textos (year + title)
+  projectsMetaY?: number;   // knob: px vertical offset for ALL meta textos (year + title)
+  projectsMetaXM?: number;  // knob: MOBILE-only X offset for meta textos
+  projectsMetaYM?: number;  // knob: MOBILE-only Y offset
+  projectsTitleXM?: number; // knob: MOBILE-only X offset SOLO para el título (sin afectar el año)
+  projectsTitleYM?: number; // knob: MOBILE-only Y offset SOLO para el título (sin afectar el año)
+  projectsTitleMaxWM?: number; // knob: MOBILE-only max-width para el bloque de texto del título/meta
   projectsCardGrow?: number; // knob: px que AGRANDA cada recuadro por igual (crece desde el borde: +1px en cada lado)
+  projectsCardSizeMobile?: number; // knob: px alto/ancho uniforme para placeholders en mobile
+  projectsCardOverlapMobile?: number; // knob: px para solapar tarjetas en mobile (reduce gap)
+  projectsCarouselViewport?: number; // knob: vw % que define cuánta ventana ocupa el carrusel mobile
+  projectsCarouselItemsMobile?: number; // knob: cuántos proyectos visibles por “página” en mobile
+  projectsCarouselOffsetXMobile?: number; // knob: px offset X para alinear las tarjetas en mobile
+  projectsCarouselOffsetYMobile?: number; // knob: px offset Y para alinear las tarjetas en mobile
+  projectsCarouselShiftPage1?: number;
+  projectsCarouselShiftPage2?: number;
+  projectsCarouselBlockOffsetYMobile?: number;
+  projectsCarouselNavOffsetYMobile?: number;
+  projectsCarouselWindowPadMobile?: number; // knob: px de padding inferior dentro de la ventana móvil para que quepa el texto
+  projectsNavHeightMobile?: number; // knob: px de alto para la barra del carrusel (nav) en mobile
+  projectsNavInnerOffsetY?: number; // knob: px offset vertical del contenido dentro de la barra
+  projectsNavArrowOffsetY?: number; // knob: px offset Y SOLO para las flechas del nav
   wwdContainerMaxW?: number; // knob: px max-width for WHAT WE DO container
   wwdPadTop?: number;
+  wwdPadTopMobile?: number;
   wwdPadBottom?: number;
+  wwdPadBottomMobile?: number;
   wwdGutterL?: number; // knob: left gutter (px) for WHAT WE DO full-bleed container
   wwdGutterR?: number; // knob: right gutter (px) for WHAT WE DO full-bleed container
   wwdGuideW?: number; // knob: px thickness for WHAT WE DO vertical guides
@@ -289,6 +900,10 @@ export default function ParallaxDemo({
   wwdCardsY?: number;
   wwdCardsGap?: number; // knob: px horizontal gap between the three cards (desktop)
   wwdCardsGapMobile?: number; // knob: px gap between cards on mobile
+  wwdCardWM?: number; // knob: px size (width & height) for WWD cards on mobile
+  wwdCardAspectMobile?: number; // knob: px height for mobile cards (uniform across the three)
+  wwdVirtualCardXM?: number; // knob: px horizontal shift for VIRTUAL DESIGN video on mobile
+  wwdVirtualCardYM?: number; // knob: px vertical shift for VIRTUAL DESIGN video on mobile
   wwdSecTitle1?: string; // title text for column 01
   wwdSecTitle2?: string; // title text for column 02
   wwdSecTitle3?: string; // title text for column 03
@@ -313,27 +928,66 @@ export default function ParallaxDemo({
   wwdDescSepX?: number;
   wwdDesc1X?: number;
   wwdDesc1Y?: number;
+  wwdDesc1XM?: number;
+  wwdDesc1YM?: number;
+  wwdDesc1MaxWM?: number;
   wwdDesc2X?: number;
   wwdDesc2Y?: number;
+  wwdDesc2MaxWM?: number;
+  wwdDesc2XM?: number;
+  wwdDesc2YM?: number;
+  wwdOnsiteCardMX?: number;
+  wwdOnsiteCardMY?: number;
+  wwdContentCardMX?: number;
+  wwdContentCardMY?: number;
   wwdDesc3X?: number;
   wwdDesc3Y?: number;
+  wwdDesc3XM?: number;
+  wwdDesc3YM?: number;
+  wwdSvc02TitleMaxWM?: number;
   wwdCtaX?: number;
   wwdCtaY?: number;
   wwdCtaTxtX?: number;
   wwdCtaTxtY?: number;
+  wwdCtaTxtXM?: number; // MOBILE-only X offset for CTA text label
   wwdCta1X?: number;
   wwdCta1Y?: number;
+  wwdCtaMobileX?: number;
+  wwdCtaMobileY?: number;
   wwdCta3X?: number;
   wwdCta3Y?: number;
+  wwdCta3MobileX?: number;
+  wwdCta3MobileY?: number;
   wwdEyebrow1X?: number;
   wwdEyebrow1Y?: number;
+  wwdEyebrow1XM?: number;
+  wwdEyebrow1YM?: number;
+  wwdLbl01XM?: number;
+  wwdLbl01YM?: number;
+  wwdTitle01XM?: number;
+  wwdTitle01YM?: number;
+  wwdLbl02?: string;
+  wwdLbl02MobileX?: number;
+  wwdLbl02MobileY?: number;
+  wwdTitle02MobileX?: number;
+  wwdTitle02MobileY?: number;
+  wwdLbl03?: string;
+  wwdLbl03MobileX?: number;
+  wwdLbl03MobileY?: number;
+  wwdTitle03MobileX?: number;
+  wwdTitle03MobileY?: number;
+  wwdDesc3MaxWM?: number;
   aboutTitle?: string;
   aboutTitleX?: number;
   aboutTitleY?: number;
+  aboutTitleXMobile?: number;
+  aboutTitleYMobile?: number;
   aboutTitleGap?: number;
   aboutCaption?: string;
   aboutCaptionX?: number;
   aboutCaptionY?: number;
+  aboutCaptionXMobile?: number;
+  aboutCaptionYMobile?: number;
   aboutCaptionShiftY?: number;
   aboutCaptionGap?: number;
   /* About CTA knobs */
@@ -344,13 +998,21 @@ export default function ParallaxDemo({
   aboutCtaLineGap?: number;
   aboutCtaTxtX?: number;
   aboutCtaTxtY?: number;
+  aboutCtaTxtYMobile?: number;
+  aboutCtaTxtXMobile?: number;
+  aboutCtaMobileX?: number;
+  aboutCtaMobileY?: number;
+  aboutCtaMobileWidth?: number;
+  aboutCtaMobileHeight?: number;
   wwdBlockY?: number; // knob: px translateY for the entire WHAT WE DO content block
+  wwdBlockYMobile?: number; // knob: px translateY (extra) for mobile
   /* Full-bleed video knobs */
   aboutVideoSrc?: string;
   aboutVideoPoster?: string;
   aboutVideoH?: number;
   aboutVideoGapTop?: number;
   aboutVideoY?: number;
+  aboutVideoYMobile?: number;
   aboutVideoFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
   aboutVideoPosY?: number; // 0–100 (%), 50 = centered
   aboutVideoAspect?: string; // CSS aspect-ratio like "16/9" or "9/16"; set aboutVideoH to 0 or leave unset to rely on aspect
@@ -359,6 +1021,97 @@ export default function ParallaxDemo({
   navInnerMaxW?: number; // knob: px de ancho máximo del contenedor interno del header
   navItemGap?: number;   // knob: px de separación ENTRE items de nav-left y nav-right (mismo valor para ambos)
   navTitleFs?: number;   // knob: px font-size para TODOS los items del header (nav-left/right y CTA)
+  navTitleFsMobile?: number;
+  heroCtaFontSizeMobile?: number;
+  brandFontSize?: number;
+  brandFontSizeMobile?: number;
+  brandLogoHeightMobile?: number;
+  navCtaPadX?: number;
+  navCtaPadY?: number;
+  heroCtaPadXMobile?: number;
+  heroCtaPadYMobile?: number;
+  heroCtaYOffsetMobile?: number;
+  navBarHeight?: number;
+  navBarHeightMobile?: number;
+  navCtaBg?: string;
+  navCtaInk?: string;
+  navCtaBgHover?: string;
+  centerlineTopOffset?: number;
+  centerlineBottomOffset?: number;
+  /* Full-bleed video knobs */
+  aboutHlineGap?: number;
+  reelX?: number;
+  reelY?: number;
+  reelW?: number;
+  reelWMobile?: number;
+  reelH?: number;
+  reelHMobile?: number;
+  reelGap?: number;
+  reelSideScale?: number;
+  reelSideOpacity?: number;
+  reelArrowSize?: number;
+  reelArrowOffset?: number;
+  reelBoxGrow?: number;
+  reelBoxGrowMobile?: number;
+  reelXMobile?: number;
+  reelYMobile?: number;
+  reelScaleMobile?: number;
+  reelRightExtraMobile?: number;
+  reelRadius?: number;
+  reelNavWidthMobile?: number;
+  reelNavXMobile?: number;
+  reelNavYMobile?: number;
+  reelQuoteX?: number;
+  reelQuoteY?: number;
+  reelQuoteXMobile?: number;
+  reelQuoteYMobile?: number;
+  wwdNarrativeXM?: number;
+  wwdNarrativeYM?: number;
+  wwdNarrativeDesktopX?: number;
+  wwdNarrativeDesktopY?: number;
+  wwdNarrativeMaxWM?: number;
+  testiAsideW?: number;
+  testiTitleX?: number;
+  testiTitleY?: number;
+  testiTitleXMobile?: number;
+  testiTitleYMobile?: number;
+  testiBlockXMobile?: number;
+  testiBlockYMobile?: number;
+  testiBlockX?: number;
+  testiBlockY?: number;
+  reelThumbsX?: number;
+  reelThumbsY?: number;
+  testiHlineGap?: number;
+  testiHlineX?: number;
+  testiHlineY?: number;
+  testiHlineXMobile?: number;
+  testiHlineYMobile?: number;
+  followHandle?: string;
+  followX?: number;
+  followY?: number;
+  followGap?: number;
+  followGapMobile?: number;
+  followMaxW?: number;
+  followMaxWMobile?: number;
+  followTitleX?: number;
+  followTitleY?: number;
+  followTitleXMobile?: number;
+  followTitleYMobile?: number;
+  followGridX?: number;
+  followGridXMobile?: number;
+  followGridYMobile?: number;
+  followCardSizeMobile?: number;
+  followCols?: number;
+  followCardGrow?: number;
+  followCardGap?: number;
+  followItems?: string[];
+  footerLift?: number;
+  footerOverlap?: number;
+  footerPadTopMobile?: number;
+  footerOverlapMobile?: number;
+  wwdFooterSpacerMobile?: number;
+  footerH?: number;
+  footerBottomMaxW?: number;
 }) {
   const rootRef   = useRef<HTMLDivElement | null>(null);
   const mainRef   = useRef<HTMLDivElement | null>(null);
@@ -369,44 +1122,133 @@ export default function ParallaxDemo({
   const scrollRafRef = useRef<number | null>(null);
   const targetYRef = useRef<number>(0);
   const smoothYRef = useRef<number>(0);
+  const projectsTrackRef = useRef<HTMLDivElement | null>(null);
+  const projectsWindowRef = useRef<HTMLDivElement | null>(null);
+  const wwdIntroRef = useRef<HTMLParagraphElement | null>(null);
+  const aboutVideoRef = useRef<HTMLVideoElement | null>(null);
+  const aboutVideoWrapRef = useRef<HTMLDivElement | null>(null);
+  const aboutVideoStartedRef = useRef(false);
+  const [aboutVideoPlaying, setAboutVideoPlaying] = useState(false);
 
   const [navSolid, setNavSolid] = useState(false);
+  const [parallaxReady, setParallaxReady] = useState(false);
+  const [renderFallback, setRenderFallback] = useState(true);
+  const readyRef = useRef(false);
+  const [isMobileViewport, setIsMobileViewport] = useState<boolean>(
+    initialIsMobile ?? false
+  ); // hydrate with server hint to keep SSR/CSR in sync
+  const viewportLockedRef = useRef<boolean>(initialIsMobile !== null && initialIsMobile !== undefined);
+  const [hasMounted, setHasMounted] = useState(false);
 
-  // === Typewriter state (line-by-line) ===
-  const [typedLines, setTypedLines] = useState<string[]>([]);  // accumulates per line
-  const [lineIdx, setLineIdx] = useState<number>(0);          // which line is being typed
-  const [charIdx, setCharIdx] = useState<number>(0);          // index within current line
+  // === Mobile menu state ===
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [projectsPage, setProjectsPage] = useState(0);
+  const [wwdIntroVisible, setWwdIntroVisible] = useState(false);
+
+  const projectCards = [
+    { year: '2024', title: 'timeless Nature', href: '/work/sample-1', image: '/assets/img/nature.jpg' },
+    { year: '2016', title: 'Roots Tulum', href: '/work/sample-2', image: '/assets/img/roots.jpg' },
+    { year: '2018', title: 'Tuluminati House', href: '/work/sample-3', image: '/assets/img/tuluminati.jpg' },
+    { year: '2018', title: 'Mid-century Waves', href: '/work/sample-4', image: '/assets/img/waves.jpg' },
+  ];
+  const projectsCardsPerPage = Math.max(1, projectsCarouselItemsMobile || 1);
+  const projectsTotalPages = Math.max(1, Math.ceil(projectCards.length / projectsCardsPerPage));
+  const [projectsStepPx, setProjectsStepPx] = useState(0);
 
   useEffect(() => {
-    // keep CSS knob in sync with prop (pixels)
-    document.documentElement.style.setProperty("--hero-title-fs", `${titlePx}px`);
-  }, [titlePx]);
+    setProjectsPage((prev) => Math.min(prev, projectsTotalPages - 1));
+  }, [projectsTotalPages]);
 
+  const handleProjectsNav = (direction: number) => {
+    setProjectsPage((prev) =>
+      Math.min(Math.max(prev + direction, 0), projectsTotalPages - 1)
+    );
+  };
+
+  useLayoutEffect(() => {
+    const computeStep = () => {
+      const track = projectsTrackRef.current;
+      if (!track || typeof window === 'undefined') return;
+      const windowEl = projectsWindowRef.current;
+      if (windowEl && windowEl.offsetWidth > 0) {
+        setProjectsStepPx(windowEl.offsetWidth);
+        return;
+      }
+      const firstCard = track.querySelector<HTMLElement>('.proj-card');
+      if (!firstCard) return;
+      const cardWidth = firstCard.offsetWidth;
+      const style = window.getComputedStyle(track);
+      const gapRaw = style.columnGap || style.gap || "16";
+      const gap = parseFloat(gapRaw) || 16;
+      const step = (cardWidth + gap) * Math.max(1, projectsCardsPerPage);
+      setProjectsStepPx(step);
+    };
+    computeStep();
+    window.addEventListener('resize', computeStep);
+    return () => window.removeEventListener('resize', computeStep);
+  }, [projectsCardsPerPage, projectCards.length]);
+
+  const projectsShiftPx =
+    -(projectsPage * projectsStepPx) +
+    (projectsPage === 0
+      ? projectsCarouselShiftPage1 || 0
+      : projectsCarouselShiftPage2 || 0);
+
+  // Close on ESC
   useEffect(() => {
-    // sync WWD title typography globally so header/nav can match EXACTLY
-    document.documentElement.style.setProperty("--wwd-title-fs", `${wwdTitleFs}px`);
-    document.documentElement.style.setProperty("--wwd-title-w", `${wwdTitleW}`);
-  }, [wwdTitleFs, wwdTitleW]);
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  // Prevent background scroll when menu is open
+  useEffect(() => {
+    const { body } = document;
+    const prevOverflow = body.style.overflow;
+    if (menuOpen) {
+      body.style.overflow = "hidden";
+    } else {
+      body.style.overflow = "";
+    }
+    return () => {
+      body.style.overflow = prevOverflow;
+    };
+  }, [menuOpen]);
 
   // Normalize the title to ensure it always reads "...dream home"
   // - Handle CRLF / LF
   // - Fix "dream hom" (any spacing/casing)
   // - Fix any standalone "hom" before space/punctuation/newline/end
-  const normalizedTitle = (title || "")
+  const resolvedIsMobile = hasMounted ? isMobileViewport : (initialIsMobile ?? false);
+  const heroTitleText = resolvedIsMobile && titleMobile ? titleMobile : title;
+  const normalizedTitle = (heroTitleText || "")
     .replace(/\r\n/g, "\n")
     .replace(/\bdream\s+hom(e)?(?=\s|[.,;:!?\-–—]|\n|$)/gi, "dream home")
     .replace(/\bhom(?=\s|[.,;:!?\-–—]|\n|$)/gi, "home");
 
   // Split title on explicit newlines and harden each line so none end with 'hom'
-  const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
+const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
+  const typewriterEnabled = hasMounted ? (typewriter && !resolvedIsMobile) : false;
+
+  // === Typewriter state (line-by-line) ===
+  const [typedLines, setTypedLines] = useState<string[]>(() => lines.map(() => "")); // SSR-safe: same span count
+  const [lineIdx, setLineIdx] = useState<number>(0);          // which line is being typed
+  const [charIdx, setCharIdx] = useState<number>(0);          // index within current line
+
+
   const isFinished =
-    !typewriter ||
+    !typewriterEnabled ||
     (lineIdx === lines.length - 1 &&
       charIdx >= (lines[lines.length - 1]?.length ?? 0));
+  const heroBgMobile = useDesktopHeroOnMobile ? bgUrl : bgUrlMobile;
+  const heroBgPosXMobile = 50;
+  const heroBgCurrent = resolvedIsMobile ? heroBgMobile : bgUrl;
+  const heroBgPosXCurrent = heroBgPosXMobile;
+  const PARALLAX_MAX_Y = 720; // clamp para limitar el efecto y evitar jank al dejar el hero
 
   useEffect(() => {
     // Cancel any previous RAF/timer when knobs change
-    if (!typewriter) {
+    if (!typewriterEnabled) {
       // show full title, split into lines
       setTypedLines([...lines]);
       setLineIdx(lines.length - 1);
@@ -468,16 +1310,18 @@ export default function ParallaxDemo({
       rafRef.current = null;
       clearTimeout(startTimer);
     };
-  }, [normalizedTitle, typewriter, typingSpeedMs, startDelayMs]);
+  }, [normalizedTitle, typewriterEnabled, typingSpeedMs, startDelayMs]);
 
   const pf = 0.22; // parallax factor fijo (sutil)
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root    = rootRef.current!;
     const main    = mainRef.current!;
     const header  = headerRef.current!;
     const content = contentRef.current!;
     const footer  = footerRef.current!;
+    const docEl   = document.documentElement;
+    const cssVarKeys = ["--title-lift", "--mid-offset", "--hero-overlay"];
 
     // initialize targets based on current scroll
     targetYRef.current = window.scrollY || window.pageYOffset || 0;
@@ -487,8 +1331,7 @@ export default function ParallaxDemo({
     let footerHeight = 0;
     let heightDocument = 0;
 
-    const setCssVar = (k: string, v: string) =>
-      document.documentElement.style.setProperty(k, v);
+    const setCssVar = (k: string, v: string) => docEl.style.setProperty(k, v);
 
     // Keep both layers in sync
     const footerDamp  = 0.08;
@@ -505,6 +1348,7 @@ export default function ParallaxDemo({
 
     function render() {
       const y = smoothYRef.current;
+      const py = Math.min(y, PARALLAX_MAX_Y); // clamp parallax-only math; no impacto en scroll real
 
       // move the fixed main with a smoothed offset
       main.style.top = `-${y}px`;
@@ -514,18 +1358,21 @@ export default function ParallaxDemo({
       content.style.transform = `translateY(${offset}px)`;
 
       // background & hero dynamics
-      const bgOffset = 50 - (y * 100 / (heightDocument || 1)) * pf;
-      header.style.backgroundPosition = `50% ${bgOffset}%`;
+      const bgOffset = 50 - (py * 100 / (heightDocument || 1)) * pf;
+      header.style.backgroundPosition = `${heroBgPosXCurrent}% ${bgOffset}%`;
 
-      const titleLift = y * pf * 0.12;
-      const midMove   = y * pf * 0.25;
+      const titleLift = py * pf * 0.12;
+      const midMove   = py * pf * 0.25;
       setCssVar("--title-lift", `${titleLift.toFixed(1)}px`);
       setCssVar("--mid-offset", `${midMove.toFixed(1)}px`);
 
-      const t = Math.min(y / (windowHeight * 0.4 || 1), 1);
-      const base = 0.28;
-      const dyn  = pf * 0.12 * t;
-      setCssVar("--hero-overlay", (base + dyn).toFixed(3));
+      const t = Math.min(py / (windowHeight * 0.4 || 1), 1);
+      const overlayBase = Math.max(
+        0,
+        Math.min(isMobileViewport ? heroOverlayMobile : heroOverlay, 1)
+      );
+      const dyn = pf * 0.12 * t;
+      setCssVar("--hero-overlay", Math.min(1, overlayBase + dyn).toFixed(3));
 
       // footer motion
       scrollFooter(y, footerHeight);
@@ -539,7 +1386,7 @@ export default function ParallaxDemo({
       footerHeight = footer.getBoundingClientRect().height;
       const contentHeight = content.getBoundingClientRect().height;
 
-      heightDocument = windowHeight + contentHeight + footerHeight - 20;
+      heightDocument = windowHeight + contentHeight + footerHeight;
 
       root.style.height = `${heightDocument}px`;
       main.style.height = `${heightDocument}px`;
@@ -549,7 +1396,17 @@ export default function ParallaxDemo({
       const wrap = root.querySelector<HTMLDivElement>(".wrapper-parallax");
       if (wrap) wrap.style.marginTop = `${windowHeight}px`;
 
+      // === Limit vertical guides to stop at the horizontal line under the video ===
+      const frameX = content.querySelector('.wwd-fullvideo .frame-x') as HTMLElement | null;
+      if (frameX) {
+        const sectionTop = content.getBoundingClientRect().top + window.scrollY;
+        const lineTop = frameX.getBoundingClientRect().top + window.scrollY;
+        const stop = Math.max(0, Math.round(lineTop - sectionTop));
+        (content as HTMLElement).style.setProperty('--guides-stop', `${stop}px`);
+      }
+
       render();
+      // reveal once sizes are applied to avoid first‑paint flash
     }
 
     function loop() {
@@ -564,80 +1421,487 @@ export default function ParallaxDemo({
       }
 
       render();
-      scrollRafRef.current = requestAnimationFrame(loop);
+
+      if (Math.abs(targetYRef.current - smoothYRef.current) > 0.1) {
+        scrollRafRef.current = requestAnimationFrame(loop);
+      } else {
+        scrollRafRef.current = null;
+      }
     }
+
+    const ensureLoop = () => {
+      if (scrollRafRef.current == null) {
+        scrollRafRef.current = requestAnimationFrame(loop);
+      }
+    };
 
     const onScroll = () => {
       targetYRef.current = window.scrollY || window.pageYOffset || 0;
+      ensureLoop();
     };
 
     const onResize = () => {
       compute();
+      ensureLoop();
     };
 
     compute();
+    ensureLoop();
+    if (!readyRef.current) {
+      readyRef.current = true;
+      setParallaxReady(true);
+    }
+    // ensure first paint shows the fixed canvas only after we measured
+
+    // recalc guides stop after video metadata loads (for correct video height)
+    const aboutVid = content.querySelector<HTMLVideoElement>('.about-video');
+    aboutVid?.addEventListener('loadedmetadata', compute);
 
     // listeners
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize, { passive: true });
 
-    // start loop
-    if (scrollRafRef.current != null) cancelAnimationFrame(scrollRafRef.current);
-    scrollRafRef.current = requestAnimationFrame(loop);
-
     return () => {
+      aboutVid?.removeEventListener('loadedmetadata', compute);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       if (scrollRafRef.current != null) cancelAnimationFrame(scrollRafRef.current);
       scrollRafRef.current = null;
+      cssVarKeys.forEach((key) => docEl.style.removeProperty(key));
+      readyRef.current = false;
     };
-  }, [scrollEase]);
+  }, [scrollEase, heroOverlay, heroOverlayMobile, isMobileViewport, heroBgPosXCurrent]);
+
+  useEffect(() => {
+    if (!parallaxReady) {
+      setRenderFallback(true);
+      return;
+    }
+    const timer = window.setTimeout(() => setRenderFallback(false), 300);
+    return () => window.clearTimeout(timer);
+  }, [parallaxReady]);
 
   // Convert overlay percentage (0–100) to alpha (0..1) for CSS
   const overlayAlpha = Math.max(0, Math.min(aboutVideoOverlayPct ?? 0, 100)) / 100;
+  const desc2BaseX = (wwdDescX ?? 0) + (wwdDesc2X ?? 0);
+  const desc2BaseY = (wwdDescY ?? 0) + (wwdDesc2Y ?? 0);
+  const desc2MobileX = wwdDesc2XM ?? 0;
+  const desc2MobileY = wwdDesc2YM ?? 0;
+  const followColsSafe = followCols ?? 0;
+  const followGapDesktop = followCardGap != null ? followCardGap : followGap ?? 0;
+  const followGapTotal = followCardGap != null
+    ? Math.max(0, followColsSafe - 1) * followGapDesktop
+    : 0;
+  const followFallbackSlots = Math.max(6, followCols || 0);
+  const hasFollowItems = Array.isArray(followItems) && followItems.length > 0;
+  const followGridItems = hasFollowItems
+    ? followItems.slice(0, Math.max(1, followCols || followItems.length))
+    : Array.from({ length: followFallbackSlots }).fill("");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 860px)");
+    const handleChange = (event?: MediaQueryListEvent) => {
+      if (viewportLockedRef.current) return;
+      setIsMobileViewport(event ? event.matches : mq.matches);
+    };
+    if (!viewportLockedRef.current) {
+      handleChange();
+    }
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", handleChange);
+      return () => mq.removeEventListener("change", handleChange);
+    }
+    mq.addListener(handleChange);
+    return () => mq.removeListener(handleChange);
+  }, [initialIsMobile]);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (wwdIntroVisible || typeof window === "undefined") return;
+    const node = wwdIntroRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setWwdIntroVisible(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -25% 0px" }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [wwdIntroVisible]);
+
+  useEffect(() => {
+    const video = aboutVideoRef.current;
+    if (!video || typeof window === "undefined") return;
+
+    const play = () => {
+      const promise = video.play();
+      if (promise?.then) {
+        promise.then(() => setAboutVideoPlaying(true)).catch(() => {});
+      } else {
+        setAboutVideoPlaying(true);
+      }
+    };
+
+    // En mobile lo dejamos pausado hasta que el usuario pulse play
+    if (isMobileViewport) {
+      video.pause();
+      setAboutVideoPlaying(false);
+      return;
+    }
+
+    if (aboutVideoStartedRef.current) {
+      play();
+      return;
+    }
+
+    if (typeof IntersectionObserver === "undefined") {
+      aboutVideoStartedRef.current = true;
+      play();
+      return;
+    }
+
+    const trigger = aboutVideoWrapRef.current ?? video;
+    if (!trigger) {
+      aboutVideoStartedRef.current = true;
+      play();
+      return;
+    }
+
+    const isInView = () => {
+      const rect = trigger.getBoundingClientRect();
+      const viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+      return rect.top < viewportH * 0.95 && rect.bottom > viewportH * 0.05;
+    };
+
+    if (isInView()) {
+      aboutVideoStartedRef.current = true;
+      play();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          aboutVideoStartedRef.current = true;
+          play();
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.35, rootMargin: "0px 0px -20% 0px" }
+    );
+
+    observer.observe(trigger);
+    return () => observer.disconnect();
+  }, [isMobileViewport]);
+
+  const playAboutVideo = () => {
+    const video = aboutVideoRef.current;
+    if (!video) return;
+    const p = video.play();
+    aboutVideoStartedRef.current = true;
+    if (p?.then) {
+      p.then(() => setAboutVideoPlaying(true)).catch(() => {});
+    } else {
+      setAboutVideoPlaying(true);
+    }
+  };
 
   return (
     <>
       <nav
-        className={`site-nav ${navSolid ? "is-solid" : ""}`}
+        className={`site-nav ${navSolid ? "is-solid" : ""} ${menuOpen ? "is-menu-open" : ""}`}
         aria-label="Barra de navegación"
         style={{
           ['--nav-col-gap' as any]: `${navColGap}px`,
           ['--nav-inner-maxw' as any]: `${navInnerMaxW}px`,
           ['--nav-item-gap' as any]: `${navItemGap}px`,
           ['--nav-title-fs' as any]: `${navTitleFs}px`,
+          ['--nav-title-fs-m' as any]: `${navTitleFsMobile}px`,
+          ['--nav-bar-h-desktop' as any]: `${navBarHeight}px`,
+          ['--nav-bar-h-mobile' as any]: `${navBarHeightMobile}px`,
+          ['--brand-fs' as any]: `${brandFontSize}px`,
+          ['--brand-fs-m' as any]: `${brandFontSizeMobile}px`,
           ['--nav-title-w' as any]: `${wwdTitleW}`,
+          ['--nav-cta-padx' as any]: `${navCtaPadX}px`,
+          ['--nav-cta-pady' as any]: `${navCtaPadY}px`,
+          ['--hero-cta-padx-m' as any]: `${heroCtaPadXMobile}px`,
+          ['--hero-cta-pady-m' as any]: `${heroCtaPadYMobile}px`,
+          ['--nav-cta-bg' as any]: navCtaBg,
+          ['--nav-cta-ink' as any]: navCtaInk,
+          ['--nav-cta-bg-hover' as any]: (navCtaBgHover || navCtaBg),
         }}
       >
         <div className="site-nav__inner">
+          <button
+            className="menu-toggle"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen(v => !v)}
+          >
+            <span className="label">{menuOpen ? 'CLOSE' : 'MENU'}</span>
+          </button>
           <ul className="nav-left" role="list">
             <li><a className="nav-link" href="#about">GET TO KNOW US</a></li>
             <li><a className="nav-link" href="#whatwedo">SERVICES</a></li>
             <li><a className="nav-link" href="#portfolio">PORTFOLIO</a></li>
           </ul>
 
-          <a href="#home" className="brand-mark" aria-label="Siamo Design">Siamo<span>Design</span></a>
+          <a href="#home" className="brand-mark" aria-label="Siamo Design">
+            <Image
+              src="/assets/img/logotipo.png"
+              alt="Siamo Design"
+              width={180}
+              height={40}
+              priority={false}
+              style={{
+                height: isMobileViewport ? `${brandLogoHeightMobile}px` : "100%",
+                width: "auto",
+                objectFit: "contain",
+              }}
+            />
+          </a>
 
           <div className="nav-right">
-            <a className="nav-link" href="#lang">ESPAÑOL</a>
-            <a className="cta" href="#book">AGENDAR CONSULTA <span aria-hidden="true">↗</span></a>
+            <a className="nav-link nav-lang" href="#lang">
+              <span className="lang-dsk">ESPAÑOL</span>
+              <span className="lang-mbl">ES</span>
+            </a>
+            <a
+              className={`cta nav-cta${navSolid ? " is-visible" : ""}`}
+              href="#book"
+              aria-hidden={!navSolid}
+              tabIndex={navSolid ? 0 : -1}
+              style={{
+                ['--nav-cta-bg' as any]: navSolid ? "#ffffff" : navCtaBg,
+                ['--nav-cta-ink' as any]: navSolid ? "#111111" : navCtaInk,
+              }}
+            >
+              GET STARTED <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+        <div
+          id="mobile-menu"
+          className={`mobile-menu${menuOpen ? ' is-open' : ''}`}
+          role="dialog"
+          aria-modal="true"
+          aria-hidden={!menuOpen}
+          style={{
+            ['--menu-header-y-m' as any]: `${menuDrawerHeaderYMobile}px`,
+            ['--menu-links-topline-y-m' as any]: `${menuDrawerLinksTopLineYMobile}px`,
+            ['--menu-links-x-m' as any]: `${menuDrawerLinksXMobile}px`,
+            ['--menu-links-y-m' as any]: `${menuDrawerLinksYMobile}px`,
+            ['--menu-header-row-y-m' as any]: `${menuDrawerHeaderRowYOffsetMobile}px`,
+            ['--menu-follow-y-m' as any]: `${menuDrawerFollowYMobile}px`,
+            ['--menu-follow-divider-y-m' as any]: `${menuDrawerFollowDividerYOffsetMobile}px`,
+            ['--menu-social-block-y-m' as any]: `${menuDrawerSocialBlockYOffsetMobile}px`,
+            ['--menu-social-line-y-m' as any]: `${menuDrawerSocialLineYMobile ?? 0}px`,
+            ['--menu-cta-y-m' as any]: `${menuDrawerCtaYOffsetMobile ?? menuDrawerCtaYMobile ?? 0}px`,
+            ['--menu-brand-fs-m' as any]: `${menuDrawerBrandFontSizeMobile}px`,
+            ['--menu-brand-tracking-m' as any]: `${menuDrawerBrandLetterSpacingMobile}em`,
+            ['--menu-close-fs-m' as any]: `${menuDrawerCloseFontSizeMobile}px`,
+            ['--menu-close-tracking-m' as any]: `${menuDrawerCloseLetterSpacingMobile}em`,
+          }}
+        >
+          <div className="m-drawer">
+            <div className="m-header">
+              <button
+                type="button"
+                className="m-close"
+                aria-label="Close menu"
+                onClick={() => setMenuOpen(false)}
+              >
+                CLOSE
+              </button>
+              <span className="m-brand">
+                <Image
+                  src="/assets/img/logotipo.png"
+                  alt="Siamo Design"
+                  width={140}
+                  height={brandLogoHeightMobile}
+                  priority={false}
+                  style={{ width: "auto", height: `${brandLogoHeightMobile}px` }}
+                />
+              </span>
+            </div>
+            <nav className="m-nav" aria-label="Mobile menu">
+              <a className="m-link" href="#about" onClick={() => setMenuOpen(false)}>GET TO KNOW US</a>
+              <a className="m-link" href="#whatwedo" onClick={() => setMenuOpen(false)}>SERVICES</a>
+              <a className="m-link" href="#portfolio" onClick={() => setMenuOpen(false)}>PORTFOLIO</a>
+            </nav>
+            <div className="m-follow-label">FOLLOW</div>
+            <div
+              className="m-social"
+              aria-label="Redes sociales"
+              style={mobileDrawerSocialStyles.container}
+            >
+              <a
+                className="m-social__link"
+                href="https://www.linkedin.com"
+                aria-label="LinkedIn"
+                style={mobileDrawerSocialStyles.link}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  style={mobileDrawerSocialStyles.icon}
+                >
+                  <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
+                </svg>
+              </a>
+              <a
+                className="m-social__link"
+                href="https://www.youtube.com"
+                aria-label="YouTube"
+                style={mobileDrawerSocialStyles.link}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  style={mobileDrawerSocialStyles.icon}
+                >
+                  <path d="M21.7 8.2s-.2-1.5-.8-2.2c-.7-.8-1.5-.8-1.8-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.3 0-1.1 0-1.8.9-.6.7-.8 2.2-.8 2.2S2 9.9 2 11.6v.8c0 1.7.2 3.4.2 3.4s.2 1.5.8 2.2c.7.8 1.7.8 2.2.9 1.6.2 6.8.2 6.8.2s4.2 0 7.1-.1c.3 0 1.1 0 1.8-.9.6-.7.8-2.2.8-2.2s.2-1.7.2-3.4v-.8c0-1.7-.2-3.4-.2-3.4Z" />
+                  <path d="m10 9.8 4.7 2.2L10 14.2V9.8Z" fill="#fff"/>
+                </svg>
+              </a>
+              <a
+                className="m-social__link"
+                href="https://www.tiktok.com"
+                aria-label="TikTok"
+                style={mobileDrawerSocialStyles.link}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  style={mobileDrawerSocialStyles.icon}
+                >
+                  <path d="M15.5 4.2c.6.8 1.5 1.3 2.5 1.3h.4v2.5c-.9 0-1.8-.2-2.6-.6v5.5a5.08 5.08 0 1 1-5.1-5.1c.3 0 .6 0 .9.1v2.7a2.4 2.4 0 0 0-.9-.2 2.38 2.38 0 1 0 2.38 2.4V3h2.5v1.2Z" />
+                </svg>
+              </a>
+              <a
+                className="m-social__link"
+                href="https://www.instagram.com"
+                aria-label="Instagram"
+                style={mobileDrawerSocialStyles.link}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  style={mobileDrawerSocialStyles.icon}
+                >
+                  <path d="M7.2 4.5h9.6A2.7 2.7 0 0 1 19.5 7v9.6a2.7 2.7 0 0 1-2.7 2.7H7.2A2.7 2.7 0 0 1 4.5 16.6V7a2.7 2.7 0 0 1 2.7-2.7Zm0-1.5A4.2 4.2 0 0 0 3 7v9.6A4.2 4.2 0 0 0 7.2 20.8h9.6A4.2 4.2 0 0 0 21 16.6V7a4.2 4.2 0 0 0-4.2-4.2H7.2Z" />
+                  <path d="M12 8.4A3.6 3.6 0 1 1 8.4 12 3.6 3.6 0 0 1 12 8.4Zm0-1.5A5.1 5.1 0 1 0 17.1 12 5.1 5.1 0 0 0 12 6.9Z" />
+                  <circle cx="17.4" cy="6.6" r="1"/>
+                </svg>
+              </a>
+              <a
+                className="m-social__link"
+                href="mailto:hello@siamo.design"
+                aria-label="Email"
+                style={mobileDrawerSocialStyles.link}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  style={mobileDrawerSocialStyles.icon}
+                >
+                  <path d="M4 6h16c1.1 0 2 .9 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2Zm0 1.5v.2l8 4.6 8-4.6V7.5H4Zm0 2.6V16h16v-5.9l-7.4 4.3a1 1 0 0 1-1 0L4 10.1Z" />
+                </svg>
+              </a>
+              <a
+                className="m-social__link"
+                href="https://wa.me/0000000000"
+                aria-label="WhatsApp"
+                style={mobileDrawerSocialStyles.link}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  style={mobileDrawerSocialStyles.icon}
+                >
+                  <path d="M12 3.1a8.9 8.9 0 0 0-7.6 13.5L3 21l4.5-1.3A9 9 0 1 0 12 3.1ZM12 20a7.1 7.1 0 0 1-3.6-1l-.3-.1-2.7.8.8-2.6-.2-.3a7.2 7.2 0 1 1 6 3.2Z" />
+                  <path d="M17 14.1c-.1-.2-.5-.3-1-.6s-.6-.3-.9.1-.5.6-.8.7-.4.1-.8-.3a6.1 6.1 0 0 1-1.5-1.2 6.7 6.7 0 0 1-1-1.5c-.1-.3 0-.5.2-.7l.3-.4c.1-.1.1-.2.2-.4s0-.3 0-.4 0-.4-.9-.7-.8-.1-1.1 0l-.5.5a2 2 0 0 0-.7 1.4 3.4 3.4 0 0 0 .7 1.8 7.7 7.7 0 0 0 3.1 3 5.1 5.1 0 0 0 1.8.7 2.3 2.3 0 0 0 1.9-.6c.3-.3.8-.8.9-1.2s.1-.7 0-.8Z" />
+                </svg>
+              </a>
+            </div>
+            <a className="m-cta" href="#book">
+              GET STARTED <span aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
       </nav>
 
 
-      <div id="scroll-animate" ref={rootRef}>
+        {renderFallback && (
+          <div
+            className={`hero-fallback${parallaxReady ? " is-hiding" : ""}`}
+            aria-hidden="true"
+            style={{
+              backgroundImage: `url("${heroBgCurrent}")`,
+              backgroundPosition: `${heroBgPosXCurrent}% 50%`,
+            }}
+          >
+            <div className="hero-fallback__scrim" />
+          </div>
+      )}
+
+      <div
+        id="scroll-animate"
+        ref={rootRef}
+        style={{
+          ['--hero-title-fs' as any]: `${titlePx}px`,
+          ...(titleMobilePx != null ? ({ ['--hero-title-fs-m' as any]: `${titleMobilePx}px` }) : {}),
+          ['--hero-letter-spacing' as any]: `${heroLetterSpacing}em`,
+          ['--hero-line-height' as any]: `${heroLineHeight}`,
+          ['--hero-word-spacing' as any]: `${heroWordSpacing}em`,
+          ['--wwd-title-fs' as any]: `${wwdTitleFs}px`,
+          ['--wwd-title-w'  as any]: `${wwdTitleW}`,
+          ['--nav-title-fs' as any]: `${navTitleFs}px`,
+          ['--nav-title-fs-m' as any]: `${navTitleFsMobile}px`,
+          ['--brand-fs' as any]: `${brandFontSize}px`,
+          ['--brand-fs-m' as any]: `${brandFontSizeMobile}px`,
+          ['--nav-cta-padx' as any]: `${navCtaPadX}px`,
+          ['--nav-cta-pady' as any]: `${navCtaPadY}px`,
+          ['--nav-cta-bg'   as any]: `${navCtaBg}`,
+          ['--nav-cta-ink'  as any]: `${navCtaInk}`,
+          ['--nav-cta-bg-hover' as any]: `${(navCtaBgHover || navCtaBg)}`,
+          ['--hero-cta-fs-m' as any]: `${heroCtaFontSizeMobile}px`,
+          ['--hero-cta-padx-m' as any]: `${heroCtaPadXMobile}px`,
+          ['--hero-cta-pady-m' as any]: `${heroCtaPadYMobile}px`,
+          ['--hero-cta-offset-y-m' as any]: `${isMobileViewport ? heroCtaYOffsetMobile : 0}px`,
+        }}
+      >
         <div id="scroll-animate-main" ref={mainRef}>
           <div className="wrapper-parallax">
             {/* ⬇ Fondo dinámico recibido por props */}
             <header
               ref={headerRef}
-            style={{
-                backgroundImage: `url("${bgUrl}")`,
-                backgroundPosition: "50% 50%",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                ['--hero-subline-gap' as any]: `${heroSublineGap}px`,
+              style={{
+              backgroundImage: `url("${heroBgCurrent}")`,
+              backgroundPosition: `${heroBgPosXCurrent}% 50%`,
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundColor: "#F4F2EA",
+          ['--hero-subline-gap' as any]: `${heroSublineGap}px`,
+          ['--hero-subline-gap-m' as any]: `${heroSublineGapMobile}px`,
+          ['--hero-subline-x-m' as any]: `${heroSublineXMobile}px`,
+          ['--hero-subline-y-m' as any]: `${heroSublineYMobile}px`,
                 ['--hero-subline-w' as any]: `${heroSublineW}`,
                 ['--caret-x' as any]: `${caretX}px`,
                 ['--caret-y' as any]: `${caretY}px`,
@@ -645,9 +1909,9 @@ export default function ParallaxDemo({
               }}
             >
               <div className="hero-title">
-                <h1 className="typewriter">
-                  {(typewriter ? typedLines : lines).map((ln, i) => {
-                    const showCaret = typewriter && i === lineIdx;
+                <h1 className={`typewriter ${playfairFont.className}`}>
+                  {(typewriterEnabled ? typedLines : lines).map((ln, i) => {
+                    const showCaret = typewriterEnabled && i === lineIdx;
                     return (
                       <span key={i} className="tw-line">
                         {ln}
@@ -664,7 +1928,26 @@ export default function ParallaxDemo({
 
                 <p className={`subline ${isFinished ? "is-visible" : "is-hidden"}`}>
                   THE #1 INTERIOR DESIGN SERVICE
+                  {isMobileViewport ? <br /> : " "}
+                  ACROSS THE RIVIERA MAYA
                 </p>
+                <a
+                  className={`hero-cta ${isFinished ? "is-visible" : "is-hidden"}`}
+                  href="#book"
+                  aria-label="Get started"
+                  aria-hidden={!isFinished}
+                  tabIndex={isFinished ? 0 : -1}
+                  style={
+                    isMobileViewport
+                      ? {
+                          fontSize: `${heroCtaFontSizeMobile}px`,
+                          padding: `${heroCtaPadYMobile}px ${heroCtaPadXMobile}px`,
+                        }
+                      : undefined
+                  }
+                >
+                  GET STARTED <span aria-hidden="true">→</span>
+                </a>
               </div>
             </header>
 
@@ -672,31 +1955,53 @@ export default function ParallaxDemo({
               className="content wwd-section"
               id="whatwedo"
               ref={contentRef}
-              style={{
-                ['--about-caption-x' as any]: `${aboutCaptionX}px`,
-                ['--about-caption-y' as any]: `${aboutCaptionY}px`,
-                ['--about-caption-gap' as any]: `${aboutCaptionGap}px`,
-                ['--wwdH' as any]: `${aboutHeightPx}px`,
+            style={{
+              ['--about-caption-x' as any]: `${aboutCaptionX}px`,
+              ['--about-caption-y' as any]: `${aboutCaptionY}px`,
+              ['--about-caption-gap' as any]: `${aboutCaptionGap}px`,
+              ['--wwdH' as any]: `${aboutHeightPx}px`,
+              ['--wwdH-mobile' as any]: `${aboutHeightPxMobile}px`,
+              ['--wwd-block-y-mobile' as any]: `${wwdBlockYMobile}px`,
                 ['--wwd-guide-w' as any]: `${wwdGuideW}px`,
                 ['--wwd-pad-t' as any]: `${wwdPadTop}px`,
+                ['--wwd-pad-t-mobile' as any]: `${wwdPadTopMobile}px`,
                 ['--wwd-pad-b' as any]: `${wwdPadBottom}px`,
+                ['--wwd-pad-b-mobile' as any]: `${wwdPadBottomMobile}px`,
+                ['--centerline-top-offset' as any]: `${centerlineTopOffset}px`,
+                ['--centerline-bottom-offset' as any]: `${centerlineBottomOffset}px`,
+                ['--virtual-card-mobile-x' as any]: `${wwdVirtualCardXM}px`,
+                ['--virtual-card-mobile-y' as any]: `${wwdVirtualCardYM}px`,
               }}
             >
+              <div className="wwd-centerline-mobile" aria-hidden="true" />
               <div
                 className="container"
               style={{
                 ['--wwd-title-x' as any]: `${wwdTitleX}px`,
                 ['--wwd-title-y' as any]: `${wwdTitleY}px`,
+                ['--wwd-title-x-m' as any]: `${(wwdTitleXMobile != null ? wwdTitleXMobile : wwdTitleX)}px`,
+                ['--wwd-title-y-m' as any]: `${(wwdTitleYMobile != null ? wwdTitleYMobile : wwdTitleY)}px`,
                 ['--wwd-text-x' as any]: `${wwdTextX}px`,
                 ['--wwd-text-y' as any]: `${wwdTextY}px`,
+                ['--wwd-text-x-m' as any]: (wwdTextXMobile != null ? `${wwdTextXMobile}px` : undefined),
+                ['--wwd-text-y-m' as any]: (wwdTextYMobile != null ? `${wwdTextYMobile}px` : undefined),
+                ['--wwd-lead-fs' as any]: `${wwdLeadFs}px`,
+                ['--wwd-lead-fs-m' as any]: (wwdLeadFsMobile != null ? `${wwdLeadFsMobile}px` : undefined),
+                ['--wwd-lead-maxw-m' as any]: (wwdLeadMaxWMobile != null ? `${wwdLeadMaxWMobile}px` : undefined),
                 ['--wwd-title-fs' as any]: `${wwdTitleFs}px`,
+                ['--wwd-title-fs-m' as any]: (wwdTitleFsMobile != null ? `${wwdTitleFsMobile}px` : undefined),
                 ['--wwd-title-w' as any]: `${wwdTitleW}`,
                 ['--wwd-guide-label-gap' as any]: `${wwdGuideLblGap}px`,
+                ['--wwd-lbl01-x-m' as any]: `${wwdLbl01XM}px`,
+                ['--wwd-lbl01-y-m' as any]: `${wwdLbl01YM}px`,
+                ['--wwd-title01-x-m' as any]: `${wwdTitle01XM}px`,
+                ['--wwd-title01-y-m' as any]: `${wwdTitle01YM}px`,
                 ['--wwd-text-maxw' as any]: `${wwdTextMaxW}px`,
                 ['--projects-text-maxw' as any]: `${projectsTextMaxW}px`,
                 ['--projects-text-x' as any]: `${projectsTextX}px`,
                 ['--projects-text-y' as any]: `${projectsTextY}px`,
                 ...(projectsGridGap != null ? ({ ['--projects-grid-gap-override' as any]: `${projectsGridGap}px` }) : {}),
+                ...(projectsGridGapMobile != null ? ({ ['--projects-grid-gap-mobile' as any]: `${projectsGridGapMobile}px` }) : {}),
                 ['--projects-grid-x' as any]: `${projectsGridX}px`,
                 ['--projects-grid-y' as any]: `${projectsGridY}px`,
                 ['--projects-col1-x' as any]: `${projectsCol1X}px`,
@@ -704,8 +2009,24 @@ export default function ParallaxDemo({
                 ['--projects-col3-x' as any]: `${projectsCol3X}px`,
                 ['--projects-col4-x' as any]: `${projectsCol4X}px`,
                 ['--projects-card-grow' as any]: `${projectsCardGrow}px`,
+                ['--projects-card-size-mobile' as any]: projectsCardSizeMobile != null ? `${projectsCardSizeMobile}px` : undefined,
+                ['--projects-carousel-width' as any]: projectsCarouselViewport != null ? `${projectsCarouselViewport}vw` : undefined,
+                ['--projects-card-overlap-mobile' as any]: projectsCardOverlapMobile != null ? `${projectsCardOverlapMobile}px` : undefined,
+                ['--projects-carousel-x-m' as any]: `${projectsCarouselOffsetXMobile}px`,
+                ['--projects-carousel-y-m' as any]: `${projectsCarouselOffsetYMobile}px`,
+                ['--projects-block-offset-y' as any]: `${projectsCarouselBlockOffsetYMobile}px`,
+                ['--projects-nav-offset-y' as any]: `${projectsCarouselNavOffsetYMobile}px`,
+                ['--projects-window-pad' as any]: (projectsCarouselWindowPadMobile != null ? `${projectsCarouselWindowPadMobile}px` : undefined),
+                ['--projects-nav-h' as any]: (projectsNavHeightMobile != null ? `${projectsNavHeightMobile}px` : undefined),
+                ['--projects-nav-inner-y' as any]: (projectsNavInnerOffsetY != null ? `${projectsNavInnerOffsetY}px` : undefined),
+                ['--projects-nav-arrow-y' as any]: (projectsNavArrowOffsetY != null ? `${projectsNavArrowOffsetY}px` : undefined),
                 ['--projects-meta-x' as any]: `${projectsMetaX}px`,
                 ['--projects-meta-y' as any]: `${projectsMetaY}px`,
+                ['--projects-meta-x-m' as any]: (projectsMetaXM != null ? `${projectsMetaXM}px` : undefined),
+                ['--projects-meta-y-m' as any]: (projectsMetaYM != null ? `${projectsMetaYM}px` : undefined),
+                ['--projects-title-x-m' as any]: (projectsTitleXM != null ? `${projectsTitleXM}px` : undefined),
+                ['--projects-title-y-m' as any]: (projectsTitleYM != null ? `${projectsTitleYM}px` : undefined),
+                ['--projects-title-maxw-m' as any]: (projectsTitleMaxWM != null ? `${projectsTitleMaxWM}px` : undefined),
                 ['--wwd-container-maxw' as any]: `${wwdContainerMaxW}px`,
                 ['--wwd-gutter-l' as any]: `${wwdGutterL}px`,
                 ['--wwd-gutter-r' as any]: `${wwdGutterR}px`,
@@ -717,6 +2038,8 @@ export default function ParallaxDemo({
                 ['--wwd-cards-y' as any]: `${wwdCardsY}px`,
                 ['--wwd-cards-gap' as any]: `${wwdCardsGap}px`,
                 ['--wwd-cards-gap-mobile' as any]: `${wwdCardsGapMobile}px`,
+                ['--wwd-card-w-m' as any]: `${wwdCardWM}px`,
+                ['--wwd-card-h-m' as any]: `${wwdCardAspectMobile}px`,
                 ['--wwd-sec-title-top' as any]: `${wwdSecTitleTop}px`,
                 ['--wwd-sec-title-gap' as any]: `${wwdSecTitleGap}px`,
                 ['--wwd-sec-title-fs' as any]: `${wwdSecTitleFs}px`,
@@ -735,28 +2058,61 @@ export default function ParallaxDemo({
                 ['--wwd-desc-sep-x' as any]: `${wwdDescSepX}px`,
                 ['--wwd-desc1-x' as any]: `${wwdDesc1X}px`,
                 ['--wwd-desc1-y' as any]: `${wwdDesc1Y}px`,
-                ['--wwd-desc2-x' as any]: `${wwdDesc2X}px`,
-                ['--wwd-desc2-y' as any]: `${wwdDesc2Y}px`,
+                ['--wwd-desc1-x-m' as any]: `${wwdDesc1XM}px`,
+                ['--wwd-desc1-y-m' as any]: `${wwdDesc1YM}px`,
+                ['--wwd-desc1-maxw-m' as any]: `${wwdDesc1MaxWM}px`,
+                ['--wwd-desc2-base-x' as any]: `${desc2BaseX}px`,
+                ['--wwd-desc2-base-y' as any]: `${desc2BaseY}px`,
+                ['--wwd-desc2-maxw-m' as any]: `${wwdDesc2MaxWM}px`,
+                ['--wwd-desc2-mobile-x' as any]: `${desc2MobileX}px`,
+                ['--wwd-desc2-mobile-y' as any]: `${desc2MobileY}px`,
+                ['--wwd-svc02-x' as any]: `${wwdLbl02MobileX}px`,
+                ['--wwd-svc02-y' as any]: `${wwdLbl02MobileY}px`,
+                ['--wwd-svc02-title-x' as any]: `${wwdTitle02MobileX}px`,
+                ['--wwd-svc02-title-y' as any]: `${wwdTitle02MobileY}px`,
+                ['--wwd-svc02-title-maxw' as any]: `${wwdSvc02TitleMaxWM}px`,
+                ['--wwd-svc02-maxw' as any]: `${wwdDesc2MaxWM}px`,
+                ['--wwd-svc03-x' as any]: `${wwdLbl03MobileX}px`,
+                ['--wwd-svc03-y' as any]: `${wwdLbl03MobileY}px`,
+                ['--wwd-svc03-title-x' as any]: `${wwdTitle03MobileX}px`,
+                ['--wwd-svc03-title-y' as any]: `${wwdTitle03MobileY}px`,
+                ['--wwd-svc03-maxw' as any]: `${wwdDesc3MaxWM}px`,
+                ['--wwd-onsite-card-x-m' as any]: `${wwdOnsiteCardMX}px`,
+                ['--wwd-onsite-card-y-m' as any]: `${wwdOnsiteCardMY}px`,
+                ['--wwd-content-card-x-m' as any]: `${wwdContentCardMX}px`,
+                ['--wwd-content-card-y-m' as any]: `${wwdContentCardMY}px`,
                 ['--wwd-desc3-x' as any]: `${wwdDesc3X}px`,
                 ['--wwd-desc3-y' as any]: `${wwdDesc3Y}px`,
+                ['--wwd-desc3-mobile-x' as any]: `${wwdDesc3XM}px`,
+                ['--wwd-desc3-mobile-y' as any]: `${wwdDesc3YM}px`,
+                ['--wwd-desc3-maxw-m' as any]: `${wwdDesc3MaxWM}px`,
                 ['--wwd-cta-x' as any]: `${wwdCtaX}px`,
                 ['--wwd-cta-y' as any]: `${wwdCtaY}px`,
                 ['--wwd-cta-txt-x' as any]: `${wwdCtaTxtX}px`,
+                ['--wwd-cta-txt-x-m' as any]: `${wwdCtaTxtXM}px`,
                 ['--wwd-cta-txt-y' as any]: `${wwdCtaTxtY}px`,
                 ['--wwd-cta1-x' as any]: `${wwdCta1X}px`,
                 ['--wwd-cta1-y' as any]: `${wwdCta1Y}px`,
+                ['--wwd-cta-mobile-x' as any]: `${wwdCtaMobileX}px`,
+                ['--wwd-cta-mobile-y' as any]: `${wwdCtaMobileY}px`,
                 ['--wwd-cta3-x' as any]: `${wwdCta3X}px`,
                 ['--wwd-cta3-y' as any]: `${wwdCta3Y}px`,
+                ['--wwd-cta3-mobile-x' as any]: `${wwdCta3MobileX}px`,
+                ['--wwd-cta3-mobile-y' as any]: `${wwdCta3MobileY}px`,
                 ['--wwd-eyebrow1-x' as any]: `${wwdEyebrow1X}px`,
                 ['--wwd-eyebrow1-y' as any]: `${wwdEyebrow1Y}px`,
+                ['--wwd-eyebrow1-x-m' as any]: `${wwdEyebrow1XM}px`,
+                ['--wwd-eyebrow1-y-m' as any]: `${wwdEyebrow1YM}px`,
                 ['--wwd-block-y' as any]: `${wwdBlockY}px`,
                 ['--about-video-h' as any]: `${aboutVideoH}px`,
                 ['--about-video-gap-top' as any]: `${aboutVideoGapTop}px`,
                 ['--about-video-y' as any]: `${aboutVideoY}px`,
+                ['--about-video-y-m' as any]: `${aboutVideoYMobile}px`,
                 ['--about-video-fit' as any]: aboutVideoFit,
                 ['--about-video-pos-y' as any]: `${aboutVideoPosY}%`,
                 ['--about-video-aspect' as any]: `${aboutVideoAspect}`,
                 ['--about-video-overlay' as any]: `${overlayAlpha}`,
+                ['--about-hline-gap' as any]: `${aboutHlineGap}px`,
               }}
               >
                 {/* Guide labels 01 / 02 / 03 aligned with the three vertical guides */}
@@ -771,11 +2127,19 @@ export default function ParallaxDemo({
                   <h3 className="g-title" style={{ ['--x' as any]: '50%' }}>{wwdSecTitle2}</h3>
                   <h3 className="g-title" style={{ ['--x' as any]: '75%' }}>{wwdSecTitle3}</h3>
                 </div>
-                <p className="eyebrow">WHAT WE DO</p>
+                {/* Mobile-only numeric label anchored to the center guide */}
+                <span className="mbl-lbl01" aria-hidden="true">01</span>
+                {/* Mobile-only subsection title, same font/size as label */}
+                <h3 className="mbl-title01 eyebrow" aria-hidden="false">{wwdSecTitle1}</h3>
+                <p className={`eyebrow wwd-intro-eyebrow${wwdIntroVisible ? " is-visible" : ""}`}>
+                  WHAT WE DO
+                </p>
 
-                <p className="lead">
-                  En Siamo fusionamos el interiorismo con la inteligencia emocional para crear
-                  espacios únicos que inspiran bienestar y equilibrio.
+                <p
+                  ref={wwdIntroRef}
+                  className={`lead wwd-lead wwd-intro-text${wwdIntroVisible ? " is-visible" : ""}`}
+                >
+                  At Siamo Design, we craft sanctuaries: modern, restorative, unmistakably yours.
                 </p>
 
                 <WwdTriptych />
@@ -785,68 +2149,152 @@ export default function ParallaxDemo({
                     <span className="cta-label">our services</span>
                   </a>
                   <p className="g-eyebrow col1">projects</p>
+                  <div
+                    className="wwd-service02-inline"
+                    aria-hidden="false"
+                    style={{
+                      ['--wwd-svc02-x' as any]: `${wwdLbl02MobileX}px`,
+                      ['--wwd-svc02-y' as any]: `${wwdLbl02MobileY}px`,
+                      ['--wwd-svc02-title-x' as any]: `${wwdTitle02MobileX}px`,
+                      ['--wwd-svc02-title-y' as any]: `${wwdTitle02MobileY}px`,
+                      ['--wwd-svc02-maxw' as any]: `${wwdDesc2MaxWM}px`,
+                    }}
+                  >
+                    <span className="svc-label">{wwdLbl02}</span>
+                    <h3 className="svc-title">{wwdSecTitle2}</h3>
+                  </div>
 
                   <p className="g-desc col2">{wwdDesc2}</p>
 
                   <p className="g-desc col3">{wwdDesc3}</p>
+                  <div
+                    className="wwd-service03-inline"
+                    aria-hidden="false"
+                    style={{
+                      ['--wwd-svc03-x' as any]: `${wwdLbl03MobileX}px`,
+                      ['--wwd-svc03-y' as any]: `${wwdLbl03MobileY}px`,
+                      ['--wwd-svc03-title-x' as any]: `${wwdTitle03MobileX}px`,
+                      ['--wwd-svc03-title-y' as any]: `${wwdTitle03MobileY}px`,
+                      ['--wwd-svc03-maxw' as any]: `${wwdDesc3MaxWM}px`,
+                    }}
+                  >
+                    <span className="svc-label">{wwdLbl03}</span>
+                    <h3 className="svc-title">{wwdSecTitle3}</h3>
+                  </div>
                   <a className="g-cta col3" href="/content">
-                    <span className="cta-label">studio log</span>
+                    <span className="cta-label">watch the latest</span>
                   </a>
                 </div>
-                {/* === PROJECTS header block (aligned to guide 01 with same gap as "PROJECTS" label) === */}
-                <section className="projects-block" id="projects" aria-label="Projects section">
-                  <h2 className="projects-headline lead">
-                    Nuestros espacios hablan de armonía y transformación.
-                  </h2>
-                </section>
+                <div className="wwd-desc3-mobile" aria-hidden="false">
+                  <p>{wwdDesc3}</p>
+                </div>
+                <p
+                  className="wwd-desc3-mobile narrative"
+                  aria-hidden="false"
+                  style={{
+                    ['--wwd-desc3-narrative-x' as any]: `${wwdNarrativeXM}px`,
+                    ['--wwd-desc3-narrative-y' as any]: `${wwdNarrativeYM}px`,
+                    ['--wwd-desc3-narrative-desktop-x' as any]: `${wwdNarrativeDesktopX}px`,
+                    ['--wwd-desc3-narrative-desktop-y' as any]: `${wwdNarrativeDesktopY}px`,
+                    ['--wwd-desc3-narrative-maxw' as any]: `${wwdNarrativeMaxWM}px`,
+                  }}
+                >
+                  IN THEIR WORDS
+                </p>
+                <p
+                  className="wwd-desc3-desktop narrative"
+                  aria-hidden="false"
+                  style={{
+                    ['--wwd-desc3-narrative-desktop-x' as any]: `${wwdNarrativeDesktopX}px`,
+                    ['--wwd-desc3-narrative-desktop-y' as any]: `${wwdNarrativeDesktopY}px`,
+                    ['--wwd-desc3-narrative-maxw' as any]: `${wwdNarrativeMaxWM}px`,
+                  }}
+                >
+                  WHAT IT'S LIKE TO DESIGN, BUILD, AND SETTLE IN WITH US.
+                </p>
+                <section
+                 
+                >
+                  {/* === PROJECTS header block === */}
+                  <section
+                    className="projects-block"
+                    id="projects"
+                    aria-label="Projects section"
+                  >
+                    <h2 className="projects-headline lead">
+                      We start with who you are and design a space that feels like you.
+                    </h2>
+                  </section>
 
-                {/* === PROJECTS grid (4 cuadrantes alineados a las guías) === */}
-                <section className="projects-grid" aria-label="Projects grid">
-                  <article className="proj-card col1">
-                    <a className="proj-hit" href="/work/sample-1" aria-label="Abrir proyecto 1">
-                      <div className="proj-media ph" />
-                    </a>
-                    <div className="proj-meta">
-                      <span className="proj-year">2024</span>
-                      <h3 className="proj-title">ESTILISMO PARA EDITORIAL EN VIVIENDA</h3>
+                  <div
+                    className="projects-mobile-wrapper"
+                    style={{ ['--projects-block-offset-y' as any]: `${projectsCarouselBlockOffsetYMobile}px` }}
+                  >
+                    {/* === PROJECTS grid (4 cuadrantes alineados a las guías) === */}
+                    <div className="projects-carousel-window" ref={projectsWindowRef}>
+                      <section
+                        className="projects-grid"
+                        aria-label="Projects grid"
+                        ref={projectsTrackRef}
+                        style={{ ['--projects-carousel-shift-px' as any]: `${projectsShiftPx}px` }}
+                      >
+                        {projectCards.map((card, idx) => (
+                          <article key={card.href} className={`proj-card col${idx + 1}`}>
+                            <a className="proj-hit" href={card.href} aria-label={`Abrir proyecto ${idx + 1}`}>
+                              <div className="proj-media">
+                                {card.image ? (
+                                  <Image
+                                    src={card.image}
+                                    alt={card.title}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                    style={{ objectFit: "cover" }}
+                                  />
+                                ) : (
+                                  <div className="ph" />
+                                )}
+                              </div>
+                            </a>
+                            <div className="proj-meta">
+                              <span className="proj-year">{card.year}</span>
+                              <h3 className="proj-title">{card.title}</h3>
+                            </div>
+                          </article>
+                        ))}
+                      </section>
                     </div>
-                  </article>
-
-                  <article className="proj-card col2">
-                    <a className="proj-hit" href="/work/sample-2" aria-label="Abrir proyecto 2">
-                      <div className="proj-media ph" />
-                    </a>
-                    <div className="proj-meta">
-                      <span className="proj-year">2016</span>
-                      <h3 className="proj-title">DORMITORIO EN SUITE, REFUGIO ÍNTIMO CON ESENCIA NATURAL</h3>
+                    <div className="projects-nav" aria-hidden="false">
+                      <button
+                        type="button"
+                        className="projects-nav__btn"
+                        onClick={() => handleProjectsNav(-1)}
+                        disabled={projectsPage === 0}
+                        aria-label="Ver proyectos anteriores"
+                      >
+                        ‹
+                      </button>
+                      <span className="projects-nav__indicator">
+                        {String(projectsPage + 1).padStart(2, '0')} | {String(projectsTotalPages).padStart(2, '0')}
+                      </span>
+                      <button
+                        type="button"
+                        className="projects-nav__btn"
+                        onClick={() => handleProjectsNav(1)}
+                        disabled={projectsPage >= projectsTotalPages - 1}
+                        aria-label="Ver proyectos siguientes"
+                      >
+                        ›
+                      </button>
                     </div>
-                  </article>
-
-                  <article className="proj-card col3">
-                    <a className="proj-hit" href="/work/sample-3" aria-label="Abrir proyecto 3">
-                      <div className="proj-media ph" />
-                    </a>
-                    <div className="proj-meta">
-                      <span className="proj-year">2018</span>
-                      <h3 className="proj-title">UN SALÓN PARA HABITAR LA CALMA</h3>
-                    </div>
-                  </article>
-
-                  <article className="proj-card col4">
-                    <a className="proj-hit" href="/work/sample-4" aria-label="Abrir proyecto 4">
-                      <div className="proj-media ph" />
-                    </a>
-                    <div className="proj-meta">
-                      <span className="proj-year">2018</span>
-                      <h3 className="proj-title">COCINA CON ISLA CENTRAL: FUNCIONALIDAD QUE INSPIRA</h3>
-                    </div>
-                  </article>
+                  </div>
                 </section>
                 <h3
                   className="about-title"
                   style={{
                     ['--about-title-x' as any]: `${aboutTitleX}px`,
                     ['--about-title-y' as any]: `${aboutTitleY}px`,
+                    ['--about-title-x-m' as any]: `${aboutTitleXMobile}px`,
+                    ['--about-title-y-m' as any]: `${aboutTitleYMobile}px`,
                     ['--about-title-gap' as any]: `${aboutTitleGap}px`,
                   }}
                 >
@@ -857,6 +2305,8 @@ export default function ParallaxDemo({
                   style={{
                     ['--about-caption-x' as any]: `${aboutCaptionX}px`,
                     ['--about-caption-y' as any]: `${aboutCaptionY}px`,
+                    ['--about-caption-x-m' as any]: `${aboutCaptionXMobile}px`,
+                    ['--about-caption-y-m' as any]: `${aboutCaptionYMobile}px`,
                     ['--about-caption-shift-y' as any]: `${aboutCaptionShiftY}px`,
                     ['--about-caption-gap' as any]: `${aboutCaptionGap}px`,
                   }}
@@ -874,814 +2324,335 @@ export default function ParallaxDemo({
                     ['--about-cta-line-gap' as any]: `${aboutCtaLineGap}px`,
                     ['--about-cta-txt-x' as any]: `${aboutCtaTxtX}px`,
                     ['--about-cta-txt-y' as any]: `${aboutCtaTxtY}px`,
+                    ['--about-cta-txt-y-m' as any]: `${aboutCtaTxtYMobile}px`,
+                    ['--about-cta-txt-x-m' as any]: `${aboutCtaTxtXMobile}px`,
+                    ['--about-cta-mobile-x' as any]: `${aboutCtaMobileX}px`,
+                    ['--about-cta-mobile-y' as any]: `${aboutCtaMobileY}px`,
+                    ['--about-cta-mobile-w' as any]: `${aboutCtaMobileWidth}px`,
+                    ['--about-cta-mobile-h' as any]: `${aboutCtaMobileHeight}px`,
                   }}
                 >
                   <span className="cta-label">{aboutCtaLabel}</span>
                 </a>
                 {/* === FULL‑BLEED ABOUT VIDEO (with guide overlays) === */}
-                <div className="wwd-fullvideo" aria-label="About video">
-                  <video
-                    className="about-video"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster={aboutVideoPoster || undefined}
-                  >
-                    <source src={aboutVideoSrc} type="video/mp4" />
-                  </video>
+                <div className="wwd-fullvideo" aria-label="About video" ref={aboutVideoWrapRef}>
+                  <div className={`about-video__media${isMobileViewport && !aboutVideoPlaying ? " has-poster" : ""}`}>
+                    {isMobileViewport && !aboutVideoPlaying && (
+                      <div className="about-video__poster" aria-hidden="true">
+                        <Image
+                          src={aboutVideoPoster || "/assets/videos/about-thumb.webp"}
+                          alt=""
+                          fill
+                          sizes="100vw"
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <video
+                      className="about-video"
+                      ref={aboutVideoRef}
+                      muted
+                      loop
+                      playsInline
+                      preload="none"
+                      controls={isMobileViewport ? aboutVideoPlaying : false}
+                      poster={aboutVideoPoster || "/assets/videos/about-thumb.webp"}
+                    >
+                      <source src={aboutVideoSrc} type="video/mp4" />
+                    </video>
+                    {isMobileViewport && !aboutVideoPlaying && (
+                      <button
+                        type="button"
+                        className="about-play"
+                        aria-label="Reproducir video About"
+                        onClick={playAboutVideo}
+                      >
+                        <span className="about-play__icon" aria-hidden="true">▶</span>
+                      </button>
+                    )}
+                  </div>
+                  <div className="frame-x" aria-hidden="true"></div>
                 </div>
+                {/* === TESTIMONIALS REEL (below the horizontal line; guides already stopped) === */}
+                <section
+                  className="testimonials"
+                  id="testimonials"
+                aria-label="Client testimonials"
+                style={{
+                  ['--testi-title-desktop-x' as any]: `${testiTitleX}px`,
+                  ['--testi-title-desktop-y' as any]: `${testiTitleY}px`,
+                  ['--testi-title-mobile-x' as any]: `${testiTitleXMobile - testiTitleX}px`,
+                  ['--testi-title-mobile-y' as any]: `${testiTitleYMobile - testiTitleY}px`,
+                  ['--testi-hline-gap' as any]: `${testiHlineGap}px`,
+                  ['--testi-hline-x' as any]: `${testiHlineX}px`,
+                  ['--testi-hline-y' as any]: `${testiHlineY}px`,
+                  ['--testi-hline-x-m' as any]: `${testiHlineXMobile}px`,
+                  ['--testi-hline-y-m' as any]: `${testiHlineYMobile}px`,
+                }}
+                >
+                  <h2 className="lead testi-title" aria-label="Hear from our customers">
+                    HEAR FROM OUR CUSTOMERS
+                  </h2>
+                  <TestimonialReel
+                    videos={[
+                      "/assets/videos/testimonials.mp4",
+                      "/assets/videos/testimonials.mp4",
+                      "/assets/videos/testimonials.mp4"
+                    ]}
+                    posters={[
+                      "/assets/videos/testimonials-thumb.webp",
+                      "/assets/videos/testimonials-thumb.webp",
+                      "/assets/videos/testimonials-thumb.webp",
+                    ]}
+                    quotes={[
+                      {
+                        quote:
+                          "From creating the perfect layout to finding pieces I absolutely loved, my designer really took my space to the next level. I never dreamed my home could look — and feel — this good!",
+                        author: "JAN",
+                      },
+                      {
+                        quote:
+                          "They captured exactly what I wanted and made the process effortless. The space finally feels like home.",
+                        author: "MATT",
+                      },
+                      {
+                        quote:
+                          "Seamless process, stunning results. I felt heard at every step and the outcome exceeded expectations.",
+                        author: "LAURA",
+                      },
+                    ]}
+                    varsStyle={{
+                      ['--reel-desktop-y' as any]: `${reelY}px`,
+                      ['--reel-desktop-x' as any]: `${reelX}px`,
+                      ['--reel-mobile-y' as any]: `${reelYMobile ?? reelY}px`,
+                      ['--reel-mobile-x' as any]: `${reelXMobile ?? reelX}px`,
+                      ['--reel-w' as any]: `${reelW}px`,
+                      ['--reel-w-m' as any]: `${reelWMobile || reelW}px`,
+                      ['--reel-h' as any]: `${reelH}px`,
+                      ['--reel-h-m' as any]: `${reelHMobile || reelH}px`,
+                      ['--reel-gap' as any]: `${reelGap}px`,
+                      ['--reel-side-scale' as any]: `${reelSideScale}`,
+                      ['--reel-side-opacity' as any]: `${reelSideOpacity}`,
+                      ['--reel-arrow-size' as any]: `${reelArrowSize}px`,
+                      ['--reel-arrow-offset' as any]: `${reelArrowOffset}px`,
+                      ['--reel-box-grow' as any]: `${reelBoxGrow}px`,
+                      ['--reel-box-grow-m' as any]: `${reelBoxGrowMobile ?? reelBoxGrow}px`,
+                      ['--reel-scale-m' as any]: `${reelScaleMobile}`,
+                      ['--reel-right-extra-m' as any]: `${reelRightExtraMobile || 0}px`,
+                      ['--reel-radius' as any]: `${reelRadius}px`,
+                      ['--reel-nav-width-m' as any]: `${reelNavWidthMobile}vw`,
+                      ['--reel-nav-x-m' as any]: `${reelNavXMobile}px`,
+                      ['--reel-nav-y-m' as any]: `${reelNavYMobile}px`,
+                      ['--reel-quote-x' as any]: `${reelQuoteX}px`,
+                      ['--reel-quote-y' as any]: `${reelQuoteY}px`,
+                      ['--reel-quote-x-m' as any]: `${reelQuoteXMobile}px`,
+                      ['--reel-quote-y-m' as any]: `${reelQuoteYMobile}px`,
+                      ['--reel-aside-w' as any]: `${testiAsideW}px`,
+                      ['--testi-block-x' as any]: `${testiBlockX}px`,
+                      ['--testi-block-y' as any]: `${testiBlockY}px`,
+                      ['--testi-block-x-m' as any]: `${testiBlockXMobile}px`,
+                      ['--testi-block-y-m' as any]: `${testiBlockYMobile}px`,
+                      ['--reel-thumbs-x' as any]: `${reelThumbsX}px`,
+                      ['--reel-thumbs-y' as any]: `${reelThumbsY}px`,
+                      ['--testi-hline-gap' as any]: `${testiHlineGap}px`,
+                    }}
+                  />
+                  <div className="testi-hline" role="separator" aria-hidden="true"></div>
+                </section>
+
+                {/* === FOLLOW (below testimonials line) === */}
+                <section
+                  className="follow"
+                  id="follow"
+                  aria-label="Follow us on Instagram"
+                  style={{
+                    ['--follow-x' as any]: `${followX}px`,
+                    ['--follow-y' as any]: `${followY}px`,
+                    ['--follow-gap' as any]: `${followGap}px`,
+                    ['--follow-gap-m' as any]: `${followGapMobile}px`,
+                    ['--follow-maxw' as any]: `${followMaxW}px`,
+                    ['--follow-maxw-m' as any]: `${followMaxWMobile}px`,
+                    ['--follow-card-w-m' as any]: `${followCardSizeMobile}px`,
+                    ['--follow-cols' as any]: `${followCols}`,
+                    ['--follow-card-grow' as any]: `${followCardGrow}px`,
+                    ...(followCardGap != null
+                      ? ({ ['--follow-card-gap' as any]: `${followCardGap}px` })
+                      : {}),
+                    ...(followGapTotal
+                      ? ({ ['--follow-gap-total' as any]: `${followGapTotal}px` })
+                      : {}),
+                  }}
+                >
+                  <h2
+                    className="follow-title lead"
+                    style={{
+                    ['--follow-title-x' as any]: `${followTitleX}px`,
+                    ['--follow-title-y' as any]: `${followTitleY}px`,
+                    ['--follow-title-x-m' as any]: `${followTitleXMobile}px`,
+                    ['--follow-title-y-m' as any]: `${followTitleYMobile}px`,
+                  }}
+                  >
+                    <span className="follow-label">Follow</span>
+                    <a
+                      className="follow-handle"
+                      href={`https://www.instagram.com/${(followHandle || '').replace(/^@/, '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open Instagram ${followHandle}`}
+                    >
+                      {followHandle}
+                    </a>
+                  </h2>
+
+                  <div
+                    className="follow-grid"
+                    role="list"
+                    aria-label="Latest posts"
+                    style={{
+                      ['--follow-grid-x-m' as any]: `${followGridXMobile}px`,
+                      ['--follow-grid-y-m' as any]: `${followGridYMobile}px`,
+                      ['--follow-grid-x' as any]: `${followGridX}px`,
+                    }}
+                  >
+                    {followGridItems.map((src, i) => {
+                        const hasMedia = typeof src === "string" && src.length > 0;
+                        if (hasMedia) {
+                          return (
+                            <a
+                              key={i}
+                              className="f-item"
+                              role="listitem"
+                              href={src}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Open post ${i + 1}`}
+                            >
+                              <img src={src} alt="" loading="lazy" />
+                            </a>
+                          );
+                        }
+
+                        return (
+                          <span
+                            key={i}
+                            className="f-item is-fallback"
+                            role="listitem"
+                            aria-label={`Placeholder post ${i + 1}`}
+                            aria-disabled="true"
+                          >
+                            <span className="ph" aria-hidden="true" />
+                          </span>
+                        );
+                      })}
+                  </div>
+                </section>
+
+                <div
+                  className="wwd-footer-spacer"
+                  aria-hidden="true"
+                  style={{ ['--wwd-footer-spacer-m' as any]: `${wwdFooterSpacerMobile}px` }}
+                />
               </div>
             </section>
 
-            <footer ref={footerRef}>
-              <h1>Footer</h1>
+            <footer
+              ref={footerRef}
+            style={{
+              ['--footer-lift' as any]: `${footerLift}px`,
+              ['--footer-overlap' as any]: `${footerOverlap}px`,
+              ['--footer-pad-top-mobile' as any]: `${footerPadTopMobile}px`,
+              ['--footer-overlap-mobile' as any]: `${footerOverlapMobile}px`,
+              ['--footer-h' as any]: `${footerH}px`,
+              ['--footer-bottom-maxw' as any]: `${footerBottomMaxW}px`
+            }}
+            >
+              <div className="footer-inner">
+                <section className="footer-seo" aria-label="Service areas and keyword index">
+                  <ul className="seo-col">
+                    <li><span className="check" aria-hidden="true">✓</span> Interior design playa del carmen</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Interior design services playa del carmen</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Home staging playa del carmen</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Commercial interior design playa del carmen</li>
+                  </ul>
+                  <ul className="seo-col">
+                    <li><span className="check" aria-hidden="true">✓</span> Interior design riviera maya</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators riviera maya</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Home staging riviera maya</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Commercial interior design riviera maya</li>
+                  </ul>
+                  <ul className="seo-col">
+                    <li><span className="check" aria-hidden="true">✓</span> Interior design Cancun</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators Cancun</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Home staging Cancun</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Commercial interior design Cancun</li>
+                  </ul>
+                  <ul className="seo-col">
+                    <li><span className="check" aria-hidden="true">✓</span> Interior design tulum</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Interior design services tulum</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators tulum</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Home staging tulum</li>
+                    <li><span className="check" aria-hidden="true">✓</span> Commercial interior design tulum</li>
+                  </ul>
+                </section>
+
+                <div className="footer-explore" aria-label="Explore and social">
+                  <nav className="explore" aria-label="Explore">
+                    <a href="/services">Services</a>
+                    <a href="/portfolio">Portfolio</a>
+                    <a href="/about">About</a>
+                    <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
+                    <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">WhatsApp</a>
+                  </nav>
+                  <div className="social" aria-label="Social profiles">
+                    <a className="social__link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
+                      </svg>
+                    </a>
+                    <a className="social__link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M21.7 8.2s-.2-1.5-.8-2.2c-.7-.8-1.5-.8-1.8-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.3 0-1.1 0-1.8.9-.6.7-.8 2.2-.8 2.2S2 9.9 2 11.6v.8c0 1.7.2 3.4.2 3.4s.2 1.5.8 2.2c.7.8 1.7.8 2.2.9 1.6.2 6.8.2 6.8.2s4.2 0 7.1-.1c.3 0 1.1 0 1.8-.9.6-.7.8-2.2.8-2.2s.2-1.7.2-3.4v-.8c0-1.7-.2-3.4-.2-3.4Z" />
+                        <path d="m10 9.8 4.7 2.2L10 14.2V9.8Z" fill="#fff"/>
+                      </svg>
+                    </a>
+                    <a className="social__link" href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15.5 4.2c.6.8 1.5 1.3 2.5 1.3h.4v2.5c-.9 0-1.8-.2-2.6-.6v5.5a5.08 5.08 0 1 1-5.1-5.1c.3 0 .6 0 .9.1v2.7a2.4 2.4 0 0 0-.9-.2 2.38 2.38 0 1 0 2.38 2.4V3h2.5v1.2Z" />
+                      </svg>
+                    </a>
+                    <a className="social__link" href={`https://www.instagram.com/${(followHandle || '').replace(/^@/, '') || 'siamodesign'}`} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7.2 4.5h9.6A2.7 2.7 0 0 1 19.5 7v9.6a2.7 2.7 0 0 1-2.7 2.7H7.2A2.7 2.7 0 0 1 4.5 16.6V7a2.7 2.7 0 0 1 2.7-2.7Zm0-1.5A4.2 4.2 0 0 0 3 7v9.6A4.2 4.2 0 0 0 7.2 20.8h9.6A4.2 4.2 0 0 0 21 16.6V7a4.2 4.2 0 0 0-4.2-4.2H7.2Z" />
+                        <path d="M12 8.4A3.6 3.6 0 1 1 8.4 12 3.6 3.6 0 0 1 12 8.4Zm0-1.5A5.1 5.1 0 1 0 17.1 12 5.1 5.1 0 0 0 12 6.9Z" />
+                        <circle cx="17.4" cy="6.6" r="1"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="footer-legal" aria-label="Legal information">
+                  <p className="legal-line">
+                    <span className="left">Siamo Design</span>
+                    <span className="divider" aria-hidden="true">|</span>
+                    <span className="right">Interior Design Studio</span>
+                  </p>
+                  <p className="legal-line">
+                    <span className="left">Copyright © 2025 Siamo Design</span>
+                    <span className="divider" aria-hidden="true">|</span>
+                    <span className="right">Todos los derechos reservados</span>
+                  </p>
+                  <p className="legal-sig">powered by StratUpdate</p>
+                </div>
+              </div>
             </footer>
           </div>
         </div>
       </div>
 
       {/* ==== CSS idéntico al tuyo, salvo el header (quitamos el background fijo en CSS) ==== */}
-      <style jsx>{`
-        :global(html), :global(body) { height: 100%; }
-        :global(html){ scroll-behavior: smooth; }
-        :global(body) { margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; color:#111; background:#f7f7f5; }
-
-        #scroll-animate { overflow:hidden; }
-        #scroll-animate-main { width:100%; left:0; top:0; position:fixed; }
-
-        header{
-          width:100%; height:100%;
-          top:0; position:fixed; z-index:-1;
-          display:grid; place-items:center; padding:clamp(24px,6vw,96px) 16px;
-        }
-        header::before{
-          content:""; position:absolute; inset:-2% -2%; pointer-events:none; z-index:0;
-          background: radial-gradient(120% 60% at 50% 40%, rgba(255,255,255,.10), rgba(255,255,255,0) 60%);
-          transform: translateY(var(--mid-offset, 0px)); will-change: transform;
-        }
-        header::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,var(--hero-overlay)); z-index:1; }
-        header .hero-title{
-          position:relative; z-index:2;
-          transform: translateY(calc(var(--title-lift,0px) * -1)); will-change: transform;
-          display:flex; flex-direction:column; align-items:center;
-          gap: var(--hero-subline-gap, 6px);
-        }
-        header .hero-title h1{ margin:0; }
-        .subline{
-          font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-weight: var(--hero-subline-w, 600);
-          text-transform: uppercase;
-          letter-spacing: .08em;
-          font-size: clamp(12px, 1.3vw, 20px);
-          color:#fff;
-          opacity: 0;
-          transform: translateY(6px);
-          transition: opacity .45s ease .05s, transform .45s ease .05s;
-        }
-        .subline.is-visible{ opacity:1; transform:none; }
-        .subline.is-hidden{ opacity:0; }
-
-        footer{
-          width:100%;
-          height:300px;
-          background:#999;
-          bottom:-300px;
-          position:relative;
-          z-index:2;
-          will-change: bottom;
-          transform: translateZ(0);
-          transition: transform 0.6s ease-out;
-        }
-
-        .wwd-section {
-          --wwdH: 1000px; /* knob: altura de la sección What We Do */
-          min-height: var(--wwdH);
-          height: auto;
-          position: relative;
-          overflow: visible;
-          z-index: 2;
-        }
-        .content{
-          min-height:70vh;
-          padding:clamp(48px,10vw,120px) 16px;
-          background:#fff;
-          position:relative;
-          z-index:1;
-          display:flex;
-          align-items:center;
-          will-change: transform;
-          transform: translateZ(0);
-          transition: transform 0.6s ease-out;
-        }
-        .content.wwd-section{
-          min-height: var(--wwdH);
-          height: auto;
-          background:#F4F2EA;
-          /* remove side padding so text can expand fully to the right */
-          padding: var(--wwd-pad-t, clamp(48px,10vw,120px)) 0 var(--wwd-pad-b, clamp(48px,10vw,120px));
-          --guides-color: rgba(255,255,255,0.9);
-          align-items: flex-start; /* anchor content block to the top instead of centering */
-        }
-
-        /* ===== PROJECTS (headline under "PROJECTS") ===== */
-        .content.wwd-section .projects-block{
-          /* use the same inset as subsection titles/labels so both share the exact gap from guide 01 */
-          --projects-gap: var(--wwd-sec-title-gap, 12px);
-          /* controls extra space below the eyebrow before the big headline */
-          --projects-gap-top: 24px;
-          display:block;
-          position:relative;
-          /* push headline down by the same offset used to position the eyebrow (g-eyebrow col1) */
-          margin-top: calc(var(--wwd-eyebrow1-y, 0px) + var(--projects-gap-top));
-        }
-        .content.wwd-section .projects-headline{
-          /* adopts .lead typography; this block only handles positioning/alignment */
-          margin: 0;
-          margin-left: 0;  /* override .wwd-section .lead margins */
-          margin-top: 0;   /* override .wwd-section .lead margins */
-
-          /* === Width controlled in PX via knob (fallback to WWD) === */
-          max-width: min(
-            var(--projects-text-maxw, var(--wwd-text-maxw, 780px)),
-            calc(100vw - var(--wwd-gutter-r, 0px) - var(--wwd-text-x, 0px))
-          );
-
-          /* === Base alignment to guide 01 + pixel offsets === */
-          position: relative;
-          left: calc(var(--guide-l1, 25%) + var(--projects-gap));
-          transform: translate(var(--projects-text-x, 0px), var(--projects-text-y, 0px));
-        }
-
-        /* ===== PROJECTS Grid (4 columnas bajo las guías 25/50/75) ===== */
-        .content.wwd-section .projects-grid{
-          /* knobs */
-          --projects-grid-gap-top: 56px;     /* espacio entre el texto grande y el grid */
-          --projects-grid-gap: 0px;          /* gap horizontal entre columnas (alineado a guías => 0) */
-          --projects-card-aspect: 75%;       /* 4:3 => 75%; 1:1 => 100%; 3:2 => 66.66% */
-
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: var(--projects-grid-gap-override, var(--projects-grid-gap));
-          margin-top: var(--projects-grid-gap-top);
-          position: relative;
-          z-index: 1;
-          transform: translate(var(--projects-grid-x, 0px), var(--projects-grid-y, 0px));
-          will-change: transform;
-        }
-        .content.wwd-section .projects-grid .proj-card{
-          position: relative;
-          /* cada columna ya cae debajo de su cuadrante 25/50/75; empuja el contenido un poco a la derecha para respetar el inset de títulos */
-          padding-left: var(--wwd-sec-title-gap, 12px);
-        }
-        /* Microajustes por columna (solo horizontal) */
-        .content.wwd-section .projects-grid .proj-card.col1{ transform: translateX(var(--projects-col1-x, 0px)); }
-        .content.wwd-section .projects-grid .proj-card.col2{ transform: translateX(var(--projects-col2-x, 0px)); }
-        .content.wwd-section .projects-grid .proj-card.col3{ transform: translateX(var(--projects-col3-x, 0px)); }
-        .content.wwd-section .projects-grid .proj-card.col4{ transform: translateX(var(--projects-col4-x, 0px)); }
-        .content.wwd-section .projects-grid .proj-hit{ display:block; color:inherit; text-decoration:none; }
-        .content.wwd-section .projects-grid .proj-media{
-          position: relative;
-          /* crecer uniformemente en todos los lados: +grow px por lado */
-          width: calc(100% + (var(--projects-card-grow, 0px) * 2));
-          transform: translate(
-            calc(-1 * var(--projects-card-grow, 0px)),
-            calc(-1 * var(--projects-card-grow, 0px))
-          );
-          background: #dcd8ce; /* placeholder */
-          overflow: hidden;
-          will-change: width, transform;
-        }
-        .content.wwd-section .projects-grid .proj-media::before{
-          content:"";
-          display:block;
-          padding-top: var(--projects-card-aspect); /* fallback de altura para que no colapse */
-        }
-        .content.wwd-section .projects-grid .proj-media.ph{ background:#e7e3da; border:none; }
-
-        /* Meta row under each project: YEAR (left) + TITLE (right) */
-        .content.wwd-section .projects-grid .proj-meta{
-          display: grid;
-          grid-template-columns: min-content 1fr;
-          align-items: baseline;
-          gap: 18px;
-          margin: 14px 0 0 0;            /* spacing under image */
-          padding-left: var(--wwd-sec-title-gap, 12px); /* align to the guide inset */
-          transform: translate(var(--projects-meta-x, 0px), var(--projects-meta-y, 0px)); /* global X/Y offset knob */
-          will-change: transform;
-        }
-
-        .content.wwd-section .projects-grid .proj-year{
-          font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: clamp(11px, 1vw, 12px);
-          font-weight: 500;
-          letter-spacing: .08em;
-          color: rgba(0,0,0,.45);
-          text-transform: none;
-        }
-
-        .content.wwd-section .projects-grid .proj-title{
-          margin: 0; /* baseline with the year */
-          font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: clamp(11px, 1.05vw, 13px);
-          font-weight: 500;                  /* slightly lighter, like the reference */
-          letter-spacing:.06em;
-          text-transform: uppercase;         /* matches the example */
-          color:#6b6b6b;
-        }
-
-        @media (max-width: 1024px){
-          .content.wwd-section .projects-grid{
-            --projects-grid-gap: 12px;
-          }
-        }
-        @media (max-width: 860px){
-          .content.wwd-section .projects-grid{
-            grid-template-columns: 1fr;
-            --projects-grid-gap: 18px;
-          }
-          .content.wwd-section .projects-grid .proj-card{
-            padding-left: var(--wwd-sec-title-gap, 12px);
-            max-width: min(92vw, 520px);
-            margin: 0 auto;
-          }
-          .content.wwd-section .projects-grid .proj-card.col1,
-          .content.wwd-section .projects-grid .proj-card.col2,
-          .content.wwd-section .projects-grid .proj-card.col3,
-          .content.wwd-section .projects-grid .proj-card.col4{
-            transform: none !important;
-          }
-        }
-
-        /* Position driven by --about-title-x / --about-title-y (set from props) */
-        /* ===== ABOUT title (above video, aligned to guide 01) ===== */
-        .content.wwd-section .about-title{
-          position: relative;
-          z-index: 3; /* ensure it sits above guide overlays and the video wrapper */
-          display: block;
-          left: calc(var(--guide-l1, 25%) + var(--wwd-sec-title-gap, 12px));
-          transform: translate(var(--about-title-x, 0px), var(--about-title-y, 0px));
-          /* place it just above the video with a controllable bottom gap */
-          margin: calc(var(--about-video-gap-top, 80px) - var(--about-title-gap, 16px)) 0 var(--about-title-gap, 16px);
-          font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: var(--wwd-title-fs, 16px) !important;
-          font-weight: var(--wwd-sec-title-w, var(--wwd-title-w, 500)) !important;
-          letter-spacing: .10em;
-          text-transform: uppercase;
-          color: var(--wwd-sec-title-color, #555);
-          white-space: nowrap;
-          pointer-events: auto;
-          mix-blend-mode: normal;
-        }
-        .content.wwd-section .about-caption{
-          position: relative;
-          z-index: 3; /* above video and overlays */
-          display: block;
-          left: calc(var(--guide-l1, 25%) + var(--wwd-sec-title-gap, 12px)); /* align to guide 01 like the title */
-          transform: translate(
-            var(--about-caption-x, 0px),
-            calc(var(--about-caption-y, 0px) + var(--about-caption-shift-y, 0px))
-          );
-          margin: 0 0 var(--about-caption-gap, 12px);
-
-          /* TYPOGRAPHY matches about-title */
-          font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: var(--wwd-title-fs, 16px) !important;    /* same size */
-          font-weight: var(--wwd-sec-title-w, var(--wwd-title-w, 500)) !important; /* same weight */
-          letter-spacing: .10em;                               /* same tracking */
-          text-transform: uppercase;                           /* same transform */
-          font-style: italic;                                  /* italic as requested */
-          color: var(--wwd-sec-title-color, #555);
-
-          /* LAYOUT: lock caption inside the same left column and force wrap into two lines max */
-          max-width: min(32ch, 40vw);
-          text-align: left;
-          white-space: pre-line; /* honor the \n in aboutCaption so it breaks into 2 lines */
-        }
-        /* ===== ABOUT CTA (line-from-guide button above the video) ===== */
-        .content.wwd-section .about-cta{
-          position: relative;
-          z-index: 3;
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          margin: 0;                           /* spacing via transform + line gap */
-          padding: 8px 12px;
-          border-radius: 6px;
-          border: 1px solid transparent;       /* keep layout stable on hover */
-          background: transparent;
-          text-decoration: none;
-          /* Align to guide 01 and then offset with knobs */
-          left: calc(var(--guide-l1, 25%) + var(--wwd-sec-title-gap, 12px));
-          transform: translate(var(--about-cta-x, 0px), var(--about-cta-y, 0px));
-          isolation: isolate;
-          color: #111;
-        }
-        /* Thin line ABOVE the CTA text, starting on the vertical guide */
-        .content.wwd-section .about-cta::before{
-          content:"";
-          position:absolute;
-          left: calc(-1 * var(--wwd-sec-title-gap, 12px));  /* start exactly at the guide */
-          top: calc(-1 * var(--about-cta-line-gap, 10px));  /* line sits above the text */
-          width: var(--about-cta-underline-w, 220px);
-          height: var(--wwd-guide-w, 1px);
-          background: #fff;
-          transition: opacity .28s cubic-bezier(.22,.61,.36,1), transform .28s cubic-bezier(.22,.61,.36,1);
-        }
-        /* Fill that grows from the guide to form a rectangular button on hover */
-        .content.wwd-section .about-cta::after{
-          content: "";
-          position: absolute;
-          left: calc(-1 * var(--wwd-sec-title-gap, 12px));  /* start from the guide */
-          top: calc(-1 * var(--about-cta-line-gap, 10px));  /* from the top line */
-          height: calc(100% + var(--about-cta-line-gap, 10px)); /* cover down to CTA bottom edge */
-          width: 0;                                        /* collapsed by default */
-          background: var(--guides-color, rgba(0,0,0,.15));
-          border-left: var(--wwd-guide-w, 1px) solid var(--guides-color, rgba(0,0,0,.15));
-          border-top: var(--wwd-guide-w, 1px) solid var(--guides-color, rgba(0,0,0,.15));
-          z-index: -1;
-          will-change: width;
-          transition: width .36s cubic-bezier(.22,.61,.36,1);
-        }
-        .content.wwd-section .about-cta:hover::after,
-        .content.wwd-section .about-cta:focus-visible::after{
-          width: var(--about-cta-underline-w, 220px);       /* fill reaches the same width as the line */
-        }
-        /* CTA label typography unified with section labels */
-        .content.wwd-section .about-cta .cta-label{
-          display: inline-block;
-          font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: var(--wwd-title-fs, 16px);
-          font-weight: var(--wwd-sec-title-w, var(--wwd-title-w, 500));
-          letter-spacing: .10em;
-          text-transform: uppercase;
-          color: #fff;
-          transition: color .28s cubic-bezier(.22,.61,.36,1);
-          transform: translate(var(--about-cta-txt-x, 0px), var(--about-cta-txt-y, 0px));
-          will-change: transform;
-        }
-
-        .content.wwd-section .about-cta:hover .cta-label,
-        .content.wwd-section .about-cta:focus-visible .cta-label{
-          color: #111;
-        }
-
-        /* ===== FULL‑BLEED VIDEO under Projects (lines overlay above) ===== */
-        .content.wwd-section .wwd-fullvideo{
-          position: relative;
-          width: 100vw;
-          margin: var(--about-video-gap-top, 80px) 0 0 0;
-          /* cancel container gutters so it truly spans edge-to-edge */
-          margin-left: calc(-1 * var(--wwd-gutter-l, 0px));
-          margin-right: calc(-1 * var(--wwd-gutter-r, 0px));
-          isolation: isolate; /* ensure overlay sits above video only */
-          transform: translateY(var(--about-video-y, 0px));
-          will-change: transform;
-        }
-        .content.wwd-section .wwd-fullvideo::before{
-          content: "";
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 1; /* above video, below guide lines */
-          background: rgba(0,0,0, var(--about-video-overlay, 0));
-        }
-        .content.wwd-section .wwd-fullvideo .about-video{
-          display: block;
-          width: 100%;
-          height: auto;                                   /* auto height to avoid top/bottom crop */
-          aspect-ratio: var(--about-video-aspect, 16/9);  /* keep full frame; adjust with knob */
-          object-fit: var(--about-video-fit, cover);      /* use "contain" to guarantee no crop */
-          object-position: 50% var(--about-video-pos-y, 50%);
-          max-height: var(--about-video-h, none);         /* optional ceiling if you still want one */
-        }
-        /* Overlay the same three vertical guide lines ON TOP of the video */
-        .content.wwd-section .wwd-fullvideo::after{
-          content:"";
-          position:absolute;
-          inset:0;
-          pointer-events:none;
-          z-index: 2;
-          background-image:
-            linear-gradient(to bottom, var(--guides-color, rgba(0,0,0,.08)), var(--guides-color, rgba(0,0,0,.08))),
-            linear-gradient(to bottom, var(--guides-color, rgba(0,0,0,.08)), var(--guides-color, rgba(0,0,0,.08))),
-            linear-gradient(to bottom, var(--guides-color, rgba(0,0,0,.08)), var(--guides-color, rgba(0,0,0,.08)));
-          background-size: var(--wwd-guide-w, 1px) 100%, var(--wwd-guide-w, 1px) 100%, var(--wwd-guide-w, 1px) 100%;
-          background-repeat: no-repeat;
-          background-position: 25% 0, 50% 0, 75% 0;
-        }
-
-        @media (max-width: 860px){
-          .content.wwd-section .wwd-fullvideo .about-video{
-            height: auto;
-            aspect-ratio: var(--about-video-aspect, 16/9);
-            max-height: min(54vh, 420px);
-          }
-        }
-        .content.wwd-section .container{
-          /* Full-bleed container so text can reach the far right edge */
-          width: 100vw;
-          max-width: none;
-          margin: 0; /* no auto-centering gutters */
-          position: relative;
-          overflow: visible;
-          padding-left: var(--wwd-gutter-l, 0px);
-          padding-right: var(--wwd-gutter-r, 0px);
-          box-sizing: border-box;
-          transform: translateY(var(--wwd-block-y, 0px));
-          will-change: transform;
-        }
-        .content.wwd-section::before{
-          content:"";
-          position:absolute;
-          inset:0;                 /* start at the very top of the section */
-          pointer-events:none;
-          z-index:0;               /* behind content */
-          --guides-color: rgba(255,255,255,0.9);
-          background-image:
-            linear-gradient(to bottom, var(--guides-color), var(--guides-color)),
-            linear-gradient(to bottom, var(--guides-color), var(--guides-color)),
-            linear-gradient(to bottom, var(--guides-color), var(--guides-color));
-          background-size: var(--wwd-guide-w, 1px) 100%, var(--wwd-guide-w, 1px) 100%, var(--wwd-guide-w, 1px) 100%;
-          background-repeat: no-repeat;
-          /* Equally distributed across the entire section width */
-          background-position: 25% 0, 50% 0, 75% 0;
-        }
-        /* Numeric labels that sit on top of the three vertical guide lines */
-        .content.wwd-section .wwd-guides-labels{
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 1; /* above the ::before guides, below main content */
-        }
-        .content.wwd-section .wwd-guides-labels .g-label{
-          position: absolute;
-          top: var(--wwd-guide-label-top, 28px);
-          left: calc(var(--x) + var(--wwd-guide-label-gap, 12px));
-          transform: translateX(0);
-          font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: var(--wwd-guide-label-fs, var(--wwd-title-fs, 16px));
-          font-weight: var(--wwd-guide-label-w, 500);
-          letter-spacing: .06em;
-          color: var(--wwd-guide-label-color, #5f6b5e);
-        }
-
-        /* Section titles that sit below the numeric labels, aligned to each guide */
-        .content.wwd-section .wwd-guides-titles{
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 1; /* above guides, below main content */
-        }
-        .content.wwd-section .wwd-guides-titles .g-title{
-          position: absolute;
-          top: var(--wwd-sec-title-top, calc(var(--wwd-guide-label-top, 28px) + 40px));
-          left: calc(var(--x) + var(--wwd-sec-title-gap, 12px));
-          transform: translate(var(--wwd-sec-title-x, 0px), var(--wwd-sec-title-y, 0px));
-          margin: 0;
-          font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: var(--wwd-title-fs, 16px) !important;
-          font-weight: var(--wwd-sec-title-w, var(--wwd-title-w, 500)) !important;
-          letter-spacing: .10em;
-          color: var(--wwd-sec-title-color, #555);
-          text-transform: uppercase;
-          white-space: nowrap;
-        }
-        .eyebrow{
-          margin: 0 0 12px 0;
-          font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-weight: var(--wwd-title-w, 500);
-          text-transform:uppercase;
-          letter-spacing:.10em;
-          font-size: var(--wwd-title-fs, 12px);
-          color:#555;
-        }
-        .wwd-grid{
-          display:grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap:0;
-          margin-top:clamp(16px, 3vw, 36px);
-          min-height:min(40vh, 520px);
-        }
-        .service{
-          display:flex;
-          align-items:flex-start;
-          padding: clamp(8px, 1.5vw, 14px) 0;
-        }
-        .service-name{
-          font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: clamp(14px, 1.2vw, 18px);
-          font-weight: 600;
-          letter-spacing:.02em;
-          margin:0;
-          text-transform:none;
-          color:#1a1a1a;
-        }
-.lead{ font-family:'Playfair Display', 'Times New Roman', serif; font-weight:400; font-size: var(--hero-title-fs) !important; line-height:1.08; margin:0; color:#111; }
-
-        /* Offsets (knobs) for WHAT WE DO title and text */
-        .wwd-section .eyebrow{
-          transform: translate(var(--wwd-title-x, 0px), var(--wwd-title-y, 0px));
-          will-change: transform;
-        }
-        .wwd-section .lead{
-          /* Allow growth until the actual right edge minus the configured gutter and the X offset */
-          max-width: min(
-            var(--wwd-text-maxw, 780px),
-            calc(100vw - var(--wwd-gutter-r, 0px) - var(--wwd-text-x, 0px))
-          );
-          margin-left: var(--wwd-text-x, 0px);
-          margin-top: var(--wwd-text-y, 0px);
-          box-sizing: border-box;
-        }
-        /* — Uppercase only for WHAT WE DO paragraph — */
-        .content.wwd-section .lead{
-          text-transform: uppercase;
-          letter-spacing: var(--hero-letter-spacing, 0em);
-        }
-
-        /* Align Triptych under the 01/02/03 numerals of the guides */
-        .content.wwd-section :global(.triptych-wrapper){
-          /* Place cards below the new section titles */
-          margin-top: calc(
-            var(--wwd-sec-title-top, calc(var(--wwd-guide-label-top, 28px) + 40px))
-            + var(--wwd-sec-title-gap-v, 40px)
-          );
-        }
-        /* Descriptions under each column, aligned to the same vertical guides (to the RIGHT of the line using the same gap) */
-        .content.wwd-section .wwd-guides-descriptions{
-          /* lock auto-placement to rows so texts stay on row 1 */
-          grid-auto-flow: row;
-          grid-auto-rows: auto;
-          margin-top: var(--wwd-desc-gap-top, 16px); /* distance below the images wrapper */
-          display: grid;
-          grid-template-columns: repeat(4, 1fr); /* 4 equal columns -> guides at 25/50/75% */
-          gap: 0;
-          position: relative;
-          z-index: 1;
-        }
-        .content.wwd-section .wwd-guides-descriptions .g-desc{
-          grid-row: 1;
-          margin: 0;
-          font-family: 'Playfair Display', 'Times New Roman', serif;
-          font-size: var(--wwd-desc-fs, 14px);
-          font-weight: var(--wwd-desc-w, 400);
-          color: var(--wwd-desc-color, #595f59);
-          line-height: 1.55;
-          padding-left: var(--wwd-sec-title-gap, 12px); /* usa el mismo gap que los títulos */
-          max-width: var(--wwd-desc-maxw, 32ch);
-          display: -webkit-box;
-          -webkit-line-clamp: 2;       /* fuerza 2 líneas */
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          will-change: transform;
-        }
-        /* Map each description to the column to the RIGHT of its guide:
-           01 -> col 2, 02 -> col 3, 03 -> col 4  */
-        .content.wwd-section .wwd-guides-descriptions .g-desc.col1{ grid-column: 2 / 3; }
-        .content.wwd-section .wwd-guides-descriptions .g-desc.col2{ grid-column: 3 / 4; }
-        .content.wwd-section .wwd-guides-descriptions .g-desc.col3{ grid-column: 4 / 5; }
-
-        .content.wwd-section .wwd-guides-descriptions .g-desc.col1{
-          transform: translate(
-            calc(var(--wwd-desc-x, 0px) + var(--wwd-desc1-x, 0px)),
-            calc(var(--wwd-desc-y, 0px) + var(--wwd-desc1-y, 0px))
-          );
-        }
-        .content.wwd-section .wwd-guides-descriptions .g-desc.col2{
-          transform: translate(
-            calc(var(--wwd-desc-x, 0px) + var(--wwd-desc2-x, 0px)),
-            calc(var(--wwd-desc-y, 0px) + var(--wwd-desc2-y, 0px))
-          );
-        }
-        .content.wwd-section .wwd-guides-descriptions .g-desc.col3{
-          transform: translate(
-            calc(var(--wwd-desc-x, 0px) + var(--wwd-desc3-x, 0px)),
-            calc(var(--wwd-desc-y, 0px) + var(--wwd-desc3-y, 0px))
-          );
-        }
-
-        /* === CTA (col1) debajo del párrafo: línea por defecto que se convierte en botón al hover === */
-        .content.wwd-section .wwd-guides-descriptions .g-cta{
-          align-self: start;
-          justify-self: start;
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          margin: var(--wwd-cta-gap-top, 28px) 0 0 0; /* push CTA further down; knob-friendly */
-          padding: 8px 12px;
-          border-radius: 6px;
-          border: 1px solid transparent; /* evita salto de layout al hacer hover */
-          background: transparent;
-          text-decoration: none;
-          font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-weight: 600;
-          letter-spacing: .08em;
-          font-size: clamp(12px, 1.1vw, 14px);
-          color: #111;
-          /* mismo inset que títulos/desc para partir desde la guía */
-          padding-left: var(--wwd-sec-title-gap, 12px);
-          grid-row: 2;
-          transform: translate(var(--wwd-cta-x, 0px), var(--wwd-cta-y, 0px));
-          isolation: isolate;
-          z-index: 1;
-        }
-        /* Subrayado fino que nace desde la línea vertical */
-        .content.wwd-section .wwd-guides-descriptions .g-cta::before{
-          content:"";
-          position:absolute;
-          left: calc(-1 * var(--wwd-sec-title-gap, 12px)); /* arranca en la guía */
-          top: calc(-1 * var(--wwd-cta-line-gap, 10px));   /* línea por ENCIMA del CTA */
-          width: var(--wwd-cta-underline-w, 220px);
-          height: var(--wwd-guide-w, 1px);
-          background: var(--guides-color, rgba(0,0,0,.15));
-          transition: opacity .28s cubic-bezier(.22,.61,.36,1), transform .28s cubic-bezier(.22,.61,.36,1);
-        }
-        /* Relleno que se forma desde la guía (izquierda) y crece hacia la derecha */
-        .content.wwd-section .wwd-guides-descriptions .g-cta::after{
-          content: "";
-          position: absolute;
-          left: calc(-1 * var(--wwd-sec-title-gap, 12px)); /* arranca exactamente en la guía */
-          top: calc(-1 * var(--wwd-cta-line-gap, 10px));   /* desde la línea superior */
-          height: calc(100% + var(--wwd-cta-line-gap, 10px)); /* cubre desde la línea hasta el borde inferior del CTA */
-          width: 0;                                        /* sin ancho por defecto */
-          background: var(--guides-color, rgba(0,0,0,.15));
-          border-left: var(--wwd-guide-w, 1px) solid var(--guides-color, rgba(0,0,0,.15));
-          border-top: var(--wwd-guide-w, 1px) solid var(--guides-color, rgba(0,0,0,.15)); /* une con la línea superior */
-          z-index: -1;                                    /* detrás del texto */
-          will-change: width; transition: width .36s cubic-bezier(.22,.61,.36,1);
-        }
-        .content.wwd-section .wwd-guides-descriptions .g-cta:hover::after,
-        .content.wwd-section .wwd-guides-descriptions .g-cta:focus-visible::after{
-          width: var(--wwd-cta-underline-w, 220px);       /* se llena hasta el ancho de la línea */
-        }
-        /* Hover/Focus: se convierte en botón */
-        .content.wwd-section .wwd-guides-descriptions .g-cta:hover,
-        .content.wwd-section .wwd-guides-descriptions .g-cta:focus-visible{
-          background: transparent;
-          border-color: transparent;
-        }
-        .content.wwd-section .wwd-guides-descriptions .g-cta:hover::before,
-        .content.wwd-section .wwd-guides-descriptions .g-cta:focus-visible::before{
-          opacity: 1;      /* mantener visible */
-          transform: none; /* sin desplazamiento */
-        }
-        .content.wwd-section .wwd-guides-descriptions .g-cta .cta-label{
-          display: inline-block;
-          font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: var(--wwd-title-fs, 16px);
-          font-weight: var(--wwd-sec-title-w, var(--wwd-title-w, 500));
-          letter-spacing: .10em;
-          text-transform: uppercase;
-          color: var(--wwd-sec-title-color, #555);
-          transform: translate(var(--wwd-cta-txt-x, 0px), var(--wwd-cta-txt-y, 0px));
-          will-change: transform;
-        }
-        /* Mapeo por columna (misma lógica que g-desc) */
-        .content.wwd-section .wwd-guides-descriptions .g-cta.col1{ grid-column: 2 / 3; }
-        .content.wwd-section .wwd-guides-descriptions .g-cta.col2{ grid-column: 3 / 4; }
-        .content.wwd-section .wwd-guides-descriptions .g-cta.col3{ grid-column: 4 / 5; }
-
-        /* Eyebrow replicado debajo del CTA, alineado a la guía y con el mismo estilo que .g-title */
-        .content.wwd-section .wwd-guides-descriptions .g-eyebrow{
-          grid-row: 3; /* queda debajo del CTA */
-          margin: var(--wwd-eyebrow-gap-top, 20px) 0 0 0; /* distancia desde el CTA */
-          padding-left: var(--wwd-sec-title-gap, 12px);  /* mismo inset respecto a la guía */
-          font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: var(--wwd-title-fs, 16px) !important;
-          font-weight: var(--wwd-sec-title-w, var(--wwd-title-w, 500)) !important;
-          letter-spacing:.10em;
-          text-transform:uppercase;
-          color: var(--wwd-sec-title-color, #555);
-          white-space: nowrap;
-        }
-        .content.wwd-section .wwd-guides-descriptions .g-eyebrow.col1{
-          grid-column: 2 / 3;
-          transform: translate(var(--wwd-eyebrow1-x, 0px), var(--wwd-eyebrow1-y, 0px));
-        }
-        .content.wwd-section .wwd-guides-descriptions .g-eyebrow.col2{ grid-column: 3 / 4; }
-        .content.wwd-section .wwd-guides-descriptions .g-eyebrow.col3{ grid-column: 4 / 5; }
-        .content.wwd-section .wwd-guides-descriptions .g-cta.col1{
-          transform: translate(
-            calc(var(--wwd-cta-x, 0px) + var(--wwd-cta1-x, 0px)),
-            calc(var(--wwd-cta-y, 0px) + var(--wwd-cta1-y, 0px))
-          );
-        }
-        .content.wwd-section .wwd-guides-descriptions .g-cta.col3{
-          transform: translate(
-            calc(var(--wwd-cta-x, 0px) + var(--wwd-cta3-x, 0px)),
-            calc(var(--wwd-cta-y, 0px) + var(--wwd-cta3-y, 0px))
-          );
-        }
-
-        .wrapper-parallax { margin-top:100%; margin-bottom:300px; box-shadow:0 0 20px rgba(0,0,0,.5); }
-
-        h1{
-          width:100%; height:auto; padding:0 3vw; margin:0 auto; text-transform:uppercase; text-align:center;
-          font-family: Helvetica, Arial, sans-serif; font-size:clamp(48px,12vw,150px); line-height:1.1; color:#fff; max-width:1200px; text-wrap:balance;
-        }
-        h1 .caret { letter-spacing: 0; }
-        .content h1{ line-height:1.1; color:#111; }
-        footer h1 { line-height:300px; }
-
-        header, footer{
-          transition: all .4s cubic-bezier(0,0,0,1);
-        }
 
 
-        /* === New top menu (matches screenshot) === */
-        .site-nav{ position:fixed; top:0; left:0; right:0; z-index:1000; background:transparent; transition: background-color .25s ease, border-color .25s ease; }
-        .site-nav__inner{ max-width: var(--nav-inner-maxw, 1200px); margin:0 auto; padding:10px 16px; display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap: var(--nav-col-gap, 12px); }
-        .site-nav.is-solid{ background:#DCD8CE; border-bottom:1px solid rgba(0,0,0,.06); }
-        .site-nav.is-solid .nav-link, .site-nav.is-solid .brand-mark{ color:#111; text-shadow:none; }
-        .nav-left{ display:flex; gap: var(--nav-item-gap, 24px); align-items:center; list-style:none; padding:0; margin:0; }
-        .nav-right{ display:flex; gap: var(--nav-item-gap, 24px); align-items:center; justify-self:end; margin:0; }
-        .nav-link{
-          font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-weight: var(--wwd-title-w, 500);
-          text-transform: uppercase;
-          letter-spacing: .10em;
-          font-size: var(--nav-title-fs, var(--wwd-title-fs, 16px));
-          text-decoration: none;
-          color:#fff;
-          mix-blend-mode: normal;
-        }
-        .brand-mark{
-          justify-self:center;
-          text-decoration:none;
-          font-family:'Playfair Display','Times New Roman',serif;
-          font-size:22px;
-          font-weight:400;
-          letter-spacing:normal;
-          text-transform:none;
-          color:#fff;
-        }
-        .brand-mark span{ letter-spacing:.01em; }
-        .cta{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:0; background:rgba(255,255,255,.8); border:1px solid rgba(0,0,0,.08); color:#111; font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; font-weight: var(--wwd-title-w, 500); text-transform:uppercase; letter-spacing:.10em; font-size: var(--nav-title-fs, var(--wwd-title-fs, 16px)); text-decoration:none; box-shadow:0 2px 12px rgba(0,0,0,.08); }
-        .cta:hover{ transform:translateY(-1px); box-shadow:0 6px 18px rgba(0,0,0,.12); }
 
-        /* Contrast when hero is dark; we keep white links over hero then dark after scroll */
-        .is-hero .nav-link, .is-hero .brand-mark{ color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.35); }
-
-        @media (max-width: 900px){
-          .site-nav__inner{ grid-template-columns:1fr auto; }
-          .nav-left{ display:none; }
-        }
-
-
-        /* === Typewriter styles === */
-        .typewriter {
-          position: relative;
-        }
-        .typewriter .tw-line {
-          display: block;               /* force each line onto its own row */
-          white-space: pre;             /* respect spaces; no wrapping within line */
-        }
-        .typewriter .caret{
-          display: inline-block;
-          margin-left: .1em;
-          vertical-align: baseline;
-          animation: caretBlink 1s steps(2, start) infinite;
-          will-change: transform, opacity;
-          transform: translate(var(--caret-x, 0px), var(--caret-y, 0px)) scaleX(var(--caret-scale-x, 1));
-          transform-origin: center;
-        }
-        .typewriter .caret.is-hidden { visibility: hidden; }
-        @keyframes caretBlink {
-          0%, 50% { opacity: 1; }
-          50.01%, 100% { opacity: 0; }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        :root{
-          --hero-title-fs: 50px;
-          --hero-title-w: 200;
-          --hero-overlay: 0.25;
-          --hero-letter-spacing: 0em;
-          --guides-color: rgba(0,0,0,.08);
-          --guide-l1: 25%;
-          --guide-l2: 50%;
-          --guide-l3: 75%;
-          --title-lift: 0px;
-          --mid-offset: 0px;
-        }
-        header h1{
-          font-family: 'Playfair Display', 'Times New Roman', serif !important;
-          font-size: var(--hero-title-fs) !important;
-          font-weight: var(--hero-title-w) !important;
-          text-transform: uppercase !important;
-          letter-spacing: var(--hero-letter-spacing, 0em);
-        }
-      `}</style>
-      <style jsx global>{`
-        /* helper: treat first viewport as hero context for white links */
-        body:is(.on-hero, :root) .site-nav .nav-link,
-        body:is(.on-hero, :root) .site-nav .brand-mark{ color:#fff; }
-      `}</style>
     </>
   );
 }

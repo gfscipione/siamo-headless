@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import ParallaxDemo from "./components/ParallaxDemo";
 
 export const revalidate = 60; // revalidate WP fetch every 60s
@@ -52,10 +53,15 @@ async function getWpHome() {
 export default async function Home() {
   const wp = await getWpHome();
 
+  const ua = (await headers()).get("user-agent") || "";
+  const initialIsMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(
+    ua
+  );
+
   const hero = wp?.heroUrl || "/assets/img/hero.webp";
   const DEFAULT_TITLE = "Designing your dream home\njust became a reality.";
   const title =
     wp?.title && wp.title.toLowerCase() !== "home" ? wp.title : DEFAULT_TITLE;
 
-  return <ParallaxDemo />;
+  return <ParallaxDemo initialIsMobile={initialIsMobile} />;
 }
