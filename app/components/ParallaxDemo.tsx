@@ -466,7 +466,7 @@ function TestimonialReel({
 
 export default function ParallaxDemo({
   bgUrl = "/assets/img/hero.webp",
-  bgUrlMobile = "/assets/img/herores.jpg",
+  bgUrlMobile = "/assets/img/hero.webp",
   useDesktopHeroOnMobile = true,
   initialIsMobile = null,
   heroOverlay = 0.32,

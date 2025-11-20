@@ -1,30 +1,36 @@
 import type { Metadata } from "next";
 
-const TITLE = "Siamo Design | Interior Design in Riviera Maya";
+const TITLE =
+  "Siamo Design – Interior design in the Mayan Riviera, Playa del Carmen, Tulum, Cancun.";
 const DESCRIPTION =
-  "Designing your dream space just became a reality. Remote and on-site interior design, styling, and build services across the Riviera Maya.";
-const HERO_IMAGE = "/assets/img/hero.webp";
+  "We create bespoke interiors in Tulum and Playa del Carmen. At Siamo Design, we design functional, elegant spaces ready to live in. Discover our approach to interior design in the Mayan Riviera!";
+const HERO_IMAGE =
+  "https://siamodesign.com/wp-content/uploads/2025/03/SD.webp"; // ideal: 1200×630
 
 export function getHomeSeo(baseUrl?: string): Metadata {
-  // Normaliza baseUrl y evita barras dobles
-  const normalizedBase = (baseUrl ?? "").replace(/\/+$/, "");
-  const canonical = normalizedBase ? `${normalizedBase}/` : undefined;
-  const imageUrl =
-    HERO_IMAGE.startsWith("http") || !normalizedBase
-      ? HERO_IMAGE
-      : new URL(HERO_IMAGE, normalizedBase).toString();
+  // normaliza base y evita barras dobles
+  const base = (baseUrl ?? "").replace(/\/+$/, "");
+  const canonical = base ? `${base}/` : undefined;
+
+  // arma URL absoluta de la imagen OG si fuera relativa
+  const imageUrl = HERO_IMAGE.startsWith("http")
+    ? HERO_IMAGE
+    : base
+    ? `${base}${HERO_IMAGE}`
+    : HERO_IMAGE;
 
   return {
     title: TITLE,
     description: DESCRIPTION,
-    alternates: canonical ? { canonical } : undefined,
+    alternates: { canonical },
     openGraph: {
       title: TITLE,
       description: DESCRIPTION,
       url: canonical,
-      images: [{ url: imageUrl, width: 1200, height: 630, type: "image/webp" }],
+      siteName: "Siamo Design",
       type: "website",
-      locale: "es_ES",
+      locale: "es_MX", // usa "es_ES" si prefieres España
+      images: [{ url: imageUrl, width: 1200, height: 630, type: "image/webp" }],
     },
     twitter: {
       card: "summary_large_image",
@@ -35,8 +41,4 @@ export function getHomeSeo(baseUrl?: string): Metadata {
   };
 }
 
-export const homeSeo = {
-  title: TITLE,
-  description: DESCRIPTION,
-  image: HERO_IMAGE,
-};
+export const homeSeo = { title: TITLE, description: DESCRIPTION, image: HERO_IMAGE };
