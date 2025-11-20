@@ -469,8 +469,8 @@ export default function ParallaxDemo({
   bgUrlMobile = "/assets/img/hero.webp",
   useDesktopHeroOnMobile = true,
   initialIsMobile = null,
-  heroOverlay = 0.32,
-  heroOverlayMobile = 0.32,
+  heroOverlay = 0,
+  heroOverlayMobile = 0,
   title = "Designing your dream space \njust became a reality",
   titleMobile = "YOUR DREAM SPACE, ANYWHERE.",
   titlePx = 55,
@@ -1371,8 +1371,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
         0,
         Math.min(isMobileViewport ? heroOverlayMobile : heroOverlay, 1)
       );
-      const dyn = pf * 0.12 * t;
-      setCssVar("--hero-overlay", Math.min(1, overlayBase + dyn).toFixed(3));
+      const overlayDyn = (heroOverlay === 0 && heroOverlayMobile === 0) ? 0 : pf * 0.12 * t;
+      setCssVar("--hero-overlay", Math.min(1, overlayBase + overlayDyn).toFixed(3));
 
       // footer motion
       scrollFooter(y, footerHeight);
