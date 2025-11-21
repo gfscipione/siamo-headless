@@ -1378,7 +1378,10 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       // Mobile: disable parallax offsets but keep layout synced
       if (isMobileViewport) {
         // Keep natural scroll progression (no eased parallax offsets)
-        main.style.top = `-${y}px`;
+        root.style.height = "";
+        main.style.height = "";
+        main.style.position = "relative";
+        main.style.top = "0px";
         content.style.transform = "translateY(0px)";
         header.style.backgroundPosition = `${heroBgPosXCurrent}% 50%`;
         setCssVar("--title-lift", "0px");
