@@ -1424,6 +1424,19 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       footerHeight = footer.getBoundingClientRect().height;
       const contentHeight = content.getBoundingClientRect().height;
 
+      // On mobile, let the document flow naturally (no fixed canvas sizing)
+      if (isMobileViewport) {
+        heightDocument = windowHeight + contentHeight + footerHeight;
+        root.style.height = "";
+        main.style.height = "";
+        main.style.position = "relative";
+        header.style.height = `${windowHeight}px`;
+        const wrap = root.querySelector<HTMLDivElement>(".wrapper-parallax");
+        if (wrap) wrap.style.marginTop = "0px";
+        render();
+        return;
+      }
+
       heightDocument = windowHeight + contentHeight + footerHeight;
 
       root.style.height = `${heightDocument}px`;
@@ -1468,10 +1481,6 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
     }
 
     const ensureLoop = () => {
-      if (isMobileViewport) {
-        render();
-        return;
-      }
       if (scrollRafRef.current == null) {
         scrollRafRef.current = requestAnimationFrame(loop);
       }
@@ -1479,17 +1488,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
 
     const onScroll = () => {
       targetYRef.current = window.scrollY || window.pageYOffset || 0;
-      if (isMobileViewport) {
-        smoothYRef.current = targetYRef.current;
-        render();
-        return;
-      }
       ensureLoop();
     };
 
     const onResize = () => {
       compute();
-      if (isMobileViewport) return;
       ensureLoop();
     };
 

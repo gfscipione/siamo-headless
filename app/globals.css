@@ -26,12 +26,6 @@ body {
   font-family: var(--font-sans, 'Poppins'), system-ui, -apple-system, "Segoe UI", sans-serif;
   text-rendering: optimizeLegibility;
 }
-@media (max-width: 860px){
-  html, body{
-    overscroll-behavior: none;
-    overflow-x: hidden;
-  }
-}
 
 img,
 video {
@@ -528,13 +522,20 @@ video {
   background: rgba(0,0,0,var(--hero-overlay, 0.32));
 }
         #scroll-animate { overflow:hidden; min-height:100vh; }
-        #scroll-animate-main{
-          width:100%;
-          left:0;
-          top:0;
-          position:fixed;
-        }
-        #scroll-animate-main{ background:#F4F2EA; }
+#scroll-animate-main{
+  width:100%;
+  left:0;
+  top:0;
+  position:fixed;
+}
+#scroll-animate-main{ background:#F4F2EA; }
+@media (max-width: 860px){
+  #scroll-animate-main{
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+}
 
         /* ====== NAV – hamburger & mobile drawer ====== */
         .site-nav{ position: sticky; top:0; z-index: 20; --nav-bar-h: var(--nav-bar-h-desktop, 48px); }
@@ -2767,7 +2768,14 @@ footer::before{
           );
         }
 
-        .wrapper-parallax { margin-top:100%; margin-bottom:300px; box-shadow:0 0 20px rgba(0,0,0,.5); }
+.wrapper-parallax { margin-top:100%; margin-bottom:300px; box-shadow:0 0 20px rgba(0,0,0,.5); }
+@media (max-width: 860px){
+  .wrapper-parallax{
+    margin-top: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+  }
+}
 
         h1{
           width:100%; height:auto; padding:0 3vw; margin:0 auto; text-transform:uppercase; text-align:center;
