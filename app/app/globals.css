@@ -120,7 +120,7 @@ video {
           width: min(1100px, 92vw);
           margin: var(--reel-thumbs-gap, 28px) auto 0 auto;
           display: grid;
-          grid-template-columns: 32px repeat(3, minmax(180px, 1fr)) 32px;
+          grid-template-columns: repeat(3, minmax(180px, 1fr));
           gap: var(--reel-thumbs-gap, 18px);
           align-items: stretch;
           justify-content: center;
@@ -132,7 +132,7 @@ video {
           display: block;
           width: 100%;
           aspect-ratio: 16/9;
-          border: 5px solid var(--footer-overlap, rgba(0,0,0,0.12));
+          border: none;
           background: #e8e4da;
           cursor: pointer;
           opacity: .65;
@@ -161,33 +161,6 @@ video {
         .reel-thumbs .thumb:disabled{
           cursor: default;
           opacity: .55;
-        }
-        .reel-thumbs .thumb-nav{
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          border: 1px solid rgba(17,17,17,0.15);
-          border-radius: 0;
-          background: #fff;
-          color: #111;
-          font-size: 18px;
-          font-weight: 500;
-          transition: background .2s ease, color .2s ease, transform .2s ease;
-        }
-        .reel-thumbs .thumb-nav--next{
-          /* Match the left button styling */
-          color: #111;
-          border-color: rgba(17,17,17,0.15);
-          background: #fff;
-        }
-        .reel-thumbs .thumb-nav:not(:disabled):hover{
-          background: #111;
-          color: #fff;
-          transform: translateY(-2px);
-        }
-        .reel-thumbs .thumb-nav:disabled{
-          opacity: .4;
-          cursor: not-allowed;
         }
 .reel-nav-mobile{
   display: none;
@@ -1290,29 +1263,6 @@ footer::before{
         }
         .footer-explore .explore a:hover{ opacity:.95; text-decoration: underline; }
         .footer-explore .social{ display:flex; align-items:center; gap: 10px; }
-        .footer-explore .social .social__link{
-          display:inline-flex;
-          align-items:center;
-          justify-content:center;
-          width: 32px;
-          height: 32px;
-          border-radius: 999px;
-          border:1px solid rgba(255,255,255,.25);
-          background: rgba(0,0,0,.08);
-          color: rgba(255,255,255,.9);
-          transition: transform .15s ease, opacity .15s ease, background-color .15s ease, color .15s ease;
-        }
-        .footer-explore .social .social__link:hover{
-          opacity:1;
-          transform: translateY(-1px);
-          background: rgba(255,255,255,.10);
-          color: #fff;
-        }
-        .footer-explore .social .social__link svg{
-          width: 18px;
-          height: 18px;
-          fill: currentColor;
-        }
         .footer-explore .social .ico{
           display:inline-grid; place-items:center;
           width: 28px; height: 28px; border-radius:999px;
@@ -2161,7 +2111,7 @@ footer::before{
   display: block;
   width: 100%;
   padding-top: 100%;             /* square tiles */
-  overflow: visible;             /* allow the halo to extend without shrinking the slot */
+  overflow: visible;
   background: #e8e4da;
   border: none;
   cursor: pointer;
@@ -2172,18 +2122,10 @@ footer::before{
   .content.wwd-section .follow .f-item::before{
     content:"";
     position:absolute;
-    inset: calc(var(--follow-card-grow, 0px) * -1); /* extend halo */
+    inset: calc(var(--follow-card-grow, 0px) * -1);
     background:#e8e4da;
     z-index: -1;
     transition: inset .2s ease;
-  }
-  /* Stretch media to cover the halo so it doesn't look inset */
-  .content.wwd-section .follow .f-item img,
-  .content.wwd-section .follow .f-item .ph{
-    inset: calc(var(--follow-card-grow, 0px) * -1);
-    width: calc(100% + (var(--follow-card-grow, 0px) * 2));
-    height: calc(100% + (var(--follow-card-grow, 0px) * 2));
-    object-fit: cover;
   }
 }
         .content.wwd-section .follow .f-item:hover{

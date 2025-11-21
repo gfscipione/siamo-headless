@@ -427,15 +427,6 @@ function TestimonialReel({
         </div>
       ) : null}
       <div className="reel-thumbs" role="list" aria-label="Choose a testimonial">
-        <button
-          type="button"
-          className="thumb-nav thumb-nav--prev"
-          onClick={goPrev}
-          aria-label="Anterior testimonio"
-          disabled={n <= 1}
-        >
-          ‹
-        </button>
         {Array.from({ length: 3 }).map((_, i) => {
           const v = videos[i];
           const isActive = idx === i;
@@ -467,15 +458,6 @@ function TestimonialReel({
             </button>
           );
         })}
-        <button
-          type="button"
-          className="thumb-nav thumb-nav--next"
-          onClick={goNext}
-          aria-label="Siguiente testimonio"
-          disabled={n <= 1}
-        >
-          ›
-        </button>
       </div>
 
     </section>
@@ -487,8 +469,8 @@ export default function ParallaxDemo({
   bgUrlMobile = "/assets/img/hero.webp",
   useDesktopHeroOnMobile = true,
   initialIsMobile = null,
-  heroOverlay = 0,
-  heroOverlayMobile = 0,
+  heroOverlay = 0.32,
+  heroOverlayMobile = 0.32,
   title = "Designing your dream space \njust became a reality",
   titleMobile = "YOUR DREAM SPACE, ANYWHERE.",
   titlePx = 55,
@@ -796,16 +778,9 @@ export default function ParallaxDemo({
   followGridYMobile = -1180,
   followCardSizeMobile = 160,
   followCols = 6,
-  followCardGrow = 20,
+  followCardGrow = 40,
   followCardGap = 100,
-  followItems = [
-    "/assets/img/post1.jpeg",
-    "/assets/img/post2.jpeg",
-    "/assets/img/post3.jpeg",
-    "/assets/img/post4.jpeg",
-    "/assets/img/post5.jpeg",
-    "/assets/img/post6.jpeg",
-  ],
+  followItems = [],
   footerLift = 30,          // px: manual lift (positive lifts UP) to close any tiny seam above the footer
   footerOverlap = 50,        // desktop/global overlap (px) to hide seams between sections
   footerPadTopMobile = 55,
@@ -1392,8 +1367,12 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       setCssVar("--mid-offset", `${midMove.toFixed(1)}px`);
 
       const t = Math.min(py / (windowHeight * 0.4 || 1), 1);
-      // Disable hero overlay on all viewports
-      setCssVar("--hero-overlay", "0");
+      const overlayBase = Math.max(
+        0,
+        Math.min(isMobileViewport ? heroOverlayMobile : heroOverlay, 1)
+      );
+      const dyn = pf * 0.12 * t;
+      setCssVar("--hero-overlay", Math.min(1, overlayBase + dyn).toFixed(3));
 
       // footer motion
       scrollFooter(y, footerHeight);
@@ -1515,14 +1494,9 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
     : 0;
   const followFallbackSlots = Math.max(6, followCols || 0);
   const hasFollowItems = Array.isArray(followItems) && followItems.length > 0;
-  // Fill to grid length even when only a few items are provided (rest become placeholders)
   const followGridItems = hasFollowItems
-    ? (() => {
-        const target = Math.max(followFallbackSlots, followItems.length, followCols || 0);
-        const fillers = Array<string>(Math.max(0, target - followItems.length)).fill("");
-        return followItems.concat(fillers);
-      })()
-    : Array<string>(followFallbackSlots).fill("");
+    ? followItems.slice(0, Math.max(1, followCols || followItems.length))
+    : Array.from({ length: followFallbackSlots }).fill("");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -2422,20 +2396,15 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   <TestimonialReel
                     videos={[
                       "/assets/videos/testimonials.mp4",
-                      "/assets/videos/capitulo1.mp4",
-                      "/assets/videos/capitulo2.mp4",
+                      "/assets/videos/testimonials.mp4",
+                      "/assets/videos/testimonials.mp4"
                     ]}
                     posters={[
                       "/assets/videos/testimonials-thumb.webp",
-                      "/assets/videos/capitulo1-thumb.jpg",
-                      "/assets/videos/capitulo2-thumb.jpg",
+                      "/assets/videos/testimonials-thumb.webp",
+                      "/assets/videos/testimonials-thumb.webp",
                     ]}
                     quotes={[
-                      {
-                        quote:
-                          "Seamless process, stunning results. I felt heard at every step and the outcome exceeded expectations.",
-                        author: "LAURA",
-                      },
                       {
                         quote:
                           "From creating the perfect layout to finding pieces I absolutely loved, my designer really took my space to the next level. I never dreamed my home could look — and feel — this good!",
@@ -2445,6 +2414,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                         quote:
                           "They captured exactly what I wanted and made the process effortless. The space finally feels like home.",
                         author: "MATT",
+                      },
+                      {
+                        quote:
+                          "Seamless process, stunning results. I felt heard at every step and the outcome exceeded expectations.",
+                        author: "LAURA",
                       },
                     ]}
                     varsStyle={{
