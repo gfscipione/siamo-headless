@@ -526,9 +526,12 @@ video {
   width:100%;
   left:0;
   top:0;
+  position:relative; /* fallback so hero se ve aunque no haya parallax */
+  background:#F4F2EA;
+}
+#scroll-animate-main.has-parallax{
   position:fixed;
 }
-#scroll-animate-main{ background:#F4F2EA; }
 @media (max-width: 860px){
   #scroll-animate-main{
     position: relative;
@@ -930,10 +933,19 @@ header::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,var
           }
         }
         @media (max-width: 420px){
-          .hero-title h1.typewriter{
-            font-size: var(--hero-title-fs-m, 20px) !important;
-          }
+        .hero-title h1.typewriter{
+          font-size: var(--hero-title-fs-m, 20px) !important;
         }
+      }
+@media (max-width: 860px){
+  /* En mobile dejamos el header en flujo normal para que el hero sea visible */
+  header{
+    position: relative;
+    top: auto;
+    inset: auto;
+    height: 100vh;
+  }
+}
 .subline{
   font-family: var(--font-poppins, 'Poppins'), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   font-weight: var(--hero-subline-w, 350);

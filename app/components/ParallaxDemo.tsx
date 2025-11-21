@@ -1348,6 +1348,29 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
     const docEl   = document.documentElement;
     const cssVarKeys = ["--title-lift", "--mid-offset", "--hero-overlay"];
 
+    // En mobile desactivamos el parallax y no montamos listeners/RAF
+    if (isMobileViewport) {
+      const y = window.scrollY || window.pageYOffset || 0;
+      // Reset transforms/vars to avoid jank
+      root.style.height = "";
+      main.style.height = "";
+      main.style.position = "relative";
+      main.style.top = "0px";
+      content.style.transform = "translateY(0px)";
+      header.style.backgroundPosition = `${heroBgPosXCurrent}% 50%`;
+      cssVarKeys.forEach((k) => docEl.style.setProperty(k, "0"));
+      setNavSolid(y > 12);
+      // ensure fallback hides once DOM mounts
+      if (!readyRef.current) {
+        readyRef.current = true;
+        setParallaxReady(true);
+      }
+      return () => {
+        cssVarKeys.forEach((key) => docEl.style.removeProperty(key));
+        readyRef.current = false;
+      };
+    }
+
     // initialize targets based on current scroll
     targetYRef.current = window.scrollY || window.pageYOffset || 0;
     smoothYRef.current = targetYRef.current;
@@ -1943,7 +1966,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
           ['--hero-cta-offset-y-m' as any]: `${isMobileViewport ? heroCtaYOffsetMobile : 0}px`,
         }}
       >
-        <div id="scroll-animate-main" ref={mainRef}>
+        <div
+          id="scroll-animate-main"
+          ref={mainRef}
+          className={!isMobileViewport ? "has-parallax" : ""}
+        >
           <div className="wrapper-parallax">
             {/* ⬇ Fondo dinámico recibido por props */}
             <header
