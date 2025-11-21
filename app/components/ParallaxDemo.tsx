@@ -1375,6 +1375,20 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       const y = smoothYRef.current;
       const py = Math.min(y, PARALLAX_MAX_Y); // clamp parallax-only math; no impacto en scroll real
 
+      // Mobile: disable parallax offsets but keep layout synced
+      if (isMobileViewport) {
+        // Keep natural scroll progression (no eased parallax offsets)
+        main.style.top = `-${y}px`;
+        content.style.transform = "translateY(0px)";
+        header.style.backgroundPosition = `${heroBgPosXCurrent}% 50%`;
+        setCssVar("--title-lift", "0px");
+        setCssVar("--mid-offset", "0px");
+        setCssVar("--hero-overlay", "0");
+        scrollFooter(y, footerHeight);
+        setNavSolid(y > 12);
+        return;
+      }
+
       // move the fixed main with a smoothed offset
       main.style.top = `-${y}px`;
 
@@ -1451,6 +1465,10 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
     }
 
     const ensureLoop = () => {
+      if (isMobileViewport) {
+        render();
+        return;
+      }
       if (scrollRafRef.current == null) {
         scrollRafRef.current = requestAnimationFrame(loop);
       }
@@ -1458,11 +1476,17 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
 
     const onScroll = () => {
       targetYRef.current = window.scrollY || window.pageYOffset || 0;
+      if (isMobileViewport) {
+        smoothYRef.current = targetYRef.current;
+        render();
+        return;
+      }
       ensureLoop();
     };
 
     const onResize = () => {
       compute();
+      if (isMobileViewport) return;
       ensureLoop();
     };
 
