@@ -518,7 +518,7 @@ export default function ParallaxDemo({
   wwdTextX = 470,
   wwdTextY = -450,
   wwdTextXMobile = 8,
-  wwdTextYMobile = -280,
+  wwdTextYMobile = -270,
   wwdLeadFs = 18,
   wwdLeadFsMobile = 24,
   wwdLeadMaxWMobile = 280,
@@ -530,6 +530,7 @@ export default function ParallaxDemo({
   projectsTextMaxW = 1200,
   projectsTextX = 18,
   projectsTextY = 100,
+  projectsTextYMobile = 90,
   projectsGridGap = 1,
   projectsGridGapMobile = 1,
   projectsGridX = 20,
@@ -554,7 +555,7 @@ export default function ParallaxDemo({
   projectsCarouselItemsMobile = 2,
   projectsCarouselShiftPage1 = 0,
   projectsCarouselShiftPage2 = 5,
-  projectsCarouselBlockOffsetYMobile = -110,
+  projectsCarouselBlockOffsetYMobile = -40,
   projectsCarouselNavOffsetYMobile = -20,
   projectsCarouselWindowPadMobile = 110,
   projectsNavHeightMobile = 30,
@@ -604,22 +605,22 @@ export default function ParallaxDemo({
   wwdDescSepX = 0,
   wwdDesc1X = 0,
   wwdDesc1Y = 0,
-  wwdDesc1XM = -97,
-  wwdDesc1YM = -625,
+  wwdDesc1XM = -47,
+  wwdDesc1YM = -240,
   wwdDesc1MaxWM = 200,
   wwdDesc2X = 13,
   wwdDesc2Y = 1,
   wwdDesc2MaxWM = 220,
-  wwdDesc2XM = -296,
-  wwdDesc2YM = -215,
+  wwdDesc2XM = -47,
+  wwdDesc2YM = 130,
   wwdOnsiteCardMX = 131,
   wwdOnsiteCardMY = -85,
   wwdContentCardMX = 132,
   wwdContentCardMY = 145,
   wwdDesc3X = 30,
   wwdDesc3Y = 0,
-  wwdDesc3XM = 173,
-  wwdDesc3YM = -45,
+  wwdDesc3XM = 90,
+  wwdDesc3YM = 520,
   wwdSvc02TitleMaxWM = 120,
   wwdCtaX = 42,
   wwdCtaY = 89,
@@ -628,12 +629,14 @@ export default function ParallaxDemo({
   wwdCtaTxtXM = 5,
   wwdCta1X = 0,
   wwdCta1Y = 0,
-  wwdCtaMobileX = -296,
-  wwdCtaMobileY = -420,
+  wwdCtaMobileX = 0,
+  wwdCtaMobileY = 100,
+  wwdCtaMobileRightOffset = 25,
   wwdCta3X = 34,
   wwdCta3Y = 0,
-  wwdCta3MobileX = -785,
-  wwdCta3MobileY = -25,
+  wwdCta3MobileX = -80,
+  wwdCta3MobileY = 400,
+  wwdCta3MobileRightOffset = 30,
   wwdEyebrow1X = 18,
   wwdEyebrow1Y = 350,
   wwdEyebrow1XM = -290,
@@ -643,13 +646,13 @@ export default function ParallaxDemo({
   wwdTitle01XM = -20,
   wwdTitle01YM = -575,
   wwdLbl02 = "02",
-  wwdLbl02MobileX = 186,
-  wwdLbl02MobileY = -525,
+  wwdLbl02MobileX = -20,
+  wwdLbl02MobileY = -177,
   wwdTitle02MobileX = 0,
   wwdTitle02MobileY = 20,
   wwdLbl03 = "03",
-  wwdLbl03MobileX = -508,
-  wwdLbl03MobileY = -140,
+  wwdLbl03MobileX = -20,
+  wwdLbl03MobileY = 205,
   wwdTitle03MobileX = 0,
   wwdTitle03MobileY = 30,
   wwdDesc3MaxWM = 220,
@@ -719,6 +722,7 @@ export default function ParallaxDemo({
   navCtaBgHover = '#F4F2EA',
   centerlineTopOffset = 420,
   centerlineBottomOffset = 1295,
+  centerlineOffsetMobile = -800,
   menuDrawerHeaderYMobile = 0,
   menuDrawerHeaderRowYOffsetMobile = 10,
   menuDrawerLinksTopLineYMobile = 10,
@@ -861,6 +865,7 @@ export default function ParallaxDemo({
   projectsTextMaxW?: number; // knob: px max-width for PROJECTS headline
   projectsTextX?: number;   // knob: px horizontal offset for PROJECTS paragraph
   projectsTextY?: number;   // knob: px vertical offset for PROJECTS paragraph
+  projectsTextYMobile?: number; // knob: px vertical offset for PROJECTS paragraph (mobile-only)
   projectsBandBg?: string;
   projectsBandPadY?: number;
   projectsBandPadYMobile?: number;
@@ -979,10 +984,12 @@ export default function ParallaxDemo({
   wwdCta1Y?: number;
   wwdCtaMobileX?: number;
   wwdCtaMobileY?: number;
+  wwdCtaMobileRightOffset?: number;
   wwdCta3X?: number;
   wwdCta3Y?: number;
   wwdCta3MobileX?: number;
   wwdCta3MobileY?: number;
+  wwdCta3MobileRightOffset?: number;
   wwdEyebrow1X?: number;
   wwdEyebrow1Y?: number;
   wwdEyebrow1XM?: number;
@@ -1063,6 +1070,7 @@ export default function ParallaxDemo({
   navCtaBgHover?: string;
   centerlineTopOffset?: number;
   centerlineBottomOffset?: number;
+  centerlineOffsetMobile?: number;
   /* Full-bleed video knobs */
   aboutHlineGap?: number;
   reelX?: number;
@@ -1359,13 +1367,23 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       content.style.transform = "translateY(0px)";
       header.style.backgroundPosition = `${heroBgPosXCurrent}% 50%`;
       cssVarKeys.forEach((k) => docEl.style.setProperty(k, "0"));
-      setNavSolid(y > 12);
+      const heroH = header?.offsetHeight || 120;
+      const solidNow = y > heroH;
+      setNavSolid(solidNow);
+      // keep navSolid in sync on scroll for mobile
+      const onScrollMobile = () => {
+        const cy = window.scrollY || window.pageYOffset || 0;
+        const shouldBeSolid = cy > heroH;
+        setNavSolid((prev) => (prev === shouldBeSolid ? prev : shouldBeSolid));
+      };
+      window.addEventListener("scroll", onScrollMobile, { passive: true });
       // ensure fallback hides once DOM mounts
       if (!readyRef.current) {
         readyRef.current = true;
         setParallaxReady(true);
       }
       return () => {
+        window.removeEventListener("scroll", onScrollMobile);
         cssVarKeys.forEach((key) => docEl.style.removeProperty(key));
         readyRef.current = false;
       };
@@ -2052,6 +2070,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 ['--wwd-pad-b-mobile' as any]: `${wwdPadBottomMobile}px`,
                 ['--centerline-top-offset' as any]: `${centerlineTopOffset}px`,
                 ['--centerline-bottom-offset' as any]: `${centerlineBottomOffset}px`,
+                ['--wwd-centerline-offset-m' as any]: `${centerlineOffsetMobile}px`,
                 ['--virtual-card-mobile-x' as any]: `${wwdVirtualCardXM}px`,
                 ['--virtual-card-mobile-y' as any]: `${wwdVirtualCardYM}px`,
               }}
@@ -2083,6 +2102,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 ['--projects-text-maxw' as any]: `${projectsTextMaxW}px`,
                 ['--projects-text-x' as any]: `${projectsTextX}px`,
                 ['--projects-text-y' as any]: `${projectsTextY}px`,
+                ['--projects-text-y-m' as any]: `${projectsTextYMobile}px`,
                 ...(projectsGridGap != null ? ({ ['--projects-grid-gap-override' as any]: `${projectsGridGap}px` }) : {}),
                 ...(projectsGridGapMobile != null ? ({ ['--projects-grid-gap-mobile' as any]: `${projectsGridGapMobile}px` }) : {}),
                 ['--projects-grid-x' as any]: `${projectsGridX}px`,
@@ -2178,10 +2198,12 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 ['--wwd-cta1-y' as any]: `${wwdCta1Y}px`,
                 ['--wwd-cta-mobile-x' as any]: `${wwdCtaMobileX}px`,
                 ['--wwd-cta-mobile-y' as any]: `${wwdCtaMobileY}px`,
+                ['--wwd-cta-mobile-right-offset' as any]: `${wwdCtaMobileRightOffset}px`,
                 ['--wwd-cta3-x' as any]: `${wwdCta3X}px`,
                 ['--wwd-cta3-y' as any]: `${wwdCta3Y}px`,
                 ['--wwd-cta3-mobile-x' as any]: `${wwdCta3MobileX}px`,
                 ['--wwd-cta3-mobile-y' as any]: `${wwdCta3MobileY}px`,
+                ['--wwd-cta3-mobile-right-offset' as any]: `${wwdCta3MobileRightOffset}px`,
                 ['--wwd-eyebrow1-x' as any]: `${wwdEyebrow1X}px`,
                 ['--wwd-eyebrow1-y' as any]: `${wwdEyebrow1Y}px`,
                 ['--wwd-eyebrow1-x-m' as any]: `${wwdEyebrow1XM}px`,
