@@ -509,16 +509,16 @@ export default function ParallaxDemo({
   heroLineHeight = 1.2,
   heroWordSpacing = 0.1,
   aboutHeightPx = 6100,
-  aboutHeightPxMobile = 1950,
+  aboutHeightPxMobile = 2900,
   scrollEase = 0.07,
   wwdTitleX = 470,
-  wwdTitleY = -500,
+  wwdTitleY = -700,
   wwdTitleXMobile = 8,
-  wwdTitleYMobile = -800,
+  wwdTitleYMobile = -900,
   wwdTextX = 470,
   wwdTextY = -450,
   wwdTextXMobile = 8,
-  wwdTextYMobile = -270,
+  wwdTextYMobile = -400,
   wwdLeadFs = 18,
   wwdLeadFsMobile = 24,
   wwdLeadMaxWMobile = 280,
@@ -530,7 +530,7 @@ export default function ParallaxDemo({
   projectsTextMaxW = 1200,
   projectsTextX = 18,
   projectsTextY = 100,
-  projectsTextYMobile = 90,
+  projectsTextYMobile = 159,
   projectsGridGap = 1,
   projectsGridGapMobile = 1,
   projectsGridX = 20,
@@ -547,7 +547,7 @@ export default function ParallaxDemo({
   projectsTitleYM = 45,
   projectsTitleMaxWM = 720,
   projectsCardGrow = 15,
-  projectsCardSizeMobile = 210,
+  projectsCardSizeMobile = 255,
   projectsCardOverlapMobile = 35,
   projectsCarouselViewport = 120,
   projectsCarouselOffsetXMobile = 21,
@@ -555,7 +555,7 @@ export default function ParallaxDemo({
   projectsCarouselItemsMobile = 2,
   projectsCarouselShiftPage1 = 0,
   projectsCarouselShiftPage2 = 5,
-  projectsCarouselBlockOffsetYMobile = -40,
+  projectsCarouselBlockOffsetYMobile = -115,
   projectsCarouselNavOffsetYMobile = -20,
   projectsCarouselWindowPadMobile = 110,
   projectsNavHeightMobile = 30,
@@ -567,7 +567,7 @@ export default function ParallaxDemo({
   wwdPadTopMobile = 120,
   wwdGutterL = 0,
   wwdGutterR = 70,
-  wwdPadBottomMobile = -40,
+  wwdPadBottomMobile = -250,
   wwdGuideW = 2,
   wwdGuideLblTop = 10,
   wwdGuideLblFs = 16,
@@ -580,7 +580,7 @@ export default function ParallaxDemo({
   wwdCardWM = 180,
   wwdCardAspectMobile = 320,
   wwdVirtualCardXM = 131,
-  wwdVirtualCardYM = -300,
+  wwdVirtualCardYM = -445,
   wwdSecTitle1 = "VIRTUAL DESIGN",
   wwdSecTitle2 = "ON-SITE DESIGN & EXECUTION",
   wwdSecTitle3 = "CONTENT / STUDIO LOG",
@@ -606,21 +606,21 @@ export default function ParallaxDemo({
   wwdDesc1X = 0,
   wwdDesc1Y = 0,
   wwdDesc1XM = -47,
-  wwdDesc1YM = -240,
+  wwdDesc1YM = -375,
   wwdDesc1MaxWM = 200,
   wwdDesc2X = 13,
   wwdDesc2Y = 1,
   wwdDesc2MaxWM = 220,
   wwdDesc2XM = -47,
-  wwdDesc2YM = 130,
+  wwdDesc2YM = -5,
   wwdOnsiteCardMX = 131,
-  wwdOnsiteCardMY = -85,
+  wwdOnsiteCardMY = -224,
   wwdContentCardMX = 132,
-  wwdContentCardMY = 145,
+  wwdContentCardMY = -10,
   wwdDesc3X = 30,
   wwdDesc3Y = 0,
   wwdDesc3XM = 90,
-  wwdDesc3YM = 520,
+  wwdDesc3YM = 360,
   wwdSvc02TitleMaxWM = 120,
   wwdCtaX = 42,
   wwdCtaY = 89,
@@ -630,29 +630,29 @@ export default function ParallaxDemo({
   wwdCta1X = 0,
   wwdCta1Y = 0,
   wwdCtaMobileX = 0,
-  wwdCtaMobileY = 100,
+  wwdCtaMobileY = -35,
   wwdCtaMobileRightOffset = 25,
   wwdCta3X = 34,
   wwdCta3Y = 0,
   wwdCta3MobileX = -80,
-  wwdCta3MobileY = 400,
+  wwdCta3MobileY = 242,
   wwdCta3MobileRightOffset = 30,
   wwdEyebrow1X = 18,
   wwdEyebrow1Y = 350,
-  wwdEyebrow1XM = -290,
-  wwdEyebrow1YM = -200,
+  wwdEyebrow1XM = 7,
+  wwdEyebrow1YM = 190,
   wwdLbl01XM = -20,
-  wwdLbl01YM = -630,
+  wwdLbl01YM = -780,
   wwdTitle01XM = -20,
-  wwdTitle01YM = -575,
+  wwdTitle01YM = -725,
   wwdLbl02 = "02",
   wwdLbl02MobileX = -20,
-  wwdLbl02MobileY = -177,
+  wwdLbl02MobileY = -315,
   wwdTitle02MobileX = 0,
   wwdTitle02MobileY = 20,
   wwdLbl03 = "03",
   wwdLbl03MobileX = -20,
-  wwdLbl03MobileY = 205,
+  wwdLbl03MobileY = 55,
   wwdTitle03MobileX = 0,
   wwdTitle03MobileY = 30,
   wwdDesc3MaxWM = 220,
@@ -663,14 +663,14 @@ export default function ParallaxDemo({
   aboutTitle = "ABOUT US",
   aboutTitleX = 20,
   aboutTitleY = 570,
-  aboutTitleXMobile = -100,
+  aboutTitleXMobile = 7,
   aboutTitleYMobile = -60,
   aboutTitleGap = 16,
   aboutCaption = "Art Direction & Styling, Head of Design & 3D\nHead of Style & Materials.",
   aboutCaptionX = 20,
   aboutCaptionY = 680,
-  aboutCaptionXMobile = -120,
-  aboutCaptionYMobile = -660,
+  aboutCaptionXMobile = 5,
+  aboutCaptionYMobile = 15,
   aboutCaptionShiftY = -50,
   aboutCaptionGap = 202,
   /* === ABOUT CTA (line-from-guide button above video) === */
@@ -682,18 +682,19 @@ export default function ParallaxDemo({
   aboutCtaTxtX = -25,
   aboutCtaTxtY = -5,
   aboutCtaTxtYMobile = 5,
-  aboutCtaTxtXMobile = -10,
-  aboutCtaMobileX = -15,
-  aboutCtaMobileY = -930,
-  aboutCtaMobileWidth = 195,
+  aboutCtaTxtXMobile = 20,
+  aboutCtaMobileX = 0,
+  aboutCtaMobileY = 1800,
+  aboutCtaMobileWidth = 335,
   aboutCtaMobileHeight = 40,
+  aboutCtaMobileRightOffset = 25,
   /* === Full-bleed video knobs === */
   aboutVideoSrc = "/assets/videos/about.mp4",
   aboutVideoPoster = "",
   aboutVideoH = 640,          // px height for the video area (desktop) — a bit taller so top/bottom aren’t cropped
   aboutVideoGapTop = 80,      // px gap above the video (distance from Projects grid)
   aboutVideoY = 400,           // px translateY to fine-tune vertical placement of the video
-  aboutVideoYMobile = -300,
+  aboutVideoYMobile = -200,
   aboutVideoFit = "cover",
   aboutVideoPosY = 50,
   aboutVideoAspect = "16/9",
@@ -720,9 +721,11 @@ export default function ParallaxDemo({
   navCtaBg = '#F4F2EA',
   navCtaInk = '#111111',
   navCtaBgHover = '#F4F2EA',
-  centerlineTopOffset = 420,
+  centerlineTopOffset = 120,
   centerlineBottomOffset = 1295,
+  centerlineBottomOffsetMobile = 3341,
   centerlineOffsetMobile = -800,
+  centerlineMobileDelta = 0,
   menuDrawerHeaderYMobile = 0,
   menuDrawerHeaderRowYOffsetMobile = 10,
   menuDrawerLinksTopLineYMobile = 10,
@@ -751,20 +754,20 @@ export default function ParallaxDemo({
   reelArrowOffset = 24,
   reelBoxGrow = -100,
   reelBoxGrowMobile = 0,
-  reelXMobile = -348,
-  reelYMobile = -140,
+  reelXMobile = -354,
+  reelYMobile = 60,
   reelScaleMobile = 1,
   reelRightExtraMobile = 0,
   reelRadius = 12,
   reelNavWidthMobile = 100,
   reelNavXMobile = -7,
-  reelNavYMobile = -80,
+  reelNavYMobile = -310,
   reelQuoteX = 150,
   reelQuoteY = 0,
-  reelQuoteXMobile = -8,
-  reelQuoteYMobile = -55,
-  wwdNarrativeXM = 115,
-  wwdNarrativeYM = 1639,
+  reelQuoteXMobile = 10,
+  reelQuoteYMobile = -245,
+  wwdNarrativeXM = 185,
+  wwdNarrativeYM = 1640,
   wwdNarrativeDesktopX = 40,
   wwdNarrativeDesktopY = 2795,
   wwdNarrativeMaxWM = 300,
@@ -772,7 +775,7 @@ export default function ParallaxDemo({
   testiTitleX = 60,
   testiTitleY = 450,
   testiTitleXMobile = 0,
-  testiTitleYMobile = -260,
+  testiTitleYMobile = -180,
   testiBlockXMobile = 0,
   testiBlockYMobile = -90,
   testiBlockX = 355,
@@ -812,9 +815,10 @@ export default function ParallaxDemo({
   ],
   footerLift = 30,          // px: manual lift (positive lifts UP) to close any tiny seam above the footer
   footerOverlap = 50,        // desktop/global overlap (px) to hide seams between sections
-  footerPadTopMobile = 55,
-  footerOverlapMobile = 40,
-  wwdFooterSpacerMobile = 0,
+  footerPadTopMobile = 85,
+  footerPadBottomMobile = 0,
+  footerOverlapMobile = 0,
+  wwdFooterSpacerMobile = 150,
   footerH = 250,           // px: footer height override (keeps bottom offset in sync)
   footerBottomMaxW = 1100, // px: max width for bottom footer content (Explore + Legal)
 }: {
@@ -1036,6 +1040,7 @@ export default function ParallaxDemo({
   aboutCtaMobileY?: number;
   aboutCtaMobileWidth?: number;
   aboutCtaMobileHeight?: number;
+  aboutCtaMobileRightOffset?: number;
   wwdBlockY?: number; // knob: px translateY for the entire WHAT WE DO content block
   wwdBlockYMobile?: number; // knob: px translateY (extra) for mobile
   /* Full-bleed video knobs */
@@ -1070,7 +1075,9 @@ export default function ParallaxDemo({
   navCtaBgHover?: string;
   centerlineTopOffset?: number;
   centerlineBottomOffset?: number;
+  centerlineBottomOffsetMobile?: number;
   centerlineOffsetMobile?: number;
+  centerlineMobileDelta?: number;
   /* Full-bleed video knobs */
   aboutHlineGap?: number;
   reelX?: number;
@@ -1141,6 +1148,7 @@ export default function ParallaxDemo({
   footerLift?: number;
   footerOverlap?: number;
   footerPadTopMobile?: number;
+  footerPadBottomMobile?: number;
   footerOverlapMobile?: number;
   wwdFooterSpacerMobile?: number;
   footerH?: number;
@@ -1356,6 +1364,74 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
     const docEl   = document.documentElement;
     const cssVarKeys = ["--title-lift", "--mid-offset", "--hero-overlay"];
 
+    const updateGuideStops = () => {
+      const sectionTop = content.getBoundingClientRect().top + window.scrollY;
+      const frameX = content.querySelector(
+        ".wwd-fullvideo .frame-x"
+      ) as HTMLElement | null;
+      const centerlineNode = content.querySelector(
+        ".wwd-centerline-mobile"
+      ) as HTMLElement | null;
+      const testiSection = content.querySelector(
+        ".testimonials"
+      ) as HTMLElement | null;
+
+      let desktopStop: number | null = null;
+      if (frameX) {
+        const lineTop = frameX.getBoundingClientRect().top + window.scrollY;
+        desktopStop = Math.max(0, Math.round(lineTop - sectionTop));
+        (content as HTMLElement).style.setProperty(
+          "--guides-stop",
+          `${desktopStop}px`
+        );
+      }
+
+      const mobileRef = frameX ?? testiSection;
+      if (mobileRef) {
+        const mobileTop = mobileRef.getBoundingClientRect().top + window.scrollY;
+        const mobileStop = Math.max(0, Math.round(mobileTop - sectionTop));
+        const adjustedStop = Math.max(0, mobileStop + centerlineMobileDelta);
+        (content as HTMLElement).style.setProperty(
+          "--guides-stop-mobile",
+          `${adjustedStop}px`
+        );
+        if (centerlineNode) {
+          const centerTop =
+            centerlineNode.getBoundingClientRect().top + window.scrollY;
+          const mobileHeight = Math.max(0, Math.round(mobileTop - centerTop));
+          const adjustedHeight = Math.max(
+            0,
+            mobileHeight + centerlineMobileDelta
+          );
+          centerlineNode.style.height = `${adjustedHeight}px`;
+          centerlineNode.style.setProperty(
+            "--centerline-mobile-height",
+            `${adjustedHeight}px`
+          );
+        }
+      } else if (desktopStop != null) {
+        (content as HTMLElement).style.setProperty(
+          "--guides-stop-mobile",
+          `${desktopStop}px`
+        );
+        const centerlineNode = content.querySelector(
+          ".wwd-centerline-mobile"
+        ) as HTMLElement | null;
+        if (centerlineNode) {
+          centerlineNode.style.removeProperty("height");
+          centerlineNode.style.removeProperty("--centerline-mobile-height");
+        }
+      } else {
+        const centerlineNode = content.querySelector(
+          ".wwd-centerline-mobile"
+        ) as HTMLElement | null;
+        if (centerlineNode) {
+          centerlineNode.style.removeProperty("height");
+          centerlineNode.style.removeProperty("--centerline-mobile-height");
+        }
+      }
+    };
+
     // En mobile desactivamos el parallax y no montamos listeners/RAF
     if (isMobileViewport) {
       const y = window.scrollY || window.pageYOffset || 0;
@@ -1368,6 +1444,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       header.style.backgroundPosition = `${heroBgPosXCurrent}% 50%`;
       cssVarKeys.forEach((k) => docEl.style.setProperty(k, "0"));
       const heroH = header?.offsetHeight || 120;
+      updateGuideStops();
       const solidNow = y > heroH;
       setNavSolid(solidNow);
       // keep navSolid in sync on scroll for mobile
@@ -1376,6 +1453,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
         const shouldBeSolid = cy > heroH;
         setNavSolid((prev) => (prev === shouldBeSolid ? prev : shouldBeSolid));
       };
+      const onResizeMobile = () => updateGuideStops();
+      window.addEventListener("resize", onResizeMobile, { passive: true });
+      const aboutVidMobile = content.querySelector<HTMLVideoElement>(".about-video");
+      const onAboutLoaded = () => updateGuideStops();
+      aboutVidMobile?.addEventListener("loadedmetadata", onAboutLoaded);
       window.addEventListener("scroll", onScrollMobile, { passive: true });
       // ensure fallback hides once DOM mounts
       if (!readyRef.current) {
@@ -1384,6 +1466,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       }
       return () => {
         window.removeEventListener("scroll", onScrollMobile);
+        window.removeEventListener("resize", onResizeMobile);
+        aboutVidMobile?.removeEventListener("loadedmetadata", onAboutLoaded);
         cssVarKeys.forEach((key) => docEl.style.removeProperty(key));
         readyRef.current = false;
       };
@@ -1465,6 +1549,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       footerHeight = footer.getBoundingClientRect().height;
       const contentHeight = content.getBoundingClientRect().height;
 
+      updateGuideStops();
+
       // On mobile, let the document flow naturally (no fixed canvas sizing)
       if (isMobileViewport) {
         heightDocument = windowHeight + contentHeight + footerHeight;
@@ -1489,13 +1575,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       if (wrap) wrap.style.marginTop = `${windowHeight}px`;
 
       // === Limit vertical guides to stop at the horizontal line under the video ===
-      const frameX = content.querySelector('.wwd-fullvideo .frame-x') as HTMLElement | null;
-      if (frameX) {
-        const sectionTop = content.getBoundingClientRect().top + window.scrollY;
-        const lineTop = frameX.getBoundingClientRect().top + window.scrollY;
-        const stop = Math.max(0, Math.round(lineTop - sectionTop));
-        (content as HTMLElement).style.setProperty('--guides-stop', `${stop}px`);
-      }
+      updateGuideStops();
 
       render();
       // reveal once sizes are applied to avoid first‑paint flash
@@ -1562,7 +1642,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       cssVarKeys.forEach((key) => docEl.style.removeProperty(key));
       readyRef.current = false;
     };
-  }, [scrollEase, heroOverlay, heroOverlayMobile, isMobileViewport, heroBgPosXCurrent]);
+  }, [scrollEase, heroOverlay, heroOverlayMobile, isMobileViewport, heroBgPosXCurrent, centerlineMobileDelta]);
 
   useEffect(() => {
     if (!parallaxReady) {
@@ -1612,10 +1692,6 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
     mq.addListener(handleChange);
     return () => mq.removeListener(handleChange);
   }, [initialIsMobile]);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
 
   useEffect(() => {
     setHasMounted(true);
@@ -1717,6 +1793,65 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       setAboutVideoPlaying(true);
     }
   };
+
+  const renderFooterExplore = () => (
+    <div className="footer-explore" aria-label="Explore and social">
+      <nav className="explore" aria-label="Explore">
+        <a href="/services">Services</a>
+        <a href="/portfolio">Portfolio</a>
+        <a href="/about">About</a>
+        <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
+        <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+          WhatsApp
+        </a>
+      </nav>
+      <div className="social" aria-label="Social profiles">
+        <a className="social__link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
+          </svg>
+        </a>
+        <a className="social__link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21.7 8.2s-.2-1.5-.8-2.2c-.7-.8-1.5-.8-1.8-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.3 0-1.1 0-1.8.9-.6.7-.8 2.2-.8 2.2S2 9.9 2 11.6v.8c0 1.7.2 3.4.2 3.4s.2 1.5.8 2.2c.7.8 1.7.8 2.2.9 1.6.2 6.8.2 6.8.2s4.2 0 7.1-.1c.3 0 1.1 0 1.8-.9.6-.7.8-2.2.8-2.2s.2-1.7.2-3.4v-.8c0-1.7-.2-3.4-.2-3.4Z" />
+            <path d="m10 9.8 4.7 2.2L10 14.2V9.8Z" fill="#fff" />
+          </svg>
+        </a>
+        <a className="social__link" href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15.5 4.2c.6.8 1.5 1.3 2.5 1.3h.4v2.5c-.9 0-1.8-.2-2.6-.6v5.5a5.08 5.08 0 1 1-5.1-5.1c.3 0 .6 0 .9.1v2.7a2.4 2.4 0 0 0-.9-.2 2.38 2.38 0 1 0 2.38 2.4V3h2.5v1.2Z" />
+          </svg>
+        </a>
+        <a className="social__link" href={`https://www.instagram.com/${(followHandle || "").replace(/^@/, "") || "siamodesign"}`} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.2 4.5h9.6A2.7 2.7 0 0 1 19.5 7v9.6a2.7 2.7 0 0 1-2.7 2.7H7.2A2.7 2.7 0 0 1 4.5 16.6V7a2.7 2.7 0 0 1 2.7-2.7Zm0-1.5A4.2 4.2 0 0 0 3 7v9.6A4.2 4.2 0 0 0 7.2 20.8h9.6A4.2 4.2 0 0 0 21 16.6V7a4.2 4.2 0 0 0-4.2-4.2H7.2Z" />
+            <path d="M12 8.4A3.6 3.6 0 1 1 8.4 12 3.6 3.6 0 0 1 12 8.4Zm0-1.5A5.1 5.1 0 1 0 17.1 12 5.1 5.1 0 0 0 12 6.9Z" />
+            <circle cx="17.4" cy="6.6" r="1" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  );
+
+  const renderFooterLegal = () => (
+    <div className="footer-legal" aria-label="Legal information">
+      <p className="legal-line">
+        <span className="left">Siamo Design</span>
+        <span className="divider" aria-hidden="true">
+          |
+        </span>
+        <span className="right">Interior Design Studio</span>
+      </p>
+      <p className="legal-line">
+        <span className="left">Copyright © 2025 Siamo Design</span>
+        <span className="divider" aria-hidden="true">
+          |
+        </span>
+        <span className="right">Todos los derechos reservados</span>
+      </p>
+      <p className="legal-sig">powered by StratUpdate</p>
+    </div>
+  );
 
   return (
     <>
@@ -2070,6 +2205,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 ['--wwd-pad-b-mobile' as any]: `${wwdPadBottomMobile}px`,
                 ['--centerline-top-offset' as any]: `${centerlineTopOffset}px`,
                 ['--centerline-bottom-offset' as any]: `${centerlineBottomOffset}px`,
+                ['--centerline-bottom-offset-m' as any]: `${centerlineBottomOffsetMobile}px`,
                 ['--wwd-centerline-offset-m' as any]: `${centerlineOffsetMobile}px`,
                 ['--virtual-card-mobile-x' as any]: `${wwdVirtualCardXM}px`,
                 ['--virtual-card-mobile-y' as any]: `${wwdVirtualCardYM}px`,
@@ -2289,6 +2425,28 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   <a className="g-cta col3" href="/content">
                     <span className="cta-label">watch the latest</span>
                   </a>
+                  <a
+                    className="g-cta col2 about-cta-mobile"
+                    href="#about"
+                    aria-label="Get to know us"
+                    style={{
+                      ['--about-cta-x' as any]: `${aboutCtaX}px`,
+                      ['--about-cta-y' as any]: `${aboutCtaY}px`,
+                      ['--about-cta-underline-w' as any]: `${aboutCtaUnderlineW}px`,
+                      ['--about-cta-line-gap' as any]: `${aboutCtaLineGap}px`,
+                      ['--about-cta-txt-x' as any]: `${aboutCtaTxtX}px`,
+                      ['--about-cta-txt-y' as any]: `${aboutCtaTxtY}px`,
+                      ['--about-cta-txt-y-m' as any]: `${aboutCtaTxtYMobile}px`,
+                      ['--about-cta-txt-x-m' as any]: `${aboutCtaTxtXMobile}px`,
+                      ['--about-cta-mobile-x' as any]: `${aboutCtaMobileX}px`,
+                      ['--about-cta-mobile-y' as any]: `${aboutCtaMobileY}px`,
+                      ['--about-cta-mobile-w' as any]: `${aboutCtaMobileWidth}px`,
+                      ['--about-cta-mobile-h' as any]: `${aboutCtaMobileHeight}px`,
+                      ['--about-cta-mobile-right-offset' as any]: `${aboutCtaMobileRightOffset}px`,
+                    }}
+                  >
+                    <span className="cta-label">{aboutCtaLabel}</span>
+                  </a>
                 </div>
                 <div className="wwd-desc3-mobile" aria-hidden="false">
                   <p>{wwdDesc3}</p>
@@ -2304,7 +2462,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     ['--wwd-desc3-narrative-maxw' as any]: `${wwdNarrativeMaxWM}px`,
                   }}
                 >
-                  IN THEIR WORDS
+                  <span className="wwd-desc3-mobile__inner">IN THEIR WORDS</span>
                 </p>
                 <p
                   className="wwd-desc3-desktop narrative"
@@ -2419,7 +2577,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   {aboutCaption}
                 </p>
                 <a
-                  className="about-cta"
+                  className="about-cta desktop-only"
                   href="#about"
                   aria-label="Get to know us"
                   style={{
@@ -2435,6 +2593,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     ['--about-cta-mobile-y' as any]: `${aboutCtaMobileY}px`,
                     ['--about-cta-mobile-w' as any]: `${aboutCtaMobileWidth}px`,
                     ['--about-cta-mobile-h' as any]: `${aboutCtaMobileHeight}px`,
+                    ['--about-cta-mobile-right-offset' as any]: `${aboutCtaMobileRightOffset}px`,
                   }}
                 >
                   <span className="cta-label">{aboutCtaLabel}</span>
@@ -2662,96 +2821,64 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
 
             <footer
               ref={footerRef}
-            style={{
-              ['--footer-lift' as any]: `${footerLift}px`,
-              ['--footer-overlap' as any]: `${footerOverlap}px`,
-              ['--footer-pad-top-mobile' as any]: `${footerPadTopMobile}px`,
-              ['--footer-overlap-mobile' as any]: `${footerOverlapMobile}px`,
-              ['--footer-h' as any]: `${footerH}px`,
-              ['--footer-bottom-maxw' as any]: `${footerBottomMaxW}px`
-            }}
+              style={{
+                ['--footer-lift' as any]: `${footerLift}px`,
+                ['--footer-overlap' as any]: `${footerOverlap}px`,
+                ['--footer-pad-top-mobile' as any]: `${footerPadTopMobile}px`,
+                ['--footer-pad-bottom-mobile' as any]: `${footerPadBottomMobile}px`,
+                ['--footer-overlap-mobile' as any]: `${footerOverlapMobile}px`,
+                ['--footer-h' as any]: `${footerH}px`,
+                ['--footer-bottom-maxw' as any]: `${footerBottomMaxW}px`,
+              }}
             >
               <div className="footer-inner">
                 <section className="footer-seo" aria-label="Service areas and keyword index">
-                  <ul className="seo-col">
-                    <li><span className="check" aria-hidden="true">✓</span> Interior design playa del carmen</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Interior design services playa del carmen</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Home staging playa del carmen</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Commercial interior design playa del carmen</li>
-                  </ul>
-                  <ul className="seo-col">
-                    <li><span className="check" aria-hidden="true">✓</span> Interior design riviera maya</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators riviera maya</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Home staging riviera maya</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Commercial interior design riviera maya</li>
-                  </ul>
-                  <ul className="seo-col">
-                    <li><span className="check" aria-hidden="true">✓</span> Interior design Cancun</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators Cancun</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Home staging Cancun</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Commercial interior design Cancun</li>
-                  </ul>
-                  <ul className="seo-col">
-                    <li><span className="check" aria-hidden="true">✓</span> Interior design tulum</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Interior design services tulum</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators tulum</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Home staging tulum</li>
-                    <li><span className="check" aria-hidden="true">✓</span> Commercial interior design tulum</li>
-                  </ul>
+                  {resolvedIsMobile ? (
+                    <>
+                      {renderFooterExplore()}
+                      {renderFooterLegal()}
+                    </>
+                  ) : (
+                    <>
+                      <ul className="seo-col">
+                        <li><span className="check" aria-hidden="true">✓</span> Interior design playa del carmen</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Interior design services playa del carmen</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Home staging playa del carmen</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Commercial interior design playa del carmen</li>
+                      </ul>
+                      <ul className="seo-col">
+                        <li><span className="check" aria-hidden="true">✓</span> Interior design riviera maya</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators riviera maya</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Home staging riviera maya</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Commercial interior design riviera maya</li>
+                      </ul>
+                      <ul className="seo-col">
+                        <li><span className="check" aria-hidden="true">✓</span> Interior design Cancun</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators Cancun</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Home staging Cancun</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Commercial interior design Cancun</li>
+                      </ul>
+                      <ul className="seo-col">
+                        <li><span className="check" aria-hidden="true">✓</span> Interior design tulum</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Interior design services tulum</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators tulum</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Home staging tulum</li>
+                        <li><span className="check" aria-hidden="true">✓</span> Commercial interior design tulum</li>
+                      </ul>
+                    </>
+                  )}
                 </section>
 
-                <div className="footer-explore" aria-label="Explore and social">
-                  <nav className="explore" aria-label="Explore">
-                    <a href="/services">Services</a>
-                    <a href="/portfolio">Portfolio</a>
-                    <a href="/about">About</a>
-                    <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
-                    <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">WhatsApp</a>
-                  </nav>
-                  <div className="social" aria-label="Social profiles">
-                    <a className="social__link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
-                      </svg>
-                    </a>
-                    <a className="social__link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M21.7 8.2s-.2-1.5-.8-2.2c-.7-.8-1.5-.8-1.8-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.3 0-1.1 0-1.8.9-.6.7-.8 2.2-.8 2.2S2 9.9 2 11.6v.8c0 1.7.2 3.4.2 3.4s.2 1.5.8 2.2c.7.8 1.7.8 2.2.9 1.6.2 6.8.2 6.8.2s4.2 0 7.1-.1c.3 0 1.1 0 1.8-.9.6-.7.8-2.2.8-2.2s.2-1.7.2-3.4v-.8c0-1.7-.2-3.4-.2-3.4Z" />
-                        <path d="m10 9.8 4.7 2.2L10 14.2V9.8Z" fill="#fff"/>
-                      </svg>
-                    </a>
-                    <a className="social__link" href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M15.5 4.2c.6.8 1.5 1.3 2.5 1.3h.4v2.5c-.9 0-1.8-.2-2.6-.6v5.5a5.08 5.08 0 1 1-5.1-5.1c.3 0 .6 0 .9.1v2.7a2.4 2.4 0 0 0-.9-.2 2.38 2.38 0 1 0 2.38 2.4V3h2.5v1.2Z" />
-                      </svg>
-                    </a>
-                    <a className="social__link" href={`https://www.instagram.com/${(followHandle || '').replace(/^@/, '') || 'siamodesign'}`} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                      <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M7.2 4.5h9.6A2.7 2.7 0 0 1 19.5 7v9.6a2.7 2.7 0 0 1-2.7 2.7H7.2A2.7 2.7 0 0 1 4.5 16.6V7a2.7 2.7 0 0 1 2.7-2.7Zm0-1.5A4.2 4.2 0 0 0 3 7v9.6A4.2 4.2 0 0 0 7.2 20.8h9.6A4.2 4.2 0 0 0 21 16.6V7a4.2 4.2 0 0 0-4.2-4.2H7.2Z" />
-                        <path d="M12 8.4A3.6 3.6 0 1 1 8.4 12 3.6 3.6 0 0 1 12 8.4Zm0-1.5A5.1 5.1 0 1 0 17.1 12 5.1 5.1 0 0 0 12 6.9Z" />
-                        <circle cx="17.4" cy="6.6" r="1"/>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-
-                <div className="footer-legal" aria-label="Legal information">
-                  <p className="legal-line">
-                    <span className="left">Siamo Design</span>
-                    <span className="divider" aria-hidden="true">|</span>
-                    <span className="right">Interior Design Studio</span>
-                  </p>
-                  <p className="legal-line">
-                    <span className="left">Copyright © 2025 Siamo Design</span>
-                    <span className="divider" aria-hidden="true">|</span>
-                    <span className="right">Todos los derechos reservados</span>
-                  </p>
-                  <p className="legal-sig">powered by StratUpdate</p>
-                </div>
+                {!resolvedIsMobile && (
+                  <>
+                    {renderFooterExplore()}
+                    {renderFooterLegal()}
+                  </>
+                )}
               </div>
             </footer>
-          </div>
-        </div>
+         </div>
+       </div>
       </div>
 
       {/* ==== CSS idéntico al tuyo, salvo el header (quitamos el background fijo en CSS) ==== */}
