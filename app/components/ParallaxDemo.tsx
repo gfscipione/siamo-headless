@@ -304,6 +304,79 @@ function TestimonialReel({
     setReelPlaying(true);
   };
 
+  const renderQuote = (
+    <aside className="reel-aside" aria-live="polite">
+      <div className={`qm ${playfairFont.className}`} aria-hidden="true">“</div>
+      <p className={`q-text ${playfairFont.className}`}>{q.quote}</p>
+      {q.author ? <p className="q-author">{q.author}</p> : null}
+    </aside>
+  );
+
+  if (isMobileReel) {
+    return (
+      <section className="testi-reel" style={varsStyle} aria-label="Testimonials" ref={reelRef}>
+        <div className="reel-mobile">
+          <div className={`reel-mobile__media${!reelPlaying ? " has-poster" : ""}`}>
+            {!reelPlaying && (
+              <div className="reel-video__poster" aria-hidden="true">
+                <img src={currentPoster} alt="" />
+              </div>
+            )}
+            {videos[idx] ? (
+              <video
+                className="reel-video"
+                src={videos[idx]}
+                muted
+                playsInline
+                loop
+                preload="none"
+                poster={currentPoster}
+                controls={reelPlaying}
+              />
+            ) : null}
+            {!reelPlaying && (
+              <button
+                type="button"
+                className="reel-play"
+                aria-label="Reproducir testimonio"
+                onClick={playCenterVideo}
+              >
+                <span className="reel-play__icon" aria-hidden="true">▶</span>
+              </button>
+            )}
+          </div>
+          <div className="reel-mobile__quote">{renderQuote}</div>
+        </div>
+        {n > 1 ? (
+          <div className="reel-nav-mobile" aria-label="Cambiar testimonio">
+          <div className="reel-nav-mobile__line" aria-hidden="true"></div>
+            <button
+              type="button"
+              className="reel-nav-mobile__btn"
+              onClick={goPrev}
+              disabled={idx === 0 || n <= 1}
+              aria-label="Anterior testimonio"
+            >
+              ‹
+            </button>
+            <span className="reel-nav-mobile__indicator">
+              {String(idx + 1).padStart(2, '0')} | {String(n).padStart(2, '0')}
+            </span>
+            <button
+              type="button"
+              className="reel-nav-mobile__btn"
+              onClick={goNext}
+              disabled={idx >= n - 1}
+              aria-label="Siguiente testimonio"
+            >
+              ›
+            </button>
+          </div>
+        ) : null}
+      </section>
+    );
+  }
+
   return (
     <section className="testi-reel" style={varsStyle} aria-label="Testimonials" ref={reelRef}>
       <div className="reel-wrap">
@@ -394,13 +467,9 @@ function TestimonialReel({
         </div>
 
         {/* RIGHT ASIDE (quote) */}
-        <aside className="reel-aside" aria-live="polite">
-          <div className={`qm ${playfairFont.className}`} aria-hidden="true">“</div>
-          <p className={`q-text ${playfairFont.className}`}>{q.quote}</p>
-          {q.author ? <p className="q-author">{q.author}</p> : null}
-        </aside>
+        {renderQuote}
       </div>
-      {n > 1 ? (
+      {n > 1 && !isMobileReel ? (
         <div className="reel-nav-mobile" aria-label="Cambiar testimonio">
         <div className="reel-nav-mobile__line" aria-hidden="true"></div>
           <button
@@ -547,7 +616,7 @@ export default function ParallaxDemo({
   projectsTitleYM = 45,
   projectsTitleMaxWM = 720,
   projectsCardGrow = 15,
-  projectsCardSizeMobile = 255,
+  projectsCardSizeMobile = 205,
   projectsCardOverlapMobile = 35,
   projectsCarouselViewport = 120,
   projectsCarouselOffsetXMobile = 21,
@@ -741,8 +810,6 @@ export default function ParallaxDemo({
   menuDrawerBrandLetterSpacingMobile = 0.08,
   menuDrawerCloseFontSizeMobile = 12,
   menuDrawerCloseLetterSpacingMobile = 0.08,
-  reelX = -400,
-  reelY = 560,
   reelW = 980,
   reelWMobile = 400,
   reelH = 552,
@@ -754,20 +821,16 @@ export default function ParallaxDemo({
   reelArrowOffset = 24,
   reelBoxGrow = -100,
   reelBoxGrowMobile = 0,
-  reelXMobile = -354,
-  reelYMobile = 60,
   reelScaleMobile = 1,
   reelRightExtraMobile = 0,
   reelRadius = 12,
   reelNavWidthMobile = 100,
   reelNavXMobile = -7,
-  reelNavYMobile = -310,
+  reelNavYMobile = 60,
   reelQuoteX = 150,
   reelQuoteY = 0,
   reelQuoteXMobile = 10,
   reelQuoteYMobile = -245,
-  wwdNarrativeXM = 185,
-  wwdNarrativeYM = 1640,
   wwdNarrativeDesktopX = 40,
   wwdNarrativeDesktopY = 2795,
   wwdNarrativeMaxWM = 300,
@@ -775,23 +838,36 @@ export default function ParallaxDemo({
   testiTitleX = 60,
   testiTitleY = 450,
   testiTitleXMobile = 0,
-  testiTitleYMobile = -180,
-  testiBlockXMobile = 0,
-  testiBlockYMobile = -90,
-  testiBlockX = 355,
-  testiBlockY = 0,
+  testiTitleYMobile = 0,
+  testiTitleOffsetX = 0,
+  testiTitleOffsetY = 0,
+  testiTitleOffsetXMobile = 0,
+  testiTitleOffsetYMobile = 0,
+  testiSubtitleOffsetY = -9,
+  testiSectionOffsetX = 0,
+  testiSectionOffsetY = 0,
+  testiSectionOffsetXMobile = 35,
+  testiSectionOffsetYMobile = -180,
+  testiBlockOffsetX = -50,
+  testiBlockOffsetY = 90,
+  testiBlockOffsetXMobile = 0,
+  testiBlockOffsetYMobile = -10,
+  testiReelGap = 40,
+  testiReelGapMobile = 30,
   reelThumbsX = 70,
   reelThumbsY = 100,
-  testiHlineGap = 850,
+  testiHlineGap = 300,
+  testiHlineGapMobile = 900,
   testiHlineX = 0,
   testiHlineY = 0,
   testiHlineXMobile = 0,
-  testiHlineYMobile = -1120,
+  testiHlineYMobile = -790,
   followHandle = "@siamodesign",
   followX = 0,
   followY = 140,
-  followGap = 22,
-  followGapMobile = 10,
+  followGap = 0,
+  followGapMobile = 360,
+  followCardsGapMobile = 12,
   followMaxW = 1100,
   followMaxWMobile = 1000,
   followTitleX = -615,
@@ -1080,8 +1156,6 @@ export default function ParallaxDemo({
   centerlineMobileDelta?: number;
   /* Full-bleed video knobs */
   aboutHlineGap?: number;
-  reelX?: number;
-  reelY?: number;
   reelW?: number;
   reelWMobile?: number;
   reelH?: number;
@@ -1093,8 +1167,6 @@ export default function ParallaxDemo({
   reelArrowOffset?: number;
   reelBoxGrow?: number;
   reelBoxGrowMobile?: number;
-  reelXMobile?: number;
-  reelYMobile?: number;
   reelScaleMobile?: number;
   reelRightExtraMobile?: number;
   reelRadius?: number;
@@ -1105,8 +1177,6 @@ export default function ParallaxDemo({
   reelQuoteY?: number;
   reelQuoteXMobile?: number;
   reelQuoteYMobile?: number;
-  wwdNarrativeXM?: number;
-  wwdNarrativeYM?: number;
   wwdNarrativeDesktopX?: number;
   wwdNarrativeDesktopY?: number;
   wwdNarrativeMaxWM?: number;
@@ -1115,13 +1185,25 @@ export default function ParallaxDemo({
   testiTitleY?: number;
   testiTitleXMobile?: number;
   testiTitleYMobile?: number;
-  testiBlockXMobile?: number;
-  testiBlockYMobile?: number;
-  testiBlockX?: number;
-  testiBlockY?: number;
+  testiTitleOffsetX?: number;
+  testiTitleOffsetY?: number;
+  testiTitleOffsetXMobile?: number;
+  testiTitleOffsetYMobile?: number;
+  testiSubtitleOffsetY?: number;
+  testiSectionOffsetX?: number;
+  testiSectionOffsetY?: number;
+  testiSectionOffsetXMobile?: number;
+  testiSectionOffsetYMobile?: number;
+  testiBlockOffsetX?: number;
+  testiBlockOffsetY?: number;
+  testiBlockOffsetXMobile?: number;
+  testiBlockOffsetYMobile?: number;
+  testiReelGap?: number;
+  testiReelGapMobile?: number;
   reelThumbsX?: number;
   reelThumbsY?: number;
   testiHlineGap?: number;
+  testiHlineGapMobile?: number;
   testiHlineX?: number;
   testiHlineY?: number;
   testiHlineXMobile?: number;
@@ -1131,6 +1213,7 @@ export default function ParallaxDemo({
   followY?: number;
   followGap?: number;
   followGapMobile?: number;
+  followCardsGapMobile?: number;
   followMaxW?: number;
   followMaxWMobile?: number;
   followTitleX?: number;
@@ -1261,6 +1344,12 @@ export default function ParallaxDemo({
   // - Fix "dream hom" (any spacing/casing)
   // - Fix any standalone "hom" before space/punctuation/newline/end
   const resolvedIsMobile = hasMounted ? isMobileViewport : (initialIsMobile ?? false);
+  const testiSectionOffsetXCurrent = resolvedIsMobile ? testiSectionOffsetXMobile : testiSectionOffsetX;
+  const testiSectionOffsetYCurrent = resolvedIsMobile ? testiSectionOffsetYMobile : testiSectionOffsetY;
+  const testiBlockOffsetXCurrent = resolvedIsMobile ? testiBlockOffsetXMobile : testiBlockOffsetX;
+  const testiBlockOffsetYCurrent = resolvedIsMobile ? testiBlockOffsetYMobile : testiBlockOffsetY;
+  const testiTitleOffsetXCurrent = resolvedIsMobile ? testiTitleOffsetXMobile : testiTitleOffsetX;
+  const testiTitleOffsetYCurrent = resolvedIsMobile ? testiTitleOffsetYMobile : testiTitleOffsetY;
   const heroTitleText = resolvedIsMobile && titleMobile ? titleMobile : title;
   const normalizedTitle = (heroTitleText || "")
     .replace(/\r\n/g, "\n")
@@ -2452,19 +2541,6 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   <p>{wwdDesc3}</p>
                 </div>
                 <p
-                  className="wwd-desc3-mobile narrative"
-                  aria-hidden="false"
-                  style={{
-                    ['--wwd-desc3-narrative-x' as any]: `${wwdNarrativeXM}px`,
-                    ['--wwd-desc3-narrative-y' as any]: `${wwdNarrativeYM}px`,
-                    ['--wwd-desc3-narrative-desktop-x' as any]: `${wwdNarrativeDesktopX}px`,
-                    ['--wwd-desc3-narrative-desktop-y' as any]: `${wwdNarrativeDesktopY}px`,
-                    ['--wwd-desc3-narrative-maxw' as any]: `${wwdNarrativeMaxWM}px`,
-                  }}
-                >
-                  <span className="wwd-desc3-mobile__inner">IN THEIR WORDS</span>
-                </p>
-                <p
                   className="wwd-desc3-desktop narrative"
                   aria-hidden="false"
                   style={{
@@ -2643,21 +2719,35 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   id="testimonials"
                 aria-label="Client testimonials"
                 style={{
+                  marginLeft: `${testiSectionOffsetXCurrent}px`,
+                  marginTop: `${testiSectionOffsetYCurrent}px`,
+                  ['--testi-block-offset-x' as any]: `${testiBlockOffsetXCurrent}px`,
+                  ['--testi-block-offset-y' as any]: `${testiBlockOffsetYCurrent}px`,
                   ['--testi-title-desktop-x' as any]: `${testiTitleX}px`,
                   ['--testi-title-desktop-y' as any]: `${testiTitleY}px`,
                   ['--testi-title-mobile-x' as any]: `${testiTitleXMobile - testiTitleX}px`,
                   ['--testi-title-mobile-y' as any]: `${testiTitleYMobile - testiTitleY}px`,
+                  ['--testi-title-offset-x' as any]: `${testiTitleOffsetXCurrent}px`,
+                  ['--testi-title-offset-y' as any]: `${testiTitleOffsetYCurrent}px`,
                   ['--testi-hline-gap' as any]: `${testiHlineGap}px`,
+                  ['--testi-hline-gap-m' as any]: `${testiHlineGapMobile}px`,
                   ['--testi-hline-x' as any]: `${testiHlineX}px`,
                   ['--testi-hline-y' as any]: `${testiHlineY}px`,
                   ['--testi-hline-x-m' as any]: `${testiHlineXMobile}px`,
                   ['--testi-hline-y-m' as any]: `${testiHlineYMobile}px`,
+                  ['--testi-subtitle-offset-y' as any]: `${testiSubtitleOffsetY}px`,
+                  ['--testi-reel-gap' as any]: `${testiReelGap}px`,
+                  ['--testi-reel-gap-m' as any]: `${testiReelGapMobile}px`,
                 }}
                 >
-                  <h2 className="lead testi-title" aria-label="Hear from our customers">
-                    HEAR FROM OUR CUSTOMERS
-                  </h2>
-                  <TestimonialReel
+                  <div className="testi-block">
+                    <h2 className="lead testi-title" aria-label="Hear from our customers">
+                      HEAR FROM OUR CUSTOMERS
+                    </h2>
+                    <p className="testi-subtitle" aria-label="Client testimonials intro">
+                      IN THEIR WORDS
+                    </p>
+                    <TestimonialReel
                     videos={[
                       "/assets/videos/testimonials.mp4",
                       "/assets/videos/capitulo1.mp4",
@@ -2686,10 +2776,6 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                       },
                     ]}
                     varsStyle={{
-                      ['--reel-desktop-y' as any]: `${reelY}px`,
-                      ['--reel-desktop-x' as any]: `${reelX}px`,
-                      ['--reel-mobile-y' as any]: `${reelYMobile ?? reelY}px`,
-                      ['--reel-mobile-x' as any]: `${reelXMobile ?? reelX}px`,
                       ['--reel-w' as any]: `${reelW}px`,
                       ['--reel-w-m' as any]: `${reelWMobile || reelW}px`,
                       ['--reel-h' as any]: `${reelH}px`,
@@ -2712,15 +2798,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                       ['--reel-quote-x-m' as any]: `${reelQuoteXMobile}px`,
                       ['--reel-quote-y-m' as any]: `${reelQuoteYMobile}px`,
                       ['--reel-aside-w' as any]: `${testiAsideW}px`,
-                      ['--testi-block-x' as any]: `${testiBlockX}px`,
-                      ['--testi-block-y' as any]: `${testiBlockY}px`,
-                      ['--testi-block-x-m' as any]: `${testiBlockXMobile}px`,
-                      ['--testi-block-y-m' as any]: `${testiBlockYMobile}px`,
                       ['--reel-thumbs-x' as any]: `${reelThumbsX}px`,
                       ['--reel-thumbs-y' as any]: `${reelThumbsY}px`,
-                      ['--testi-hline-gap' as any]: `${testiHlineGap}px`,
                     }}
                   />
+                  </div>
                   <div className="testi-hline" role="separator" aria-hidden="true"></div>
                 </section>
 
@@ -2734,6 +2816,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     ['--follow-y' as any]: `${followY}px`,
                     ['--follow-gap' as any]: `${followGap}px`,
                     ['--follow-gap-m' as any]: `${followGapMobile}px`,
+                    ['--follow-cards-gap-m' as any]: `${followCardsGapMobile}px`,
                     ['--follow-maxw' as any]: `${followMaxW}px`,
                     ['--follow-maxw-m' as any]: `${followMaxWMobile}px`,
                     ['--follow-card-w-m' as any]: `${followCardSizeMobile}px`,
