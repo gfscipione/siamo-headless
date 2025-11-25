@@ -3,3 +3,5 @@
 *.webm filter=lfs diff=lfs merge=lfs -text
 *.webp filter=lfs diff=lfs merge=lfs -text
 public/assets/img/hero.webp -filter -diff -merge -text
+
+public/assets/videos/*.mp4 -filter -diff -merge -text
