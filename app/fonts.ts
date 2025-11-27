@@ -9,6 +9,7 @@ export const playfairFont = Playfair_Display({
   preload: true,
 });
 
+
 export const poppinsFont = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],

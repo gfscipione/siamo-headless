@@ -592,7 +592,8 @@ export default function ParallaxDemo({
   wwdLeadFsMobile = 24,
   wwdLeadMaxWMobile = 280,
   wwdTitleFs = 15,
-  wwdTitleW = 500,
+  wwdTitleW = 400,
+  navLinkWeight = 400,
   wwdTitleFsMobile = 12,
   wwdGuideLblGap = 26,
   wwdTextMaxW = 2400,
@@ -772,7 +773,7 @@ export default function ParallaxDemo({
   wwdBlockY = 500,
   wwdBlockYMobile = 420,
   navColGap = 0,
-  navInnerMaxW = 1600,
+  navInnerMaxW = 1700,
   navItemGap = 44,
   navTitleFs = 14,
   navTitleFsMobile = 12,
@@ -939,6 +940,7 @@ export default function ParallaxDemo({
   wwdLeadMaxWMobile?: number;  // knob: px max-width for WWD lead paragraph on mobile
   wwdTitleFs?: number; // knob: px font-size for WHAT WE DO title (eyebrow)
   wwdTitleW?: number; // knob: numeric font-weight for WHAT WE DO title (eyebrow)
+  navLinkWeight?: number; // knob: numeric font-weight for nav links/CTA
   wwdTitleFsMobile?: number; // MOBILE-only font-size for WHAT WE DO (falls back to wwdTitleFs)
   wwdGuideLblGap?: number; // knob: px horizontal gap to place labels to the RIGHT of the guide line
   wwdTextMaxW?: number; // knob: px max-width for WHAT WE DO paragraph
@@ -1886,9 +1888,9 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
   const renderFooterExplore = () => (
     <div className="footer-explore" aria-label="Explore and social">
       <nav className="explore" aria-label="Explore">
-        <a href="/services">Services</a>
-        <a href="/portfolio">Portfolio</a>
-        <a href="/about">About</a>
+        <Link href="/services">Services</Link>
+        <Link href="/portfolio">Portfolio</Link>
+        <Link href="/about">About</Link>
         <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
         <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
           WhatsApp
@@ -1957,6 +1959,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
           ['--nav-bar-h-mobile' as any]: `${navBarHeightMobile}px`,
           ['--brand-fs' as any]: `${brandFontSize}px`,
           ['--brand-fs-m' as any]: `${brandFontSizeMobile}px`,
+          ['--nav-link-weight' as any]: `${navLinkWeight}`,
           ['--nav-title-w' as any]: `${wwdTitleW}`,
           ['--nav-cta-padx' as any]: `${navCtaPadX}px`,
           ['--nav-cta-pady' as any]: `${navCtaPadY}px`,
@@ -1979,8 +1982,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
           </button>
           <ul className="nav-left" role="list">
             <li><a className="nav-link" href="#about">GET TO KNOW US</a></li>
-            <li><a className="nav-link" href="#whatwedo">SERVICES</a></li>
-            <li><a className="nav-link" href="#portfolio">PORTFOLIO</a></li>
+            <li><Link className="nav-link" href="/services">SERVICES</Link></li>
+            <li><a className="nav-link" href="/portfolio">PORTFOLIO</a></li>
           </ul>
 
           <a href="#home" className="brand-mark" aria-label="Siamo Design">
@@ -1991,7 +1994,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               height={40}
               priority={false}
               style={{
-                height: isMobileViewport ? `${brandLogoHeightMobile}px` : "100%",
+                height: isMobileViewport ? `${brandLogoHeightMobile}px` : "38px",
                 width: "auto",
                 objectFit: "contain",
               }}
@@ -2063,8 +2066,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
             </div>
             <nav className="m-nav" aria-label="Mobile menu">
               <a className="m-link" href="#about" onClick={() => setMenuOpen(false)}>GET TO KNOW US</a>
-              <a className="m-link" href="#whatwedo" onClick={() => setMenuOpen(false)}>SERVICES</a>
-              <a className="m-link" href="#portfolio" onClick={() => setMenuOpen(false)}>PORTFOLIO</a>
+              <Link className="m-link" href="/services" onClick={() => setMenuOpen(false)}>SERVICES</Link>
+              <a className="m-link" href="/portfolio" onClick={() => setMenuOpen(false)}>PORTFOLIO</a>
             </nav>
             <div className="m-follow-label">FOLLOW</div>
             <div
@@ -2475,9 +2478,9 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 <WwdTriptych />
                 <div className="wwd-guides-descriptions" aria-hidden="false">
                   <p className="g-desc col1">{wwdDesc1}</p>
-                  <a className="g-cta col1" href="/services">
+                  <Link className="g-cta col1" href="/services">
                     <span className="cta-label">our services</span>
-                  </a>
+                  </Link>
                   <p className="g-eyebrow col1">projects</p>
                   <div
                     className="wwd-service02-inline"
