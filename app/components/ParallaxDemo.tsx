@@ -1345,7 +1345,8 @@ export default function ParallaxDemo({
   // - Handle CRLF / LF
   // - Fix "dream hom" (any spacing/casing)
   // - Fix any standalone "hom" before space/punctuation/newline/end
-  const resolvedIsMobile = hasMounted ? isMobileViewport : (initialIsMobile ?? false);
+  // Resolve mobile based on server hint to avoid post-hydration flips
+  const resolvedIsMobile = initialIsMobile ?? isMobileViewport;
   const testiSectionOffsetXCurrent = resolvedIsMobile ? testiSectionOffsetXMobile : testiSectionOffsetX;
   const testiSectionOffsetYCurrent = resolvedIsMobile ? testiSectionOffsetYMobile : testiSectionOffsetY;
   const testiBlockOffsetXCurrent = resolvedIsMobile ? testiBlockOffsetXMobile : testiBlockOffsetX;
@@ -1360,10 +1361,12 @@ export default function ParallaxDemo({
 
   // Split title on explicit newlines and harden each line so none end with 'hom'
 const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
-  const typewriterEnabled = hasMounted ? (typewriter && !resolvedIsMobile) : false;
+  const [typewriterEnabled, setTypewriterEnabled] = useState(() => typewriter && !resolvedIsMobile);
 
   // === Typewriter state (line-by-line) ===
-  const [typedLines, setTypedLines] = useState<string[]>(() => lines.map(() => "")); // SSR-safe: same span count
+  const [typedLines, setTypedLines] = useState<string[]>(() =>
+    typewriterEnabled ? lines.map(() => "") : [...lines]
+  ); // SSR-safe: render full title when typewriter is disabled
   const [lineIdx, setLineIdx] = useState<number>(0);          // which line is being typed
   const [charIdx, setCharIdx] = useState<number>(0);          // index within current line
 
@@ -1443,6 +1446,16 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       clearTimeout(startTimer);
     };
   }, [normalizedTitle, typewriterEnabled, typingSpeedMs, startDelayMs]);
+
+  useEffect(() => {
+    const cancelTyping = () => setTypewriterEnabled(false);
+    window.addEventListener("scroll", cancelTyping, { passive: true });
+    window.addEventListener("wheel", cancelTyping, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", cancelTyping);
+      window.removeEventListener("wheel", cancelTyping);
+    };
+  }, []);
 
   const pf = 0.22; // parallax factor fijo (sutil)
 
@@ -1981,7 +1994,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
             <span className="label">{menuOpen ? 'CLOSE' : 'MENU'}</span>
           </button>
           <ul className="nav-left" role="list">
-            <li><a className="nav-link" href="#about">GET TO KNOW US</a></li>
+            <li><a className="nav-link" href="/get-to-know-us">GET TO KNOW US</a></li>
             <li><Link className="nav-link" href="/services">SERVICES</Link></li>
             <li><a className="nav-link" href="/portfolio">PORTFOLIO</a></li>
           </ul>
@@ -1992,12 +2005,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               alt="Siamo Design"
               width={180}
               height={40}
-              priority={false}
-              style={{
-                height: isMobileViewport ? `${brandLogoHeightMobile}px` : "38px",
-                width: "auto",
-                objectFit: "contain",
-              }}
+              priority
+              style={{ width: "auto", height: "38px", objectFit: "contain" }}
             />
           </a>
 
@@ -2053,7 +2062,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               >
                 CLOSE
               </button>
-              <span className="m-brand">
+              <a className="m-brand" href="/">
                 <Image
                   src="/assets/img/logotipo.png"
                   alt="Siamo Design"
@@ -2062,14 +2071,14 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   priority={false}
                   style={{ width: "auto", height: `${brandLogoHeightMobile}px` }}
                 />
-              </span>
+              </a>
             </div>
             <nav className="m-nav" aria-label="Mobile menu">
-              <a className="m-link" href="#about" onClick={() => setMenuOpen(false)}>GET TO KNOW US</a>
+              <a className="m-link" href="/get-to-know-us" onClick={() => setMenuOpen(false)}>GET TO KNOW US</a>
               <Link className="m-link" href="/services" onClick={() => setMenuOpen(false)}>SERVICES</Link>
               <a className="m-link" href="/portfolio" onClick={() => setMenuOpen(false)}>PORTFOLIO</a>
             </nav>
-            <div className="m-follow-label">FOLLOW</div>
+            <div className="m-follow-label">Follow</div>
             <div
               className="m-social"
               aria-label="Redes sociales"
@@ -2078,7 +2087,21 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               <a
                 className="m-social__link"
                 href="https://www.linkedin.com"
-                aria-label="LinkedIn"
+                  aria-label="LinkedIn"
+                  style={mobileDrawerSocialStyles.link}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    style={mobileDrawerSocialStyles.icon}
+                  >
+                    <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
+                  </svg>
+                </a>
+              <a
+                className="m-social__link"
+                href="https://www.facebook.com"
+                aria-label="Facebook"
                 style={mobileDrawerSocialStyles.link}
               >
                 <svg
@@ -2086,14 +2109,14 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   aria-hidden="true"
                   style={mobileDrawerSocialStyles.icon}
                 >
-                  <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
+                  <path d="M13 10.5V8.4c0-.8.1-1.2 1.3-1.2H16V5h-2.5C10.9 5 10 6.5 10 8.2v2.3H8v2.2h2V19h3V12.7h2.2l.3-2.2H13Z" />
                 </svg>
               </a>
-              <a
-                className="m-social__link"
-                href="https://www.youtube.com"
-                aria-label="YouTube"
-                style={mobileDrawerSocialStyles.link}
+                <a
+                  className="m-social__link"
+                  href="https://www.youtube.com"
+                  aria-label="YouTube"
+                  style={mobileDrawerSocialStyles.link}
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -2134,36 +2157,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   <circle cx="17.4" cy="6.6" r="1"/>
                 </svg>
               </a>
-              <a
-                className="m-social__link"
-                href="mailto:hello@siamo.design"
-                aria-label="Email"
-                style={mobileDrawerSocialStyles.link}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  style={mobileDrawerSocialStyles.icon}
-                >
-                  <path d="M4 6h16c1.1 0 2 .9 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8c0-1.1.9-2 2-2Zm0 1.5v.2l8 4.6 8-4.6V7.5H4Zm0 2.6V16h16v-5.9l-7.4 4.3a1 1 0 0 1-1 0L4 10.1Z" />
-                </svg>
-              </a>
-              <a
-                className="m-social__link"
-                href="https://wa.me/0000000000"
-                aria-label="WhatsApp"
-                style={mobileDrawerSocialStyles.link}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  style={mobileDrawerSocialStyles.icon}
-                >
-                  <path d="M12 3.1a8.9 8.9 0 0 0-7.6 13.5L3 21l4.5-1.3A9 9 0 1 0 12 3.1ZM12 20a7.1 7.1 0 0 1-3.6-1l-.3-.1-2.7.8.8-2.6-.2-.3a7.2 7.2 0 1 1 6 3.2Z" />
-                  <path d="M17 14.1c-.1-.2-.5-.3-1-.6s-.6-.3-.9.1-.5.6-.8.7-.4.1-.8-.3a6.1 6.1 0 0 1-1.5-1.2 6.7 6.7 0 0 1-1-1.5c-.1-.3 0-.5.2-.7l.3-.4c.1-.1.1-.2.2-.4s0-.3 0-.4 0-.4-.9-.7-.8-.1-1.1 0l-.5.5a2 2 0 0 0-.7 1.4 3.4 3.4 0 0 0 .7 1.8 7.7 7.7 0 0 0 3.1 3 5.1 5.1 0 0 0 1.8.7 2.3 2.3 0 0 0 1.9-.6c.3-.3.8-.8.9-1.2s.1-.7 0-.8Z" />
-                </svg>
-              </a>
             </div>
+            <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
             <a className="m-cta" href="#book">
               GET STARTED <span aria-hidden="true">→</span>
             </a>

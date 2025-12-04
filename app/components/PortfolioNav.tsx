@@ -2,14 +2,17 @@
 
 import Image from "next/image";
 import { CSSProperties, useEffect, useState } from "react";
+import { playfairFont } from "../fonts";
 
 type PortfolioNavProps = {
   styleVars: CSSProperties;
   isHero?: boolean; // allow hero contrast (e.g., services) without affecting other pages
+  variant?: "default" | "services" | "gtku";
 };
 
-export default function PortfolioNav({ styleVars, isHero = false }: PortfolioNavProps) {
+export default function PortfolioNav({ styleVars, isHero = false, variant = "default" }: PortfolioNavProps) {
   const [navSolid, setNavSolid] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     // Keep it simple: listen only to the viewport scroll.
@@ -42,18 +45,39 @@ export default function PortfolioNav({ styleVars, isHero = false }: PortfolioNav
     };
   }, []);
 
+  useEffect(() => {
+    // lock body scroll when mobile menu is open
+    const body = typeof document !== "undefined" ? document.body : null;
+    if (!body) return;
+    const prev = body.style.overflow;
+    if (menuOpen) {
+      body.style.overflow = "hidden";
+    }
+    return () => {
+      body.style.overflow = prev;
+    };
+  }, [menuOpen]);
+
   return (
     <nav
-      className={`site-nav portfolio-nav ${navSolid ? "is-solid" : isHero ? "is-hero" : ""}`}
+      className={`site-nav portfolio-nav ${navSolid ? "is-solid" : ""} ${menuOpen ? "is-menu-open" : ""} ${
+        isHero && !navSolid ? "is-hero" : ""
+      } ${variant !== "default" ? `nav-${variant}` : ""}`}
       aria-label="Barra de navegación"
       style={styleVars}
     >
       <div className="site-nav__inner">
-        <button className="menu-toggle" aria-label="Open menu" aria-expanded="false">
-          <span className="label">MENU</span>
+        <button
+          className="menu-toggle"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span className="label">{menuOpen ? "CLOSE" : "MENU"}</span>
         </button>
         <ul className="nav-left" role="list">
-          <li><a className="nav-link" href="/about">GET TO KNOW US</a></li>
+          <li><a className="nav-link" href="/get-to-know-us">GET TO KNOW US</a></li>
           <li><a className="nav-link" href="/services">SERVICES</a></li>
           <li><a className="nav-link" href="/portfolio">PORTFOLIO</a></li>
         </ul>
@@ -64,7 +88,7 @@ export default function PortfolioNav({ styleVars, isHero = false }: PortfolioNav
             alt="Siamo Design"
             width={180}
             height={40}
-            priority={false}
+            priority
             style={{ height: "38px", width: "auto", objectFit: "contain" }}
           />
         </a>
@@ -79,31 +103,66 @@ export default function PortfolioNav({ styleVars, isHero = false }: PortfolioNav
           </a>
         </div>
       </div>
-      <div id="mobile-menu" className="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true">
-        <div className="m-drawer">
+      <div
+        id="mobile-menu"
+        className={`mobile-menu${menuOpen ? " is-open" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-hidden={!menuOpen}
+        style={{
+          ['--menu-header-y-m' as any]: "0px",
+          ['--menu-links-topline-y-m' as any]: "10px",
+          ['--menu-links-x-m' as any]: "0px",
+          ['--menu-links-y-m' as any]: "30px",
+          ['--menu-header-row-y-m' as any]: "10px",
+          ['--menu-follow-y-m' as any]: "250px",
+          ['--menu-follow-divider-y-m' as any]: "80px",
+          ['--menu-social-block-y-m' as any]: "0px",
+          ['--menu-social-line-y-m' as any]: "0px",
+          ['--menu-cta-y-m' as any]: "40px",
+          ['--menu-brand-fs-m' as any]: "18px",
+          ['--menu-brand-tracking-m' as any]: "0.08em",
+          ['--menu-brand-logo-h-m' as any]: "32px",
+          ['--menu-close-fs-m' as any]: "12px",
+          ['--menu-close-tracking-m' as any]: "0.08em",
+        }}
+      >
+        <div className="m-drawer" style={{ background: "#F4F2EA" }}>
           <div className="m-header">
-            <button type="button" className="m-close" aria-label="Close menu">CLOSE</button>
-            <span className="m-brand">
+            <button
+              type="button"
+              className="m-close"
+              aria-label="Close menu"
+              onClick={() => setMenuOpen(false)}
+            >
+              CLOSE
+            </button>
+            <a className="m-brand" href="/">
               <Image
                 src="/assets/img/logotipo.png"
                 alt="Siamo Design"
                 width={140}
                 height={40}
                 priority={false}
-                style={{ width: "auto", height: "40px" }}
+                style={{ width: "auto", height: "32px" }}
               />
-            </span>
+            </a>
           </div>
           <nav className="m-nav" aria-label="Mobile menu">
             <a className="m-link" href="/about">GET TO KNOW US</a>
             <a className="m-link" href="/services">SERVICES</a>
             <a className="m-link" href="/portfolio">PORTFOLIO</a>
           </nav>
-          <div className="m-follow-label">FOLLOW</div>
+          <div className="m-follow-label">Follow</div>
           <div className="m-social" aria-label="Redes sociales">
             <a className="m-social__link" href="https://www.linkedin.com" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
+              </svg>
+            </a>
+            <a className="m-social__link" href="https://www.facebook.com" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M13 10.5V8.4c0-.8.1-1.2 1.3-1.2H16V5h-2.5C10.9 5 10 6.5 10 8.2v2.3H8v2.2h2V19h3V12.7h2.2l.3-2.2H13Z" />
               </svg>
             </a>
             <a className="m-social__link" href="https://www.youtube.com" aria-label="YouTube">
@@ -125,6 +184,7 @@ export default function PortfolioNav({ styleVars, isHero = false }: PortfolioNav
               </svg>
             </a>
           </div>
+          <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
           <a className="cta m-cta" href="#">
             GET STARTED <span aria-hidden="true">→</span>
           </a>
