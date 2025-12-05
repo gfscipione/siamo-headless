@@ -68,24 +68,24 @@ export default function ProjectPage({
 }: ProjectPageProps) {
   return (
     <>
-      <PortfolioNav styleVars={styleVars} isHero />
+      <PortfolioNav styleVars={styleVars || {}} isHero />
 
       <main className="services-page overscroll-safe">
         <section
           className="services-hero"
           aria-label="Project hero"
-        style={{
-          alignItems: hero.align || "center",
-          ["--project-hero-title-size" as any]: hero.titleSize || "64px",
-          ["--project-hero-title-size-mobile" as any]: hero.titleSizeMobile || "50px",
-          ["--project-hero-align" as any]: hero.align || "center",
-          ["--project-hero-pad-top" as any]: hero.padTopDesktopPx
-            ? `${hero.padTopDesktopPx}px`
-            : hero.padTop || "clamp(4rem, 8vh, 7rem)",
-          ["--project-hero-pad-bottom" as any]: hero.padBottom || "clamp(4rem, 8vh, 7rem)",
-          backgroundImage: `url("${hero.backgroundImage}")`,
-        }}
-      >
+          style={{
+            alignItems: hero.align || "center",
+            ["--project-hero-title-size" as any]: hero.titleSize || "64px",
+            ["--project-hero-title-size-mobile" as any]: hero.titleSizeMobile || "50px",
+            ["--project-hero-align" as any]: hero.align || "center",
+            ["--project-hero-pad-top" as any]: hero.padTopDesktopPx
+              ? `${hero.padTopDesktopPx}px`
+              : hero.padTop || "clamp(4rem, 8vh, 7rem)",
+            ["--project-hero-pad-bottom" as any]: hero.padBottom || "clamp(4rem, 8vh, 7rem)",
+            backgroundImage: `url("${hero.backgroundImage}")`,
+          }}
+        >
           <div className="services-hero__scrim" />
           <div
             className="services-hero__content"
