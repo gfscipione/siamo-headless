@@ -53,16 +53,18 @@ const projects: Project[] = [
     image: "/assets/img/post1.jpeg",
   },
   {
-    title: "Guest Suite",
+    title: "Vintage Tulum",
     location: "Tulum",
-    summary: "Soft linens, tailored drapery, and wood sconces.",
+    summary: "Natural essence, blended with the charm of vintage style.",
     image: "/assets/img/post2.jpeg",
+    href: "/portfolio/vintage-tulum",
   },
   {
-    title: "Bath Niche",
+    title: "Contemporary Retreat",
     location: "Cancún",
-    summary: "Arched niche with marble and brass hardware.",
-    image: "/assets/img/post3.jpeg",
+    summary: "Modern architecture with refined, high-end materials.",
+    image: "/assets/retiro-contemporaneo/living-room-1.png",
+    href: "/portfolio/contemporary-retreat",
   },
 ];
 
@@ -117,28 +119,30 @@ export default function PortfolioPage() {
         <section className="portfolio-section" aria-label="All projects">
           <div className="portfolio-grid portfolio-grid--3cols">
             {projects.map((project) => (
-              <article key={project.title} className="portfolio-card">
-                <div className="portfolio-card__media">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    priority={false}
-                  />
-                </div>
-                <div className="portfolio-card__body">
-                  <h2 className={`portfolio-card__title ${playfairFont.className}`}>
-                    {project.title}
-                  </h2>
-                  <p className={`portfolio-card__summary ${playfairFont.className}`}>
-                    {project.summary}
-                  </p>
-                  <p className={`portfolio-card__location ${poppinsFont.className}`}>
-                    {project.location}
-                  </p>
-              </div>
-            </article>
+                <article key={project.title} className="portfolio-card">
+                  <a href={project.href || "#"} className="portfolio-card__link">
+                    <div className="portfolio-card__media">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        priority={false}
+                      />
+                    </div>
+                    <div className="portfolio-card__body">
+                      <h2 className={`portfolio-card__title ${playfairFont.className}`}>
+                        {project.title}
+                      </h2>
+                      <p className={`portfolio-card__summary ${playfairFont.className}`}>
+                        {project.summary}
+                      </p>
+                      <p className={`portfolio-card__location ${poppinsFont.className}`}>
+                        {project.location}
+                      </p>
+                    </div>
+                  </a>
+                </article>
             ))}
           </div>
         </section>
@@ -189,7 +193,7 @@ export default function PortfolioPage() {
           <nav className="explore" aria-label="Explore">
             <a href="/services">Services</a>
             <a href="/portfolio">Portfolio</a>
-            <a href="/about">About</a>
+            <a href="/get-to-know-us">About</a>
               <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
               <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
                 WhatsApp

@@ -1,6 +1,6 @@
 import PortfolioNav from "../components/PortfolioNav";
-import AboutHeroVideo from "./video";
 import { playfairFont, poppinsFont } from "../fonts";
+import AboutHeroVideo from "./video";
 
 export const metadata = {
   title: "Get to Know Us — Siamo Design",
@@ -234,7 +234,7 @@ export default function GetToKnowUsPage() {
               <nav className="explore" aria-label="Explore">
                 <a href="/services">Services</a>
                 <a href="/portfolio">Portfolio</a>
-                <a href="/about">About</a>
+                <a href="/get-to-know-us">About</a>
                 <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
                 <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
                   WhatsApp

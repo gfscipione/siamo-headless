@@ -149,7 +149,7 @@ export default function PortfolioNav({ styleVars, isHero = false, variant = "def
             </a>
           </div>
           <nav className="m-nav" aria-label="Mobile menu">
-            <a className="m-link" href="/about">GET TO KNOW US</a>
+            <a className="m-link" href="/get-to-know-us">GET TO KNOW US</a>
             <a className="m-link" href="/services">SERVICES</a>
             <a className="m-link" href="/portfolio">PORTFOLIO</a>
           </nav>

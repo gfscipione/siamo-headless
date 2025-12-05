@@ -4,6 +4,7 @@ export const metadata = {
 };
 
 import Image from "next/image";
+import Link from "next/link";
 import PortfolioNav from "../components/PortfolioNav";
 import FaqAccordion from "../components/FaqAccordion";
 
@@ -17,6 +18,7 @@ const services = [
       "Experience custom design creation with our Full-Service Interior Design. Our experts manage every detail, from space planning to final installation, providing a personalized and stress-free journey to your dream home.",
     image: "/assets/img/post4.jpeg",
     cta: "Find out more",
+    href: "/services/full-service",
   },
   {
     title: "Virtual Interior Design",
@@ -25,6 +27,7 @@ const services = [
       "Our Virtual Interior Design service delivers the same custom design creation paired with the flexibility of remote collaboration. Reimagine your space with tailored plans and curated shopping lists from our designers.",
     image: "/assets/img/post6.jpeg",
     cta: "Find out more",
+    href: "/services/virtual-design",
   },
 ];
 
@@ -191,19 +194,24 @@ export default function ServicesPage() {
                     />
                   </div>
                   <div className="service-card__body">
-                    <h3 className={`service-card__title ${playfairFont.className}`}>
-                      {service.title}
-                    </h3>
-                    <p className={`service-card__subtitle ${playfairFont.className}`}>
-                      {service.subtitle}
-                    </p>
-                    <p className={`service-card__copy ${poppinsFont.className}`}>
-                      {service.description}
-                    </p>
-                    <button className="service-card__cta">{service.cta}</button>
-                  </div>
-                </article>
-              ))}
+                  <h3 className={`service-card__title ${playfairFont.className}`}>
+                    {service.title}
+                  </h3>
+                  <p className={`service-card__subtitle ${playfairFont.className}`}>
+                    {service.subtitle}
+                  </p>
+                  <p className={`service-card__copy ${poppinsFont.className}`}>
+                    {service.description}
+                  </p>
+                  <Link
+                    className="service-card__cta"
+                    href={service.href || (service.title.toLowerCase().includes("virtual") ? "/services/virtual-design" : "/services#on-site")}
+                  >
+                    {service.cta}
+                  </Link>
+                </div>
+              </article>
+            ))}
             </div>
           </div>
         </section>
@@ -367,7 +375,7 @@ export default function ServicesPage() {
               <nav className="explore" aria-label="Explore">
                 <a href="/services">Services</a>
                 <a href="/portfolio">Portfolio</a>
-                <a href="/about">About</a>
+                <a href="/get-to-know-us">About</a>
                 <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
                 <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
                   WhatsApp

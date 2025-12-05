@@ -1903,7 +1903,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       <nav className="explore" aria-label="Explore">
         <Link href="/services">Services</Link>
         <Link href="/portfolio">Portfolio</Link>
-        <Link href="/about">About</Link>
+        <Link href="/get-to-know-us">About</Link>
         <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
         <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
           WhatsApp
@@ -1999,7 +1999,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
             <li><a className="nav-link" href="/portfolio">PORTFOLIO</a></li>
           </ul>
 
-          <a href="#home" className="brand-mark" aria-label="Siamo Design">
+          <a href="/" className="brand-mark" aria-label="Siamo Design">
             <Image
               src="/assets/img/logotipo.png"
               alt="Siamo Design"
@@ -2514,7 +2514,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   </a>
                   <a
                     className="g-cta col2 about-cta-mobile"
-                    href="#about"
+                    href="/get-to-know-us"
                     aria-label="Get to know us"
                     style={{
                       ['--about-cta-x' as any]: `${aboutCtaX}px`,
@@ -2652,7 +2652,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 </p>
                 <a
                   className="about-cta desktop-only"
-                  href="#about"
+                  href="/get-to-know-us"
                   aria-label="Get to know us"
                   style={{
                     ['--about-cta-x' as any]: `${aboutCtaX}px`,
