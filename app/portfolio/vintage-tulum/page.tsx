@@ -33,38 +33,53 @@ export default function VintageTulumPage() {
     {
       title: "Living Salon",
       mainImage: {
-        src: "/assets/img/post2.jpeg",
-        alt: "Vintage Tulum living room with woven textures",
+        src: "/assets/vintage-tulum/kitchen-2.jpg",
+        alt: "Vintage Tulum living area with kitchen view",
       },
       isSquare: true,
       duoImages: [
-        { src: "/assets/img/post4.jpeg", alt: "Detail of wood paneling and lighting" },
-        { src: "/assets/img/post5.jpeg", alt: "Seating vignette with textiles" },
+        { src: "/assets/vintage-tulum/living-room-3.jpg", alt: "Vertical view of living room vignette" },
+        { src: "/assets/vintage-tulum/details-5.jpg", alt: "Vertical detail with pendant lighting" },
       ],
       secondaryImage: {
-        src: "/assets/img/post1.jpeg",
-        alt: "Styled console with vintage accents",
+        src: "/assets/vintage-tulum/living-room-2.jpg",
+        alt: "Horizontal view of living room with seating",
         isSquare: true,
       },
+      extraImages: [
+        {
+          src: "/assets/vintage-tulum/living-terrace-1.jpg",
+          alt: "Living terrace view with seating",
+          isSquare: true,
+        },
+      ],
     },
     {
       title: "Bedroom Suite",
       mainImage: {
-        src: "/assets/img/post6.jpeg",
+        src: "/assets/vintage-tulum/bedroom-3.jpg",
         alt: "Bedroom suite with layered neutrals and textiles",
       },
       isSquare: true,
       duoImages: [
-        { src: "/assets/img/post3.jpeg", alt: "Bedside detail with ceramic lamp" },
-        { src: "/assets/img/post2.jpeg", alt: "Drapery and woven pendant detail" },
+        { src: "/assets/vintage-tulum/bedroom-2.jpg", alt: "Bedside detail with ceramic lamp" },
+        { src: "/assets/vintage-tulum/details-1.jpg", alt: "Drapery and woven pendant detail" },
       ],
     },
     {
       title: "Outdoor Terrace",
       mainImage: {
-        src: "/assets/img/post5.jpeg",
+        src: "/assets/vintage-tulum/terrace-1.jpg",
         alt: "Outdoor terrace with dining and natural finishes",
       },
+      isSquare: true,
+      extraImages: [
+        {
+          src: "/assets/vintage-tulum/terrace-2.jpg",
+          alt: "Outdoor terrace secondary view",
+          isSquare: true,
+        },
+      ],
     },
   ];
 
@@ -103,7 +118,7 @@ export default function VintageTulumPage() {
       title="Vintage Tulum"
       styleVars={styleVars}
       hero={{
-        backgroundImage: "/assets/img/post2.jpeg",
+        backgroundImage: "/assets/vintage-tulum/details-4.jpg",
         titleSize: "64px",
         titleSizeMobile: "50px",
         align: "center",

@@ -4428,6 +4428,9 @@ body {
   max-width: 1700px;
   margin: 0 auto;
   z-index: 1;
+  left: auto;
+  right: auto;
+  transform: none;
 }
 .virtual-hero-image{
   position: relative;

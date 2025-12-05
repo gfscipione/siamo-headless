@@ -16,6 +16,7 @@ type ProjectSection = {
   isFloorplan?: boolean;
   duoImages?: ProjectSectionImage[];
   secondaryImage?: ProjectSectionImage & { isSquare?: boolean };
+  extraImages?: (ProjectSectionImage & { isSquare?: boolean })[];
 };
 
 type FeaturedProject = {
@@ -200,6 +201,23 @@ export default function ProjectPage({
                             />
                           </div>
                         )}
+                        {section.extraImages?.map((img) => (
+                          <div
+                            className={`project-detail__image project-detail__image--secondary ${
+                              img.isSquare ? "project-detail__image--square" : ""
+                            }`}
+                            key={img.src}
+                          >
+                            <Image
+                              src={img.src}
+                              alt={img.alt}
+                              fill
+                              sizes="(max-width: 768px) 100vw, 70vw"
+                              style={{ objectFit: "cover" }}
+                              priority={false}
+                            />
+                          </div>
+                        ))}
                         {idx === sections.length - 1 && (
                           <div className="project-detail__divider" aria-hidden="true" />
                         )}

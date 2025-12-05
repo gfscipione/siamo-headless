@@ -48,16 +48,17 @@ const projects: Project[] = [
     image: "/assets/img/post6.jpeg",
   },
   {
-    title: "Entry Garden",
-    location: "Playa del Carmen",
-    summary: "Symmetrical landscaping with lanterns and stone.",
-    image: "/assets/img/post1.jpeg",
+    title: "Mid-Century Waves",
+    location: "Akumal",
+    summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
+    image: "/assets/mid-century-waves/terrace-1.jpg",
+    href: "/portfolio/mid-century-waves",
   },
   {
     title: "Vintage Tulum",
     location: "Tulum",
     summary: "Natural essence, blended with the charm of vintage style.",
-    image: "/assets/img/post2.jpeg",
+    image: "/assets/vintage-tulum/living-room-3.jpg",
     href: "/portfolio/vintage-tulum",
   },
   {
