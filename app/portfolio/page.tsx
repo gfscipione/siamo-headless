@@ -7,6 +7,7 @@ type Project = {
   location: string;
   summary: string;
   image: string;
+  href?: string;
 };
 
 const projects: Project[] = [
