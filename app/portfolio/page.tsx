@@ -36,10 +36,11 @@ const projects: Project[] = [
     image: "/assets/img/post4.jpeg",
   },
   {
-    title: "Stair Hall",
+    title: "Roots Tulum",
     location: "Playa del Carmen",
-    summary: "Checkerboard tile, wrought iron, and wood banister.",
-    image: "/assets/img/post5.jpeg",
+    summary: "A timeless expression of pure, natural materials.",
+    image: "/assets/raices-tulum/bedroom-4.jpg",
+    href: "/portfolio/roots-tulum",
   },
   {
     title: "Tuluminati House",
