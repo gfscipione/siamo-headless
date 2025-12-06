@@ -10,7 +10,7 @@ type ProjectSectionImage = {
 
 type ProjectSection = {
   title: string;
-  mainImage: ProjectSectionImage;
+  mainImage?: ProjectSectionImage;
   mainSizes?: string;
   isSquare?: boolean;
   isFloorplan?: boolean;
@@ -144,10 +144,11 @@ export default function ProjectPage({
             <div className="project-details__list">
               {sections.map((section, idx) => {
                 const step = String(idx + 1).padStart(2, "0");
-                const mainImageSizes =
-                  section.mainSizes || (section.isFloorplan
+                const mainImageSizes = section.mainImage
+                  ? section.mainSizes || (section.isFloorplan
                     ? "(max-width: 768px) 100vw, 55vw"
-                    : "(max-width: 768px) 100vw, 70vw");
+                    : "(max-width: 768px) 100vw, 70vw")
+                  : undefined;
 
                 return (
                   <article className="project-detail" key={`${idx}-${section.title}`}>
@@ -173,18 +174,20 @@ export default function ProjectPage({
                             ))}
                           </div>
                         )}
-                        <div
-                          className={`project-detail__image ${section.isSquare ? "project-detail__image--square" : ""} ${section.isFloorplan ? "project-detail__image--floorplan" : ""}`}
-                        >
-                          <Image
-                            src={section.mainImage.src}
-                            alt={section.mainImage.alt}
-                            fill
-                            sizes={mainImageSizes}
-                            style={{ objectFit: "cover" }}
-                            priority={false}
-                          />
-                        </div>
+                        {section.mainImage && (
+                          <div
+                            className={`project-detail__image ${section.isSquare ? "project-detail__image--square" : ""} ${section.isFloorplan ? "project-detail__image--floorplan" : ""}`}
+                          >
+                            <Image
+                              src={section.mainImage.src}
+                              alt={section.mainImage.alt}
+                              fill
+                              sizes={mainImageSizes}
+                              style={{ objectFit: "cover" }}
+                              priority={false}
+                            />
+                          </div>
+                        )}
                         {section.secondaryImage && (
                           <div
                             className={`project-detail__image project-detail__image--secondary ${

@@ -42,10 +42,11 @@ const projects: Project[] = [
     image: "/assets/img/post5.jpeg",
   },
   {
-    title: "Seaside Dining",
+    title: "Tuluminati House",
     location: "Cancún",
-    summary: "Indoor-outdoor view framed with tall glazing.",
-    image: "/assets/img/post6.jpeg",
+    summary: "A celebration of Tulum’s natural materials and local craftsmanship.",
+    image: "/assets/tuluminati-house/living-room-7.jpg",
+    href: "/portfolio/tuluminati-house",
   },
   {
     title: "Mid-Century Waves",
