@@ -91,7 +91,7 @@ export default function MidCenturyWavesPage() {
       },
       isSquare: true,
       duoImages: [
-        { src: "/assets/mid-century-waves/terrace-1.JPG", alt: "Vertical view of terrace" },
+        { src: "/assets/mid-century-waves/terrace-1.jpg", alt: "Vertical view of terrace" },
         { src: "/assets/mid-century-waves/terrace-8.jpg", alt: "Vertical view of terrace detail" },
       ],
       secondaryImage: {
