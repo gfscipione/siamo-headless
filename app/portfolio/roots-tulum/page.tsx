@@ -52,7 +52,7 @@ export default function RootsTulumPage() {
     {
       title: "Primary Suite",
       mainImage: {
-        src: "/assets/raices-tulum/bedroom-1.jpg",
+        src: "/assets/raices-tulum/bedroom-6.jpg",
         alt: "Primary bedroom with layered neutrals",
       },
       isSquare: true,
@@ -109,22 +109,25 @@ export default function RootsTulumPage() {
 
   const featuredProjects = [
     {
-      title: "Hillside Room",
-      location: "Playa del Carmen",
-      summary: "Layered neutrals with brass accents and custom upholstery.",
-      image: "/assets/img/post1.jpeg",
+      title: "Timeless Nature",
+      location: "Puerto Morelos",
+      summary: "A timeless blend of natural elements and contemporary design.",
+      image: "/assets/timeless-nature/living-room-19.jpg",
+      href: "/portfolio/timeless-nature",
     },
     {
-      title: "Casa Maranta",
-      location: "Tulum",
-      summary: "Textural ceramics, soft drapery, and dried botanicals.",
-      image: "/assets/img/post2.jpeg",
+      title: "Mid-Century Waves",
+      location: "Akumal",
+      summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
+      image: "/assets/mid-century-waves/terrace-1.jpg",
+      href: "/portfolio/mid-century-waves",
     },
     {
-      title: "Warm Lodge",
+      title: "Tuluminati House",
       location: "Cancún",
-      summary: "Moody lighting, leather seating, and stone fireplace.",
-      image: "/assets/img/post3.jpeg",
+      summary: "A celebration of Tulum’s natural materials and local craftsmanship.",
+      image: "/assets/tuluminati-house/living-room-7.jpg",
+      href: "/portfolio/tuluminati-house",
     },
   ];
 

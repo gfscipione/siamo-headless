@@ -24,6 +24,7 @@ type FeaturedProject = {
   location: string;
   summary: string;
   image: string;
+  href?: string;
 };
 
 type SocialItem = {
@@ -241,30 +242,42 @@ export default function ProjectPage({
           <div className="featured-projects__inner">
             <h2 className={`featured-projects__title ${playfairFont.className}`}>Featured Projects</h2>
             <div className="featured-projects__grid">
-              {featuredProjects.map((project) => (
-                <article key={project.title} className="featured-project">
-                  <div className="featured-project__media">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      priority={false}
-                    />
-                  </div>
-                  <div className="featured-project__body">
-                    <h3 className={`featured-project__title ${playfairFont.className}`}>
-                      {project.title}
-                    </h3>
-                    <p className={`featured-project__summary ${playfairFont.className}`}>
-                      {project.summary}
-                    </p>
-                    <p className={`featured-project__location ${poppinsFont.className}`}>
-                      {project.location}
-                    </p>
-                  </div>
-                </article>
-              ))}
+              {featuredProjects.map((project) => {
+                const Card = (
+                  <>
+                    <div className="featured-project__media">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        priority={false}
+                      />
+                    </div>
+                    <div className="featured-project__body">
+                      <h3 className={`featured-project__title ${playfairFont.className}`}>
+                        {project.title}
+                      </h3>
+                      <p className={`featured-project__summary ${playfairFont.className}`}>
+                        {project.summary}
+                      </p>
+                      <p className={`featured-project__location ${poppinsFont.className}`}>
+                        {project.location}
+                      </p>
+                    </div>
+                  </>
+                );
+
+                return project.href ? (
+                  <a key={project.title} className="featured-project" href={project.href}>
+                    {Card}
+                  </a>
+                ) : (
+                  <article key={project.title} className="featured-project">
+                    {Card}
+                  </article>
+                );
+              })}
             </div>
           </div>
           <div className="project-detail__divider featured-projects__divider" aria-hidden="true" />

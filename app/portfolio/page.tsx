@@ -12,32 +12,15 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: "Hillside Room",
-    location: "Playa del Carmen",
-    summary: "Layered neutrals with brass accents and custom upholstery.",
-    image: "/assets/img/post1.jpeg",
-  },
-  {
-    title: "Casa Maranta",
-    location: "Tulum",
-    summary: "Textural ceramics, soft drapery, and dried botanicals.",
-    image: "/assets/img/post2.jpeg",
-  },
-  {
-    title: "Warm Lodge",
-    location: "Cancún",
-    summary: "Moody lighting, leather seating, and stone fireplace.",
-    image: "/assets/img/post3.jpeg",
-  },
-  {
-    title: "Pantry Redux",
-    location: "Tulum",
-    summary: "Built-ins, shaker millwork, and natural wood tones.",
-    image: "/assets/img/post4.jpeg",
+    title: "Timeless Nature",
+    location: "Puerto Morelos",
+    summary: "A timeless blend of natural elements and contemporary design.",
+    image: "/assets/timeless-nature/living-room-19.jpg",
+    href: "/portfolio/timeless-nature",
   },
   {
     title: "Roots Tulum",
-    location: "Playa del Carmen",
+    location: "Tulum",
     summary: "A timeless expression of pure, natural materials.",
     image: "/assets/raices-tulum/bedroom-4.jpg",
     href: "/portfolio/roots-tulum",
@@ -107,7 +90,7 @@ export default function PortfolioPage() {
       <main className="portfolio-page overscroll-safe">
         <section className="portfolio-hero-block" aria-label="Portfolio intro">
           <div className="portfolio-crumb">
-            HOME • PORTFOLIO
+            <a href="/" aria-label="Go to homepage">HOME</a> • PORTFOLIO
           </div>
           <h1 className={`portfolio-hero-title ${playfairFont.className}`}>
             Portfolio
