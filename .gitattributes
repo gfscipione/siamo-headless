@@ -1,0 +1,7 @@
+public/assets/img/hero.webp -filter -diff -merge -text
+
+public/assets/videos/*.mp4 -filter -diff -merge -text
+
+public/assets/videos/testimonials-thumb.webp -filter -diff -merge -text
+
+public/assets/videos/about-thumb.webp -filter -diff -merge -text
