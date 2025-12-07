@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PortfolioNav from "../components/PortfolioNav";
 import FaqAccordion from "../components/FaqAccordion";
+import HeroVideo from "./HeroVideo";
 
 import { playfairFont, poppinsFont } from "../fonts";
 
@@ -165,7 +166,20 @@ export default function ServicesPage() {
       />
 
       <main className="services-page overscroll-safe">
-        <section className="services-hero" aria-label="Services hero">
+        <section
+          className="services-hero"
+          aria-label="Services hero"
+          style={{
+            ['--project-hero-pad-top-m' as any]: "2rem",
+            ['--project-hero-pad-bottom-m' as any]: "5rem",
+          }}
+        >
+          <HeroVideo
+            className="services-hero__bg"
+            src="/assets/People/Services.mp4"
+            playbackRate={0.75}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
           <div className="services-hero__scrim" />
           <div className="services-hero__content">
             <h1 className={`services-hero__title ${playfairFont.className}`}>Services</h1>
