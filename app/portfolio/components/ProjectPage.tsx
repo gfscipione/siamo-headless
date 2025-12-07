@@ -286,7 +286,6 @@ export default function ProjectPage({
         <section
           className="social-follow"
           aria-label="Follow on social"
-          style={{ paddingTop: "2rem", paddingBottom: "2rem", background: "#f8f6f2" }}
         >
           <div className="social-follow__inner">
             <div className="social-follow__title-col">
