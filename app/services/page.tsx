@@ -17,9 +17,10 @@ const services = [
     subtitle: "The luxury of a professionally designed home tailored to your lifestyle.",
     description:
       "Experience custom design creation with our Full-Service Interior Design. Our experts manage every detail, from space planning to final installation, providing a personalized and stress-free journey to your dream home.",
-    image: "/assets/img/post4.jpeg",
+    image: "/assets/People/full-service.mp4",
     cta: "Find out more",
     href: "/services/full-service",
+    mediaType: "video",
   },
   {
     title: "Virtual Interior Design",
@@ -202,13 +203,26 @@ export default function ServicesPage() {
                   id={service.title.toLowerCase().includes("virtual") ? "virtual" : "on-site"}
                 >
                   <div className="service-card__media">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      priority={false}
-                    />
+                    {service.mediaType === "video" ? (
+                      <video
+                        src={service.image}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-hidden="true"
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    ) : (
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority={false}
+                      />
+                    )}
                   </div>
                   <div className="service-card__body">
                   <h3 className={`service-card__title ${playfairFont.className}`}>
@@ -282,30 +296,42 @@ export default function ServicesPage() {
           <div className="featured-projects__inner">
             <h2 className={`featured-projects__title ${playfairFont.className}`}>Featured Projects</h2>
             <div className="featured-projects__grid">
-              {featuredProjects.map((project) => (
-                <article key={project.title} className="featured-project">
-                  <div className="featured-project__media">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      priority={false}
-                    />
-                  </div>
-                  <div className="featured-project__body">
-                    <h3 className={`featured-project__title ${playfairFont.className}`}>
-                      {project.title}
-                    </h3>
-                    <p className={`featured-project__summary ${playfairFont.className}`}>
-                      {project.summary}
-                    </p>
-                    <p className={`featured-project__location ${poppinsFont.className}`}>
-                      {project.location}
-                    </p>
-                  </div>
-                </article>
-              ))}
+              {featuredProjects.map((project) => {
+                const Card = (
+                  <>
+                    <div className="featured-project__media">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        priority={false}
+                      />
+                    </div>
+                    <div className="featured-project__body">
+                      <h3 className={`featured-project__title ${playfairFont.className}`}>
+                        {project.title}
+                      </h3>
+                      <p className={`featured-project__summary ${playfairFont.className}`}>
+                        {project.summary}
+                      </p>
+                      <p className={`featured-project__location ${poppinsFont.className}`}>
+                        {project.location}
+                      </p>
+                    </div>
+                  </>
+                );
+
+                return project.href ? (
+                  <a key={project.title} className="featured-project" href={project.href}>
+                    {Card}
+                  </a>
+                ) : (
+                  <article key={project.title} className="featured-project">
+                    {Card}
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
