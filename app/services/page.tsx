@@ -27,7 +27,8 @@ const services = [
     subtitle: "Reimagine your space effortlessly on your own timeline.",
     description:
       "Our Virtual Interior Design service delivers the same custom design creation paired with the flexibility of remote collaboration. Reimagine your space with tailored plans and curated shopping lists from our designers.",
-    image: "/assets/img/post6.jpeg",
+    image: "/assets/services/virtual-design-1.mp4",
+    mediaType: "video",
     cta: "Find out more",
     href: "/services/virtual-design",
   },
