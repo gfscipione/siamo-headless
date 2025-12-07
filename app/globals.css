@@ -3863,7 +3863,7 @@ h1 .caret { letter-spacing: 0; }
 }
 .featured-project {
   display: grid;
-  gap: 1rem;
+  gap: 1.6rem;
 }
 .featured-project__media {
   position: relative;
@@ -3882,31 +3882,38 @@ h1 .caret { letter-spacing: 0; }
 }
 .featured-project__body {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--featured-gap, 0px); /* single knob (px) for spacing between title and summary */
+  /* Use a single knob (px) to control line-height for both title and summary */
+  --featured-line-height: 36px;
 }
 .featured-project__title {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 500; /* match portfolio card titles */
   color: #111;
+  line-height: var(--featured-line-height, 36px);
 }
 .featured-project__summary {
   margin: 0;
-  font-size: 1.8rem;
-  line-height: 1.6;
+  font-size: 1.6rem;
+  line-height: var(--featured-line-height, 36px);
   color: #111;
   opacity: 0.85;
   font-weight: 200; /* match portfolio-card__summary */
 }
 .featured-project__location {
-  margin: 0;
-  font-size: 0.75rem;
+  margin: var(--featured-location-gap, 1.6rem) 0 0 0; /* match media-to-title gap by default */
+  font-size: 0.85rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #555;
 }
 
 @media (max-width: 860px) {
+  .featured-project__body{
+    --featured-line-height: 30px; /* tighter line-height on mobile */
+    gap: var(--featured-gap-m, 0px);
+  }
   .featured-projects {
     padding: clamp(3rem, 8vw, 4.5rem) 24px clamp(5rem, 8vw, 6rem);
   }
@@ -3918,12 +3925,13 @@ h1 .caret { letter-spacing: 0; }
     aspect-ratio: 4 / 5;
   }
   .featured-project__title{
-    font-size: clamp(1.7rem, 5vw, 2rem);
+    font-size: 1.4rem;
     font-weight: 400;
+    line-height: var(--featured-line-height, 36px);
   }
   .featured-project__summary{
-    font-size: clamp(1.4rem, 4.8vw, 1.8rem);
-    line-height: 1.55;
+    font-size: 1.4rem;
+    line-height: var(--featured-line-height, 36px);
   }
   .featured-project__location{
     font-size: 0.75rem;
@@ -4092,11 +4100,6 @@ h1 .caret { letter-spacing: 0; }
   }
   .social-follow__list {
     grid-auto-columns: minmax(220px, 70vw);
-    -ms-overflow-style: none; /* IE/Edge hide */
-    scrollbar-width: none; /* Firefox hide */
-  }
-  .social-follow__list::-webkit-scrollbar{
-    display: none; /* WebKit hide */
   }
 }
 .faq-item[aria-expanded="true"] .faq-item__caret,
@@ -4428,9 +4431,6 @@ body {
   max-width: 1700px;
   margin: 0 auto;
   z-index: 1;
-  left: auto;
-  right: auto;
-  transform: none;
 }
 .virtual-hero-image{
   position: relative;
