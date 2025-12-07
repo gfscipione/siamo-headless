@@ -55,22 +55,25 @@ const promises = [
 
 const featuredProjects = [
   {
-    title: "Hillside Room",
-    location: "Playa del Carmen",
-    summary: "Layered neutrals with brass accents and custom upholstery.",
-    image: "/assets/img/post1.jpeg",
+    title: "Timeless Nature",
+    location: "Puerto Morelos",
+    summary: "A timeless blend of natural elements and contemporary design.",
+    image: "/assets/timeless-nature/living-room-19.jpg",
+    href: "/portfolio/timeless-nature",
   },
   {
-    title: "Casa Maranta",
+    title: "Roots Tulum",
     location: "Tulum",
-    summary: "Textural ceramics, soft drapery, and dried botanicals.",
-    image: "/assets/img/post2.jpeg",
+    summary: "A timeless expression of pure, natural materials.",
+    image: "/assets/raices-tulum/bedroom-4.jpg",
+    href: "/portfolio/roots-tulum",
   },
   {
-    title: "Warm Lodge",
-    location: "Cancún",
-    summary: "Moody lighting, leather seating, and stone fireplace.",
-    image: "/assets/img/post3.jpeg",
+    title: "Mid-Century Waves",
+    location: "Akumal",
+    summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
+    image: "/assets/mid-century-waves/terrace-1.jpg",
+    href: "/portfolio/mid-century-waves",
   },
 ];
 
@@ -176,7 +179,7 @@ export default function ServicesPage() {
         >
           <HeroVideo
             className="services-hero__bg"
-            src="/assets/People/Services.mp4"
+            src="/assets/People/services.mp4"
             playbackRate={0.75}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
