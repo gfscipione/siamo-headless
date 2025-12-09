@@ -1,6 +1,7 @@
 import Image from "next/image";
 import PortfolioNav from "../../components/PortfolioNav";
 import FaqAccordion from "../../components/FaqAccordion";
+import HeroVideo from "../HeroVideo";
 import { playfairFont, poppinsFont } from "../../fonts";
 
 export const metadata = {
@@ -36,17 +37,17 @@ export default function FullServicePage() {
     {
       title: "Personalized Approach",
       copy: "Custom design plans tailored to your unique style and preferences.",
-      icon: "plan",
+      icon: "bars",
     },
     {
       title: "Seamless Experience",
       copy: "End-to-end project management for a stress-free design journey.",
-      icon: "wave",
+      icon: "arrows",
     },
     {
       title: "Expert Guidance",
       copy: "Benefit from our extensive industry knowledge and expertise.",
-      icon: "desk",
+      icon: "bulb",
     },
   ];
 
@@ -54,7 +55,7 @@ export default function FullServicePage() {
     {
       title: "Architectural Review",
       copy: "We work with your architect to review electrical plans, angles, and space planning so every detail functions with the end goal in mind.",
-      icon: "plan",
+      icon: "tower",
     },
     {
       title: "Interior & Exterior Finishes",
@@ -122,22 +123,25 @@ export default function FullServicePage() {
   ];
   const featuredProjects = [
     {
-      title: "Hillside Room",
-      location: "Playa del Carmen",
-      summary: "Layered neutrals with brass accents and custom upholstery.",
-      image: "/assets/img/post1.jpeg",
+      title: "Timeless Nature",
+      location: "Puerto Morelos",
+      summary: "A timeless blend of natural elements and contemporary design.",
+      image: "/assets/timeless-nature/living-room-19.jpg",
+      href: "/portfolio/timeless-nature",
     },
     {
-      title: "Casa Maranta",
+      title: "Roots Tulum",
       location: "Tulum",
-      summary: "Textural ceramics, soft drapery, and dried botanicals.",
-      image: "/assets/img/post2.jpeg",
+      summary: "A timeless expression of pure, natural materials.",
+      image: "/assets/raices-tulum/bedroom-4.jpg",
+      href: "/portfolio/roots-tulum",
     },
     {
-      title: "Warm Lodge",
-      location: "Cancún",
-      summary: "Moody lighting, leather seating, and stone fireplace.",
-      image: "/assets/img/post3.jpeg",
+      title: "Mid-Century Waves",
+      location: "Akumal",
+      summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
+      image: "/assets/mid-century-waves/terrace-1.jpg",
+      href: "/portfolio/mid-century-waves",
     },
   ];
 
@@ -158,13 +162,25 @@ export default function FullServicePage() {
           }}
         >
           <div className="services-hero__content">
-            <section className="portfolio-hero-block" aria-label="Full service intro" style={{ margin: "0 0 0" }}>
-              <div className="portfolio-crumb" style={{ color: "#f4f2ea", opacity: 1 }}>
+            <section className="portfolio-hero-block" aria-label="Full service intro">
+              <div
+                className="portfolio-crumb"
+                style={{
+                  color: "#ffffff",
+                  opacity: 1,
+                  position: "relative",
+                  top: "-5rem",
+                }}
+              >
                 HOME • SERVICES • FULL SERVICE
               </div>
               <h1
-                className={`portfolio-hero-title ${playfairFont.className}`}
-                style={{ color: "#f4f2ea", opacity: 1 }}
+                className={`portfolio-hero-title fullservice-title ${playfairFont.className}`}
+                style={{
+                  color: "#ffffff",
+                  opacity: 1,
+                  margin: "0 0 1.5rem",
+                }}
               >
                 Full-Service Interior Design
               </h1>
@@ -178,19 +194,20 @@ export default function FullServicePage() {
         </section>
 
         <div className="virtual-hero-image">
-          <Image
-            src="/assets/img/post6.jpeg"
-            alt="Full service inspiration"
-            fill
-            sizes="100vw"
-            priority={false}
+          <HeroVideo
             className="virtual-hero-image__media"
+            src="/assets/services/full-service.mp4"
+            playbackRate={0.75}
+            autoPlay
+            preload="metadata"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
+          <div className="virtual-hero-image__scrim" aria-hidden="true" />
         </div>
 
         <section className="about-story" aria-label="About Siamo story">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Elevate your home with the luxury of Studio McGee’s Full Service Interior Design Services. Shea, alongside our team of expert designers, creates a customized, seamless experience to make your dream home a reali
+            Elevate your home with the luxury of Siamo Design&apos;s Full Service Interior Design Services. Our team, creates a customized, seamless experience to make your dream home a reality
           </h2>
         </section>
 
@@ -239,26 +256,45 @@ export default function FullServicePage() {
               {benefits.map((benefit) => (
                 <article className="virtual-benefit" key={benefit.title}>
                   <div className="virtual-benefit__icon" aria-hidden="true">
-                    {benefit.icon === "pig" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M12 32c0-9.5 8-17 18-17h12c9 0 16 7.5 16 17v2c0 1.1-.9 2-2 2h-5l-3 4-3-4H38c-1.3 0-2.5-.8-3-2l-.8-2H26c-6.6 0-12-4.5-12-10z" />
-                        <path d="M12 30l-6-3" />
-                        <circle cx="23" cy="30" r="2" />
-                        <path d="M50 30c2 0 4 2 4 4s-2 3-3.5 3" />
-                        <path d="M28 47v5M40 47v5" />
+                    {benefit.icon === "bars" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5" />
                       </svg>
                     )}
-                    {benefit.icon === "wave" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M6 32c6 0 6 8 12 8s6-8 12-8 6 8 12 8 6-8 12-8" />
+                    {benefit.icon === "arrows" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+                        />
                       </svg>
                     )}
-                    {benefit.icon === "desk" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M10 28h44v6H10z" />
-                        <path d="M18 34h4v16h-4zM42 34h4v16h-4z" />
-                        <path d="M22 22h8v6h-8zM34 22h8v6h-8z" />
-                        <path d="M12 50h8v4h-8zM44 50h8v4h-8z" />
+                    {benefit.icon === "bulb" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+                        />
                       </svg>
                     )}
                   </div>
@@ -274,7 +310,7 @@ export default function FullServicePage() {
           <div className="virtual-video-bridge__inner virtual-video-bridge__inner--double">
             <div className="virtual-video-bridge__frame">
               <Image
-                src="/assets/img/post4.jpeg"
+                src="/assets/services/full-service-3.jpg"
                 alt="Full service inspiration 1"
                 fill
                 sizes="100vw"
@@ -284,7 +320,7 @@ export default function FullServicePage() {
             </div>
             <div className="virtual-video-bridge__frame">
               <Image
-                src="/assets/img/post6.jpeg"
+                src="/assets/services/full-service-2.jpg"
                 alt="Full service inspiration 2"
                 fill
                 sizes="100vw"
@@ -315,6 +351,21 @@ export default function FullServicePage() {
                         <rect x="12" y="10" width="40" height="44" rx="3" />
                         <path d="M20 10v44M44 26H20M32 10v10M32 36v18" />
                         <path d="M32 26h12v18H32" />
+                      </svg>
+                    )}
+                    {item.icon === "tower" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 1.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+                        />
                       </svg>
                     )}
                     {item.icon === "finishes" && (
@@ -465,7 +516,7 @@ export default function FullServicePage() {
                     <path d="M15.5 4.2c.6.8 1.5 1.3 2.5 1.3h.4v2.5c-.9 0-1.8-.2-2.6-.6v5.5a5.08 5.08 0 1 1-5.1-5.1c.3 0 .6 0 .9.1v2.7a2.4 2.4 0 0 0-.9-.2 2.38 2.38 0 1 0 2.38 2.4V3h2.5v1.2Z" />
                   </svg>
                 </a>
-                <a className="social__link" href="https://www.instagram.com/siamodesign" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <a className="social__link" href="https://www.instagram.com/siamo_design" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M7.2 4.5h9.6A2.7 2.7 0 0 1 19.5 7v9.6a2.7 2.7 0 0 1-2.7 2.7H7.2A2.7 2.7 0 0 1 4.5 16.6V7a2.7 2.7 0 0 1 2.7-2.7Zm0-1.5A4.2 4.2 0 0 0 3 7v9.6A4.2 4.2 0 0 0 7.2 20.8h9.6A4.2 4.2 0 0 0 21 16.6V7a4.2 4.2 0 0 0-4.2-4.2H7.2Z" />
                     <path d="M12 8.4A3.6 3.6 0 1 1 8.4 12 3.6 3.6 0 0 1 12 8.4Zm0-1.5A5.1 5.1 0 1 0 17.1 12 5.1 5.1 0 0 0 12 6.9Z" />
