@@ -86,12 +86,15 @@ export default function ProjectPage({
               : hero.padTop || "clamp(4rem, 8vh, 7rem)",
             ["--project-hero-pad-bottom" as any]: hero.padBottom || "clamp(4rem, 8vh, 7rem)",
             backgroundImage: `url("${hero.backgroundImage}")`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
           }}
         >
           <div className="services-hero__scrim" />
           <div
             className="services-hero__content"
-            style={{ alignContent: "center", paddingLeft: hero.contentPadX || "24px", paddingRight: hero.contentPadX || "24px" }}
+            style={{ paddingLeft: hero.contentPadX || "24px", paddingRight: hero.contentPadX || "24px" }}
           >
             <h1 className={`services-hero__title ${playfairFont.className}`}>{title}</h1>
           </div>

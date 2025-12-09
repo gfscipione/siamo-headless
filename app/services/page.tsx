@@ -21,6 +21,7 @@ const services = [
     cta: "Find out more",
     href: "/services/full-service",
     mediaType: "video",
+    playbackThreshold: 1,
   },
   {
     title: "Virtual Interior Design",
@@ -29,6 +30,9 @@ const services = [
       "Our Virtual Interior Design service delivers the same custom design creation paired with the flexibility of remote collaboration. Reimagine your space with tailored plans and curated shopping lists from our designers.",
     image: "/assets/services/virtual-design-1.mp4",
     mediaType: "video",
+    playbackThreshold: 1,
+    preload: "metadata",
+    poster: "/assets/services/virtual-design-poster.jpg",
     cta: "Find out more",
     href: "/services/virtual-design",
   },
@@ -45,7 +49,7 @@ const promises = [
     title: "Detail-Oriented Planning",
     copy:
       "From finish schedules to procurement and installation, every step is managed with precision, keeping you as involved as you want to be.",
-    icon: "book",
+    icon: "checklist",
   },
   {
     title: "Intentional Design",
@@ -183,6 +187,8 @@ export default function ServicesPage() {
             className="services-hero__bg"
             src="/assets/People/services.mp4"
             playbackRate={0.75}
+            autoPlay
+            preload="metadata"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
           <div className="services-hero__scrim" />
@@ -191,6 +197,12 @@ export default function ServicesPage() {
             <p className={`services-hero__lead ${playfairFont.className}`}>
               Siamo Design offers full-service and virtual interior design, blending warmth, texture, and thoughtful detail. Our services shape relaxed yet refined spaces across the Riviera Maya and for clients wherever they call home.
             </p>
+          </div>
+        </section>
+
+        <section className="services-heading" aria-label="Our services heading">
+          <div className="services-section__inner">
+            <h2 className={`promises-title ${playfairFont.className}`}>Our Services</h2>
           </div>
         </section>
 
@@ -205,14 +217,14 @@ export default function ServicesPage() {
                 >
                   <div className="service-card__media">
                     {service.mediaType === "video" ? (
-                      <video
+                      <HeroVideo
+                        className="service-card__video"
                         src={service.image}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="metadata"
-                        aria-hidden="true"
+                        playbackRate={1}
+                        threshold={service.playbackThreshold ?? 0.25}
+                        autoPlay={false}
+                        preload={service.preload || "metadata"}
+                        poster={service.poster}
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
                       />
                     ) : (
@@ -257,29 +269,55 @@ export default function ServicesPage() {
             <div className="promises-grid">
               {promises.map((promise) => (
                 <article className="promise-card" key={promise.title}>
-                  <div className="promise-card__icon" aria-hidden="true">
-                    {promise.icon === "desk" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M10 26h44v4H10z" />
-                        <path d="M18 30h4v16h-4zM42 30h4v16h-4z" />
-                        <path d="M20 20h8v6h-8zM36 20h8v6h-8z" />
-                        <path d="M12 46h8v4h-8zM44 46h8v4h-8z" />
-                      </svg>
-                    )}
-                    {promise.icon === "book" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M18 14h28v36H18z" />
-                        <path d="M24 18h16v2H24zM24 24h16v2H24zM24 30h16v2H24zM24 36h10v2H24z" />
-                      </svg>
-                    )}
-                    {promise.icon === "cabinet" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M12 18h40v28H12z" />
-                        <path d="M12 30h40v4H12z" />
-                        <circle cx="26" cy="32" r="2" />
-                        <circle cx="38" cy="32" r="2" />
-                      </svg>
-                    )}
+              <div className="promise-card__icon" aria-hidden="true">
+                {promise.icon === "desk" && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    role="presentation"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeWidth="0.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    vectorEffect="non-scaling-stroke"
+                  >
+                    <path d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0" />
+                  </svg>
+                )}
+                {promise.icon === "book" && (
+                  <svg viewBox="0 0 64 64" role="presentation">
+                    <path d="M18 14h28v36H18z" />
+                    <path d="M24 18h16v2H24zM24 24h16v2H24zM24 30h16v2H24zM24 36h10v2H24z" />
+                  </svg>
+                )}
+                {promise.icon === "checklist" && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    role="presentation"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeWidth="0.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    vectorEffect="non-scaling-stroke"
+                  >
+                    <path d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
+                  </svg>
+                )}
+                {promise.icon === "cabinet" && (
+                  <svg
+                    viewBox="0 0 24 24"
+                    role="presentation"
+                    stroke="currentColor"
+                    fill="none"
+                    strokeWidth="0.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    vectorEffect="non-scaling-stroke"
+                  >
+                    <path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                  </svg>
+                )}
                   </div>
                   <h3 className={`promise-card__title ${playfairFont.className}`}>
                     {promise.title}

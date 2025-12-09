@@ -133,8 +133,8 @@ export default function TimelessNaturePage() {
         titleSize: "64px",
         titleSizeMobile: "50px",
         align: "center",
-        padTopDesktopPx: 140,
-        padBottom: "clamp(4rem, 8vh, 7rem)",
+        padTopDesktopPx: 200,
+        padBottom: "clamp(5rem, 10vh, 8rem)",
         contentPadX: "24px",
       }}
       contents={contents}

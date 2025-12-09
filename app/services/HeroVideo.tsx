@@ -8,6 +8,10 @@ type HeroVideoProps = {
   playbackRate?: number;
   className?: string;
   style?: CSSProperties;
+  threshold?: number;
+  autoPlay?: boolean;
+  preload?: "auto" | "metadata" | "none";
+  poster?: string;
 };
 
 export default function HeroVideo({
@@ -15,6 +19,10 @@ export default function HeroVideo({
   playbackRate = 0.25,
   className,
   style,
+  threshold = 0.7,
+  autoPlay = true,
+  preload = "metadata",
+  poster,
 }: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -51,7 +59,7 @@ export default function HeroVideo({
           v.pause();
         }
       },
-      { threshold: 0.7 }
+      { threshold: threshold }
     );
     observerRef.current.observe(v);
     return () => {
@@ -65,11 +73,12 @@ export default function HeroVideo({
       ref={videoRef}
       className={className}
       src={src}
-      autoPlay
+      autoPlay={autoPlay}
       muted
       loop
       playsInline
-      preload="auto"
+      preload={preload}
+      poster={poster}
       style={style}
       aria-hidden="true"
     />
