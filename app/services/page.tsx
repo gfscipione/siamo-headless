@@ -11,7 +11,20 @@ import HeroVideo from "./HeroVideo";
 
 import { playfairFont, poppinsFont } from "../fonts";
 
-const services = [
+type Service = {
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  cta: string;
+  href?: string;
+  mediaType: "video" | "image";
+  playbackThreshold?: number;
+  preload?: "auto" | "metadata" | "none";
+  poster?: string;
+};
+
+const services: Service[] = [
   {
     title: "Full-Service Interior Design",
     subtitle: "The luxury of a professionally designed home tailored to your lifestyle.",
@@ -223,7 +236,7 @@ export default function ServicesPage() {
                         playbackRate={1}
                         threshold={service.playbackThreshold ?? 0.25}
                         autoPlay={false}
-                        preload={service.preload || "metadata"}
+                        preload={service.preload ?? "metadata"}
                         poster={service.poster}
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
                       />
