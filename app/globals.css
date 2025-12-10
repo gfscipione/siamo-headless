@@ -4892,12 +4892,27 @@ body {
     margin-bottom: 40px;
     padding: 0;
   }
+
+  .about-story__title {
+    font-size: clamp(1.5rem, 6vw, 2.1rem);
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+  }
 }
 
 @media (max-width: 860px) {
+  .about-story {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
   .about-story__grid {
     grid-template-columns: 1fr;
     gap: 1.75rem;
+    padding: 0;
+  }
+  .about-story__body{
+    padding: 0;
+    margin: 0;
   }
   .about-story__media img {
     height: 640px;      /* fixed height for mobile */
@@ -4938,7 +4953,7 @@ body {
 }
 .about-wwd__item {
   display: grid;
-  gap: 0.75rem;
+  gap: 1.75rem;
 }
 .about-wwd__icon {
   width: 56px;
@@ -4960,7 +4975,33 @@ body {
 
 @media (max-width: 860px) {
   .about-wwd__title {
-    font-size: 2rem;
+    font-size: 1.6rem;
+    margin-top: 60px;
+  }
+  .about-wwd{
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 100px !important; /* fuerza aire bajo los cards en móvil */
+  }
+  .about-wwd__inner{
+    padding: 0;
+  }
+
+  .about-journey__title {
+    font-size: 2rem; /* match What We Do mobile title */
+    line-height: 1.2;
+  }
+
+  .about-journey__subtitle {
+    font-size: 2rem; /* match What We Do mobile title */
+  }
+
+  .about-journey-placeholder{
+    padding: 32px 16px clamp(2rem, 5vw, 3rem);
+  }
+  .about-journey-placeholder__inner{
+    padding: 0;
+    width: 100%;
   }
 }
 
@@ -4991,15 +5032,15 @@ body {
 }
 .about-journey__title {
   margin: 0 0 clamp(0.35rem, 0.8vw, 0.65rem);
-  font-size: 42px;
-  font-weight: 300;
+  font-size: clamp(2.4rem, 4vw, 3rem); /* match What We Do title */
+  font-weight: 400; /* align weight with What We Do */
   color: #111;
   line-height: 1.08;
 }
 .about-journey__subtitle {
   margin: 0 0 88px;
-  font-size: 42px;
-  font-weight: 300;
+  font-size: clamp(2.4rem, 4vw, 3rem); /* match What We Do title */
+  font-weight: 400; /* align weight with What We Do */
   color: #111;
   line-height: 1.08;
 }
@@ -5079,12 +5120,16 @@ body {
   padding: 0 24px;
   display: grid;
   grid-template-columns: 1.1fr 1fr;
+  grid-template-areas:
+    "text media"
+    "btn media";
   align-items: center;
-  gap: clamp(2rem, 5vw, 4rem);
+  gap: clamp(1.5rem, 4vw, 3rem);
 }
 .about-cta__text {
   display: grid;
   gap: 1.6rem;
+  grid-area: text;
 }
 .about-cta__headline {
   margin: 0;
@@ -5105,6 +5150,7 @@ body {
   font-size: 0.95rem;
   text-decoration: none;
   width: fit-content;
+  grid-area: btn;
 }
 .about-cta__btn:hover,
 .about-cta__btn:focus-visible {
@@ -5114,6 +5160,7 @@ body {
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
+  grid-area: media;
 }
 .about-cta__media img {
   width: 100%;
@@ -5125,9 +5172,37 @@ body {
 @media (max-width: 860px) {
   .about-cta__inner {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "text"
+      "media"
+      "btn";
+    gap: 3rem; /* gap entre título, imagen y botón en móvil */
+    align-items: start;
   }
-  .about-cta__media {
-    order: -1;
+  .about-cta{
+    padding: clamp(3rem, 6vw, 8rem) 0 calc(clamp(4.5rem, 7vw, 6rem) + 20px); /* añade 20px extra abajo */
+  }
+  .about-cta__text{
+    justify-items: start;
+  }
+  .about-cta__btn{
+    width: auto;
+    justify-content: center;
+    padding: 8px 12px; /* match Services grid CTA dimensions */
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    margin-top: 1.2rem;
+  }
+  .about-cta__headline{
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 861px) {
+  /* Ensure CTA headline matches What We Do title size on desktop */
+  .about-cta__headline {
+    font-size: clamp(2.4rem, 4vw, 3rem);
+    line-height: 1.2;
   }
 }
 
@@ -5189,6 +5264,43 @@ body {
   }
   .portfolio-card__location{
     margin-top: var(--portfolio-location-gap, 1.2rem);
+  }
+}
+
+/* About journey responsive overrides */
+@media (max-width: 860px) {
+  .about-wwd {
+    padding: clamp(2.5rem, 5vw, 3rem) 16px clamp(1.25rem, 4vw, 1.75rem);
+  }
+  .about-wwd__inner {
+    padding: 0;
+  }
+  .about-journey-placeholder {
+    padding: 76px 16px clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .about-journey-placeholder__inner {
+    padding: 0;
+    width: 100%;
+  }
+  .about-journey__title,
+  .about-journey__subtitle {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  .about-journey__subtitle{
+    margin-bottom: 40px;
+  }
+  .about-journey__item{
+    --journey-card-w: 320px;
+    --journey-card-h: 520px;
+    --journey-meta-gap: 12px;   /* spacing between image and year */
+    --journey-title-gap: 12px;  /* spacing between title and copy */
+  }
+  .about-journey__entry-title{
+    font-size: 28px;
+  }
+  .about-journey-placeholder__inner{
+    padding-bottom: 82px;
   }
 }
 

@@ -211,8 +211,8 @@ export default function GetToKnowUsPage() {
               <h3 className={`about-cta__headline ${playfairFont.className}`}>
                 Have a project in mind?<br />Explore Our Design Services
               </h3>
-              <a className="about-cta__btn" href="/services">Find out more</a>
             </div>
+            <a className="about-cta__btn" href="/services">Find out more</a>
             <div className="about-cta__media">
               <img src="/assets/img/post5.jpeg" alt="Dining room styled by Siamo Design" loading="lazy" />
             </div>
