@@ -3502,7 +3502,7 @@ h1 .caret { letter-spacing: 0; }
   margin: 0 auto;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 0;
   box-shadow: 0 18px 50px rgba(0,0,0,0.25);
 }
 .virtual-video-bridge__poster{
@@ -4707,26 +4707,26 @@ body {
 }
 @media (max-width: 860px){
   .services-hero{
-    min-height: auto;
+    min-height: 100vh;
     align-items: flex-start;
   }
   .services-hero__content{
-    top: 0;
-    bottom: auto;
+    top: auto;
+    bottom: 0;
     left: 0;
     right: 0;
     margin: 0 auto;
     transform: none;
     gap: 1rem;
     padding:
-      var(--project-hero-pad-top-m, 1.5rem)
+      var(--project-hero-pad-top-m, var(--project-hero-pad-top, 0em))
       var(--project-hero-pad-x-m, 24px)
-      var(--project-hero-pad-bottom-m, 1.5rem);
+      var(--project-hero-pad-bottom-m, var(--project-hero-pad-bottom, 0rem));
     width: min(640px, 92vw);
     align-content: flex-start;
   }
   .services-hero__title{
-    transform: none;
+    transform: translateY(-188px);
     margin-bottom: 0.5rem;
   }
   .services-hero__lead{
@@ -4735,15 +4735,19 @@ body {
     line-height: 1.4;
     max-width: 34ch;
   }
+  /* Compact hero overrides (Full Service / Virtual Design) */
   .services-hero.hero-virtual-compact{
-    padding: 2.75rem 16px 0;
+    padding: 1.25rem 16px 0;
     min-height: auto;
   }
   .services-hero.hero-virtual-compact .services-hero__content{
+    top: 0;
+    bottom: auto;
     padding: 0 16px;
     width: 100%;
     max-width: none;
     gap: 0.75rem;
+    transform: none;
   }
 }
 

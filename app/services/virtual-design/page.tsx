@@ -1,6 +1,7 @@
-import Image from "next/image";
+import Link from "next/link";
 import PortfolioNav from "../../components/PortfolioNav";
 import FaqAccordion from "../../components/FaqAccordion";
+import HeroVideo from "../HeroVideo";
 import { playfairFont, poppinsFont } from "../../fonts";
 
 export const metadata = {
@@ -36,7 +37,7 @@ export default function VirtualDesignPage() {
     {
       title: "Cost Effective",
       copy: "Save on traditional designer fees while still receiving transformed home designs.",
-      icon: "pig",
+      icon: "wallet",
     },
     {
       title: "Flexible Implementation",
@@ -46,7 +47,7 @@ export default function VirtualDesignPage() {
     {
       title: "Expert Designers",
       copy: "Receive a custom design plan tailored to your style preferences.",
-      icon: "desk",
+      icon: "spark",
     },
   ];
 
@@ -59,17 +60,17 @@ export default function VirtualDesignPage() {
     {
       title: "Space Plan & Elevations",
       copy: "We provide you with a floorplan, focusing on improving flow and functionality of each space. Your designer will draw your interior elevations for your builder to implement the design.",
-      icon: "plan",
+      icon: "space",
     },
     {
       title: "Finishes Selection",
       copy: "Our team designs every detail of your project for a cohesive and beautiful design, from tile and hardwood to fixtures and faucets.",
-      icon: "finishes",
+      icon: "swatch",
     },
     {
       title: "Furniture Selection",
       copy: "Our designers select furnishings with attention to all the details—lifestyle, scale, color, and budget. Our styling team adds the finishing touches to elevate your design and tell your story.",
-      icon: "furniture",
+      icon: "diamond",
     },
     {
       title: "Video Walkthrough",
@@ -79,7 +80,7 @@ export default function VirtualDesignPage() {
     {
       title: "Shoppable Item List",
       copy: "Our designers will provide you with a list with links for every selection, allowing you to implement on your own timeline. We also extend a discount for any McGee & Co. pieces on your list!",
-      icon: "tag",
+      icon: "leaf",
     },
   ];
 
@@ -138,13 +139,21 @@ export default function VirtualDesignPage() {
           }}
         >
           <div className="services-hero__content">
-            <section className="portfolio-hero-block" aria-label="Virtual design intro" style={{ margin: "0 0 0" }}>
-              <div className="portfolio-crumb" style={{ color: "#f4f2ea", opacity: 1 }}>
-                HOME • SERVICES • VIRTUAL DESIGN
+            <section className="portfolio-hero-block" aria-label="Virtual design intro">
+              <div
+                className="portfolio-crumb"
+                style={{
+                  color: "#ffffff",
+                  opacity: 1,
+                  position: "relative",
+                  top: "-5rem",
+                }}
+              >
+                <Link href="/">HOME</Link> • <Link href="/services">SERVICES</Link> • VIRTUAL DESIGN
               </div>
               <h1
-                className={`portfolio-hero-title ${playfairFont.className}`}
-                style={{ color: "#f4f2ea", opacity: 1 }}
+                className={`portfolio-hero-title fullservice-title ${playfairFont.className}`}
+                style={{ color: "#ffffff", opacity: 1, margin: "0 0 1.5rem" }}
               >
                 Virtual Interior Design
               </h1>
@@ -158,14 +167,15 @@ export default function VirtualDesignPage() {
         </section>
 
         <div className="virtual-hero-image">
-          <Image
-            src="/assets/img/post6.jpeg"
-            alt="Virtual design inspiration"
-            fill
-            sizes="100vw"
-            priority={false}
+          <HeroVideo
             className="virtual-hero-image__media"
+            src="/assets/services/virtual-design-1.mp4"
+            playbackRate={0.75}
+            autoPlay
+            preload="metadata"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
+          <div className="virtual-hero-image__scrim" aria-hidden="true" />
         </div>
 
         <section className="about-story" aria-label="About Siamo story">
@@ -221,27 +231,49 @@ export default function VirtualDesignPage() {
               {benefits.map((benefit) => (
                 <article className="virtual-benefit" key={benefit.title}>
                   <div className="virtual-benefit__icon" aria-hidden="true">
-                    {benefit.icon === "pig" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M12 32c0-9.5 8-17 18-17h12c9 0 16 7.5 16 17v2c0 1.1-.9 2-2 2h-5l-3 4-3-4H38c-1.3 0-2.5-.8-3-2l-.8-2H26c-6.6 0-12-4.5-12-10z" />
-                        <path d="M12 30l-6-3" />
-                        <circle cx="23" cy="30" r="2" />
-                        <path d="M50 30c2 0 4 2 4 4s-2 3-3.5 3" />
-                        <path d="M28 47v5M40 47v5" />
+                    {benefit.icon === "wallet" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3"
+                        />
                       </svg>
                     )}
                     {benefit.icon === "clock" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <circle cx="32" cy="32" r="22" />
-                        <path d="M32 18v14l9 6" />
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
                       </svg>
                     )}
-                    {benefit.icon === "desk" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M10 28h44v6H10z" />
-                        <path d="M18 34h4v16h-4zM42 34h4v16h-4z" />
-                        <path d="M22 22h8v6h-8zM34 22h8v6h-8z" />
-                        <path d="M12 50h8v4h-8zM44 50h8v4h-8z" />
+                    {benefit.icon === "spark" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                        />
                       </svg>
                     )}
                   </div>
@@ -256,17 +288,15 @@ export default function VirtualDesignPage() {
         <section className="virtual-video-bridge" aria-label="Virtual design video teaser">
           <div className="virtual-video-bridge__inner">
             <div className="virtual-video-bridge__frame">
-              <Image
-                src="/assets/img/virtual.png"
-                alt="Virtual design video"
-                fill
-                sizes="100vw"
-                priority={false}
+              <video
                 className="virtual-video-bridge__poster"
+                src="/assets/services/virtual-design-2.mp4"
+                poster="/assets/services/virtual-design-2-thumb.jpg"
+                preload="metadata"
+                controls
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
-              <div className="virtual-video-bridge__play" aria-hidden="true">
-                ▶
-              </div>
+              <div className="virtual-video-bridge__play" aria-hidden="true">▶</div>
             </div>
           </div>
         </section>
@@ -279,45 +309,94 @@ export default function VirtualDesignPage() {
                 <article className="virtual-deliverable" key={item.title}>
                   <div className="virtual-deliverable__icon" aria-hidden="true">
                     {item.icon === "mood" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <rect x="10" y="10" width="44" height="34" rx="3" />
-                        <rect x="16" y="16" width="16" height="12" />
-                        <path d="M36 20h12M36 26h8" />
-                        <path d="M16 46h32" />
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 6.878V6a2.25 2.25 0 0 1 2.25-2.25h7.5A2.25 2.25 0 0 1 18 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 0 0 4.5 9v.878m13.5-3A2.25 2.25 0 0 1 19.5 9v.878m0 0a2.246 2.246 0 0 0-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0 1 21 12v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6c0-.98.626-1.813 1.5-2.122"
+                        />
                       </svg>
                     )}
-                    {item.icon === "plan" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <rect x="12" y="10" width="40" height="44" rx="3" />
-                        <path d="M20 10v44M44 26H20M32 10v10M32 36v18" />
-                        <path d="M32 26h12v18H32" />
+                    {item.icon === "space" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3"
+                        />
                       </svg>
                     )}
-                    {item.icon === "finishes" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M22 14h20l8 10-8 10H22l-8-10z" />
-                        <path d="M22 34h20l8 10-8 10H22l-8-10z" />
+                    {item.icon === "swatch" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.098 19.902a3.75 3.75 0 0 0 5.304 0l6.401-6.402M6.75 21A3.75 3.75 0 0 1 3 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 0 0 3.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008Z"
+                        />
                       </svg>
                     )}
-                    {item.icon === "furniture" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M14 34h36v8H14z" />
-                        <path d="M18 22h28v12H18z" />
-                        <path d="M22 42v10M42 42v10" />
-                        <path d="M18 28h-4v6h4M46 28h4v6h-4" />
+                    {item.icon === "diamond" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+                        />
                       </svg>
                     )}
                     {item.icon === "video" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <rect x="10" y="16" width="44" height="32" rx="3" />
-                        <path d="M30 26l12 6-12 6z" />
-                        <path d="M10 44h44M20 48v4M44 48v4" />
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
+                        />
                       </svg>
                     )}
-                    {item.icon === "tag" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <path d="M14 12h22l14 14-22 22L8 34V18a6 6 0 0 1 6-6z" />
-                        <circle cx="22" cy="22" r="3" />
+                    {item.icon === "leaf" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+                        />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
                       </svg>
                     )}
                   </div>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import PortfolioNav from "../../components/PortfolioNav";
 import FaqAccordion from "../../components/FaqAccordion";
 import HeroVideo from "../HeroVideo";
@@ -172,7 +173,7 @@ export default function FullServicePage() {
                   top: "-5rem",
                 }}
               >
-                HOME • SERVICES • FULL SERVICE
+                <Link href="/">HOME</Link> • <Link href="/services">SERVICES</Link> • FULL-SERVICE INTERIOR DESIGN
               </div>
               <h1
                 className={`portfolio-hero-title fullservice-title ${playfairFont.className}`}
