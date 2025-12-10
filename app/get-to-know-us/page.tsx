@@ -14,12 +14,19 @@ export default function GetToKnowUsPage() {
       copy:
         "We lead projects end-to-end under our creative direction, crafting balanced spaces that feel classic and current.",
       icon: (
-        <svg viewBox="0 0 64 64" className="about-wwd__icon" aria-hidden="true">
-          <rect x="10" y="12" width="44" height="40" stroke="currentColor" fill="none" strokeWidth="2" />
-          <line x1="10" y1="28" x2="54" y2="28" stroke="currentColor" strokeWidth="2" />
-          <line x1="22" y1="28" x2="22" y2="52" stroke="currentColor" strokeWidth="2" />
-          <line x1="32" y1="28" x2="32" y2="52" stroke="currentColor" strokeWidth="2" />
-          <line x1="42" y1="28" x2="42" y2="52" stroke="currentColor" strokeWidth="2" />
+        <svg
+          viewBox="0 0 24 24"
+          className="about-wwd__icon"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="0.5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+          />
         </svg>
       ),
     },
@@ -28,11 +35,19 @@ export default function GetToKnowUsPage() {
       copy:
         "We share guidance, lifestyle inspiration, and design stories to help you bring the Siamo aesthetic into your own spaces.",
       icon: (
-        <svg viewBox="0 0 64 64" className="about-wwd__icon" aria-hidden="true">
-          <rect x="12" y="16" width="40" height="32" stroke="currentColor" fill="none" strokeWidth="2" />
-          <line x1="18" y1="24" x2="46" y2="24" stroke="currentColor" strokeWidth="2" />
-          <line x1="18" y1="30" x2="46" y2="30" stroke="currentColor" strokeWidth="2" />
-          <line x1="18" y1="36" x2="34" y2="36" stroke="currentColor" strokeWidth="2" />
+        <svg
+          viewBox="0 0 24 24"
+          className="about-wwd__icon"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="0.5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"
+          />
         </svg>
       ),
     },
@@ -41,9 +56,19 @@ export default function GetToKnowUsPage() {
       copy:
         "We collaborate with partners to design pieces that reflect our signature warmth and balance, from furniture to styling accents.",
       icon: (
-        <svg viewBox="0 0 64 64" className="about-wwd__icon" aria-hidden="true">
-          <path d="M16 32c0-6 4-10 10-10h12c6 0 10 4 10 10v12h-4v-6H20v6h-4V32Z" stroke="currentColor" fill="none" strokeWidth="2" />
-          <path d="M20 44v4c0 2 1 3 3 3h18c2 0 3-1 3-3v-4" stroke="currentColor" fill="none" strokeWidth="2" />
+        <svg
+          viewBox="0 0 24 24"
+          className="about-wwd__icon"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="0.5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"
+          />
         </svg>
       ),
     },
@@ -55,28 +80,28 @@ export default function GetToKnowUsPage() {
       title: "The Beginning",
       copy:
         "Siamo Design nació con la misión de diseñar espacios acogedores y funcionales que se sientan como un refugio, combinando creatividad con ejecución impecable.",
-      image: "/assets/img/post1.jpeg",
+      image: "/assets/People/about-2.jpg",
     },
     {
       year: "2016",
       title: "Siamo Design & Co.",
       copy:
         "Exploramos productos y curaduría, ampliando nuestra mirada al diseño integral y a la selección de piezas que elevan cada ambiente.",
-      image: "/assets/img/post2.jpeg",
+      image: "/assets/People/about-3.jpg",
     },
     {
       year: "2018",
       title: "The Siamo Design Home",
       copy:
         "Consolidamos nuestro enfoque en proyectos residenciales y de hospitalidad, sumando dirección creativa y gestión de obra de principio a fin.",
-      image: "/assets/img/post3.jpeg",
+      image: "/assets/People/about-4.jpg",
     },
     {
       year: "2020",
       title: "Expanding Our Reach",
       copy:
         "Crecimos hacia colaboraciones internacionales y estrategias digitales para compartir el estilo Siamo con más hogares y marcas.",
-      image: "/assets/img/post4.jpeg",
+      image: "/assets/People/about-5.jpg",
     },
   ];
   return (
@@ -105,7 +130,7 @@ export default function GetToKnowUsPage() {
         variant="gtku"
       />
 
-      <main className="about-hero-page">
+      <main className="about-hero-page overscroll-safe">
         <section className="about-hero" aria-label="About hero">
           <div className="about-hero__content">
             <h1 className={`about-hero__title ${playfairFont.className}`}>About</h1>
@@ -122,7 +147,13 @@ export default function GetToKnowUsPage() {
 
           <div className="about-story__grid">
             <div className="about-story__media">
-              <img src="/assets/img/post4.jpeg" alt="Shelving and styling details" />
+              <AboutHeroVideo
+                src="/assets/People/about-1.mp4"
+                ariaLabel="About Siamo Design video"
+                className="about-story__media-video"
+                preload="none"
+                poster="/assets/People/about-1-thumb.jpg"
+              />
             </div>
             <div className="about-story__body">
               <h3 className={`about-story__title ${playfairFont.className}`}>

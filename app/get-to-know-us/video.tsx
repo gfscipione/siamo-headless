@@ -2,7 +2,15 @@
 
 import { useEffect, useRef } from "react";
 
-export default function AboutHeroVideo({ src, ariaLabel }: { src: string; ariaLabel?: string }) {
+type AboutHeroVideoProps = {
+  src: string;
+  ariaLabel?: string;
+  className?: string;
+  preload?: "auto" | "metadata" | "none";
+  poster?: string;
+};
+
+export default function AboutHeroVideo({ src, ariaLabel, className, preload = "metadata", poster }: AboutHeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -43,14 +51,14 @@ export default function AboutHeroVideo({ src, ariaLabel }: { src: string; ariaLa
   return (
     <video
       ref={videoRef}
-      className="about-hero__video"
+      className={`about-hero__video${className ? ` ${className}` : ""}`}
       src={src}
       muted
       loop
       playsInline
-      preload="metadata"
+      preload={preload}
       aria-label={ariaLabel}
+      poster={poster}
     />
   );
 }
-
