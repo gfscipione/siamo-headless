@@ -148,7 +148,7 @@ function WwdTriptych() {
         <Link href="/services#virtual" className="hit" aria-label="Abrir Diseño virtual">
           <div className="media virtual-media" style={{ position:'relative', width:'100%', paddingTop:'75%', background:'#e7e3da', overflow:'hidden', contain:'layout paint style' }}>
             <Image
-              src="/assets/img/virtual.png"
+              src="/assets/img/virtual.jpg"
               alt="Diseño virtual"
               fill
               sizes="(max-width:860px) 92vw, 360px"
@@ -163,7 +163,7 @@ function WwdTriptych() {
         <Link href="/services#on-site" className="hit" aria-label="Abrir Diseño y ejecución en sitio">
           <div className="media onsite-media" style={{ position:'relative', width:'100%', paddingTop:'75%', background:'#e7e3da', overflow:'hidden', contain:'layout paint style' }}>
             <Image
-              src="/assets/img/onsite.png"
+              src="/assets/img/onsite.webp"
               style={{ objectFit:'cover' }}
               alt="Diseño y ejecución en sitio"
               fill
@@ -553,8 +553,8 @@ function TestimonialReel({
 
 export default function ParallaxDemo({
   bgUrl = "/assets/img/hero.webp",
-  bgUrlMobile = "/assets/img/hero.webp",
-  useDesktopHeroOnMobile = true,
+  bgUrlMobile = "/assets/img/heroresp.jpg",
+  useDesktopHeroOnMobile = false,
   initialIsMobile = null,
   heroOverlay = 0,
   heroOverlayMobile = 0,
@@ -1274,7 +1274,7 @@ export default function ParallaxDemo({
   const projectCards = [
     { year: '2024', title: 'timeless Nature', href: '/work/sample-1', image: '/assets/img/nature.jpg' },
     { year: '2016', title: 'Roots Tulum', href: '/work/sample-2', image: '/assets/img/roots.jpg' },
-    { year: '2018', title: 'Tuluminati House', href: '/work/sample-3', image: '/assets/img/tuluminati.jpg' },
+    { year: '2018', title: 'Timeless Nature', href: '/portfolio/timeless-nature', image: '/assets/timeless-nature/details-2.jpg' },
     { year: '2018', title: 'Mid-century Waves', href: '/work/sample-4', image: '/assets/img/waves.jpg' },
   ];
   const projectsCardsPerPage = Math.max(1, projectsCarouselItemsMobile || 1);

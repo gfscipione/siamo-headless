@@ -12,6 +12,13 @@ type Project = {
 
 const projects: Project[] = [
   {
+    title: "Soul in Concrete",
+    location: "Tulum",
+    summary: "Brutalist warmth with sculpted concrete volumes and soft, textural layers.",
+    image: "/assets/soul-in-concrete/master-bedroom-4.webp",
+    href: "/portfolio/soul-in-concrete",
+  },
+  {
     title: "Timeless Nature",
     location: "Puerto Morelos",
     summary: "A timeless blend of natural elements and contemporary design.",
@@ -38,13 +45,6 @@ const projects: Project[] = [
     summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
     image: "/assets/mid-century-waves/terrace-1.jpg",
     href: "/portfolio/mid-century-waves",
-  },
-  {
-    title: "Vintage Tulum",
-    location: "Tulum",
-    summary: "Natural essence, blended with the charm of vintage style.",
-    image: "/assets/vintage-tulum/living-room-3.jpg",
-    href: "/portfolio/vintage-tulum",
   },
   {
     title: "Contemporary Retreat",

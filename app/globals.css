@@ -965,6 +965,7 @@ header::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,var
           transform: translateY(calc(var(--title-lift,0px) * -1)); will-change: transform;
           display:flex; flex-direction:column; align-items:center;
           gap: var(--hero-subline-gap, 15px);
+          color: #f4f0eb;
         }
         .hero-title h1{ margin:0; }
         /* HERO: responsive title sizing (mobile only overrides) */
@@ -1000,7 +1001,7 @@ header::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,var
   text-transform: uppercase;
   letter-spacing: .08em;
   font-size: clamp(12px, 1.3vw, 20px);
-  color:#fff;
+  color: #f4f0eb;
   opacity: 0;
   transform: translateY(6px);
   transition: opacity .45s ease .05s, transform .45s ease .05s;
