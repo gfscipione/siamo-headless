@@ -19,6 +19,13 @@ const projects: Project[] = [
     href: "/portfolio/soul-in-concrete",
   },
   {
+    title: "Mayan Sanctuary",
+    location: "Tulum",
+    summary: "A serene retreat weaving local craft, limestone, and lush greenery into a calm sanctuary.",
+    image: "/assets/mayan-sanctuary/lounge-terrace-3.webp",
+    href: "/portfolio/mayan-sanctuary",
+  },
+  {
     title: "Timeless Nature",
     location: "Puerto Morelos",
     summary: "A timeless blend of natural elements and contemporary design.",
