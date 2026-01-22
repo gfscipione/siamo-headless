@@ -27,7 +27,7 @@ export default function ContemporaryRetreatPage() {
     ["--nav-cta-bg-hover" as any]: "#F4F2EA",
   };
 
-  const contents = ["Living Room", "Bedroom", "2D Furnished Floor Plan"];
+  const contents = ["Living Room", "Bedroom", "2D Furnished Floor Plan", "Project Overview"];
 
   const sections = [
     {
@@ -66,6 +66,11 @@ export default function ContemporaryRetreatPage() {
         alt: "2D furnished floor plan",
       },
       isFloorplan: true,
+    },
+    {
+      title: "Project Overview",
+      description:
+        "Designed for my client’s retired parents, this Puerto Cancún apartment was created as a calm, comfortable retreat for everyday living. The concept blends modern architecture with refined materials and a neutral palette to achieve a warm, elegant, timeless feel. Every detail—from layout to lighting—was selected to create a cozy, functional home that supports this new stage of life with ease and tranquility.",
     },
   ];
 
@@ -146,6 +151,8 @@ export default function ContemporaryRetreatPage() {
       sections={sections}
       featuredProjects={featuredProjects}
       socialItems={socialItems}
+      followHandle="@siamo_design"
+      navLangHref="/es/portafolio/retiro-contemporaneo"
       footerStyleVars={{
         ['--footer-lift' as any]: "0px",
         ['--footer-overlap' as any]: "0px",

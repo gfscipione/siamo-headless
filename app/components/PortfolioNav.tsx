@@ -8,11 +8,33 @@ type PortfolioNavProps = {
   styleVars: CSSProperties;
   isHero?: boolean; // allow hero contrast (e.g., services) without affecting other pages
   variant?: "default" | "services" | "gtku";
+  langHref?: string;
+  labels?: {
+    getToKnowUs?: string;
+    services?: string;
+    portfolio?: string;
+    langDesktop?: string;
+    langMobile?: string;
+    cta?: string;
+  };
 };
 
-export default function PortfolioNav({ styleVars, isHero = false, variant = "default" }: PortfolioNavProps) {
+export default function PortfolioNav({
+  styleVars,
+  isHero = false,
+  variant = "default",
+  langHref = "#",
+  labels,
+}: PortfolioNavProps) {
   const [navSolid, setNavSolid] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const getToKnowUsLabel = labels?.getToKnowUs ?? "GET TO KNOW US";
+  const servicesLabel = labels?.services ?? "SERVICES";
+  const portfolioLabel = labels?.portfolio ?? "PORTFOLIO";
+  const langDesktopLabel = labels?.langDesktop ?? "ESPAÑOL";
+  const langMobileLabel = labels?.langMobile ?? "ES";
+  const ctaLabel = labels?.cta ?? "GET STARTED";
 
   useEffect(() => {
     // Keep it simple: listen only to the viewport scroll.
@@ -49,10 +71,9 @@ export default function PortfolioNav({ styleVars, isHero = false, variant = "def
     // lock body scroll when mobile menu is open
     const body = typeof document !== "undefined" ? document.body : null;
     if (!body) return;
+    if (!menuOpen) return;
     const prev = body.style.overflow;
-    if (menuOpen) {
-      body.style.overflow = "hidden";
-    }
+    body.style.overflow = "hidden";
     return () => {
       body.style.overflow = prev;
     };
@@ -77,9 +98,9 @@ export default function PortfolioNav({ styleVars, isHero = false, variant = "def
           <span className="label">{menuOpen ? "CLOSE" : "MENU"}</span>
         </button>
         <ul className="nav-left" role="list">
-          <li><a className="nav-link" href="/get-to-know-us">GET TO KNOW US</a></li>
-          <li><a className="nav-link" href="/services">SERVICES</a></li>
-          <li><a className="nav-link" href="/portfolio">PORTFOLIO</a></li>
+          <li><a className="nav-link" href="/get-to-know-us">{getToKnowUsLabel}</a></li>
+          <li><a className="nav-link" href="/services">{servicesLabel}</a></li>
+          <li><a className="nav-link" href="/portfolio">{portfolioLabel}</a></li>
         </ul>
 
         <a href="/" className="brand-mark" aria-label="Siamo Design">
@@ -94,12 +115,12 @@ export default function PortfolioNav({ styleVars, isHero = false, variant = "def
         </a>
 
         <div className="nav-right">
-          <a className="nav-link nav-lang" href="#">
-            <span className="lang-dsk">ESPAÑOL</span>
-            <span className="lang-mbl">ES</span>
+          <a className="nav-link nav-lang" href={langHref}>
+            <span className="lang-dsk">{langDesktopLabel}</span>
+            <span className="lang-mbl">{langMobileLabel}</span>
           </a>
           <a className="cta nav-cta is-visible" href="#">
-            GET STARTED <span aria-hidden="true">→</span>
+            {ctaLabel} <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
@@ -149,13 +170,13 @@ export default function PortfolioNav({ styleVars, isHero = false, variant = "def
             </a>
           </div>
           <nav className="m-nav" aria-label="Mobile menu">
-            <a className="m-link" href="/get-to-know-us">GET TO KNOW US</a>
-            <a className="m-link" href="/services">SERVICES</a>
-            <a className="m-link" href="/portfolio">PORTFOLIO</a>
+            <a className="m-link" href="/get-to-know-us">{getToKnowUsLabel}</a>
+            <a className="m-link" href="/services">{servicesLabel}</a>
+            <a className="m-link" href="/portfolio">{portfolioLabel}</a>
           </nav>
           <div className="m-follow-label">Follow</div>
           <div className="m-social" aria-label="Redes sociales">
-            <a className="m-social__link" href="https://www.linkedin.com" aria-label="LinkedIn">
+            <a className="m-social__link" href="https://www.linkedin.com/company/siamo-design/" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
               </svg>
@@ -165,13 +186,13 @@ export default function PortfolioNav({ styleVars, isHero = false, variant = "def
                 <path d="M13 10.5V8.4c0-.8.1-1.2 1.3-1.2H16V5h-2.5C10.9 5 10 6.5 10 8.2v2.3H8v2.2h2V19h3V12.7h2.2l.3-2.2H13Z" />
               </svg>
             </a>
-            <a className="m-social__link" href="https://www.youtube.com" aria-label="YouTube">
+            <a className="m-social__link" href="https://www.youtube.com/@siamodesign" aria-label="YouTube">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M21.7 8.2s-.2-1.5-.8-2.2c-.7-.8-1.5-.8-1.8-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.3 0-1.1 0-1.8.9-.6.7-.8 2.2-.8 2.2S2 9.9 2 11.6v.8c0 1.7.2 3.4.2 3.4s.2 1.5.8 2.2c.7.8 1.7.8 2.2.9 1.6.2 6.8.2 6.8.2s4.2 0 7.1-.1c.3 0 1.1 0 1.8-.9.6-.7.8-2.2.8-2.2s.2-1.7.2-3.4v-.8c0-1.7-.2-3.4-.2-3.4Z" />
                 <path d="m10 9.8 4.7 2.2L10 14.2V9.8Z" fill="#fff" />
               </svg>
             </a>
-            <a className="m-social__link" href="https://www.tiktok.com" aria-label="TikTok">
+            <a className="m-social__link" href="https://www.tiktok.com/@siamodesign" aria-label="TikTok">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M15.5 4.2c.6.8 1.5 1.3 2.5 1.3h.4v2.5c-.9 0-1.8-.2-2.6-.6v5.5a5.08 5.08 0 1 1-5.1-5.1c.3 0 .6 0 .9.1v2.7a2.4 2.4 0 0 0-.9-.2 2.38 2.38 0 1 0 2.38 2.4V3h2.5v1.2Z" />
               </svg>
@@ -186,7 +207,7 @@ export default function PortfolioNav({ styleVars, isHero = false, variant = "def
           </div>
           <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
           <a className="cta m-cta" href="#">
-            GET STARTED <span aria-hidden="true">→</span>
+            {ctaLabel} <span aria-hidden="true">→</span>
           </a>
         </div>
       </div>

@@ -209,7 +209,7 @@ export default function MayanSanctuaryPage() {
       }}
       contents={contents}
       meta={{
-        location: "Tulum",
+        location: "Playa del Carmen",
         workLinkHref: "/contact",
         shareLinks: [
           { label: "Facebook", href: "#", aria: "Share on Facebook" },

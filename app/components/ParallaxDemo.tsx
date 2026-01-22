@@ -552,12 +552,12 @@ function TestimonialReel({
 }
 
 export default function ParallaxDemo({
-  bgUrl = "/assets/img/hero.webp",
+  bgUrl = "/assets/serene-jungle/terrace-2.webp",
   bgUrlMobile = "/assets/img/heroresp.jpg",
   useDesktopHeroOnMobile = false,
   initialIsMobile = null,
-  heroOverlay = 0,
-  heroOverlayMobile = 0,
+  heroOverlay = 30,
+  heroOverlayMobile = 30,
   title = "Designing your dream space \njust became a reality",
   titleMobile = "YOUR DREAM SPACE, ANYWHERE.",
   titlePx = 55,
@@ -1330,12 +1330,9 @@ export default function ParallaxDemo({
   // Prevent background scroll when menu is open
   useEffect(() => {
     const { body } = document;
+    if (!menuOpen) return;
     const prevOverflow = body.style.overflow;
-    if (menuOpen) {
-      body.style.overflow = "hidden";
-    } else {
-      body.style.overflow = "";
-    }
+    body.style.overflow = "hidden";
     return () => {
       body.style.overflow = prevOverflow;
     };
@@ -1467,6 +1464,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
     const footer  = footerRef.current!;
     const docEl   = document.documentElement;
     const cssVarKeys = ["--title-lift", "--mid-offset", "--hero-overlay"];
+    const heroOverlayAlpha =
+      Math.max(
+        0,
+        Math.min(isMobileViewport ? heroOverlayMobile ?? heroOverlay : heroOverlay, 100)
+      ) / 100;
 
     const updateGuideStops = () => {
       const sectionTop = content.getBoundingClientRect().top + window.scrollY;
@@ -1546,7 +1548,9 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       main.style.top = "0px";
       content.style.transform = "translateY(0px)";
       header.style.backgroundPosition = `${heroBgPosXCurrent}% 50%`;
-      cssVarKeys.forEach((k) => docEl.style.setProperty(k, "0"));
+      docEl.style.setProperty("--title-lift", "0px");
+      docEl.style.setProperty("--mid-offset", "0px");
+      docEl.style.setProperty("--hero-overlay", String(heroOverlayAlpha));
       const heroH = header?.offsetHeight || 120;
       updateGuideStops();
       const solidNow = y > heroH;
@@ -1615,7 +1619,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
         header.style.backgroundPosition = `${heroBgPosXCurrent}% 50%`;
         setCssVar("--title-lift", "0px");
         setCssVar("--mid-offset", "0px");
-        setCssVar("--hero-overlay", "0");
+        setCssVar("--hero-overlay", String(heroOverlayAlpha));
         scrollFooter(y, footerHeight);
         setNavSolid(y > 12);
         return;
@@ -1638,8 +1642,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       setCssVar("--mid-offset", `${midMove.toFixed(1)}px`);
 
       const t = Math.min(py / (windowHeight * 0.4 || 1), 1);
-      // Disable hero overlay on all viewports
-      setCssVar("--hero-overlay", "0");
+      // Light hero overlay for readability (controlled via heroOverlay/heroOverlayMobile)
+      setCssVar("--hero-overlay", String(heroOverlayAlpha));
 
       // footer motion
       scrollFooter(y, footerHeight);
@@ -1905,23 +1909,23 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
         <Link href="/portfolio">Portfolio</Link>
         <Link href="/get-to-know-us">About</Link>
         <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
-        <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
           WhatsApp
         </a>
       </nav>
       <div className="social" aria-label="Social profiles">
-        <a className="social__link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <a className="social__link" href="https://www.linkedin.com/company/siamo-design/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
           </svg>
         </a>
-        <a className="social__link" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <a className="social__link" href="https://www.youtube.com/@siamodesign" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M21.7 8.2s-.2-1.5-.8-2.2c-.7-.8-1.5-.8-1.8-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.3 0-1.1 0-1.8.9-.6.7-.8 2.2-.8 2.2S2 9.9 2 11.6v.8c0 1.7.2 3.4.2 3.4s.2 1.5.8 2.2c.7.8 1.7.8 2.2.9 1.6.2 6.8.2 6.8.2s4.2 0 7.1-.1c.3 0 1.1 0 1.8-.9.6-.7.8-2.2.8-2.2s.2-1.7.2-3.4v-.8c0-1.7-.2-3.4-.2-3.4Z" />
             <path d="m10 9.8 4.7 2.2L10 14.2V9.8Z" fill="#fff" />
           </svg>
         </a>
-        <a className="social__link" href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <a className="social__link" href="https://www.tiktok.com/@siamodesign" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M15.5 4.2c.6.8 1.5 1.3 2.5 1.3h.4v2.5c-.9 0-1.8-.2-2.6-.6v5.5a5.08 5.08 0 1 1-5.1-5.1c.3 0 .6 0 .9.1v2.7a2.4 2.4 0 0 0-.9-.2 2.38 2.38 0 1 0 2.38 2.4V3h2.5v1.2Z" />
           </svg>
@@ -1940,27 +1944,19 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
   const renderFooterLegal = () => (
     <div className="footer-legal" aria-label="Legal information">
       <p className="legal-line">
-        <span className="left">Siamo Design</span>
-        <span className="divider" aria-hidden="true">
-          |
-        </span>
-        <span className="right">Interior Design Studio</span>
+        <span className="legal-full">Siamo Design | Interior Design Studio</span>
       </p>
       <p className="legal-line">
-        <span className="left">Copyright © 2025 Siamo Design</span>
-        <span className="divider" aria-hidden="true">
-          |
-        </span>
-        <span className="right">Todos los derechos reservados</span>
+        <span className="legal-full">© 2025 Siamo Design. All rights reserved.</span>
       </p>
-      <p className="legal-sig">powered by StratUpdate</p>
+      <p className="legal-sig"><a href="https://donebyelevator.com" target="_blank" rel="noopener noreferrer">Designed & Built by Elevator</a></p>
     </div>
   );
 
   return (
     <>
       <nav
-        className={`site-nav ${navSolid ? "is-solid" : ""} ${menuOpen ? "is-menu-open" : ""}`}
+        className={`site-nav parallax-nav ${navSolid ? "is-solid" : ""} ${menuOpen ? "is-menu-open" : ""}`}
         aria-label="Barra de navegación"
         style={{
           ['--nav-col-gap' as any]: `${navColGap}px`,
@@ -2143,7 +2139,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               </a>
               <a
                 className="m-social__link"
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/siamo_design/"
                 aria-label="Instagram"
                 style={mobileDrawerSocialStyles.link}
               >
@@ -2250,9 +2246,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 </h1>
 
                 <p className={`subline ${isFinished ? "is-visible" : "is-hidden"}`}>
-                  THE #1 INTERIOR DESIGN SERVICE
-                  {isMobileViewport ? <br /> : " "}
-                  ACROSS THE RIVIERA MAYA
+                  Warm, timeless spaces designed for modern living and vacation rentals.
                 </p>
                 <a
                   className={`hero-cta ${isFinished ? "is-visible" : "is-hidden"}`}

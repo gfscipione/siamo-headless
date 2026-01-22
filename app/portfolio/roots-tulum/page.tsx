@@ -34,6 +34,7 @@ export default function RootsTulumPage() {
     "Bathrooms",
     "Terrace",
     "2D Furnished Floor Plan",
+    "Project Overview",
   ];
 
   const sections = [
@@ -105,6 +106,11 @@ export default function RootsTulumPage() {
       },
       isFloorplan: true,
     },
+    {
+      title: "Project Overview",
+      description:
+        "Raíces Tulum highlights the pure beauty of natural materials. Solid wood pieces, woven lighting, and rope details pair with deep gray and leafy green tones to create warmth, character, and quiet sophistication. The result is an organic yet contemporary interior—designed to feel distinctive, functional, and memorable, whether as a personal retreat or a vacation rental in Tulum.",
+    },
   ];
 
   const featuredProjects = [
@@ -144,6 +150,7 @@ export default function RootsTulumPage() {
     <ProjectPage
       title="Roots Tulum"
       styleVars={styleVars}
+      navLangHref="/es/portafolio/raices-tulum"
       hero={{
         backgroundImage: "/assets/raices-tulum/bedroom-6.jpg",
         titleSize: "64px",

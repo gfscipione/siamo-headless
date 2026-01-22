@@ -33,6 +33,7 @@ export default function MidCenturyWavesPage() {
     "Double Guest Room",
     "Terrace",
     "2D Furnished Floor Plan",
+    "Project Overview",
   ];
 
   const sections = [
@@ -108,6 +109,11 @@ export default function MidCenturyWavesPage() {
       },
       isFloorplan: true,
     },
+    {
+      title: "Project Overview",
+      description:
+        "A fusion of mid-century classics and coastal ease in a beachfront apartment in Akumal. Local wood and contemporary finishes are paired with bold orange and blue accents to echo the ocean’s energy and calm. The result is relaxed luxury—serene, timeless, and inspired by the elegance of the 1950s.",
+    },
   ];
 
   const featuredProjects = [
@@ -147,6 +153,7 @@ export default function MidCenturyWavesPage() {
     <ProjectPage
       title="Mid-Century Waves"
       styleVars={styleVars}
+      navLangHref="/es/portafolio/mid-century-waves"
       hero={{
         backgroundImage: "/assets/mid-century-waves/terrace-12.jpg",
         titleSize: "64px",

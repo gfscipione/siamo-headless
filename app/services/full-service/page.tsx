@@ -545,7 +545,7 @@ export default function FullServicePage() {
                 <a href="/portfolio">Portfolio</a>
                 <a href="/get-to-know-us">About</a>
                 <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
-                <a href="https://wa.me/0000000000" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+                <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
                   WhatsApp
                 </a>
               </nav>
@@ -578,16 +578,12 @@ export default function FullServicePage() {
 
             <div className="footer-legal" aria-label="Legal information">
               <p className="legal-line">
-                <span className="left">Siamo Design</span>
-                <span className="divider" aria-hidden="true">|</span>
-                <span className="right">Interior Design Studio</span>
+                <span className="legal-full">Siamo Design | Interior Design Studio</span>
               </p>
               <p className="legal-line">
-                <span className="left">Copyright © 2025 Siamo Design</span>
-                <span className="divider" aria-hidden="true">|</span>
-                <span className="right">Todos los derechos reservados</span>
+                <span className="legal-full">© 2025 Siamo Design. All rights reserved.</span>
               </p>
-              <p className="legal-sig">powered by StratUpdate</p>
+              <p className="legal-sig"><a href="https://donebyelevator.com" target="_blank" rel="noopener noreferrer">Designed & Built by Elevator</a></p>
             </div>
           </div>
         </footer>
