@@ -43,6 +43,10 @@ const nextConfig: NextConfig = {
 
   async rewrites() {
     return [
+      // Yoast sitemap (WP origin) during hybrid.
+      { source: "/sitemap_index.xml", destination: `${wpOrigin}/sitemap_index.xml` },
+      { source: "/:path*-sitemap.xml", destination: `${wpOrigin}/:path*-sitemap.xml` },
+
       // WPForms questionnaire (WP origin).
       { source: "/questionnaire/:path*", destination: `${wpOrigin}/questionnaire/:path*` },
       { source: "/es/cuestionario/:path*", destination: `${wpOrigin}/es/cuestionario/:path*` },

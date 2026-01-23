@@ -1,11 +1,109 @@
 import ProjectPage from "../components/ProjectPage";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Mayan Sanctuary — Siamo Design",
-  description: "A serene retreat blending limestone, local craft, and lush greenery into a calm sanctuary.",
+const canonicalPath = "/portfolio/mayan-sanctuary/";
+const TITLE = "Mayan Sanctuary - Siamo Design";
+const DESCRIPTION =
+  "A serene retreat weaving limestone, local craft, and lush greenery into a calm sanctuary in Playa del Carmen.";
+const OG_IMAGE_PATH = "/assets/mayan-sanctuary/details-1.webp";
+
+export const metadata: Metadata = {
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: canonicalPath },
+  openGraph: {
+    type: "article",
+    locale: "en_US",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: canonicalPath,
+    siteName: "Siamo Design",
+    images: [{ url: OG_IMAGE_PATH }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE_PATH],
+  },
 };
 
 export default function MayanSanctuaryPage() {
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const canonical = `${siteUrl}${canonicalPath}`;
+  const primaryImageUrl = `${siteUrl}${OG_IMAGE_PATH}`;
+
+  const schemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": canonical,
+        url: canonical,
+        name: TITLE,
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
+        image: { "@id": `${canonical}#primaryimage` },
+        thumbnailUrl: primaryImageUrl,
+        breadcrumb: { "@id": `${canonical}#breadcrumb` },
+        inLanguage: "en",
+        potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
+      },
+      {
+        "@type": "ImageObject",
+        inLanguage: "en",
+        "@id": `${canonical}#primaryimage`,
+        url: primaryImageUrl,
+        contentUrl: primaryImageUrl,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonical}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 2, name: "Portfolio", item: `${siteUrl}/portfolio/` },
+          { "@type": "ListItem", position: 3, name: "Mayan Sanctuary" },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: `${siteUrl}/`,
+        name: "Siamo Design",
+        publisher: { "@id": `${siteUrl}/#organization` },
+        potentialAction: [
+          {
+            "@type": "SearchAction",
+            target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
+            "query-input": {
+              "@type": "PropertyValueSpecification",
+              valueRequired: true,
+              valueName: "search_term_string",
+            },
+          },
+        ],
+        inLanguage: "en",
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: "Siamo Design",
+        url: `${siteUrl}/`,
+        logo: {
+          "@type": "ImageObject",
+          inLanguage: "en",
+          "@id": `${siteUrl}/#/schema/logo/image/`,
+          url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          contentUrl:
+            "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          width: 499,
+          height: 167,
+          caption: "Siamo Design",
+        },
+        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
+      },
+    ],
+  };
   const styleVars = {
     ["--nav-col-gap" as any]: "0px",
     ["--nav-inner-maxw" as any]: "1700px",
@@ -195,40 +293,47 @@ export default function MayanSanctuaryPage() {
   ];
 
   return (
-    <ProjectPage
-      title="Mayan Sanctuary"
-      styleVars={styleVars}
-      hero={{
-        backgroundImage: "/assets/mayan-sanctuary/details-1.webp",
-        titleSize: "64px",
-        titleSizeMobile: "50px",
-        align: "center",
-        padTopDesktopPx: 200,
-        padBottom: "clamp(5rem, 10vh, 8rem)",
-        contentPadX: "24px",
-      }}
-      contents={contents}
-      meta={{
-        location: "Playa del Carmen",
-        workLinkHref: "/contact",
-        shareLinks: [
-          { label: "Facebook", href: "#", aria: "Share on Facebook" },
-          { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
-          { label: "Email", href: "#", aria: "Share via Email" },
-        ],
-      }}
-      sections={sections}
-      featuredProjects={featuredProjects}
-      socialItems={socialItems}
-      footerStyleVars={{
-        ['--footer-lift' as any]: "0px",
-        ['--footer-overlap' as any]: "0px",
-        ['--footer-pad-top-mobile' as any]: "0px",
-        ['--footer-pad-bottom-mobile' as any]: "18px",
-        ['--footer-overlap-mobile' as any]: "0px",
-        ['--footer-h' as any]: "200px",
-        ['--footer-bottom-maxw' as any]: "1100px",
-      }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        className="yoast-schema-graph"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      />
+      <ProjectPage
+        title="Mayan Sanctuary"
+        styleVars={styleVars}
+        hero={{
+          backgroundImage: "/assets/mayan-sanctuary/details-1.webp",
+          titleSize: "64px",
+          titleSizeMobile: "50px",
+          align: "center",
+          padTopDesktopPx: 200,
+          padBottom: "clamp(5rem, 10vh, 8rem)",
+          contentPadX: "24px",
+        }}
+        contents={contents}
+        meta={{
+          location: "Playa del Carmen",
+          workLinkHref: "/contact",
+          shareLinks: [
+            { label: "Facebook", href: "#", aria: "Share on Facebook" },
+            { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
+            { label: "Email", href: "#", aria: "Share via Email" },
+          ],
+        }}
+        sections={sections}
+        featuredProjects={featuredProjects}
+        socialItems={socialItems}
+        footerStyleVars={{
+          ["--footer-lift" as any]: "0px",
+          ["--footer-overlap" as any]: "0px",
+          ["--footer-pad-top-mobile" as any]: "0px",
+          ["--footer-pad-bottom-mobile" as any]: "18px",
+          ["--footer-overlap-mobile" as any]: "0px",
+          ["--footer-h" as any]: "200px",
+          ["--footer-bottom-maxw" as any]: "1100px",
+        }}
+      />
+    </>
   );
 }
