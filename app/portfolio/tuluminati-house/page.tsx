@@ -1,11 +1,125 @@
 import ProjectPage from "../components/ProjectPage";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Tuluminati House — Siamo Design",
-  description: "A celebration of Tulum’s natural materials and local craftsmanship.",
+const canonicalPath = "/portfolio/tuluminati-house/";
+const yoastDescription =
+  "Tuluminati House 100 M2 2 Rooms 2 Bathrooms Tuluminati House This project pays homage to the essence of Tulum with a design that incorporates natural materials and local craftsmanship. With a neutral color palette and the use of chukum, this decor blends modern design with a local touch. Every detail reflects Tulum’s relaxed and spiritual aesthetic, creating […]";
+const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/02/1-.png";
+const OG_IMAGE_WIDTH = 594;
+const OG_IMAGE_HEIGHT = 420;
+const OG_IMAGE_TYPE = "image/png";
+const DATE_PUBLISHED = "2025-02-20T04:41:57+00:00";
+const DATE_MODIFIED = "2025-03-27T22:14:33+00:00";
+
+export const metadata: Metadata = {
+  title: { absolute: "Tuluminati House - Siamo Design" },
+  description: yoastDescription,
+  alternates: {
+    canonical: canonicalPath,
+  },
+  openGraph: {
+    type: "article",
+    locale: "en_US",
+    title: "Tuluminati House - Siamo Design",
+    description: yoastDescription,
+    url: canonicalPath,
+    siteName: "Siamo Design",
+    images: [
+      { url: OG_IMAGE, width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, type: OG_IMAGE_TYPE },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tuluminati House - Siamo Design",
+    description: yoastDescription,
+    images: [OG_IMAGE],
+  },
 };
 
 export default function TuluminatiHousePage() {
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
+    /\/+$/,
+    ""
+  );
+  const canonical = `${siteUrl}${canonicalPath}`;
+
+  const schemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": canonical,
+        url: canonical,
+        name: "Tuluminati House - Siamo Design",
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
+        image: { "@id": `${canonical}#primaryimage` },
+        thumbnailUrl: OG_IMAGE,
+        datePublished: DATE_PUBLISHED,
+        dateModified: DATE_MODIFIED,
+        breadcrumb: { "@id": `${canonical}#breadcrumb` },
+        inLanguage: "en",
+        potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
+      },
+      {
+        "@type": "ImageObject",
+        inLanguage: "en",
+        "@id": `${canonical}#primaryimage`,
+        url: OG_IMAGE,
+        contentUrl: OG_IMAGE,
+        width: OG_IMAGE_WIDTH,
+        height: OG_IMAGE_HEIGHT,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonical}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 2, name: "Portfolio", item: `${siteUrl}/portfolio/` },
+          { "@type": "ListItem", position: 3, name: "Tuluminati House" },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: `${siteUrl}/`,
+        name: "Siamo Design",
+        description: "",
+        publisher: { "@id": `${siteUrl}/#organization` },
+        potentialAction: [
+          {
+            "@type": "SearchAction",
+            target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
+            "query-input": {
+              "@type": "PropertyValueSpecification",
+              valueRequired: true,
+              valueName: "search_term_string",
+            },
+          },
+        ],
+        inLanguage: "en",
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: "Siamo Design",
+        url: `${siteUrl}/`,
+        logo: {
+          "@type": "ImageObject",
+          inLanguage: "en",
+          "@id": `${siteUrl}/#/schema/logo/image/`,
+          url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          contentUrl:
+            "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          width: 499,
+          height: 167,
+          caption: "Siamo Design",
+        },
+        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
+      },
+    ],
+  };
+
   const styleVars = {
     ["--nav-col-gap" as any]: "0px",
     ["--nav-inner-maxw" as any]: "1700px",
@@ -165,40 +279,47 @@ export default function TuluminatiHousePage() {
   ];
 
   return (
-    <ProjectPage
-      title="Tuluminati House"
-      styleVars={styleVars}
-      hero={{
-        backgroundImage: "/assets/tuluminati-house/terrace-5.jpg",
-        titleSize: "64px",
-        titleSizeMobile: "50px",
-        align: "center",
-        padTopDesktopPx: 140,
-        padBottom: "clamp(4rem, 8vh, 7rem)",
-        contentPadX: "24px",
-      }}
-      contents={contents}
-      meta={{
-        location: "Tulum",
-        workLinkHref: "/contact",
-        shareLinks: [
-          { label: "Facebook", href: "#", aria: "Share on Facebook" },
-          { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
-          { label: "Email", href: "#", aria: "Share via Email" },
-        ],
-      }}
-      sections={sections}
-      featuredProjects={featuredProjects}
-      socialItems={socialItems}
-      footerStyleVars={{
-        ['--footer-lift' as any]: "0px",
-        ['--footer-overlap' as any]: "0px",
-        ['--footer-pad-top-mobile' as any]: "0px",
-        ['--footer-pad-bottom-mobile' as any]: "18px",
-        ['--footer-overlap-mobile' as any]: "0px",
-        ['--footer-h' as any]: "200px",
-        ['--footer-bottom-maxw' as any]: "1100px",
-      }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        className="yoast-schema-graph"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      />
+      <ProjectPage
+        title="Tuluminati House"
+        styleVars={styleVars}
+        hero={{
+          backgroundImage: "/assets/tuluminati-house/terrace-5.jpg",
+          titleSize: "64px",
+          titleSizeMobile: "50px",
+          align: "center",
+          padTopDesktopPx: 140,
+          padBottom: "clamp(4rem, 8vh, 7rem)",
+          contentPadX: "24px",
+        }}
+        contents={contents}
+        meta={{
+          location: "Tulum",
+          workLinkHref: "/contact",
+          shareLinks: [
+            { label: "Facebook", href: "#", aria: "Share on Facebook" },
+            { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
+            { label: "Email", href: "#", aria: "Share via Email" },
+          ],
+        }}
+        sections={sections}
+        featuredProjects={featuredProjects}
+        socialItems={socialItems}
+        footerStyleVars={{
+          ["--footer-lift" as any]: "0px",
+          ["--footer-overlap" as any]: "0px",
+          ["--footer-pad-top-mobile" as any]: "0px",
+          ["--footer-pad-bottom-mobile" as any]: "18px",
+          ["--footer-overlap-mobile" as any]: "0px",
+          ["--footer-h" as any]: "200px",
+          ["--footer-bottom-maxw" as any]: "1100px",
+        }}
+      />
+    </>
   );
 }

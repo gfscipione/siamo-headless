@@ -4,6 +4,14 @@ export const metadata = {
   title: "Olas Mid-Century — Siamo Design",
   description:
     "Un refugio sereno y lleno de textura, diseñado con tonos cálidos y una calma costera en Akumal.",
+  alternates: {
+    canonical: "/es/portafolio/mid-century-waves/",
+    languages: {
+      "en": "/portfolio/mid-century-waves/",
+      "es": "/es/portafolio/mid-century-waves/",
+      "x-default": "/portfolio/mid-century-waves/",
+    },
+  },
 };
 
 export default function MidCenturyWavesPageEs() {
@@ -225,4 +233,3 @@ export default function MidCenturyWavesPageEs() {
     />
   );
 }
-

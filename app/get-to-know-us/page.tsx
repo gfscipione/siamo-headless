@@ -1,13 +1,112 @@
 import PortfolioNav from "../components/PortfolioNav";
 import { playfairFont, poppinsFont } from "../fonts";
 import AboutHeroVideo from "./video";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Get to Know Us — Siamo Design",
-  description: "Learn about Siamo Design, our ethos, and the team behind our work.",
+const TITLE = "Get to know us - Siamo Design";
+const DESCRIPTION =
+  "Who are we? Siamo Design was born from the initiative of Stephania Scipione and Krystle Torres, who observed that many people were dissatisfied with their homes despite having invested time and money in them.";
+const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/03/Diseno-sin-titulo-1.webp";
+
+export const metadata: Metadata = {
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: {
+    canonical: "/get-to-know-us/",
+    languages: {
+      en: "/get-to-know-us/",
+      es: "/es/conocenos/",
+      "x-default": "/get-to-know-us/",
+    },
+  },
+  openGraph: {
+    type: "article",
+    url: "/get-to-know-us/",
+    title: TITLE,
+    description: DESCRIPTION,
+    siteName: "Siamo Design",
+    locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 555, height: 630, type: "image/webp" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function GetToKnowUsPage() {
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const canonical = `${siteUrl}/get-to-know-us/`;
+
+  const schemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": canonical,
+        url: canonical,
+        name: TITLE,
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
+        image: { "@id": `${canonical}#primaryimage` },
+        thumbnailUrl: OG_IMAGE,
+        datePublished: "2024-03-19T15:56:34+00:00",
+        dateModified: "2025-03-27T22:51:20+00:00",
+        breadcrumb: { "@id": `${canonical}#breadcrumb` },
+        inLanguage: "en",
+        potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
+      },
+      {
+        "@type": "ImageObject",
+        inLanguage: "en",
+        "@id": `${canonical}#primaryimage`,
+        url: OG_IMAGE,
+        contentUrl: OG_IMAGE,
+        width: 555,
+        height: 630,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonical}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 2, name: "Get to know us" },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: `${siteUrl}/`,
+        name: "Siamo Design",
+        publisher: { "@id": `${siteUrl}/#organization` },
+        potentialAction: [
+          {
+            "@type": "SearchAction",
+            target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
+            "query-input": { "@type": "PropertyValueSpecification", valueRequired: true, valueName: "search_term_string" },
+          },
+        ],
+        inLanguage: "en",
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: "Siamo Design",
+        url: `${siteUrl}/`,
+        logo: {
+          "@type": "ImageObject",
+          inLanguage: "en",
+          "@id": `${siteUrl}/#/schema/logo/image/`,
+          url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          contentUrl: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          width: 499,
+          height: 167,
+          caption: "Siamo Design",
+        },
+        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
+      },
+    ],
+  };
+
   const wwdItems = [
     {
       title: "Interior Design Firm",
@@ -106,6 +205,11 @@ export default function GetToKnowUsPage() {
   ];
   return (
     <>
+      <script
+        type="application/ld+json"
+        className="yoast-schema-graph"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      />
       <PortfolioNav
         styleVars={{
           ["--nav-col-gap" as any]: "0px",

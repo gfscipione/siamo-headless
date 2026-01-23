@@ -1,8 +1,3 @@
-export const metadata = {
-  title: "Services — Siamo Design",
-  description: "Interior design services offered by Siamo Design across the Riviera Maya.",
-};
-
 import Image from "next/image";
 import Link from "next/link";
 import PortfolioNav from "../components/PortfolioNav";
@@ -10,6 +5,36 @@ import FaqAccordion from "../components/FaqAccordion";
 import HeroVideo from "./HeroVideo";
 
 import { playfairFont, poppinsFont } from "../fonts";
+
+const TITLE = "Services - Siamo Design";
+const DESCRIPTION =
+  "Explore our interior design services—from Virtual Design to full-service execution—tailored to your lifestyle across the Riviera Maya.";
+const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/05/Virtual-design.png";
+
+export const metadata = {
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: {
+    canonical: "/services/",
+    languages: {
+      en: "/services/",
+      es: "/es/servicios/",
+      "x-default": "/services/",
+    },
+  },
+  openGraph: {
+    type: "article",
+    url: "/services/",
+    title: TITLE,
+    description: DESCRIPTION,
+    siteName: "Siamo Design",
+    locale: "en_US",
+    images: [{ url: OG_IMAGE, width: 750, height: 400, type: "image/png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
 
 type Service = {
   title: string;
@@ -162,8 +187,87 @@ const socialItems = [
 ];
 
 export default function ServicesPage() {
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const canonical = `${siteUrl}/services/`;
+
+  const schemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": canonical,
+        url: canonical,
+        name: TITLE,
+        isPartOf: { "@id": `${siteUrl}/#website` },
+        primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
+        image: { "@id": `${canonical}#primaryimage` },
+        thumbnailUrl: OG_IMAGE,
+        datePublished: "2024-03-19T03:12:16+00:00",
+        dateModified: "2025-06-03T23:35:50+00:00",
+        breadcrumb: { "@id": `${canonical}#breadcrumb` },
+        inLanguage: "en",
+        potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
+      },
+      {
+        "@type": "ImageObject",
+        inLanguage: "en",
+        "@id": `${canonical}#primaryimage`,
+        url: OG_IMAGE,
+        contentUrl: OG_IMAGE,
+        width: 750,
+        height: 400,
+        caption: "Virtual Design",
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonical}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 2, name: "Services" },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl}/#website`,
+        url: `${siteUrl}/`,
+        name: "Siamo Design",
+        publisher: { "@id": `${siteUrl}/#organization` },
+        potentialAction: [
+          {
+            "@type": "SearchAction",
+            target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
+            "query-input": { "@type": "PropertyValueSpecification", valueRequired: true, valueName: "search_term_string" },
+          },
+        ],
+        inLanguage: "en",
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: "Siamo Design",
+        url: `${siteUrl}/`,
+        logo: {
+          "@type": "ImageObject",
+          inLanguage: "en",
+          "@id": `${siteUrl}/#/schema/logo/image/`,
+          url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          contentUrl: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          width: 499,
+          height: 167,
+          caption: "Siamo Design",
+        },
+        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        className="yoast-schema-graph"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      />
       <PortfolioNav
         styleVars={{
           ['--nav-col-gap' as any]: "0px",

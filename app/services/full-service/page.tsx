@@ -1,17 +1,132 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import PortfolioNav from "../../components/PortfolioNav";
 import FaqAccordion from "../../components/FaqAccordion";
 import HeroVideo from "../HeroVideo";
 import { playfairFont, poppinsFont } from "../../fonts";
 
-export const metadata = {
-  title: "Full-Service Interior Design — Siamo Design",
-  description:
-    "Comprehensive interior design with end-to-end project management, bespoke sourcing, and installation by Siamo Design.",
+const canonicalPath = "/services/full-service/";
+const yoastDescription =
+  "Our design and project execution service combines the creativity of design with the practical experience of execution, achieving the materialization of spaces that reflect your style and are functional in your daily life with the help of professionals in design and project execution.";
+
+export const metadata: Metadata = {
+  title: { absolute: "Project Design and Execution - Siamo Design" },
+  description: yoastDescription,
+  alternates: {
+    canonical: canonicalPath,
+  },
+  openGraph: {
+    type: "article",
+    locale: "en_US",
+    title: "Project Design and Execution - Siamo Design",
+    description: yoastDescription,
+    url: canonicalPath,
+    images: [
+      {
+        url: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
+        width: 64,
+        height: 64,
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function FullServicePage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const canonicalUrl = `${siteUrl.replace(/\/$/, "")}${canonicalPath}`;
+
+  const schemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+        url: canonicalUrl,
+        name: "Project Design and Execution - Siamo Design",
+        isPartOf: { "@id": `${siteUrl.replace(/\/$/, "")}/#website` },
+        primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
+        image: { "@id": `${canonicalUrl}#primaryimage` },
+        thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
+        datePublished: "2025-04-23T23:56:03+00:00",
+        dateModified: "2025-04-24T00:00:41+00:00",
+        description: yoastDescription,
+        breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
+        inLanguage: "en",
+        potentialAction: [
+          {
+            "@type": "ReadAction",
+            target: [canonicalUrl],
+          },
+        ],
+      },
+      {
+        "@type": "ImageObject",
+        inLanguage: "en",
+        "@id": `${canonicalUrl}#primaryimage`,
+        url: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
+        contentUrl: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
+        width: 64,
+        height: 64,
+        caption: "Project Design and Execution",
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl.replace(/\/$/, "")}/` },
+          { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl.replace(/\/$/, "")}/services/` },
+          { "@type": "ListItem", position: 3, name: "Project Design and Execution" },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl.replace(/\/$/, "")}/#website`,
+        url: `${siteUrl.replace(/\/$/, "")}/`,
+        name: "Siamo Design",
+        description: "",
+        publisher: { "@id": `${siteUrl.replace(/\/$/, "")}/#organization` },
+        potentialAction: [
+          {
+            "@type": "SearchAction",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: `${siteUrl.replace(/\/$/, "")}/?s={search_term_string}`,
+            },
+            "query-input": {
+              "@type": "PropertyValueSpecification",
+              valueRequired: true,
+              valueName: "search_term_string",
+            },
+          },
+        ],
+        inLanguage: "en",
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl.replace(/\/$/, "")}/#organization`,
+        name: "Siamo Design",
+        url: `${siteUrl.replace(/\/$/, "")}/`,
+        logo: {
+          "@type": "ImageObject",
+          inLanguage: "en",
+          "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/`,
+          url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          contentUrl:
+            "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          width: 499,
+          height: 167,
+          caption: "Siamo Design",
+        },
+        image: { "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/` },
+      },
+    ],
+  };
+
   const styleVars = {
     ["--nav-col-gap" as any]: "0px",
     ["--nav-inner-maxw" as any]: "1700px",
@@ -148,6 +263,11 @@ export default function FullServicePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        className="yoast-schema-graph"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      />
       <PortfolioNav styleVars={styleVars} isHero />
 
       <main className="services-page overscroll-safe about-hero-page">

@@ -1,11 +1,130 @@
 import ProjectPage from "../components/ProjectPage";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Contemporary Retreat — Siamo Design",
-  description: "Modern architecture with refined, high-end materials in a contemporary retreat by Siamo Design.",
+const canonicalPath = "/portfolio/contemporary-retreat/";
+const yoastDescription =
+  "Contemporary Retreat · 90 m² · 2 rooms · 2 bathrooms. Designed for my client’s retired parents, this Puerto Cancún apartment blends modern architecture with refined materials and neutral tones to achieve a warm, elegant, timeless feel.";
+
+export const metadata: Metadata = {
+  title: { absolute: "Contemporary Retreat - Siamo Design" },
+  description: yoastDescription,
+  alternates: {
+    canonical: canonicalPath,
+    languages: {
+      en: canonicalPath,
+      es: "/es/portafolio/retiro-contemporaneo/",
+      "x-default": canonicalPath,
+    },
+  },
+  openGraph: {
+    type: "article",
+    locale: "en_US",
+    title: "Contemporary Retreat - Siamo Design",
+    description: yoastDescription,
+    url: canonicalPath,
+    images: [
+      {
+        url: "https://siamodesign.com/wp-content/uploads/2025/02/1-1-4.png",
+        width: 594,
+        height: 420,
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function ContemporaryRetreatPage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const canonicalUrl = `${siteUrl.replace(/\/$/, "")}${canonicalPath}`;
+
+  const schemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+        url: canonicalUrl,
+        name: "Contemporary Retreat - Siamo Design",
+        isPartOf: { "@id": `${siteUrl.replace(/\/$/, "")}/#website` },
+        primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
+        image: { "@id": `${canonicalUrl}#primaryimage` },
+        thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/02/1-1-4.png",
+        datePublished: "2025-02-20T05:02:47+00:00",
+        dateModified: "2025-03-27T22:26:13+00:00",
+        breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
+        inLanguage: "en",
+        potentialAction: [
+          {
+            "@type": "ReadAction",
+            target: [canonicalUrl],
+          },
+        ],
+      },
+      {
+        "@type": "ImageObject",
+        inLanguage: "en",
+        "@id": `${canonicalUrl}#primaryimage`,
+        url: "https://siamodesign.com/wp-content/uploads/2025/02/1-1-4.png",
+        contentUrl: "https://siamodesign.com/wp-content/uploads/2025/02/1-1-4.png",
+        width: 594,
+        height: 420,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl.replace(/\/$/, "")}/` },
+          { "@type": "ListItem", position: 2, name: "Portfolio", item: `${siteUrl.replace(/\/$/, "")}/portfolio/` },
+          { "@type": "ListItem", position: 3, name: "Contemporary Retreat" },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl.replace(/\/$/, "")}/#website`,
+        url: `${siteUrl.replace(/\/$/, "")}/`,
+        name: "Siamo Design",
+        description: "",
+        publisher: { "@id": `${siteUrl.replace(/\/$/, "")}/#organization` },
+        potentialAction: [
+          {
+            "@type": "SearchAction",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: `${siteUrl.replace(/\/$/, "")}/?s={search_term_string}`,
+            },
+            "query-input": {
+              "@type": "PropertyValueSpecification",
+              valueRequired: true,
+              valueName: "search_term_string",
+            },
+          },
+        ],
+        inLanguage: "en",
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl.replace(/\/$/, "")}/#organization`,
+        name: "Siamo Design",
+        url: `${siteUrl.replace(/\/$/, "")}/`,
+        logo: {
+          "@type": "ImageObject",
+          inLanguage: "en",
+          "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/`,
+          url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          contentUrl:
+            "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          width: 499,
+          height: 167,
+          caption: "Siamo Design",
+        },
+        image: { "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/` },
+      },
+    ],
+  };
+
   const styleVars = {
     ["--nav-col-gap" as any]: "0px",
     ["--nav-inner-maxw" as any]: "1700px",
@@ -126,42 +245,49 @@ export default function ContemporaryRetreatPage() {
   ];
 
   return (
-    <ProjectPage
-      title="Contemporary Retreat"
-      styleVars={styleVars}
-      hero={{
-        backgroundImage: "/assets/retiro-contemporaneo/living-room-2.png",
-        titleSize: "64px",
-        titleSizeMobile: "50px",
-        align: "center",
-        padTopDesktopPx: 400,
-        padBottom: "clamp(4rem, 8vh, 7rem)",
-        contentPadX: "24px",
-      }}
-      contents={contents}
-      meta={{
-        location: "Cacun",
-        workLinkHref: "/contact",
-        shareLinks: [
-          { label: "Facebook", href: "#", aria: "Share on Facebook" },
-          { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
-          { label: "Email", href: "#", aria: "Share via Email" },
-        ],
-      }}
-      sections={sections}
-      featuredProjects={featuredProjects}
-      socialItems={socialItems}
-      followHandle="@siamo_design"
-      navLangHref="/es/portafolio/retiro-contemporaneo"
-      footerStyleVars={{
-        ['--footer-lift' as any]: "0px",
-        ['--footer-overlap' as any]: "0px",
-        ['--footer-pad-top-mobile' as any]: "0px",
-        ['--footer-pad-bottom-mobile' as any]: "18px",
-        ['--footer-overlap-mobile' as any]: "0px",
-        ['--footer-h' as any]: "200px",
-        ['--footer-bottom-maxw' as any]: "1100px",
-      }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        className="yoast-schema-graph"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      />
+      <ProjectPage
+        title="Contemporary Retreat"
+        styleVars={styleVars}
+        hero={{
+          backgroundImage: "/assets/retiro-contemporaneo/living-room-2.png",
+          titleSize: "64px",
+          titleSizeMobile: "50px",
+          align: "center",
+          padTopDesktopPx: 400,
+          padBottom: "clamp(4rem, 8vh, 7rem)",
+          contentPadX: "24px",
+        }}
+        contents={contents}
+        meta={{
+          location: "Cacun",
+          workLinkHref: "/contact",
+          shareLinks: [
+            { label: "Facebook", href: "#", aria: "Share on Facebook" },
+            { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
+            { label: "Email", href: "#", aria: "Share via Email" },
+          ],
+        }}
+        sections={sections}
+        featuredProjects={featuredProjects}
+        socialItems={socialItems}
+        followHandle="@siamo_design"
+        navLangHref="/es/portafolio/retiro-contemporaneo"
+        footerStyleVars={{
+          ["--footer-lift" as any]: "0px",
+          ["--footer-overlap" as any]: "0px",
+          ["--footer-pad-top-mobile" as any]: "0px",
+          ["--footer-pad-bottom-mobile" as any]: "18px",
+          ["--footer-overlap-mobile" as any]: "0px",
+          ["--footer-h" as any]: "200px",
+          ["--footer-bottom-maxw" as any]: "1100px",
+        }}
+      />
+    </>
   );
 }

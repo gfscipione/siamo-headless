@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { playfairFont, poppinsFont } from "./fonts";
 import "./globals.css";
 
+const deployEnv = (process.env.VERCEL_ENV ?? process.env.DEPLOY_ENV ?? "development").toLowerCase();
+const isProductionDeploy = deployEnv === "production";
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
@@ -10,9 +13,6 @@ export const metadata: Metadata = {
   },
   description:
     "Interior design studio crafting modern, livable spaces across the Riviera Maya.",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     siteName: "Siamo Design",
@@ -24,8 +24,26 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   robots: {
-    index: true,
-    follow: true,
+    ...(isProductionDeploy
+      ? {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+          },
+        }
+      : {
+          index: false,
+          follow: false,
+          googleBot: {
+            index: false,
+            follow: false,
+          },
+        }),
   },
 };
 

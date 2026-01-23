@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import { playfairFont, poppinsFont } from "../fonts";
 import PortfolioNav from "../components/PortfolioNav";
 
@@ -69,15 +70,132 @@ const projects: Project[] = [
   },
 ];
 
-export const metadata = {
-  title: "Portfolio — Siamo Design",
-  description:
-    "Selected residential and hospitality projects designed by Siamo Design across the Riviera Maya.",
+const canonicalPath = "/portfolio/";
+const yoastDescription =
+  "Discover the unique value we can bring to your project. Get a quote by filling out our form and let us provide you with a quality service. We are ready to bring your vision to life!";
+
+export const metadata: Metadata = {
+  title: { absolute: "Portfolio - Siamo Design" },
+  description: yoastDescription,
+  alternates: {
+    canonical: canonicalPath,
+  },
+  openGraph: {
+    type: "article",
+    locale: "en_US",
+    title: "Portfolio - Siamo Design",
+    description: yoastDescription,
+    url: canonicalPath,
+    images: [
+      {
+        url: "https://siamodesign.com/wp-content/uploads/2025/02/1-Despues.jpg",
+        width: 1400,
+        height: 933,
+        type: "image/jpeg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function PortfolioPage() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const canonicalUrl = `${siteUrl.replace(/\/$/, "")}${canonicalPath}`;
+
+  const schemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+        url: canonicalUrl,
+        name: "Portfolio - Siamo Design",
+        isPartOf: { "@id": `${siteUrl.replace(/\/$/, "")}/#website` },
+        primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
+        image: { "@id": `${canonicalUrl}#primaryimage` },
+        thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/02/1-Despues-768x512.jpg",
+        datePublished: "2024-03-20T01:42:49+00:00",
+        dateModified: "2025-03-27T22:52:55+00:00",
+        description: yoastDescription,
+        breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
+        inLanguage: "en",
+        potentialAction: [
+          {
+            "@type": "ReadAction",
+            target: [canonicalUrl],
+          },
+        ],
+      },
+      {
+        "@type": "ImageObject",
+        inLanguage: "en",
+        "@id": `${canonicalUrl}#primaryimage`,
+        url: "https://siamodesign.com/wp-content/uploads/2025/02/1-Despues.jpg",
+        contentUrl: "https://siamodesign.com/wp-content/uploads/2025/02/1-Despues.jpg",
+        width: 1400,
+        height: 933,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonicalUrl}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl.replace(/\/$/, "")}/` },
+          { "@type": "ListItem", position: 2, name: "Portfolio" },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteUrl.replace(/\/$/, "")}/#website`,
+        url: `${siteUrl.replace(/\/$/, "")}/`,
+        name: "Siamo Design",
+        description: "",
+        publisher: { "@id": `${siteUrl.replace(/\/$/, "")}/#organization` },
+        potentialAction: [
+          {
+            "@type": "SearchAction",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: `${siteUrl.replace(/\/$/, "")}/?s={search_term_string}`,
+            },
+            "query-input": {
+              "@type": "PropertyValueSpecification",
+              valueRequired: true,
+              valueName: "search_term_string",
+            },
+          },
+        ],
+        inLanguage: "en",
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteUrl.replace(/\/$/, "")}/#organization`,
+        name: "Siamo Design",
+        url: `${siteUrl.replace(/\/$/, "")}/`,
+        logo: {
+          "@type": "ImageObject",
+          inLanguage: "en",
+          "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/`,
+          url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          contentUrl:
+            "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
+          width: 499,
+          height: 167,
+          caption: "Siamo Design",
+        },
+        image: { "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/` },
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        className="yoast-schema-graph"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      />
       <PortfolioNav
         styleVars={{
           ['--nav-col-gap' as any]: "0px",

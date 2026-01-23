@@ -3,6 +3,14 @@ import ProjectPage from "../../../portfolio/components/ProjectPage";
 export const metadata = {
   title: "Raíces Tulum — Siamo Design",
   description: "Una expresión atemporal de materiales puros y naturales.",
+  alternates: {
+    canonical: "/es/portafolio/raices-tulum/",
+    languages: {
+      "en": "/portfolio/roots-tulum/",
+      "es": "/es/portafolio/raices-tulum/",
+      "x-default": "/portfolio/roots-tulum/",
+    },
+  },
 };
 
 export default function RaicesTulumPageEs() {

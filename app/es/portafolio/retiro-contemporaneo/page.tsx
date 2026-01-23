@@ -1,12 +1,119 @@
 import ProjectPage from "../../../portfolio/components/ProjectPage";
 
 export const metadata = {
-  title: "Retiro Contemporáneo — Siamo Design",
+  title: "Retiro Contemporáneo - Siamo Design",
   description:
-    "Modern architecture with refined, high-end materials in a contemporary retreat by Siamo Design.",
+    "Puerto Cancún · 90 m² · 2 habitaciones · 2 baños. Un refugio contemporáneo con materiales refinados y tonos neutros, cálido, elegante y atemporal.",
+  openGraph: {
+    title: "Retiro Contemporáneo - Siamo Design",
+    description:
+      "Puerto Cancún · 90 m² · 2 habitaciones · 2 baños. Un refugio contemporáneo con materiales refinados y tonos neutros, cálido, elegante y atemporal.",
+    url: "/es/portafolio/retiro-contemporaneo/",
+    siteName: "Siamo Design",
+    type: "website",
+    locale: "es_MX",
+    images: [
+      {
+        url: "/assets/retiro-contemporaneo/living-room-4.png",
+        width: 3413,
+        height: 1920,
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Retiro Contemporáneo - Siamo Design",
+    description:
+      "Puerto Cancún · 90 m² · 2 habitaciones · 2 baños. Un refugio contemporáneo con materiales refinados y tonos neutros, cálido, elegante y atemporal.",
+    images: ["/assets/retiro-contemporaneo/living-room-4.png"],
+  },
+  alternates: {
+    canonical: "/es/portafolio/retiro-contemporaneo/",
+    languages: {
+      "en": "/portfolio/contemporary-retreat/",
+      "es": "/es/portafolio/retiro-contemporaneo/",
+      "x-default": "/portfolio/contemporary-retreat/",
+    },
+  },
 };
 
 export default function RetiroContemporaneoPageEs() {
+  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const canonical = `${siteUrl}/es/portafolio/retiro-contemporaneo/`;
+  const primaryImageUrl = `${siteUrl}/assets/retiro-contemporaneo/living-room-4.png`;
+  const siteEsRoot = `${siteUrl}/es/`;
+
+  const schemaGraph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": canonical,
+        url: canonical,
+        name: "Retiro Contemporáneo - Siamo Design",
+        isPartOf: { "@id": `${siteEsRoot}#website` },
+        primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
+        image: { "@id": `${canonical}#primaryimage` },
+        breadcrumb: { "@id": `${canonical}#breadcrumb` },
+        inLanguage: "es",
+        potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
+      },
+      {
+        "@type": "ImageObject",
+        "@id": `${canonical}#primaryimage`,
+        inLanguage: "es",
+        url: primaryImageUrl,
+        contentUrl: primaryImageUrl,
+        width: 3413,
+        height: 1920,
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${canonical}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Portada", item: siteEsRoot },
+          { "@type": "ListItem", position: 2, name: "Portafolio", item: `${siteEsRoot}portafolio/` },
+          { "@type": "ListItem", position: 3, name: "Retiro Contemporáneo" },
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${siteEsRoot}#website`,
+        url: siteEsRoot,
+        name: "Siamo Design",
+        publisher: { "@id": `${siteEsRoot}#organization` },
+        inLanguage: "es",
+        potentialAction: [
+          {
+            "@type": "SearchAction",
+            target: { "@type": "EntryPoint", urlTemplate: `${siteEsRoot}?s={search_term_string}` },
+            "query-input": {
+              "@type": "PropertyValueSpecification",
+              valueRequired: true,
+              valueName: "search_term_string",
+            },
+          },
+        ],
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteEsRoot}#organization`,
+        name: "Siamo Design",
+        url: siteEsRoot,
+        logo: {
+          "@type": "ImageObject",
+          "@id": `${siteEsRoot}#/schema/logo/image/`,
+          inLanguage: "es",
+          url: `${siteUrl}/assets/img/logotipo.png`,
+          contentUrl: `${siteUrl}/assets/img/logotipo.png`,
+          caption: "Siamo Design",
+        },
+        image: { "@id": `${siteEsRoot}#/schema/logo/image/` },
+      },
+    ],
+  };
+
   const styleVars = {
     ["--nav-col-gap" as any]: "0px",
     ["--nav-inner-maxw" as any]: "1700px",
@@ -138,83 +245,90 @@ export default function RetiroContemporaneoPageEs() {
   ];
 
   return (
-    <ProjectPage
-      title="Retiro Contemporáneo"
-      styleVars={styleVars}
-      footerLegal={{
-        line1: (
-          <span className="legal-full">Siamo Design | Estudio de diseño de interiores</span>
-        ),
-        line2: (
-          <span className="legal-full">
-            © 2025 Siamo Design. Todos los derechos reservados.
-          </span>
-        ),
-        sig: (
-          <a href="https://donebyelevator.com" target="_blank" rel="noopener noreferrer">
-            Diseñado y desarrollado por Elevator
-          </a>
-        ),
-      }}
-      navLabels={{
-        getToKnowUs: "CONÓCENOS",
-        services: "SERVICIOS",
-        portfolio: "PORTAFOLIO",
-        langDesktop: "ENGLISH",
-        langMobile: "EN",
-        cta: "CONTÁCTANOS",
-      }}
-      metaLabels={{
-        location: "Ubicación",
-        workWithUs: "Trabajemos juntos",
-        bookConsultation: "Agenda una consulta",
-        share: "Compartir",
-      }}
-      sectionLabels={{
-        contentsTitleRight: "Contenido",
-        featuredProjects: "Proyectos Destacados",
-        follow: "Síguenos",
-      }}
-      footerNavLabels={{
-        services: "Servicios",
-        portfolio: "Portafolio",
-        about: "Conócenos",
-        email: "Correo",
-        whatsapp: "WhatsApp",
-      }}
-      navLangHref="/portfolio/contemporary-retreat"
-      hero={{
-        backgroundImage: "/assets/retiro-contemporaneo/living-room-2.png",
-        titleSize: "64px",
-        titleSizeMobile: "50px",
-        align: "center",
-        padTopDesktopPx: 400,
-        padBottom: "clamp(4rem, 8vh, 7rem)",
-        contentPadX: "24px",
-      }}
-      contents={contents}
-      meta={{
-        location: "Cacun",
-        workLinkHref: "/contact",
-        shareLinks: [
-          { label: "Facebook", href: "#", aria: "Share on Facebook" },
-          { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
-          { label: "Email", href: "#", aria: "Share via Email" },
-        ],
-      }}
-      sections={sections}
-      featuredProjects={featuredProjects}
-      socialItems={socialItems}
-      followHandle="@siamo_design"
-      footerStyleVars={{
-        ["--footer-lift" as any]: "0px",
-        ["--footer-overlap" as any]: "0px",
-        ["--footer-pad-top-mobile" as any]: "0px",
-        ["--footer-pad-bottom-mobile" as any]: "18px",
-        ["--footer-overlap-mobile" as any]: "0px",
-        ["--footer-h" as any]: "200px",
-        ["--footer-bottom-maxw" as any]: "1100px",
-      }}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        className="yoast-schema-graph"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      />
+      <ProjectPage
+        title="Retiro Contemporáneo"
+        styleVars={styleVars}
+        footerLegal={{
+          line1: (
+            <span className="legal-full">Siamo Design | Estudio de diseño de interiores</span>
+          ),
+          line2: (
+            <span className="legal-full">
+              © 2025 Siamo Design. Todos los derechos reservados.
+            </span>
+          ),
+          sig: (
+            <a href="https://donebyelevator.com" target="_blank" rel="noopener noreferrer">
+              Diseñado y desarrollado por Elevator
+            </a>
+          ),
+        }}
+        navLabels={{
+          getToKnowUs: "CONÓCENOS",
+          services: "SERVICIOS",
+          portfolio: "PORTAFOLIO",
+          langDesktop: "ENGLISH",
+          langMobile: "EN",
+          cta: "CONTÁCTANOS",
+        }}
+        metaLabels={{
+          location: "Ubicación",
+          workWithUs: "Trabajemos juntos",
+          bookConsultation: "Agenda una consulta",
+          share: "Compartir",
+        }}
+        sectionLabels={{
+          contentsTitleRight: "Contenido",
+          featuredProjects: "Proyectos Destacados",
+          follow: "Síguenos",
+        }}
+        footerNavLabels={{
+          services: "Servicios",
+          portfolio: "Portafolio",
+          about: "Conócenos",
+          email: "Correo",
+          whatsapp: "WhatsApp",
+        }}
+        navLangHref="/portfolio/contemporary-retreat"
+        hero={{
+          backgroundImage: "/assets/retiro-contemporaneo/living-room-2.png",
+          titleSize: "64px",
+          titleSizeMobile: "50px",
+          align: "center",
+          padTopDesktopPx: 400,
+          padBottom: "clamp(4rem, 8vh, 7rem)",
+          contentPadX: "24px",
+        }}
+        contents={contents}
+        meta={{
+          location: "Cacun",
+          workLinkHref: "/contact",
+          shareLinks: [
+            { label: "Facebook", href: "#", aria: "Share on Facebook" },
+            { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
+            { label: "Email", href: "#", aria: "Share via Email" },
+          ],
+        }}
+        sections={sections}
+        featuredProjects={featuredProjects}
+        socialItems={socialItems}
+        followHandle="@siamo_design"
+        footerStyleVars={{
+          ["--footer-lift" as any]: "0px",
+          ["--footer-overlap" as any]: "0px",
+          ["--footer-pad-top-mobile" as any]: "0px",
+          ["--footer-pad-bottom-mobile" as any]: "18px",
+          ["--footer-overlap-mobile" as any]: "0px",
+          ["--footer-h" as any]: "200px",
+          ["--footer-bottom-maxw" as any]: "1100px",
+        }}
+      />
+    </>
   );
 }
