@@ -232,6 +232,7 @@ export default function GetToKnowUsPage() {
         }}
         isHero
         variant="gtku"
+        langHref="/es/conocenos/"
       />
 
       <main className="about-hero-page overscroll-safe">

@@ -79,6 +79,11 @@ export const metadata: Metadata = {
   description: yoastDescription,
   alternates: {
     canonical: canonicalPath,
+    languages: {
+      en: canonicalPath,
+      es: "/es/portafolio/",
+      "x-default": canonicalPath,
+    },
   },
   openGraph: {
     type: "article",
@@ -217,6 +222,7 @@ export default function PortfolioPage() {
           ['--nav-cta-ink' as any]: "#111111",
           ['--nav-cta-bg-hover' as any]: "#F4F2EA",
         }}
+        langHref="/es/portafolio/"
       />
 
       <main className="portfolio-page overscroll-safe">

@@ -14,7 +14,14 @@ const HOME_SCHEMA_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/03/SD
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },
   description: HOME_DESCRIPTION,
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/",
+      es: "/es/",
+      "x-default": "/",
+    },
+  },
   openGraph: {
     type: "website",
     url: "/",

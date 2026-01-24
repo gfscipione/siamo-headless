@@ -23,7 +23,7 @@ export default function PortfolioNav({
   styleVars,
   isHero = false,
   variant = "default",
-  langHref = "#",
+  langHref = "/es/",
   labels,
 }: PortfolioNavProps) {
   const [navSolid, setNavSolid] = useState(false);

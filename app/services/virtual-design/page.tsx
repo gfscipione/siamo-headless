@@ -244,7 +244,7 @@ export default function VirtualDesignPage() {
         className="yoast-schema-graph"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
-      <PortfolioNav styleVars={styleVars} isHero />
+      <PortfolioNav styleVars={styleVars} isHero langHref="/es/servicios/" />
 
       <main className="services-page overscroll-safe about-hero-page">
         <section

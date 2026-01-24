@@ -2021,7 +2021,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
           </a>
 
           <div className="nav-right">
-            <a className="nav-link nav-lang" href="#lang">
+            <a className="nav-link nav-lang" href="/es/">
               <span className="lang-dsk">ESPAÑOL</span>
               <span className="lang-mbl">ES</span>
             </a>

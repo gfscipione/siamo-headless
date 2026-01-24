@@ -288,6 +288,7 @@ export default function ServicesPage() {
           ['--nav-cta-ink' as any]: "#111111",
           ['--nav-cta-bg-hover' as any]: "#F4F2EA",
         }}
+        langHref="/es/servicios/"
         isHero
       />
 
