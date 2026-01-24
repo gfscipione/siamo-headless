@@ -8,7 +8,7 @@ export default function Head() {
       {/* Preload del HERO para evitar el flash del background */}
       <link rel="preload" as="image" href="/assets/img/hero.webp" />
 
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/icon.png" type="image/png" />
     </>
   );
 }

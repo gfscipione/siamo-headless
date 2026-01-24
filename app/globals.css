@@ -39,7 +39,9 @@ body {
     overscroll-behavior-x: contain;
   }
   #scroll-animate, #scroll-animate-main{
-    overscroll-behavior: contain;
+    /* Don't trap vertical scroll on mobile (these elements use overflow:hidden). */
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
   }
 }
 
@@ -563,7 +565,12 @@ video {
 .hero-fallback__scrim{
   position:absolute;
   inset:0;
-  background: rgba(255,255,255,var(--hero-overlay, 0.2));
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,var(--hero-scrim-top, 0.25)) 0%,
+    rgba(0,0,0,var(--hero-scrim-bottom, 0.55)) 100%
+  );
+  mix-blend-mode: multiply;
 }
         #scroll-animate { overflow:hidden; min-height:100vh; }
 #scroll-animate-main{
@@ -958,20 +965,31 @@ video {
           outline: none;
         }
         
-header{
+#scroll-animate header{
   width:100%; height:100%;
   top:0; position:fixed; z-index:0;
   background-color: var(--hero-fallback-bg, #F4F2EA);
   display:grid; place-items:center; padding:clamp(24px,6vw,96px) 16px;
 }
-header::before{ content:none; }
-header::after{ content:""; position:absolute; inset:0; background:rgba(255,255,255,var(--hero-overlay, 0.2)); z-index:1; }
+#scroll-animate header::before{ content:none; }
+#scroll-animate header::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,var(--hero-scrim-top, 0.25)) 0%,
+    rgba(0,0,0,var(--hero-scrim-bottom, 0.55)) 100%
+  );
+  mix-blend-mode: multiply;
+  z-index:1;
+}
 	        .hero-title{
 	          position:relative; z-index:2;
 	          transform: translateY(calc(var(--title-lift,0px) * -1)); will-change: transform;
 	          display:flex; flex-direction:column; align-items:center;
 	          gap: var(--hero-subline-gap, 15px);
-	          color: #111;
+	          color: #fff;
 	        }
         .hero-title h1{ margin:0; }
         /* HERO: responsive title sizing (mobile only overrides) */
@@ -994,24 +1012,24 @@ header::after{ content:""; position:absolute; inset:0; background:rgba(255,255,2
       }
 @media (max-width: 860px){
   /* En mobile dejamos el header en flujo normal para que el hero sea visible */
-  header{
+  #scroll-animate header{
     position: relative;
     top: auto;
     inset: auto;
     height: 100vh;
   }
 }
-	.subline{
+		.subline{
 	  font-family: var(--font-poppins, 'Poppins'), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 	  font-weight: var(--hero-subline-w, 350);
 	  text-transform: uppercase;
 	  letter-spacing: .08em;
 	  font-size: clamp(12px, 1.3vw, 20px);
-	  color: #111;
-	  opacity: 0;
-	  transform: translateY(6px);
-	  transition: opacity .45s ease .05s, transform .45s ease .05s;
-	}
+		  color: #fff;
+		  opacity: 0;
+		  transform: translateY(6px);
+		  transition: opacity .45s ease .05s, transform .45s ease .05s;
+		}
 .subline.is-visible{ opacity:1; transform: translateY(0); }
 .subline.is-hidden{ opacity:0; }
 @media (max-width: 860px){
@@ -3132,7 +3150,7 @@ h1 .caret { letter-spacing: 0; }
 	          font-weight: var(--hero-title-w) !important;
 	          text-transform: uppercase !important;
 	          letter-spacing: var(--hero-letter-spacing, 0em);
-	          color: #111;
+	          color: #fff;
 	          text-align: center;
 	        }
       
@@ -3142,20 +3160,17 @@ h1 .caret { letter-spacing: 0; }
         body:is(.on-hero, :root) .site-nav .nav-link,
         body:is(.on-hero, :root) .site-nav .brand-mark{ color:#fff; }
 
-        /* ParallaxDemo: allow dark nav text over light hero (transparent header). */
-        .site-nav.parallax-nav:not(.is-solid) .nav-link,
-        .site-nav.parallax-nav:not(.is-solid) .brand-mark,
-        .site-nav.parallax-nav:not(.is-solid) .menu-toggle,
-        .site-nav.parallax-nav:not(.is-solid) .menu-toggle .label,
-        .site-nav.parallax-nav:not(.is-solid) .nav-right .nav-lang{
-          color: #111;
-          text-shadow: none;
-        }
+	        /* ParallaxDemo: use white nav text over dark hero. */
+	        .site-nav.parallax-nav:not(.is-solid) .nav-link,
+	        .site-nav.parallax-nav:not(.is-solid) .brand-mark,
+	        .site-nav.parallax-nav:not(.is-solid) .menu-toggle,
+	        .site-nav.parallax-nav:not(.is-solid) .menu-toggle .label,
+	        .site-nav.parallax-nav:not(.is-solid) .nav-right .nav-lang{
+	          color: #fff;
+	          text-shadow: none;
+	        }
 
-        /* ParallaxDemo: force black logo (we use the same asset and disable invert) */
-        .site-nav.parallax-nav .brand-mark img{
-          filter: brightness(0) !important;
-        }
+	        /* Let the default nav logo filters apply (white on hero, black on solid). */
 
         /* Make testimonial reel corners square on mobile */
 @media (max-width: 860px) {

@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     default: "Siamo Design — Interior Design Studio",
     template: "%s | Siamo Design",
   },
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
   description:
     "Interior design studio crafting modern, livable spaces across the Riviera Maya.",
   openGraph: {

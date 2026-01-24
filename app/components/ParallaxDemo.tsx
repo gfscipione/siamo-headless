@@ -552,15 +552,15 @@ function TestimonialReel({
 }
 
 export default function ParallaxDemo({
-  bgUrl = "/assets/serene-jungle/terrace-2.webp",
-  bgUrlMobile = "/assets/img/heroresp.jpg",
+  bgUrl = "/assets/mid-century-waves/terrace-12.jpg",
+  bgUrlMobile = "/assets/mid-century-waves/terrace-12.jpg",
   useDesktopHeroOnMobile = false,
   initialIsMobile = null,
   heroOverlay = 30,
   heroOverlayMobile = 30,
   title = "Designing your dream space \njust became a reality",
   titleMobile = "YOUR DREAM SPACE, ANYWHERE.",
-  titlePx = 55,
+  titlePx = 64,
   titleMobilePx = 20,
   typewriter = true,
   typingSpeedMs = 85,
@@ -1263,7 +1263,6 @@ export default function ParallaxDemo({
   const [isMobileViewport, setIsMobileViewport] = useState<boolean>(
     initialIsMobile ?? false
   ); // hydrate with server hint to keep SSR/CSR in sync
-  const viewportLockedRef = useRef<boolean>(initialIsMobile !== null && initialIsMobile !== undefined);
   const [hasMounted, setHasMounted] = useState(false);
 
   // === Mobile menu state ===
@@ -1342,8 +1341,8 @@ export default function ParallaxDemo({
   // - Handle CRLF / LF
   // - Fix "dream hom" (any spacing/casing)
   // - Fix any standalone "hom" before space/punctuation/newline/end
-  // Resolve mobile based on server hint to avoid post-hydration flips
-  const resolvedIsMobile = initialIsMobile ?? isMobileViewport;
+  // Use server hint for the first render, then follow the actual viewport.
+  const resolvedIsMobile = hasMounted ? isMobileViewport : (initialIsMobile ?? isMobileViewport);
   const testiSectionOffsetXCurrent = resolvedIsMobile ? testiSectionOffsetXMobile : testiSectionOffsetX;
   const testiSectionOffsetYCurrent = resolvedIsMobile ? testiSectionOffsetYMobile : testiSectionOffsetY;
   const testiBlockOffsetXCurrent = resolvedIsMobile ? testiBlockOffsetXMobile : testiBlockOffsetX;
@@ -1463,12 +1462,20 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
     const content = contentRef.current!;
     const footer  = footerRef.current!;
     const docEl   = document.documentElement;
-    const cssVarKeys = ["--title-lift", "--mid-offset", "--hero-overlay"];
+    const cssVarKeys = [
+      "--title-lift",
+      "--mid-offset",
+      "--hero-overlay",
+      "--hero-scrim-top",
+      "--hero-scrim-bottom",
+    ];
     const heroOverlayAlpha =
       Math.max(
         0,
         Math.min(isMobileViewport ? heroOverlayMobile ?? heroOverlay : heroOverlay, 100)
       ) / 100;
+    const heroScrimTop = Math.max(0, Math.min(heroOverlayAlpha * 0.7, 1));
+    const heroScrimBottom = Math.max(heroScrimTop, Math.min(heroOverlayAlpha * 1.6, 1));
 
     const updateGuideStops = () => {
       const sectionTop = content.getBoundingClientRect().top + window.scrollY;
@@ -1551,6 +1558,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       docEl.style.setProperty("--title-lift", "0px");
       docEl.style.setProperty("--mid-offset", "0px");
       docEl.style.setProperty("--hero-overlay", String(heroOverlayAlpha));
+      docEl.style.setProperty("--hero-scrim-top", String(heroScrimTop));
+      docEl.style.setProperty("--hero-scrim-bottom", String(heroScrimBottom));
       const heroH = header?.offsetHeight || 120;
       updateGuideStops();
       const solidNow = y > heroH;
@@ -1620,6 +1629,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
         setCssVar("--title-lift", "0px");
         setCssVar("--mid-offset", "0px");
         setCssVar("--hero-overlay", String(heroOverlayAlpha));
+        setCssVar("--hero-scrim-top", String(heroScrimTop));
+        setCssVar("--hero-scrim-bottom", String(heroScrimBottom));
         scrollFooter(y, footerHeight);
         setNavSolid(y > 12);
         return;
@@ -1642,8 +1653,9 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       setCssVar("--mid-offset", `${midMove.toFixed(1)}px`);
 
       const t = Math.min(py / (windowHeight * 0.4 || 1), 1);
-      // Light hero overlay for readability (controlled via heroOverlay/heroOverlayMobile)
       setCssVar("--hero-overlay", String(heroOverlayAlpha));
+      setCssVar("--hero-scrim-top", String(heroScrimTop));
+      setCssVar("--hero-scrim-bottom", String(heroScrimBottom));
 
       // footer motion
       scrollFooter(y, footerHeight);
@@ -1787,12 +1799,9 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
     if (typeof window === "undefined") return;
     const mq = window.matchMedia("(max-width: 860px)");
     const handleChange = (event?: MediaQueryListEvent) => {
-      if (viewportLockedRef.current) return;
       setIsMobileViewport(event ? event.matches : mq.matches);
     };
-    if (!viewportLockedRef.current) {
-      handleChange();
-    }
+    handleChange();
     if (typeof mq.addEventListener === "function") {
       mq.addEventListener("change", handleChange);
       return () => mq.removeEventListener("change", handleChange);
@@ -1817,7 +1826,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
           obs.disconnect();
         }
       },
-      { threshold: 0.18, rootMargin: "0px 0px -25% 0px" }
+      // Trigger earlier so the reveal doesn't require hitting a "perfect frame".
+      { threshold: 0.05, rootMargin: "0px 0px 0px 0px" }
     );
 
     observer.observe(node);
