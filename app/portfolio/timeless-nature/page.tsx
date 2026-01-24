@@ -266,7 +266,7 @@ export default function TimelessNaturePage() {
         contents={contents}
         meta={{
           location: "Puerto Morelos",
-          workLinkHref: "/contact",
+          workLinkHref: "/questionnaire/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

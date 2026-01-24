@@ -119,7 +119,7 @@ export default function PortfolioNav({
             <span className="lang-dsk">{langDesktopLabel}</span>
             <span className="lang-mbl">{langMobileLabel}</span>
           </a>
-          <a className="cta nav-cta is-visible" href="#">
+          <a className="cta nav-cta is-visible" href="/questionnaire/">
             {ctaLabel} <span aria-hidden="true">→</span>
           </a>
         </div>
@@ -206,7 +206,7 @@ export default function PortfolioNav({
             </a>
           </div>
           <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
-          <a className="cta m-cta" href="#">
+          <a className="cta m-cta" href="/questionnaire/">
             {ctaLabel} <span aria-hidden="true">→</span>
           </a>
         </div>

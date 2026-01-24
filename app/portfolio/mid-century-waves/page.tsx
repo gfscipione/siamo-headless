@@ -291,7 +291,7 @@ export default function MidCenturyWavesPage() {
         contents={contents}
         meta={{
           location: "Akumal",
-          workLinkHref: "/contact",
+          workLinkHref: "/questionnaire/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

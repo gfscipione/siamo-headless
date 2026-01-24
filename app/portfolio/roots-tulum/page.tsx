@@ -288,7 +288,7 @@ export default function RootsTulumPage() {
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/contact",
+          workLinkHref: "/questionnaire/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

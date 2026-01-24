@@ -2027,7 +2027,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
             </a>
             <a
               className={`cta nav-cta${navSolid ? " is-visible" : ""}`}
-              href="#book"
+              href="/questionnaire/"
               aria-hidden={!navSolid}
               tabIndex={navSolid ? 0 : -1}
               style={{
@@ -2169,7 +2169,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               </a>
             </div>
             <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
-            <a className="m-cta" href="#book">
+            <a className="m-cta" href="/questionnaire/">
               GET STARTED <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -2264,7 +2264,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 </p>
                 <a
                   className={`hero-cta ${isFinished ? "is-visible" : "is-hidden"}`}
-                  href="#book"
+                  href="/questionnaire/"
                   aria-label="Get started"
                   aria-hidden={!isFinished}
                   tabIndex={isFinished ? 0 : -1}

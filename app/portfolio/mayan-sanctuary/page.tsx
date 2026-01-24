@@ -314,7 +314,7 @@ export default function MayanSanctuaryPage() {
         contents={contents}
         meta={{
           location: "Playa del Carmen",
-          workLinkHref: "/contact",
+          workLinkHref: "/questionnaire/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

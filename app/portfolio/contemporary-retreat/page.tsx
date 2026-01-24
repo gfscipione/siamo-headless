@@ -266,7 +266,7 @@ export default function ContemporaryRetreatPage() {
         contents={contents}
         meta={{
           location: "Cacun",
-          workLinkHref: "/contact",
+          workLinkHref: "/questionnaire/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
