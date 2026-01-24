@@ -278,7 +278,7 @@ export default function MidCenturyWavesPage() {
       <ProjectPage
         title="Mid-Century Waves"
         styleVars={styleVars}
-        navLangHref="/es/portafolio/mid-century-waves"
+        navLangHref="/es/portafolio/mid-century-waves/"
         hero={{
           backgroundImage: "/assets/mid-century-waves/terrace-12.jpg",
           titleSize: "64px",

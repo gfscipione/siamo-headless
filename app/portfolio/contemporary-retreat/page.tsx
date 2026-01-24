@@ -277,7 +277,7 @@ export default function ContemporaryRetreatPage() {
         featuredProjects={featuredProjects}
         socialItems={socialItems}
         followHandle="@siamo_design"
-        navLangHref="/es/portafolio/retiro-contemporaneo"
+        navLangHref="/es/portafolio/retiro-contemporaneo/"
         footerStyleVars={{
           ["--footer-lift" as any]: "0px",
           ["--footer-overlap" as any]: "0px",

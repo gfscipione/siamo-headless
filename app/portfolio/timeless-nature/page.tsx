@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   description: yoastDescription,
   alternates: {
     canonical: canonicalPath,
+    languages: {
+      en: canonicalPath,
+      es: "/es/portafolio/naturaleza-atemporal/",
+      "x-default": canonicalPath,
+    },
   },
   openGraph: {
     type: "article",
@@ -248,6 +253,7 @@ export default function TimelessNaturePage() {
       <ProjectPage
         title="Timeless Nature"
         styleVars={styleVars}
+        navLangHref="/es/portafolio/naturaleza-atemporal/"
         hero={{
           backgroundImage: "/assets/timeless-nature/details-2.jpg",
           titleSize: "64px",

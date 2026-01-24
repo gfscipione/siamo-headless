@@ -275,7 +275,7 @@ export default function RootsTulumPage() {
       <ProjectPage
         title="Roots Tulum"
         styleVars={styleVars}
-        navLangHref="/es/portafolio/raices-tulum"
+        navLangHref="/es/portafolio/raices-tulum/"
         hero={{
           backgroundImage: "/assets/raices-tulum/bedroom-6.jpg",
           titleSize: "64px",

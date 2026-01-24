@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   description: yoastDescription,
   alternates: {
     canonical: canonicalPath,
+    languages: {
+      en: canonicalPath,
+      es: "/es/portafolio/tuluminati-house/",
+      "x-default": canonicalPath,
+    },
   },
   openGraph: {
     type: "article",
@@ -288,6 +293,7 @@ export default function TuluminatiHousePage() {
       <ProjectPage
         title="Tuluminati House"
         styleVars={styleVars}
+        navLangHref="/es/portafolio/tuluminati-house/"
         hero={{
           backgroundImage: "/assets/tuluminati-house/terrace-5.jpg",
           titleSize: "64px",
