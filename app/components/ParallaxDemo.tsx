@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { playfairFont } from "../fonts";
+import QuestionnaireCtaLink from "./QuestionnaireCtaLink";
 
 const useIsomorphicLayoutEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -2025,7 +2026,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               <span className="lang-dsk">ESPAÑOL</span>
               <span className="lang-mbl">ES</span>
             </a>
-            <a
+            <QuestionnaireCtaLink
               className={`cta nav-cta${navSolid ? " is-visible" : ""}`}
               href="/questionnaire/"
               aria-hidden={!navSolid}
@@ -2036,7 +2037,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               }}
             >
               GET STARTED <span aria-hidden="true">→</span>
-            </a>
+            </QuestionnaireCtaLink>
           </div>
         </div>
         <div
@@ -2169,9 +2170,9 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               </a>
             </div>
             <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
-            <a className="m-cta" href="/questionnaire/">
+            <QuestionnaireCtaLink className="m-cta" href="/questionnaire/">
               GET STARTED <span aria-hidden="true">→</span>
-            </a>
+            </QuestionnaireCtaLink>
           </div>
         </div>
       </nav>
@@ -2262,7 +2263,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 <p className={`subline ${isFinished ? "is-visible" : "is-hidden"}`}>
                   Warm, timeless spaces designed for modern living and vacation rentals.
                 </p>
-                <a
+                <QuestionnaireCtaLink
                   className={`hero-cta ${isFinished ? "is-visible" : "is-hidden"}`}
                   href="/questionnaire/"
                   aria-label="Get started"
@@ -2278,7 +2279,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   }
                 >
                   GET STARTED <span aria-hidden="true">→</span>
-                </a>
+                </QuestionnaireCtaLink>
               </div>
             </header>
 

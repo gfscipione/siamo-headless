@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { CSSProperties, useEffect, useState } from "react";
 import { playfairFont } from "../fonts";
+import QuestionnaireCtaLink from "./QuestionnaireCtaLink";
 
 type PortfolioNavProps = {
   styleVars: CSSProperties;
@@ -119,9 +120,9 @@ export default function PortfolioNav({
             <span className="lang-dsk">{langDesktopLabel}</span>
             <span className="lang-mbl">{langMobileLabel}</span>
           </a>
-          <a className="cta nav-cta is-visible" href="/questionnaire/">
+          <QuestionnaireCtaLink className="cta nav-cta is-visible" href="/questionnaire/">
             {ctaLabel} <span aria-hidden="true">→</span>
-          </a>
+          </QuestionnaireCtaLink>
         </div>
       </div>
       <div
@@ -206,9 +207,9 @@ export default function PortfolioNav({
             </a>
           </div>
           <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
-          <a className="cta m-cta" href="/questionnaire/">
+          <QuestionnaireCtaLink className="cta m-cta" href="/questionnaire/">
             {ctaLabel} <span aria-hidden="true">→</span>
-          </a>
+          </QuestionnaireCtaLink>
         </div>
       </div>
     </nav>

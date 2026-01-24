@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
 import PortfolioNav from "../../components/PortfolioNav";
 import { playfairFont, poppinsFont } from "../../fonts";
+import QuestionnaireCtaLink from "../../components/QuestionnaireCtaLink";
 
 type ProjectSectionImage = {
   src: string;
@@ -206,7 +207,15 @@ export default function ProjectPage({
               </div>
               <div className={`project-detail__meta-block ${poppinsFont.className}`}>
                 <div className="project-detail__meta-label">{workWithUsLabel}</div>
-                <a className="project-detail__link" href={meta.workLinkHref}>{bookConsultationLabel}</a>
+                {meta.workLinkHref.startsWith("/questionnaire") ? (
+                  <QuestionnaireCtaLink className="project-detail__link" href={meta.workLinkHref}>
+                    {bookConsultationLabel}
+                  </QuestionnaireCtaLink>
+                ) : (
+                  <a className="project-detail__link" href={meta.workLinkHref}>
+                    {bookConsultationLabel}
+                  </a>
+                )}
               </div>
             </aside>
 
