@@ -62,6 +62,9 @@ const nextConfig: NextConfig = {
       { source: "/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
       { source: "/wp-admin/admin-ajax.php", destination: `${wpOrigin}/wp-admin/admin-ajax.php` },
 
+      // Test fix: avoid WP trailing-slash redirects leaking the origin host.
+      { source: "/es/portafolio/", destination: `${wpOrigin}/es/portafolio/` },
+
       // Spanish fallback: serve any non-migrated `/es/*` page from WP (origin) without changing the URL.
       // Filesystem routes (migrated Next pages) win before this rule.
       { source: "/es/:path*", destination: `${wpOrigin}/es/:path*` },
