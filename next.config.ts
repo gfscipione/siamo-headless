@@ -22,6 +22,8 @@ const nextConfig: NextConfig = {
       { source: "/blog/:path*", destination: "/", permanent: true },
 
       // Common legacy mismatch: some systems use `/es/portfolio/*` but live site uses `/es/portafolio/*`.
+      { source: "/es/portfolio", destination: "/es/portafolio/", permanent: true },
+      { source: "/es/portfolio/", destination: "/es/portafolio/", permanent: true },
       { source: "/es/portfolio/:path*", destination: "/es/portafolio/:path*", permanent: true },
 
       // Yoast sitemap legacy service slugs (EN).
@@ -62,12 +64,11 @@ const nextConfig: NextConfig = {
       { source: "/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
       { source: "/wp-admin/admin-ajax.php", destination: `${wpOrigin}/wp-admin/admin-ajax.php` },
 
-      // Test fix: avoid WP trailing-slash redirects leaking the origin host.
-      { source: "/es/portafolio/", destination: `${wpOrigin}/es/portafolio/` },
-
-      // Spanish fallback: serve any non-migrated `/es/*` page from WP (origin) without changing the URL.
-      // Filesystem routes (migrated Next pages) win before this rule.
-      { source: "/es/:path*", destination: `${wpOrigin}/es/:path*` },
+      // Spanish fallback: serve any non-migrated `/es/*` page from WP (origin) without leaking the origin host.
+      // WordPress issues absolute redirects on trailing-slash canonicalization, so always proxy with a trailing slash.
+      { source: "/es", destination: `${wpOrigin}/es/` },
+      { source: "/es/", destination: `${wpOrigin}/es/` },
+      { source: "/es/:path*/", destination: `${wpOrigin}/es/:path*/` },
     ];
   },
 
