@@ -125,7 +125,6 @@ export default function ProjectPage({
   const locationLabel = metaLabels?.location ?? "Location";
   const workWithUsLabel = metaLabels?.workWithUs ?? "Work with us";
   const bookConsultationLabel = metaLabels?.bookConsultation ?? "Book consultation";
-  const shareLabel = metaLabels?.share ?? "Share";
   const contentsTitleRight = sectionLabels?.contentsTitleRight ?? "Contents";
   const featuredProjectsLabel = sectionLabels?.featuredProjects ?? "Featured Projects";
   const followLabel = sectionLabels?.follow ?? "Follow";
@@ -208,16 +207,6 @@ export default function ProjectPage({
               <div className={`project-detail__meta-block ${poppinsFont.className}`}>
                 <div className="project-detail__meta-label">{workWithUsLabel}</div>
                 <a className="project-detail__link" href={meta.workLinkHref}>{bookConsultationLabel}</a>
-              </div>
-              <div className={`project-detail__meta-block ${poppinsFont.className}`}>
-                <div className="project-detail__meta-label">{shareLabel}</div>
-                <div className="project-detail__share">
-                  {meta.shareLinks.map((link) => (
-                    <a key={link.label} className="project-detail__link" href={link.href} aria-label={link.aria}>
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
               </div>
             </aside>
 
