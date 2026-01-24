@@ -2312,10 +2312,11 @@ footer::before{
 .content.wwd-section .follow .follow-title{
   margin: 0 16px var(--follow-gap, 22px);
   text-align: left;
-          max-width: min(var(--follow-maxw, 1100px), 92vw);
-          transform: translate(var(--follow-title-x, 0px), var(--follow-title-y, 0px));
-          will-change: transform;
-        }
+  font-size: var(--follow-title-fs, 36px) !important;
+	          max-width: min(var(--follow-maxw, 1100px), 92vw);
+	          transform: translate(var(--follow-title-x, 0px), var(--follow-title-y, 0px));
+	          will-change: transform;
+	        }
 .content.wwd-section .follow .follow-title .follow-label{
   display: inline-block;
   margin-right: 6px;
@@ -2341,7 +2342,7 @@ footer::before{
         @media (max-width: 860px){
           .content.wwd-section .follow .follow-title{
             font-family: var(--font-playfair, 'Playfair Display'),'Times New Roman',serif;
-            font-size: var(--wwd-lead-fs-m, var(--wwd-lead-fs, 18px)) !important;
+            font-size: var(--follow-title-fs-m, var(--wwd-lead-fs-m, var(--wwd-lead-fs, 18px))) !important;
             line-height:1.32;
             letter-spacing:0;
             text-transform:none;

@@ -875,6 +875,8 @@ export default function ParallaxDemo({
   followTitleY = -100,
   followTitleXMobile = -5,
   followTitleYMobile = -1230,
+  followTitleFs = 36,
+  followTitleFsMobile,
   followGridX = 30,
   followGridXMobile = 10,
   followGridYMobile = -1180,
@@ -1222,6 +1224,8 @@ export default function ParallaxDemo({
   followTitleY?: number;
   followTitleXMobile?: number;
   followTitleYMobile?: number;
+  followTitleFs?: number;
+  followTitleFsMobile?: number;
   followGridX?: number;
   followGridXMobile?: number;
   followGridYMobile?: number;
@@ -2824,6 +2828,12 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     ['--follow-card-w-m' as any]: `${followCardSizeMobile}px`,
                     ['--follow-cols' as any]: `${followCols}`,
                     ['--follow-card-grow' as any]: `${followCardGrow}px`,
+                    ...(followTitleFs != null
+                      ? ({ ['--follow-title-fs' as any]: `${followTitleFs}px` })
+                      : {}),
+                    ...(followTitleFsMobile != null
+                      ? ({ ['--follow-title-fs-m' as any]: `${followTitleFsMobile}px` })
+                      : {}),
                     ...(followCardGap != null
                       ? ({ ['--follow-card-gap' as any]: `${followCardGap}px` })
                       : {}),
