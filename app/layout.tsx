@@ -4,9 +4,16 @@ import "./globals.css";
 
 const deployEnv = (process.env.VERCEL_ENV ?? process.env.DEPLOY_ENV ?? "development").toLowerCase();
 const isProductionDeploy = deployEnv === "production";
+const inferredSiteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (isProductionDeploy
+    ? "https://siamodesign.com"
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000");
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(inferredSiteUrl),
   title: {
     default: "Siamo Design — Interior Design Studio",
     template: "%s | Siamo Design",
