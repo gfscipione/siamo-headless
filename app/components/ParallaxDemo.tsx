@@ -146,7 +146,11 @@ function WwdTriptych() {
     <section className="triptych-wrapper" aria-label="What we do – tarjetas">
       {/* 01 · DISEÑO VIRTUAL */}
       <article className="triptych-card pos1">
-        <Link href="/services#virtual" className="hit" aria-label="Abrir Diseño virtual">
+        <Link
+          href="/services/virtual-design"
+          className="hit"
+          aria-label="Abrir Diseño virtual"
+        >
           <div className="media virtual-media" style={{ position:'relative', width:'100%', paddingTop:'75%', background:'#e7e3da', overflow:'hidden', contain:'layout paint style' }}>
             <Image
               src="/assets/img/virtual.jpg"
@@ -161,7 +165,11 @@ function WwdTriptych() {
 
       {/* 02 · DISEÑO &amp; EJECUCIÓN EN SITIO */}
       <article className="triptych-card pos2">
-        <Link href="/services#on-site" className="hit" aria-label="Abrir Diseño y ejecución en sitio">
+        <Link
+          href="/services/full-service"
+          className="hit"
+          aria-label="Abrir Diseño y ejecución en sitio"
+        >
           <div className="media onsite-media" style={{ position:'relative', width:'100%', paddingTop:'75%', background:'#e7e3da', overflow:'hidden', contain:'layout paint style' }}>
             <Image
               src="/assets/img/onsite.webp"
@@ -176,7 +184,13 @@ function WwdTriptych() {
 
       {/* 03 · CONTENIDO / STUDIO LOG */}
       <article className="triptych-card pos3">
-        <Link href="/content" className="hit" aria-label="Abrir Studio Log y contenidos">
+        <a
+          href="https://www.youtube.com/@siamodesign"
+          className="hit"
+          aria-label="Abrir YouTube de Siamo Design"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <div className="media content-media" style={{ position:'relative', width:'100%', paddingTop:'75%', background:'#e7e3da', overflow:'hidden', contain:'layout paint style' }}>
             <Image
               src="/assets/img/content.png"
@@ -186,7 +200,7 @@ function WwdTriptych() {
               style={{ objectFit:'cover' }}
             />
           </div>
-        </Link>
+        </a>
       </article>
 
       {/* Styles scoped to this component */}
@@ -554,7 +568,7 @@ function TestimonialReel({
 
 export default function ParallaxDemo({
   bgUrl = "/assets/mid-century-waves/terrace-12.jpg",
-  bgUrlMobile = "/assets/mid-century-waves/terrace-12.jpg",
+  bgUrlMobile = "/assets/soul-in-concrete/master-bedroom-4.webp",
   useDesktopHeroOnMobile = false,
   initialIsMobile = null,
   heroOverlay = 30,
@@ -1276,10 +1290,10 @@ export default function ParallaxDemo({
   const [wwdIntroVisible, setWwdIntroVisible] = useState(false);
 
   const projectCards = [
-    { year: '2024', title: 'timeless Nature', href: '/work/sample-1', image: '/assets/img/nature.jpg' },
-    { year: '2016', title: 'Roots Tulum', href: '/work/sample-2', image: '/assets/img/roots.jpg' },
-    { year: '2018', title: 'Timeless Nature', href: '/portfolio/timeless-nature', image: '/assets/timeless-nature/details-2.jpg' },
-    { year: '2018', title: 'Mid-century Waves', href: '/work/sample-4', image: '/assets/img/waves.jpg' },
+    { year: '2024', title: 'Serene Jungle', href: '/portfolio/serene-jungle', image: '/assets/serene-jungle/terrace-1.webp' },
+    { year: '2024', title: 'Mayan Sanctuary', href: '/portfolio/mayan-sanctuary', image: '/assets/mayan-sanctuary/lounge-terrace-3.webp' },
+    { year: '2018', title: 'Timeless Nature', href: '/portfolio/timeless-nature', image: '/assets/timeless-nature/living-room-14.jpg' },
+    { year: '2019', title: 'Soul in Concrete', href: '/portfolio/soul-in-concrete', image: '/assets/soul-in-concrete/master-bedroom-4.webp' },
   ];
   const projectsCardsPerPage = Math.max(1, projectsCarouselItemsMobile || 1);
   const projectsTotalPages = Math.max(1, Math.ceil(projectCards.length / projectsCardsPerPage));
@@ -1799,6 +1813,8 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
         return followItems.concat(fillers);
       })()
     : Array<string>(followFallbackSlots).fill("");
+  const instagramHandle = (followHandle || "").replace(/^@/, "") || "siamo_design";
+  const instagramProfileUrl = `https://www.instagram.com/${instagramHandle}`;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -2090,60 +2106,52 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               <a className="m-link" href="/portfolio" onClick={() => setMenuOpen(false)}>PORTFOLIO</a>
             </nav>
             <div className="m-follow-label">Follow</div>
-            <div
-              className="m-social"
-              aria-label="Redes sociales"
-              style={mobileDrawerSocialStyles.container}
-            >
-              <a
-                className="m-social__link"
-                href="https://www.linkedin.com"
-                  aria-label="LinkedIn"
-                  style={mobileDrawerSocialStyles.link}
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                    style={mobileDrawerSocialStyles.icon}
-                  >
-                    <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
-                  </svg>
-                </a>
-              <a
-                className="m-social__link"
-                href="https://www.facebook.com"
-                aria-label="Facebook"
-                style={mobileDrawerSocialStyles.link}
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                  style={mobileDrawerSocialStyles.icon}
-                >
-                  <path d="M13 10.5V8.4c0-.8.1-1.2 1.3-1.2H16V5h-2.5C10.9 5 10 6.5 10 8.2v2.3H8v2.2h2V19h3V12.7h2.2l.3-2.2H13Z" />
-                </svg>
-              </a>
-                <a
-                  className="m-social__link"
-                  href="https://www.youtube.com"
-                  aria-label="YouTube"
-                  style={mobileDrawerSocialStyles.link}
-              >
+	            <div
+	              className="m-social"
+	              aria-label="Redes sociales"
+	              style={mobileDrawerSocialStyles.container}
+	            >
+	              <a
+	                className="m-social__link"
+	                href="https://www.linkedin.com/company/siamo-design/"
+	                target="_blank"
+	                rel="noopener noreferrer"
+	                aria-label="LinkedIn"
+	                style={mobileDrawerSocialStyles.link}
+	              >
+	                  <svg
+	                    viewBox="0 0 24 24"
+	                    aria-hidden="true"
+	                    style={mobileDrawerSocialStyles.icon}
+	                  >
+	                    <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
+	                  </svg>
+	                </a>
+	                <a
+	                  className="m-social__link"
+	                  href="https://www.youtube.com/@siamodesign"
+	                  target="_blank"
+	                  rel="noopener noreferrer"
+	                  aria-label="YouTube"
+	                  style={mobileDrawerSocialStyles.link}
+	              >
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"
                   style={mobileDrawerSocialStyles.icon}
                 >
                   <path d="M21.7 8.2s-.2-1.5-.8-2.2c-.7-.8-1.5-.8-1.8-.9C16.2 5 12 5 12 5h0s-4.2 0-7.1.1c-.3 0-1.1 0-1.8.9-.6.7-.8 2.2-.8 2.2S2 9.9 2 11.6v.8c0 1.7.2 3.4.2 3.4s.2 1.5.8 2.2c.7.8 1.7.8 2.2.9 1.6.2 6.8.2 6.8.2s4.2 0 7.1-.1c.3 0 1.1 0 1.8-.9.6-.7.8-2.2.8-2.2s.2-1.7.2-3.4v-.8c0-1.7-.2-3.4-.2-3.4Z" />
-                  <path d="m10 9.8 4.7 2.2L10 14.2V9.8Z" fill="#fff"/>
-                </svg>
-              </a>
-              <a
-                className="m-social__link"
-                href="https://www.tiktok.com"
-                aria-label="TikTok"
-                style={mobileDrawerSocialStyles.link}
-              >
+	                  <path d="m10 9.8 4.7 2.2L10 14.2V9.8Z" fill="#fff"/>
+	                </svg>
+	              </a>
+	              <a
+	                className="m-social__link"
+	                href="https://www.tiktok.com/@siamodesign"
+	                target="_blank"
+	                rel="noopener noreferrer"
+	                aria-label="TikTok"
+	                style={mobileDrawerSocialStyles.link}
+	              >
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -2151,13 +2159,15 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 >
                   <path d="M15.5 4.2c.6.8 1.5 1.3 2.5 1.3h.4v2.5c-.9 0-1.8-.2-2.6-.6v5.5a5.08 5.08 0 1 1-5.1-5.1c.3 0 .6 0 .9.1v2.7a2.4 2.4 0 0 0-.9-.2 2.38 2.38 0 1 0 2.38 2.4V3h2.5v1.2Z" />
                 </svg>
-              </a>
-              <a
-                className="m-social__link"
-                href="https://www.instagram.com/siamo_design/"
-                aria-label="Instagram"
-                style={mobileDrawerSocialStyles.link}
-              >
+	              </a>
+	              <a
+	                className="m-social__link"
+	                href={instagramProfileUrl}
+	                target="_blank"
+	                rel="noopener noreferrer"
+	                aria-label="Instagram"
+	                style={mobileDrawerSocialStyles.link}
+	              >
                 <svg
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -2460,14 +2470,41 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 </div>
                 {/* Column titles between numerals and images */}
                 <div className="wwd-guides-titles">
-                  <h3 className="g-title" style={{ ['--x' as any]: '25%' }}>{wwdSecTitle1}</h3>
-                  <h3 className="g-title" style={{ ['--x' as any]: '50%' }}>{wwdSecTitle2}</h3>
-                  <h3 className="g-title" style={{ ['--x' as any]: '75%' }}>{wwdSecTitle3}</h3>
+                  <Link
+                    href="/services/virtual-design"
+                    className="g-title"
+                    style={{ ['--x' as any]: '25%' }}
+                    aria-label="Open Virtual Design service"
+                  >
+                    {wwdSecTitle1}
+                  </Link>
+                  <Link
+                    href="/services/full-service"
+                    className="g-title"
+                    style={{ ['--x' as any]: '50%' }}
+                    aria-label="Open On-site Design & Execution service"
+                  >
+                    {wwdSecTitle2}
+                  </Link>
+                  <a
+                    href="https://www.youtube.com/@siamodesign"
+                    className="g-title"
+                    style={{ ['--x' as any]: '75%' }}
+                    aria-label="Open Siamo Design on YouTube"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {wwdSecTitle3}
+                  </a>
                 </div>
                 {/* Mobile-only numeric label anchored to the center guide */}
                 <span className="mbl-lbl01" aria-hidden="true">01</span>
                 {/* Mobile-only subsection title, same font/size as label */}
-                <h3 className="mbl-title01 eyebrow" aria-hidden="false">{wwdSecTitle1}</h3>
+                <h3 className="mbl-title01 eyebrow" aria-hidden="false">
+                  <Link href="/services/virtual-design" aria-label="Open Virtual Design service">
+                    {wwdSecTitle1}
+                  </Link>
+                </h3>
                 <p className={`eyebrow wwd-intro-eyebrow${wwdIntroVisible ? " is-visible" : ""}`}>
                   WHAT WE DO
                 </p>
@@ -2485,7 +2522,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   <Link className="g-cta col1" href="/services">
                     <span className="cta-label">our services</span>
                   </Link>
-                  <p className="g-eyebrow col1">projects</p>
+                  <p className="g-eyebrow col1">
+                    <Link href="/portfolio" aria-label="View portfolio">
+                      projects
+                    </Link>
+                  </p>
                   <div
                     className="wwd-service02-inline"
                     aria-hidden="false"
@@ -2498,7 +2539,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     }}
                   >
                     <span className="svc-label">{wwdLbl02}</span>
-                    <h3 className="svc-title">{wwdSecTitle2}</h3>
+                    <h3 className="svc-title">
+                      <Link href="/services/full-service" aria-label="Open On-site Design & Execution service">
+                        {wwdSecTitle2}
+                      </Link>
+                    </h3>
                   </div>
 
                   <p className="g-desc col2">{wwdDesc2}</p>
@@ -2516,9 +2561,24 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     }}
                   >
                     <span className="svc-label">{wwdLbl03}</span>
-                    <h3 className="svc-title">{wwdSecTitle3}</h3>
+                    <h3 className="svc-title">
+                      <a
+                        href="https://www.youtube.com/@siamodesign"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Open Siamo Design on YouTube"
+                      >
+                        {wwdSecTitle3}
+                      </a>
+                    </h3>
                   </div>
-                  <a className="g-cta col3" href="/content">
+                  <a
+                    className="g-cta col3"
+                    href="https://www.youtube.com/@siamodesign"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Open Siamo Design on YouTube"
+                  >
                     <span className="cta-label">watch the latest</span>
                   </a>
                   <a
@@ -2601,13 +2661,15 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                                 )}
                               </div>
                             </a>
-                            <div className="proj-meta">
-                              <span className="proj-year">{card.year}</span>
-                              <h3 className="proj-title">{card.title}</h3>
-                            </div>
-                          </article>
-                        ))}
-                      </section>
+	                            <div className="proj-meta">
+	                              <span className="proj-year">{card.year}</span>
+	                              <h3 className="proj-title">
+	                                <Link href={card.href}>{card.title}</Link>
+	                              </h3>
+	                            </div>
+	                          </article>
+	                        ))}
+	                      </section>
                     </div>
                     <div className="projects-nav" aria-hidden="false">
                       <button
@@ -2634,18 +2696,20 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     </div>
                   </div>
                 </section>
-                <h3
-                  className="about-title"
-                  style={{
-                    ['--about-title-x' as any]: `${aboutTitleX}px`,
-                    ['--about-title-y' as any]: `${aboutTitleY}px`,
-                    ['--about-title-x-m' as any]: `${aboutTitleXMobile}px`,
-                    ['--about-title-y-m' as any]: `${aboutTitleYMobile}px`,
-                    ['--about-title-gap' as any]: `${aboutTitleGap}px`,
-                  }}
-                >
-                  {aboutTitle}
-                </h3>
+	                <h3
+	                  className="about-title"
+	                  style={{
+	                    ['--about-title-x' as any]: `${aboutTitleX}px`,
+	                    ['--about-title-y' as any]: `${aboutTitleY}px`,
+	                    ['--about-title-x-m' as any]: `${aboutTitleXMobile}px`,
+	                    ['--about-title-y-m' as any]: `${aboutTitleYMobile}px`,
+	                    ['--about-title-gap' as any]: `${aboutTitleGap}px`,
+	                  }}
+	                >
+	                  <Link href="/get-to-know-us" aria-label="Get to know us">
+	                    {aboutTitle}
+	                  </Link>
+	                </h3>
                 <p
                   className="about-caption"
                   style={{
@@ -2873,39 +2937,29 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                       ['--follow-grid-y-m' as any]: `${followGridYMobile}px`,
                       ['--follow-grid-x' as any]: `${followGridX}px`,
                     }}
-                  >
-                    {followGridItems.map((src, i) => {
-                        const hasMedia = typeof src === "string" && src.length > 0;
-                        if (hasMedia) {
-                          return (
-                            <a
-                              key={i}
-                              className="f-item"
-                              role="listitem"
-                              href={src}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`Open post ${i + 1}`}
-                            >
-                              <img src={src} alt="" loading="lazy" />
-                            </a>
-                          );
-                        }
-
-                        return (
-                          <span
-                            key={i}
-                            className="f-item is-fallback"
-                            role="listitem"
-                            aria-label={`Placeholder post ${i + 1}`}
-                            aria-disabled="true"
-                          >
-                            <span className="ph" aria-hidden="true" />
-                          </span>
-                        );
-                      })}
-                  </div>
-                </section>
+	                  >
+	                    {followGridItems.map((src, i) => {
+	                        const hasMedia = typeof src === "string" && src.length > 0;
+	                        return (
+	                          <a
+	                            key={i}
+	                            className={`f-item${hasMedia ? "" : " is-fallback"}`}
+	                            role="listitem"
+	                            href={instagramProfileUrl}
+	                            target="_blank"
+	                            rel="noopener noreferrer"
+	                            aria-label={`Open Instagram @${instagramHandle}`}
+	                          >
+	                            {hasMedia ? (
+	                              <img src={src} alt="" loading="lazy" />
+	                            ) : (
+	                              <span className="ph" aria-hidden="true" />
+	                            )}
+	                          </a>
+	                        );
+	                      })}
+	                  </div>
+	                </section>
 
                 <div
                   className="wwd-footer-spacer"

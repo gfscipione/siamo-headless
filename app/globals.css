@@ -1805,15 +1805,19 @@ footer::before{
           text-transform: none;
         }
 
-        .content.wwd-section .projects-grid .proj-title{
-          margin: 0; /* baseline with the year */
-          font-family: var(--font-poppins, 'Poppins'), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-          font-size: clamp(11px, 1.05vw, 13px);
-          font-weight: 500;                  /* slightly lighter, like the reference */
-          letter-spacing:.06em;
-          text-transform: uppercase;         /* matches the example */
-          color:#6b6b6b;
-        }
+	        .content.wwd-section .projects-grid .proj-title{
+	          margin: 0; /* baseline with the year */
+	          font-family: var(--font-poppins, 'Poppins'), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+	          font-size: clamp(11px, 1.05vw, 13px);
+	          font-weight: 500;                  /* slightly lighter, like the reference */
+	          letter-spacing:.06em;
+	          text-transform: uppercase;         /* matches the example */
+	          color:#6b6b6b;
+	        }
+	        .content.wwd-section .projects-grid .proj-title a{
+	          color: inherit;
+	          text-decoration: none;
+	        }
 
         @media (max-width: 1024px){
           .content.wwd-section .projects-grid{
@@ -1925,12 +1929,12 @@ footer::before{
 
         /* Position driven by --about-title-x / --about-title-y (set from props) */
         /* ===== ABOUT title (above video, aligned to guide 01) ===== */
-        .content.wwd-section .about-title{
-          position: relative;
-          z-index: 3; /* ensure it sits above guide overlays and the video wrapper */
-          display: block;
-          left: calc(var(--guide-l1, 25%) + var(--wwd-sec-title-gap, 12px));
-          transform: translate(var(--about-title-x, 0px), var(--about-title-y, 0px));
+	        .content.wwd-section .about-title{
+	          position: relative;
+	          z-index: 3; /* ensure it sits above guide overlays and the video wrapper */
+	          display: block;
+	          left: calc(var(--guide-l1, 25%) + var(--wwd-sec-title-gap, 12px));
+	          transform: translate(var(--about-title-x, 0px), var(--about-title-y, 0px));
           /* place it just above the video with a controllable bottom gap */
           margin: calc(var(--about-video-gap-top, 80px) - var(--about-title-gap, 16px)) 0 var(--about-title-gap, 16px);
           font-family: var(--font-poppins, 'Poppins'), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
@@ -1939,9 +1943,13 @@ footer::before{
           letter-spacing: .10em;
           text-transform: uppercase;
           color: var(--wwd-sec-title-color, #555);
-          pointer-events: auto;
-          mix-blend-mode: normal;
-        }
+	          pointer-events: auto;
+	          mix-blend-mode: normal;
+	        }
+	        .content.wwd-section .about-title a{
+	          color: inherit;
+	          text-decoration: none;
+	        }
         @media (max-width: 860px){
           .content.wwd-section .about-title{
             font-size: var(--wwd-title-fs-m, var(--wwd-title-fs, 16px)) !important;
@@ -2512,9 +2520,14 @@ footer::before{
         /* Section titles that sit below the numeric labels, aligned to each guide */
         .content.wwd-section .wwd-guides-titles{
           position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 1; /* above guides, below main content */
+          top: 0;
+          left: 0;
+          right: 0;
+          height: calc(
+            var(--wwd-sec-title-top, calc(var(--wwd-guide-label-top, 28px) + 40px)) + 56px
+          );
+          pointer-events: auto;
+          z-index: 3; /* above cards so titles remain clickable */
         }
         .content.wwd-section .wwd-guides-titles .g-title{
           position: absolute;
@@ -2522,6 +2535,7 @@ footer::before{
           left: calc(var(--x) + var(--wwd-sec-title-gap, 12px));
           transform: translate(var(--wwd-sec-title-x, 0px), var(--wwd-sec-title-y, 0px));
           margin: 0;
+          pointer-events: auto;
           font-family: var(--font-poppins, 'Poppins'), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
           font-size: var(--wwd-title-fs, 16px) !important;
           font-weight: var(--wwd-sec-title-w, var(--wwd-title-w, 500)) !important;
@@ -2529,6 +2543,17 @@ footer::before{
           color: var(--wwd-sec-title-color, #555);
           text-transform: uppercase;
           white-space: nowrap;
+        }
+        .content.wwd-section .wwd-guides-titles .g-title{
+          text-decoration: none;
+        }
+        @media (max-width: 860px){
+          .content.wwd-section .mbl-title01{ pointer-events: auto; }
+          .content.wwd-section .mbl-title01 a{
+            pointer-events: auto;
+            color: inherit;
+            text-decoration: none;
+          }
         }
         .eyebrow{
           margin: 0 0 12px 0;
@@ -2849,6 +2874,11 @@ footer::before{
             text-transform: uppercase;
             color: var(--wwd-sec-title-color, #111);
           }
+          .wwd-service02-inline .svc-title a,
+          .wwd-service03-inline .svc-title a{
+            color: inherit;
+            text-decoration: none;
+          }
           .wwd-service02-inline .svc-title{
             transform: translate(var(--wwd-svc02-title-x, 0px), var(--wwd-svc02-title-y, 0px));
             max-width: min(var(--wwd-svc02-title-maxw, var(--wwd-svc02-maxw, 92vw)), 92vw);
@@ -2982,6 +3012,10 @@ footer::before{
           text-transform:uppercase;
           color: var(--wwd-sec-title-color, #555);
           white-space: nowrap;
+        }
+        .content.wwd-section .wwd-guides-descriptions .g-eyebrow a{
+          color: inherit;
+          text-decoration: none;
         }
         @media (max-width: 860px){
           .content.wwd-section .wwd-guides-descriptions .g-eyebrow{
