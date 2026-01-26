@@ -1,7 +1,16 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const deployEnv = (process.env.VERCEL_ENV ?? process.env.DEPLOY_ENV ?? "development").toLowerCase();
+  const isProductionDeploy = deployEnv === "production";
+  const siteUrl = (
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (isProductionDeploy
+      ? "https://siamodesign.com"
+      : process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000")
+  ).replace(/\/+$/, "");
   const now = new Date();
 
   const paths = [
@@ -26,4 +35,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
   }));
 }
-
