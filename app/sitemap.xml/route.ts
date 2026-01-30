@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function getSiteUrl() {
   const deployEnv = (process.env.VERCEL_ENV ?? process.env.DEPLOY_ENV ?? "development").toLowerCase();
@@ -32,6 +33,8 @@ const paths = [
   "/portfolio/contemporary-retreat/",
 ];
 
+const lastmod = new Date().toISOString();
+
 function escapeXml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -43,7 +46,6 @@ function escapeXml(value: string) {
 
 export function GET(_request: NextRequest) {
   const siteUrl = getSiteUrl();
-  const lastmod = new Date().toISOString();
 
   const body =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
@@ -63,4 +65,3 @@ export function GET(_request: NextRequest) {
     },
   });
 }
-

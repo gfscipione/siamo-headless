@@ -26,6 +26,16 @@ const nextConfig: NextConfig = {
       { source: "/es/portfolio/", destination: "/es/portafolio/", permanent: true },
       { source: "/es/portfolio/:path*", destination: "/es/portafolio/:path*", permanent: true },
 
+      // Legacy WP Spanish paths without `/es/` prefix (seen in GSC): keep backlinks alive.
+      { source: "/portafolio", destination: "/es/portafolio/", permanent: true },
+      { source: "/portafolio/", destination: "/es/portafolio/", permanent: true },
+      { source: "/portafolio/:path*", destination: "/es/portafolio/:path*", permanent: true },
+
+      // Legacy WPML-style English folder (seen in GSC).
+      { source: "/english/portafolio", destination: "/portfolio/", permanent: true },
+      { source: "/english/portafolio/", destination: "/portfolio/", permanent: true },
+      { source: "/english/portafolio/:path*", destination: "/portfolio/:path*", permanent: true },
+
       // Yoast sitemap legacy service slugs (EN).
       {
         source: "/services/virtual-design-interior-design/:path*",

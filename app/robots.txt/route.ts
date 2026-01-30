@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function getSiteUrl() {
   const deployEnv = (process.env.VERCEL_ENV ?? process.env.DEPLOY_ENV ?? "development").toLowerCase();
@@ -37,4 +38,3 @@ export function GET(_request: NextRequest) {
     },
   });
 }
-
