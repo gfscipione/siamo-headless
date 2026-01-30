@@ -54,32 +54,42 @@ const nextConfig: NextConfig = {
   },
 
   async rewrites() {
-    return [
-      // Yoast sitemap (WP origin) during hybrid.
-      { source: "/sitemap_index.xml", destination: `${wpOrigin}/sitemap_index.xml` },
-      { source: "/:path*-sitemap.xml", destination: `${wpOrigin}/:path*-sitemap.xml` },
+    return {
+      // Run these first so WP-generated asset URLs like `/es/wp-content/...css` don't 404 on Vercel.
+      beforeFiles: [
+        { source: "/es/wp-content/:path*", destination: `${wpOrigin}/wp-content/:path*` },
+        { source: "/es/wp-includes/:path*", destination: `${wpOrigin}/wp-includes/:path*` },
+        { source: "/es/wp-admin/:path*", destination: `${wpOrigin}/wp-admin/:path*` },
+        { source: "/es/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
+      ],
+      afterFiles: [
+        // Yoast sitemap (WP origin) during hybrid.
+        { source: "/sitemap_index.xml", destination: `${wpOrigin}/sitemap_index.xml` },
+        { source: "/:path*-sitemap.xml", destination: `${wpOrigin}/:path*-sitemap.xml` },
 
-      // WPForms questionnaire (WP origin).
-      { source: "/questionnaire/:path*", destination: `${wpOrigin}/questionnaire/:path*` },
-      { source: "/es/cuestionario/:path*", destination: `${wpOrigin}/es/cuestionario/:path*` },
+        // WPForms questionnaire (WP origin).
+        { source: "/questionnaire/:path*", destination: `${wpOrigin}/questionnaire/:path*` },
+        { source: "/es/cuestionario/:path*", destination: `${wpOrigin}/es/cuestionario/:path*` },
 
-      // WPForms thank-you pages (currently served by WP).
-      // NOTE: These are inverted on the live site: EN → /gracias/ and ES → /es/thank-you/.
-      { source: "/gracias/:path*", destination: `${wpOrigin}/gracias/:path*` },
-      { source: "/es/thank-you/:path*", destination: `${wpOrigin}/es/thank-you/:path*` },
+        // WPForms thank-you pages (currently served by WP).
+        // NOTE: These are inverted on the live site: EN → /gracias/ and ES → /es/thank-you/.
+        { source: "/gracias/:path*", destination: `${wpOrigin}/gracias/:path*` },
+        { source: "/es/thank-you/:path*", destination: `${wpOrigin}/es/thank-you/:path*` },
 
-      // Minimal WP endpoints/assets required for the questionnaire + uploads.
-      { source: "/wp-content/:path*", destination: `${wpOrigin}/wp-content/:path*` },
-      { source: "/wp-includes/:path*", destination: `${wpOrigin}/wp-includes/:path*` },
-      { source: "/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
-      { source: "/wp-admin/admin-ajax.php", destination: `${wpOrigin}/wp-admin/admin-ajax.php` },
-
-      // Spanish fallback: serve any non-migrated `/es/*` page from WP (origin) without leaking the origin host.
-      // WordPress issues absolute redirects on trailing-slash canonicalization, so always proxy with a trailing slash.
-      { source: "/es", destination: `${wpOrigin}/es/` },
-      { source: "/es/", destination: `${wpOrigin}/es/` },
-      { source: "/es/:path*/", destination: `${wpOrigin}/es/:path*/` },
-    ];
+        // Minimal WP endpoints/assets required for the questionnaire + uploads.
+        { source: "/wp-content/:path*", destination: `${wpOrigin}/wp-content/:path*` },
+        { source: "/wp-includes/:path*", destination: `${wpOrigin}/wp-includes/:path*` },
+        { source: "/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
+        { source: "/wp-admin/admin-ajax.php", destination: `${wpOrigin}/wp-admin/admin-ajax.php` },
+      ],
+      fallback: [
+        // Spanish fallback: serve any non-migrated `/es/*` page from WP (origin) without leaking the origin host.
+        // WordPress issues absolute redirects on trailing-slash canonicalization, so always proxy with a trailing slash.
+        { source: "/es", destination: `${wpOrigin}/es/` },
+        { source: "/es/", destination: `${wpOrigin}/es/` },
+        { source: "/es/:path*/", destination: `${wpOrigin}/es/:path*/` },
+      ],
+    };
   },
 
   async headers() {
@@ -115,6 +125,8 @@ const nextConfig: NextConfig = {
       // Avoid caching for WPForms endpoints and WP REST responses.
       { source: "/wp-admin/admin-ajax.php", headers: noStore },
       { source: "/wp-json/:path*", headers: noStore },
+      { source: "/es/wp-admin/admin-ajax.php", headers: noStore },
+      { source: "/es/wp-json/:path*", headers: noStore },
     ];
   },
 };
