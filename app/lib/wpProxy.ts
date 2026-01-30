@@ -142,14 +142,18 @@ export async function proxyToWordPress(request: NextRequest, options: ProxyOptio
         const chunks: Buffer[] = [];
         res.on("data", (chunk) => chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)));
         res.on("end", () => {
-          let body: Buffer | string = Buffer.concat(chunks);
-
-          if (wantRewrite) {
-            const decoded = typeof body === "string" ? body : body.toString("utf8");
-            body = rewriteOriginHostnames(decoded, url, upstreamOrigin);
-          }
+          const raw = Buffer.concat(chunks);
+          let body: BodyInit | null = raw.length ? new Uint8Array(raw) : null;
 
           const mergedHeaders = new Headers(headers);
+
+          if (wantRewrite) {
+            const decoded = raw.toString("utf8");
+            body = rewriteOriginHostnames(decoded, url, upstreamOrigin);
+            // Body size changed; drop upstream content-length to avoid mismatches.
+            mergedHeaders.delete("content-length");
+          }
+
           if (options.responseHeaders) {
             for (const [k, v] of Object.entries(options.responseHeaders)) mergedHeaders.set(k, v);
           }
