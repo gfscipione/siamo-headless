@@ -1,5 +1,6 @@
 import ProjectPage from "../components/ProjectPage";
 import type { Metadata } from "next";
+import { getSiteUrl } from "../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/roots-tulum/";
 const yoastDescription =
@@ -42,10 +43,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootsTulumPage() {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
-    /\/+$/,
-    ""
-  );
+  const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}${canonicalPath}`;
 
   const schemaGraph = {

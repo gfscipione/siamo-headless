@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { playfairFont, poppinsFont } from "../fonts";
 import PortfolioNav from "../components/PortfolioNav";
+import { getSiteUrl } from "../lib/siteUrl";
 
 type Project = {
   title: string;
@@ -106,8 +107,8 @@ export const metadata: Metadata = {
 };
 
 export default function PortfolioPage() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const canonicalUrl = `${siteUrl.replace(/\/$/, "")}${canonicalPath}`;
+  const siteUrl = getSiteUrl();
+  const canonicalUrl = `${siteUrl}${canonicalPath}`;
 
   const schemaGraph = {
     "@context": "https://schema.org",
@@ -117,7 +118,7 @@ export default function PortfolioPage() {
         "@id": canonicalUrl,
         url: canonicalUrl,
         name: "Portfolio - Siamo Design",
-        isPartOf: { "@id": `${siteUrl.replace(/\/$/, "")}/#website` },
+        isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
         image: { "@id": `${canonicalUrl}#primaryimage` },
         thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/02/1-Despues-768x512.jpg",
@@ -146,23 +147,23 @@ export default function PortfolioPage() {
         "@type": "BreadcrumbList",
         "@id": `${canonicalUrl}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl.replace(/\/$/, "")}/` },
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
           { "@type": "ListItem", position: 2, name: "Portfolio" },
         ],
       },
       {
         "@type": "WebSite",
-        "@id": `${siteUrl.replace(/\/$/, "")}/#website`,
-        url: `${siteUrl.replace(/\/$/, "")}/`,
+        "@id": `${siteUrl}/#website`,
+        url: `${siteUrl}/`,
         name: "Siamo Design",
         description: "",
-        publisher: { "@id": `${siteUrl.replace(/\/$/, "")}/#organization` },
+        publisher: { "@id": `${siteUrl}/#organization` },
         potentialAction: [
           {
             "@type": "SearchAction",
             target: {
               "@type": "EntryPoint",
-              urlTemplate: `${siteUrl.replace(/\/$/, "")}/?s={search_term_string}`,
+              urlTemplate: `${siteUrl}/?s={search_term_string}`,
             },
             "query-input": {
               "@type": "PropertyValueSpecification",
@@ -175,13 +176,13 @@ export default function PortfolioPage() {
       },
       {
         "@type": "Organization",
-        "@id": `${siteUrl.replace(/\/$/, "")}/#organization`,
+        "@id": `${siteUrl}/#organization`,
         name: "Siamo Design",
-        url: `${siteUrl.replace(/\/$/, "")}/`,
+        url: `${siteUrl}/`,
         logo: {
           "@type": "ImageObject",
           inLanguage: "en",
-          "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/`,
+          "@id": `${siteUrl}/#/schema/logo/image/`,
           url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
           contentUrl:
             "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
@@ -189,7 +190,7 @@ export default function PortfolioPage() {
           height: 167,
           caption: "Siamo Design",
         },
-        image: { "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/` },
+        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
       },
     ],
   };

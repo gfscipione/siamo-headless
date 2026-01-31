@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import type { Metadata } from "next";
 import ParallaxDemo from "./components/ParallaxDemo";
+import { getSiteUrl } from "./lib/siteUrl";
 
 export const revalidate = 60; // revalidate WP fetch every 60s
 
@@ -100,7 +101,7 @@ export default async function Home() {
   const title =
     wp?.title && wp.title.toLowerCase() !== "home" ? wp.title : DEFAULT_TITLE;
 
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}/`;
 
   const schemaGraph = {

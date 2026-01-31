@@ -4,6 +4,7 @@ import PortfolioNav from "../../components/PortfolioNav";
 import FaqAccordion from "../../components/FaqAccordion";
 import HeroVideo from "../HeroVideo";
 import { playfairFont, poppinsFont } from "../../fonts";
+import { getSiteUrl } from "../../lib/siteUrl";
 
 const canonicalPath = "/services/virtual-design/";
 const yoastDescription =
@@ -36,8 +37,8 @@ export const metadata: Metadata = {
 };
 
 export default function VirtualDesignPage() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const canonicalUrl = `${siteUrl.replace(/\/$/, "")}${canonicalPath}`;
+  const siteUrl = getSiteUrl();
+  const canonicalUrl = `${siteUrl}${canonicalPath}`;
 
   const schemaGraph = {
     "@context": "https://schema.org",
@@ -47,7 +48,7 @@ export default function VirtualDesignPage() {
         "@id": canonicalUrl,
         url: canonicalUrl,
         name: "Virtual Design - Siamo Design",
-        isPartOf: { "@id": `${siteUrl.replace(/\/$/, "")}/#website` },
+        isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
         image: { "@id": `${canonicalUrl}#primaryimage` },
         thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
@@ -77,7 +78,7 @@ export default function VirtualDesignPage() {
         "@type": "BreadcrumbList",
         "@id": `${canonicalUrl}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl.replace(/\/$/, "")}/` },
+          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
           { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl.replace(/\/$/, "")}/services/` },
           { "@type": "ListItem", position: 3, name: "Virtual Design" },
         ],

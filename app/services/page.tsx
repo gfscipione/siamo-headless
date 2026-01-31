@@ -5,6 +5,7 @@ import FaqAccordion from "../components/FaqAccordion";
 import HeroVideo from "./HeroVideo";
 
 import { playfairFont, poppinsFont } from "../fonts";
+import { getSiteUrl } from "../lib/siteUrl";
 
 const TITLE = "Services - Siamo Design";
 const DESCRIPTION =
@@ -187,7 +188,7 @@ const socialItems = [
 ];
 
 export default function ServicesPage() {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}/services/`;
 
   const schemaGraph = {

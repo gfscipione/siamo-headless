@@ -1,5 +1,6 @@
 import ProjectPage from "../components/ProjectPage";
 import type { Metadata } from "next";
+import { getSiteUrl } from "../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/mayan-sanctuary/";
 const TITLE = "Mayan Sanctuary - Siamo Design";
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 export default function MayanSanctuaryPage() {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}${canonicalPath}`;
   const primaryImageUrl = `${siteUrl}${OG_IMAGE_PATH}`;
 

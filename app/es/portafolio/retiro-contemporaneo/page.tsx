@@ -1,4 +1,5 @@
 import ProjectPage from "../../../portfolio/components/ProjectPage";
+import { getSiteUrl } from "../../../lib/siteUrl";
 
 export const metadata = {
   title: "Retiro Contemporáneo - Siamo Design",
@@ -39,7 +40,7 @@ export const metadata = {
 };
 
 export default function RetiroContemporaneoPageEs() {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}/es/portafolio/retiro-contemporaneo/`;
   const primaryImageUrl = `${siteUrl}/assets/retiro-contemporaneo/living-room-4.png`;
   const siteEsRoot = `${siteUrl}/es/`;

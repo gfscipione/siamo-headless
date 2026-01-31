@@ -2,6 +2,7 @@ import PortfolioNav from "../components/PortfolioNav";
 import { playfairFont, poppinsFont } from "../fonts";
 import AboutHeroVideo from "./video";
 import type { Metadata } from "next";
+import { getSiteUrl } from "../lib/siteUrl";
 
 const TITLE = "Get to know us - Siamo Design";
 const DESCRIPTION =
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
 };
 
 export default function GetToKnowUsPage() {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/+$/, "");
+  const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}/get-to-know-us/`;
 
   const schemaGraph = {

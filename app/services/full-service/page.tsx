@@ -5,6 +5,7 @@ import PortfolioNav from "../../components/PortfolioNav";
 import FaqAccordion from "../../components/FaqAccordion";
 import HeroVideo from "../HeroVideo";
 import { playfairFont, poppinsFont } from "../../fonts";
+import { getSiteUrl } from "../../lib/siteUrl";
 
 const canonicalPath = "/services/full-service/";
 const yoastDescription =
@@ -37,8 +38,8 @@ export const metadata: Metadata = {
 };
 
 export default function FullServicePage() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const canonicalUrl = `${siteUrl.replace(/\/$/, "")}${canonicalPath}`;
+  const siteUrl = getSiteUrl();
+  const canonicalUrl = `${siteUrl}${canonicalPath}`;
 
   const schemaGraph = {
     "@context": "https://schema.org",
@@ -48,7 +49,7 @@ export default function FullServicePage() {
         "@id": canonicalUrl,
         url: canonicalUrl,
         name: "Project Design and Execution - Siamo Design",
-        isPartOf: { "@id": `${siteUrl.replace(/\/$/, "")}/#website` },
+        isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
         image: { "@id": `${canonicalUrl}#primaryimage` },
         thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
