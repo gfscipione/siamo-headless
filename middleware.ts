@@ -4,14 +4,6 @@ import { NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // Mark Spanish Next routes so the root layout can set <html lang="es"> without creating a separate root layout.
-  // NOTE: This does not affect WordPress-proxied /es/* pages served via rewrites; it only applies to filesystem routes.
-  if (pathname === "/es" || pathname.startsWith("/es/")) {
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set("x-app-locale", "es");
-    return NextResponse.next({ request: { headers: requestHeaders } });
-  }
-
   // Retire Yoast EN sitemap from the public domain; we use Next sitemap for EN and Yoast under /es/.
   if (pathname === "/page-sitemap.xml") {
     return new NextResponse("Gone", {
@@ -35,5 +27,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/xmlrpc.php", "/page-sitemap.xml", "/es/:path*"],
+  matcher: ["/xmlrpc.php", "/page-sitemap.xml"],
 };
