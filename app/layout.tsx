@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { playfairFont, poppinsFont } from "./fonts";
 import "./globals.css";
+import { headers } from "next/headers";
 
 const deployEnv = (process.env.VERCEL_ENV ?? process.env.DEPLOY_ENV ?? "development").toLowerCase();
 const isProductionDeploy = deployEnv === "production";
@@ -59,13 +60,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = (await headers()).get("x-app-locale") === "es" ? "es" : "en";
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${playfairFont.variable} ${poppinsFont.variable} ${poppinsFont.className} antialiased`}
         style={{ fontFamily: poppinsFont.style.fontFamily }}
