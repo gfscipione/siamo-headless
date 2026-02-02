@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import type { Metadata } from "next";
 import ParallaxDemo from "../components/ParallaxDemo";
 import { getSiteUrl } from "../lib/siteUrl";
@@ -90,6 +91,11 @@ async function getWpHome() {
 export default async function Home() {
   const wp = await getWpHome();
 
+  const ua = (await headers()).get("user-agent") || "";
+  const initialIsMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(
+    ua
+  );
+
   const hero = wp?.heroUrl || "/assets/img/hero.webp";
   const DEFAULT_TITLE = "Designing your dream home\njust became a reality.";
   const title =
@@ -172,7 +178,7 @@ export default async function Home() {
         className="yoast-schema-graph"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
-      <ParallaxDemo />
+      <ParallaxDemo initialIsMobile={initialIsMobile} />
     </>
   );
 }

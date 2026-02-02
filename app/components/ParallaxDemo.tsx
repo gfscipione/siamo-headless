@@ -1280,11 +1280,8 @@ export default function ParallaxDemo({
   const [renderFallback, setRenderFallback] = useState(true);
   const readyRef = useRef(false);
   const [isMobileViewport, setIsMobileViewport] = useState<boolean>(
-    // Start in "safe mode" by default (mobile behavior) to avoid running the
-    // expensive parallax/smooth-scroll path on first paint.
-    // We switch to the real capability-based mode after hydration.
-    initialIsMobile ?? true
-  );
+    initialIsMobile ?? false
+  ); // hydrate with server hint to keep SSR/CSR in sync
   const [hasMounted, setHasMounted] = useState(false);
 
   // === Mobile menu state ===
@@ -1379,7 +1376,6 @@ export default function ParallaxDemo({
 
   // Split title on explicit newlines and harden each line so none end with 'hom'
 const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
-  const typewriterCancelledRef = useRef(false);
   const [typewriterEnabled, setTypewriterEnabled] = useState(() => typewriter && !resolvedIsMobile);
 
   // === Typewriter state (line-by-line) ===
@@ -1467,10 +1463,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
   }, [normalizedTitle, typewriterEnabled, typingSpeedMs, startDelayMs]);
 
   useEffect(() => {
-    const cancelTyping = () => {
-      typewriterCancelledRef.current = true;
-      setTypewriterEnabled(false);
-    };
+    const cancelTyping = () => setTypewriterEnabled(false);
     window.addEventListener("scroll", cancelTyping, { passive: true });
     window.addEventListener("wheel", cancelTyping, { passive: true });
     return () => {
@@ -1478,12 +1471,6 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       window.removeEventListener("wheel", cancelTyping);
     };
   }, []);
-
-  useEffect(() => {
-    if (!hasMounted) return;
-    if (typewriterCancelledRef.current) return;
-    setTypewriterEnabled(typewriter && !resolvedIsMobile);
-  }, [hasMounted, resolvedIsMobile, typewriter]);
 
   const pf = 0.22; // parallax factor fijo (sutil)
 
@@ -1831,38 +1818,18 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
-    const mqWidth = window.matchMedia("(max-width: 860px)");
-    const mqReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mqCoarsePointer = window.matchMedia("(hover: none), (pointer: coarse)");
-
-    const compute = () => {
-      const safeMode = mqWidth.matches || mqReducedMotion.matches || mqCoarsePointer.matches;
-      setIsMobileViewport(safeMode);
+    const mq = window.matchMedia("(max-width: 860px)");
+    const handleChange = (event?: MediaQueryListEvent) => {
+      setIsMobileViewport(event ? event.matches : mq.matches);
     };
-
-    compute();
-
-    const onChange = () => compute();
-
-    const add = (mq: MediaQueryList) => {
-      if (typeof mq.addEventListener === "function") mq.addEventListener("change", onChange);
-      else mq.addListener(onChange);
-    };
-    const remove = (mq: MediaQueryList) => {
-      if (typeof mq.removeEventListener === "function") mq.removeEventListener("change", onChange);
-      else mq.removeListener(onChange);
-    };
-
-    add(mqWidth);
-    add(mqReducedMotion);
-    add(mqCoarsePointer);
-    return () => {
-      remove(mqWidth);
-      remove(mqReducedMotion);
-      remove(mqCoarsePointer);
-    };
-  }, []);
+    handleChange();
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", handleChange);
+      return () => mq.removeEventListener("change", handleChange);
+    }
+    mq.addListener(handleChange);
+    return () => mq.removeListener(handleChange);
+  }, [initialIsMobile]);
 
   useEffect(() => {
     setHasMounted(true);
