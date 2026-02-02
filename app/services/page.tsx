@@ -71,7 +71,7 @@ const services: Service[] = [
     mediaType: "video",
     playbackThreshold: 1,
     preload: "metadata",
-    poster: "/assets/services/virtual-design-poster.jpg",
+    poster: "/assets/services/virtual-design-1.webp",
     cta: "Find out more",
     href: "/services/virtual-design",
   },
@@ -308,13 +308,14 @@ export default function ServicesPage() {
             playbackRate={0.75}
             autoPlay
             preload="metadata"
+            poster="/assets/People/services-thumb.webp"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
           <div className="services-hero__scrim" />
           <div className="services-hero__content">
             <h1 className={`services-hero__title ${playfairFont.className}`}>Services</h1>
             <p className={`services-hero__lead ${playfairFont.className}`}>
-              Siamo Design offers full-service and virtual interior design, blending warmth, texture, and thoughtful detail. Our services shape relaxed yet refined spaces across the Riviera Maya and for clients wherever they call home.
+              Siamo Design offers full-service interior design and virtual interior design services. We combine thoughtful materials and layered textures to create spaces that support well-being. Based in the Riviera Maya, we design relaxed, refined interiors for local residential projects and for clients worldwide—turning every space into a true home.
             </p>
           </div>
         </section>

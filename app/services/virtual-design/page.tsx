@@ -294,6 +294,7 @@ export default function VirtualDesignPage() {
             playbackRate={0.75}
             autoPlay
             preload="metadata"
+            poster="/assets/services/virtual-design-1.webp"
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
           <div className="virtual-hero-image__scrim" aria-hidden="true" />

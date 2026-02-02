@@ -322,6 +322,7 @@ export default function FullServicePage() {
             playbackRate={0.75}
             autoPlay
             preload="metadata"
+            poster="/assets/People/full-service-thumb.webp"
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
           <div className="virtual-hero-image__scrim" aria-hidden="true" />

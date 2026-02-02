@@ -3,6 +3,7 @@ import { playfairFont, poppinsFont } from "../fonts";
 import AboutHeroVideo from "./video";
 import type { Metadata } from "next";
 import { getSiteUrl } from "../lib/siteUrl";
+import DragScroll from "./DragScroll";
 
 const TITLE = "Get to know us - Siamo Design";
 const DESCRIPTION =
@@ -176,32 +177,39 @@ export default function GetToKnowUsPage() {
 
   const journeyEntries = [
     {
-      year: "2014",
+      year: "2016",
       title: "The Beginning",
       copy:
-        "Siamo Design nació con la misión de diseñar espacios acogedores y funcionales que se sientan como un refugio, combinando creatividad con ejecución impecable.",
-      image: "/assets/People/about-2.jpg",
-    },
-    {
-      year: "2016",
-      title: "Siamo Design & Co.",
-      copy:
-        "Exploramos productos y curaduría, ampliando nuestra mirada al diseño integral y a la selección de piezas que elevan cada ambiente.",
-      image: "/assets/People/about-3.jpg",
+        "It all started as Stephania Design. The idea took shape while Stephania was working at a stone and surface showroom, where she saw firsthand how many people approached finish selections with doubt and uncertainty. That experience sparked a clear purpose: to create interior design services that guide clients through every decision—so choosing materials and finishes feels confident, clear, and stress-free.",
+      image: "/assets/People/about-2.webp",
     },
     {
       year: "2018",
-      title: "The Siamo Design Home",
+      title: "Full Commitment",
       copy:
-        "Consolidamos nuestro enfoque en proyectos residenciales y de hospitalidad, sumando dirección creativa y gestión de obra de principio a fin.",
-      image: "/assets/People/about-4.jpg",
+        "That year, Stephania committed fully to Stephania Design. Projects focused primarily on remodels, finish and material selections, and personalized interior design consultations—helping clients make confident decisions and bring their spaces together with clarity and style.",
+      image: "/assets/People/about-3.webp",
     },
     {
       year: "2020",
-      title: "Expanding Our Reach",
+      title: "Team Growth",
       copy:
-        "Crecimos hacia colaboraciones internacionales y estrategias digitales para compartir el estilo Siamo con más hogares y marcas.",
-      image: "/assets/People/about-5.jpg",
+        "Krystle joined the team to bring a stronger focus on decoration and interior styling—adding a refined, detail-driven perspective that elevated the creative direction of each space and strengthened the brand’s signature look.",
+      image: "/assets/People/about-4.webp",
+    },
+    {
+      year: "2022",
+      title: "Siamo Design Is Born",
+      copy:
+        "We refined our focus around full-scope residential projects and took a major step forward: we rebranded as Siamo Design—a name that reflects a clearer, more mature vision and a brand identity fully aligned with the elevated interior design services we set out to build.",
+      image: "/assets/People/about-6.webp",
+    },
+    {
+      year: "2025",
+      title: "Siamo Real Life",
+      copy:
+        "We expanded our vision and launched our YouTube channel, Siamo Real Life, to share what happens behind every project—our process, the decisions, the challenges, and the real-life side of design from concept to completion.",
+      image: "/assets/People/about-5.webp",
     },
   ];
   return (
@@ -248,7 +256,7 @@ export default function GetToKnowUsPage() {
 
         <section className="about-story" aria-label="About Siamo story">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Siamo Design is a multi-disciplinary interior design firm known for creating beautifully balanced spaces that feel classic and current.
+            Siamo Design is a multi-disciplinary interior design studio creating warm, timeless spaces that feel both classic and current.
           </h2>
 
           <div className="about-story__grid">
@@ -258,18 +266,32 @@ export default function GetToKnowUsPage() {
                 ariaLabel="About Siamo Design video"
                 className="about-story__media-video"
                 preload="none"
-                poster="/assets/People/about-1-thumb.jpg"
+                poster="/assets/People/about-1-thumb.png"
               />
             </div>
             <div className="about-story__body">
               <h3 className={`about-story__title ${playfairFont.className}`}>
-                Our mission is to make life beautiful for ourselves and those around us.
+                Our mission is to create interiors that elevate the way you live.
               </h3>
               <p className={poppinsFont.className}>
-                Led by a passionate team of designers and project leads, Siamo Design blends strategic planning with tactile, human details. We guide clients from concept to installation, balancing form and function to create warm, elevated interiors.
+                At Siamo Design, we believe a space isn’t just something you see—it’s something you feel. Because you live in it every day—eating, resting, and unwinding—your environment has a direct impact on your well-being and how you experience life. Our purpose is to bring awareness to that influence and turn it into thoughtful, livable interiors through intentional interior design services.
               </p>
               <p className={poppinsFont.className}>
-                Our portfolio spans residential and hospitality projects, and we craft content to help clients and followers bring the Siamo aesthetic into their own spaces. From bespoke builds to curated refreshes, we tailor every project to the people who will live in it.
+                Co-founders Stephania Scipione and Krystle Torres noticed that furnishing and decorating a home often becomes stressful and uncertain. That’s why we created a clear, guided process—so working with our interior designers feels smooth, organized, and genuinely enjoyable from start to finish.
+              </p>
+              <h3
+                className={`about-story__title about-story__title--spaced ${playfairFont.className}`}
+              >
+                What does Siamo Design mean?
+              </h3>
+              <p className={poppinsFont.className}>
+                “Siamo Design” means “We are design.” To us, every person is design in their own way—your tastes, style, colors, and forms that make you feel most at home. That insight is the foundation of our work, and the starting point of every project.
+              </p>
+              <p className={poppinsFont.className}>
+                That’s why we see each project as an opportunity to transform a space into a true home—balancing beauty and function through thoughtful materials, layered textures, and a strong sense of sensitivity to how you live.
+              </p>
+              <p className={poppinsFont.className}>
+                We guide our clients through the full journey—from the first concept to the final installation—refining every detail so the end result feels authentic, elevated, and unmistakably yours.
               </p>
             </div>
           </div>
@@ -294,11 +316,16 @@ export default function GetToKnowUsPage() {
           <div className="about-journey-placeholder__inner">
             <h2 className={`about-journey__title ${playfairFont.className}`}>Siamo Design</h2>
             <p className={`about-journey__subtitle ${playfairFont.className}`}>Through The Years</p>
-            <div className="about-journey__grid">
+            <DragScroll className="about-journey__grid" aria-label="Timeline">
               {journeyEntries.map((entry) => (
                 <article className="about-journey__item" key={entry.image}>
                   <div className="about-journey__image">
-                    <img src={entry.image} alt={`${entry.title} (${entry.year})`} loading="lazy" />
+                    <img
+                      src={entry.image}
+                      alt={`${entry.title} (${entry.year})`}
+                      loading="lazy"
+                      draggable={false}
+                    />
                   </div>
                   <div className="about-journey__meta">
                     <p className={`about-journey__year ${playfairFont.className}`}>{entry.year}</p>
@@ -307,7 +334,7 @@ export default function GetToKnowUsPage() {
                   </div>
                 </article>
               ))}
-            </div>
+            </DragScroll>
           </div>
         </section>
 

@@ -26,6 +26,18 @@ export default function HeroVideo({
 }: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const mergedStyle: CSSProperties = {
+    ...(style || {}),
+    backgroundColor: (style as CSSProperties | undefined)?.backgroundColor ?? "#e7e3da",
+    ...(poster
+      ? {
+          backgroundImage: `url("${poster}")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }
+      : null),
+  };
 
   useEffect(() => {
     const v = videoRef.current;
@@ -79,7 +91,7 @@ export default function HeroVideo({
       playsInline
       preload={preload}
       poster={poster}
-      style={style}
+      style={mergedStyle}
       aria-hidden="true"
     />
   );
