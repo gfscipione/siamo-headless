@@ -187,7 +187,7 @@ export default function RaicesTulumPageEs() {
         line1: <span className="legal-full">Siamo Design | Estudio de diseño de interiores</span>,
         line2: <span className="legal-full">© 2025 Siamo Design. Todos los derechos reservados.</span>,
         sig: (
-          <a href="https://donebyelevator.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer sponsored">
             Diseñado y desarrollado por Elevator
           </a>
         ),

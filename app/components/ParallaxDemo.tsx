@@ -1980,7 +1980,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
       <p className="legal-line">
         <span className="legal-full">© 2025 Siamo Design. All rights reserved.</span>
       </p>
-      <p className="legal-sig"><a href="https://donebyelevator.com" target="_blank" rel="noopener noreferrer">Designed & Built by Elevator</a></p>
+      <p className="legal-sig"><a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer sponsored">Designed & Built by Elevator</a></p>
     </div>
   );
 
