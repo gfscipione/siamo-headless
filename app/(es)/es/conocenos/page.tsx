@@ -41,6 +41,7 @@ export const metadata: Metadata = {
 export default function ConocenosPage() {
   const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}/es/conocenos/`;
+  const esRoot = `${siteUrl}/es/`;
 
   const schemaGraph = {
     "@context": "https://schema.org",
@@ -50,7 +51,7 @@ export default function ConocenosPage() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
-        isPartOf: { "@id": `${siteUrl}/#website` },
+        isPartOf: { "@id": `${esRoot}#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
         thumbnailUrl: OG_IMAGE,
@@ -73,20 +74,20 @@ export default function ConocenosPage() {
         "@type": "BreadcrumbList",
         "@id": `${canonical}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Inicio", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 1, name: "Inicio", item: esRoot },
           { "@type": "ListItem", position: 2, name: "Conócenos" },
         ],
       },
       {
         "@type": "WebSite",
-        "@id": `${siteUrl}/#website`,
-        url: `${siteUrl}/`,
+        "@id": `${esRoot}#website`,
+        url: esRoot,
         name: "Siamo Design",
-        publisher: { "@id": `${siteUrl}/#organization` },
+        publisher: { "@id": `${esRoot}#organization` },
         potentialAction: [
           {
             "@type": "SearchAction",
-            target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
+            target: { "@type": "EntryPoint", urlTemplate: `${esRoot}?s={search_term_string}` },
             "query-input": { "@type": "PropertyValueSpecification", valueRequired: true, valueName: "search_term_string" },
           },
         ],
@@ -94,20 +95,20 @@ export default function ConocenosPage() {
       },
       {
         "@type": "Organization",
-        "@id": `${siteUrl}/#organization`,
+        "@id": `${esRoot}#organization`,
         name: "Siamo Design",
-        url: `${siteUrl}/`,
+        url: esRoot,
         logo: {
           "@type": "ImageObject",
           inLanguage: "es",
-          "@id": `${siteUrl}/#/schema/logo/image/`,
+          "@id": `${esRoot}#/schema/logo/image/`,
           url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
           contentUrl: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
           width: 499,
           height: 167,
           caption: "Siamo Design",
         },
-        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
+        image: { "@id": `${esRoot}#/schema/logo/image/` },
       },
     ],
   };
