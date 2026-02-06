@@ -20,6 +20,7 @@ const paths = [
   "/",
   "/get-to-know-us/",
   "/services/",
+  "/es/servicios/",
   "/services/virtual-design/",
   "/services/full-service/",
   "/portfolio/",
