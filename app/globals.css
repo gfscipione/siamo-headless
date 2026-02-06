@@ -4809,6 +4809,12 @@ body {
   line-height: 1.5;
   font-weight: 400;
 }
+.services-hero__lead--desktop {
+  display: block;
+}
+.services-hero__lead--mobile {
+  display: none;
+}
 @media (max-width: 860px){
   .services-hero{
     min-height: 100vh;
@@ -4838,6 +4844,12 @@ body {
     font-size: 1.6rem;
     line-height: 1.4;
     max-width: 34ch;
+  }
+  .services-hero__lead--desktop{
+    display: none;
+  }
+  .services-hero__lead--mobile{
+    display: block;
   }
   /* Compact hero overrides (Full Service / Virtual Design) */
   .services-hero.hero-virtual-compact{

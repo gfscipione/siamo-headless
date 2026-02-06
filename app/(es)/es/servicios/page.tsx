@@ -56,9 +56,9 @@ type Service = {
 const services: Service[] = [
   {
     title: "Diseño de Interiores Llave en Mano",
-    subtitle: "El lujo de un hogar diseñado profesionalmente y adaptado a tu estilo de vida.",
+    subtitle: "Diseño, compras y coordinación resuelto por nosotros.",
     description:
-      "Vive un proceso de diseño a medida con nuestro servicio de diseño interior llave en mano. Nuestro equipo gestiona cada detalle, desde la planificación del espacio hasta la instalación final, para brindarte un camino personalizado y sin estrés hacia la casa de tus sueños.",
+      "Llevamos tu proyecto de concepto a instalación, gestionando proveedores, tiempos, compras y cada detalle para entregarte un espacio elevado y listo para habitar.",
     image: "/assets/People/full-service.mp4",
     cta: "Conoce más",
     href: "/services/full-service/",
@@ -67,9 +67,9 @@ const services: Service[] = [
   },
   {
     title: "Diseño de Interiores Virtual",
-    subtitle: "Reimagina tu espacio con facilidad y a tu ritmo.",
+    subtitle: "Diseño profesional, estés donde estés en el mundo.",
     description:
-      "Nuestro servicio de Diseño Interior Virtual ofrece la misma creación de diseño a medida con la flexibilidad de la colaboración remota. Reimagina tu espacio con planes personalizados y listas de compra curadas por nuestras diseñadoras.",
+      "Recibe un plan claro, distribución a medida y una lista de compras curada para ejecutar a tu ritmo. Ideal si estás lejos, con poco tiempo, o quieres dirección experta sin obra en sitio.",
     image: "/assets/services/virtual-design-1.mp4",
     mediaType: "video",
     playbackThreshold: 1,
@@ -133,21 +133,63 @@ const faqs = [
   },
   {
     question: "¿Cómo sé qué servicio es el adecuado para mí?",
-    answer:
-      "Para identificar qué servicio se ajusta mejor a ti y a tu estilo de vida, hay varios factores clave del proyecto a considerar, incluyendo tiempos, tamaño y alcance, presupuesto y nivel de involucramiento. Visita nuestra página de Diseño Interior Virtual y la de Diseño Interior Llave en Mano para revisar las diferencias en más detalle y elegir el servicio que mejor se adapte a tus necesidades.",
+    answer: (
+      <>
+        Para ayudarte a elegir el servicio que mejor se adapta a ti y a tu estilo de vida, hay
+        algunos factores clave a considerar: el tiempo disponible, el tamaño y alcance del
+        proyecto, tu presupuesto y qué tan involucrado quieres estar.
+        <br />
+        <br />
+        Si tienes poco tiempo, no estás en el lugar donde está el proyecto, o simplemente quieres
+        que todo esté listo cuando llegues sin tener que gestionar nada, entonces nuestro{" "}
+        <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          Diseño de Interiores Llave en Mano
+        </a>{" "}
+        es la opción ideal.
+        <br />
+        <br />
+        Si, por el contrario, sí tienes tiempo, prefieres ejecutar tu proyecto por fases, estás
+        local y principalmente necesitas dirección profesional para enfocar tus ideas, entonces
+        nuestro{" "}
+        <a
+          href="/services/virtual-design/"
+          style={{ fontWeight: 600, textDecoration: "underline" }}
+        >
+          Diseño de Interiores Virtual
+        </a>{" "}
+        es perfecto para ti.
+      </>
+    ),
   },
   {
     question: "¿Cuánto cuestan sus servicios de diseño?",
-    answer:
-      "Los honorarios varían según el alcance. Empezamos con una consulta para definir tus necesidades y luego compartimos una propuesta a medida con una tarifa de diseño fija y un presupuesto estimado de mobiliario.",
+    answer: (
+      <>
+        Nuestros honorarios varían según el alcance del proyecto, el tamaño de los espacios y las
+        necesidades específicas de cada cliente. Te invitamos a{" "}
+        <a href="/es/cuestionario/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          completar nuestro cuestionario
+        </a>{" "}
+        para agendar una consulta—esto nos ayuda a entender tu proyecto y preparar una propuesta
+        personalizada, que incluye una tarifa de diseño fija y un presupuesto estimado de
+        mobiliario/inversión, sin compromiso.
+      </>
+    ),
   },
   {
     question: "¿Puedo ver ejemplos de su trabajo?",
     answer: (
       <>
-        En una variedad de estilos que siempre mantienen la estética Siamo Design, nuestro
-        portafolio muestra proyectos recientes y brinda inspiración:{" "}
-        <a href="/es/portafolio/">Ver nuestro portafolio</a>
+        Sí. Nuestro portafolio muestra una selección de proyectos recientes en distintos estilos,
+        ya que cada diseño se basa en los gustos, necesidades y estilo de vida de cada cliente.
+        Aunque todos mantienen la esencia de Siamo Design, cada proyecto es único y creado a
+        medida. Nuestro portafolio está pensado para inspirarte y ayudarte a imaginar lo que
+        podemos crear juntos.
+        <br />
+        <br />
+        <a href="/es/portafolio/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          Ver Portafolio
+        </a>
       </>
     ),
   },
@@ -158,8 +200,23 @@ const faqs = [
   },
   {
     question: "¿En qué estilos de diseño de interiores se especializan?",
-    answer:
-      "Nos hemos ganado una reputación por espacios equilibrados que se sienten a la vez modernos y atemporales. El estilo Siamo Design es cálido, reflexivo e invitador. Hemos diseñado hogares con detalles tradicionales y piezas vintage, y también hogares con líneas limpias y materiales orgánicos, siempre incorporando nuestro sello. Nuestro equipo adapta su trabajo a las necesidades de cada cliente, considerando cómo vivirán el espacio y si el hogar es una nueva construcción o una renovación. También hacemos matchmaking, alineando a cada equipo de diseño con la estética y el estilo de vida de cada cliente.",
+    answer: (
+      <>
+        Hemos construido nuestra reputación creando espacios bellamente equilibrados que se sienten
+        frescos y atemporales. El estilo distintivo de Siamo Design es cálido, intencional y
+        acogedor—basado en la integración de materiales naturales, piezas curadas y texturas en
+        capas.
+        <br />
+        <br />
+        Hemos diseñado hogares con detalles tradicionales y hallazgos vintage, así como espacios
+        definidos por líneas limpias y materiales orgánicos—siempre integrando nuestra esencia en
+        cada proyecto.
+        <br />
+        <br />
+        Nuestro equipo adapta cada diseño a las necesidades, gustos y estilo de vida del cliente,
+        con el objetivo de crear espacios que aporten bienestar y armonía a la vida cotidiana.
+      </>
+    ),
   },
 ];
 
@@ -332,8 +389,21 @@ export default function ServicesPage() {
           <div className="services-hero__scrim" />
           <div className="services-hero__content">
             <h1 className={`services-hero__title ${playfairFont.className}`}>Servicios</h1>
-            <p className={`services-hero__lead ${playfairFont.className}`}>
-              Siamo Design ofrece servicios de diseño interior llave en mano y diseño interior virtual. Combinamos materiales pensados y texturas en capas para crear espacios que favorecen el bienestar. Con base en la Riviera Maya, diseñamos interiores relajados y refinados tanto para proyectos residenciales locales como para clientes en todo el mundo, convirtiendo cada espacio en un verdadero hogar.
+            <p
+              className={`services-hero__lead services-hero__lead--desktop ${playfairFont.className}`}
+            >
+              Siamo Design ofrece servicios de diseño interior llave en mano y diseño interior
+              virtual. Combinamos materiales pensados y texturas en capas para crear espacios que
+              favorecen el bienestar. Con base en la Riviera Maya, diseñamos interiores relajados y
+              refinados tanto para proyectos residenciales locales como para clientes en todo el
+              mundo, convirtiendo cada espacio en un verdadero hogar.
+            </p>
+            <p
+              className={`services-hero__lead services-hero__lead--mobile ${playfairFont.className}`}
+            >
+              Siamo Design ofrece diseño de interiores llave en mano y diseño virtual. Creamos
+              hogares cálidos y refinados con materiales pensados y texturas en capas—desde Riviera
+              Maya, para proyectos locales y en todo el mundo.
             </p>
           </div>
         </section>

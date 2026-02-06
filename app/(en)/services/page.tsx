@@ -53,9 +53,9 @@ type Service = {
 const services: Service[] = [
   {
     title: "Full-Service Interior Design",
-    subtitle: "The luxury of a professionally designed home tailored to your lifestyle.",
+    subtitle: "Design, sourcing, and coordination done for you.",
     description:
-      "Experience custom design creation with our Full-Service Interior Design. Our experts manage every detail, from space planning to final installation, providing a personalized and stress-free journey to your dream home.",
+      "We take your project from concept to install, managing vendors, timelines, purchases, and finishing touches so the final space feels effortless, elevated, and move-in ready.",
     image: "/assets/People/full-service.mp4",
     cta: "Find out more",
     href: "/services/full-service",
@@ -64,9 +64,9 @@ const services: Service[] = [
   },
   {
     title: "Virtual Interior Design",
-    subtitle: "Reimagine your space effortlessly on your own timeline.",
+    subtitle: "Professional design, wherever you are in the world.",
     description:
-      "Our Virtual Interior Design service delivers the same custom design creation paired with the flexibility of remote collaboration. Reimagine your space with tailored plans and curated shopping lists from our designers.",
+      "Get a clear plan, tailored layouts, and a curated shopping list you can execute at your pace. Perfect if you’re abroad, busy, or want expert direction without an on-site build.",
     image: "/assets/services/virtual-design-1.mp4",
     mediaType: "video",
     playbackThreshold: 1,
@@ -130,21 +130,62 @@ const faqs = [
   },
   {
     question: "How do I know which service is right for me?",
-    answer:
-      "To identify what service better suits you and your lifestyle, there are several key project factors to consider, including time frame, size and scope, budget, and level of involvement. Please visit our Virtual Interior Design page and our Full Service Interior Design page to review the key differences in more depth and determine the service that best meets your project needs.",
+    answer: (
+      <>
+        To help you choose the service that best fits you and your lifestyle, there are a few key
+        factors to consider—your available time, the size and scope of the project, your budget,
+        and how hands-on you’d like to be.
+        <br />
+        <br />
+        If you’re short on time, you’re not located where the project is, or you simply want
+        everything ready when you arrive without having to manage a thing, then our{" "}
+        <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          Full-Service Interior Design
+        </a>{" "}
+        is the ideal fit.
+        <br />
+        <br />
+        If, on the other hand, you do have the time, prefer to execute your project in phases,
+        you’re local, and you mainly need professional direction to bring your ideas into focus,
+        then our{" "}
+        <a
+          href="/services/virtual-design/"
+          style={{ fontWeight: 600, textDecoration: "underline" }}
+        >
+          Virtual Interior Design
+        </a>{" "}
+        is perfect for you.
+      </>
+    ),
   },
   {
     question: "How much do your design services cost?",
-    answer:
-      "Fees vary by scope. We start with a consultation to define your needs, then share a tailored proposal with a flat design fee and estimated furnishings budget.",
+    answer: (
+      <>
+        Our fees vary depending on the scope of the project, the size of the spaces, and each
+        client’s specific needs. We invite you to{" "}
+        <a href="/questionnaire/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          complete our questionnaire
+        </a>{" "}
+        to schedule a consultation—this helps us understand your project and prepare a personalized
+        proposal, including a fixed design fee and an estimated furniture/investment budget, with
+        no obligation.
+      </>
+    ),
   },
   {
     question: "Can I see examples of your past work?",
     answer: (
       <>
-        In a range of styles while all embracing the Siamo Design aesthetic, our design
-        portfolio showcases our recent projects and provides endless inspiration:{" "}
-        <a href="/portfolio">View Our Portfolio</a>
+        Yes. Our portfolio features a selection of recent projects across different styles, since
+        each design is based on each client’s tastes, needs, and lifestyle. While all projects
+        carry the essence of Siamo Design, every one is unique and created to fit the client.
+        Our portfolio is meant to inspire you and help you imagine what we can create together.
+        <br />
+        <br />
+        <a href="/portfolio" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          View Portfolio
+        </a>
       </>
     ),
   },
@@ -155,8 +196,21 @@ const faqs = [
   },
   {
     question: "What interior design styles do you specialize in?",
-    answer:
-      "We have garnered a reputation for beautifully balanced spaces that feel both refreshingly modern and endlessly classic. The signature Siamo Design style is warm, thoughtful, and inviting. We have designed homes with traditional details and vintage pieces, and homes with sleek lines and organic materials, all while weaving our signature style throughout. Our talented team of design professionals tailor their work to the needs of each client, taking into account how they’ll live within the space, and whether the home is a new build or a renovation. We also work to matchmake, aligning each design team to a client’s unique aesthetic and lifestyle.",
+    answer: (
+      <>
+        We’ve built our reputation by creating beautifully balanced spaces that feel both fresh and
+        timeless. Siamo Design’s signature style is warm, intentional, and welcoming—grounded in
+        the integration of natural materials, curated pieces, and layered textures.
+        <br />
+        <br />
+        We’ve designed homes with traditional details and vintage finds, as well as spaces defined
+        by clean lines and organic materials—always weaving our essence into every project.
+        <br />
+        <br />
+        Our team tailors each design to the client’s needs, tastes, and lifestyle, with the goal of
+        creating spaces that bring a sense of well-being and harmony to everyday life.
+      </>
+    ),
   },
 ];
 
@@ -314,8 +368,20 @@ export default function ServicesPage() {
           <div className="services-hero__scrim" />
           <div className="services-hero__content">
             <h1 className={`services-hero__title ${playfairFont.className}`}>Services</h1>
-            <p className={`services-hero__lead ${playfairFont.className}`}>
-              Siamo Design offers full-service interior design and virtual interior design services. We combine thoughtful materials and layered textures to create spaces that support well-being. Based in the Riviera Maya, we design relaxed, refined interiors for local residential projects and for clients worldwide—turning every space into a true home.
+            <p
+              className={`services-hero__lead services-hero__lead--desktop ${playfairFont.className}`}
+            >
+              Siamo Design offers full-service interior design and virtual interior design services.
+              We combine thoughtful materials and layered textures to create spaces that support
+              well-being. Based in the Riviera Maya, we design relaxed, refined interiors for local
+              residential projects and for clients worldwide—turning every space into a true home.
+            </p>
+            <p
+              className={`services-hero__lead services-hero__lead--mobile ${playfairFont.className}`}
+            >
+              Siamo Design offers full-service and virtual interior design. We create warm, refined
+              homes with thoughtful materials and layered textures—based in the Riviera Maya,
+              working locally and worldwide.
             </p>
           </div>
         </section>
