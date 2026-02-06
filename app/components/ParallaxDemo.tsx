@@ -214,13 +214,19 @@ function TestimonialReel({
   quotes = [],
   varsStyle = {},
   posters = [],
+  initialIndex = 0,
 }: {
   videos?: string[];
   quotes?: { quote: string; author?: string }[];
   varsStyle?: any;
   posters?: string[];
+  initialIndex?: number;
 }) {
-  const [idx, setIdx] = useState(0);
+  const safeInitialIndex = Math.min(
+    Math.max(initialIndex ?? 0, 0),
+    Math.max(0, videos.length - 1)
+  );
+  const [idx, setIdx] = useState(() => safeInitialIndex);
   const n = Math.max(1, videos.length || 0);
   const prevIdx = (idx - 1 + n) % n;
   const nextIdx = (idx + 1) % n;
@@ -241,6 +247,10 @@ function TestimonialReel({
     return `${src.slice(0, lastDot)}-thumb.webp`;
   };
   const currentPoster = getPosterForIndex(idx);
+
+  useEffect(() => {
+    setIdx(safeInitialIndex);
+  }, [safeInitialIndex]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -571,6 +581,21 @@ export default function ParallaxDemo({
   bgUrlMobile = "/assets/soul-in-concrete/master-bedroom-4.webp",
   useDesktopHeroOnMobile = false,
   initialIsMobile = null,
+  navAboutLabel = "GET TO KNOW US",
+  navServicesLabel = "SERVICES",
+  navPortfolioLabel = "PORTFOLIO",
+  navAboutHref = "/get-to-know-us",
+  navServicesHref = "/services",
+  navPortfolioHref = "/portfolio",
+  navMenuLabel = "MENU",
+  navCloseLabel = "CLOSE",
+  navLanguageLabel = "ESPAÑOL",
+  navLanguageShort = "ES",
+  navLanguageHref = "/es/",
+  ctaLabel = "LET'S TALK",
+  ctaAriaLabel = "Let's talk",
+  ctaHref = "/questionnaire/",
+  heroSubline = "Warm, timeless spaces designed for modern living and vacation rentals.",
   heroOverlay = 30,
   heroOverlayMobile = 30,
   title = "Designing your dream space \njust became a reality",
@@ -595,14 +620,21 @@ export default function ParallaxDemo({
   aboutHeightPx = 6100,
   aboutHeightPxMobile = 2900,
   scrollEase = 0.07,
-  wwdTitleX = 470,
+  wwdTitleX = 525,
   wwdTitleY = -700,
   wwdTitleXMobile = 8,
   wwdTitleYMobile = -900,
-  wwdTextX = 470,
+  wwdTextX = 525,
   wwdTextY = -450,
   wwdTextXMobile = 8,
   wwdTextYMobile = -400,
+  wwdEyebrow = "WHAT WE DO",
+  wwdIntro = "At Siamo Design, we craft sanctuaries: modern, restorative, unmistakably yours.",
+  wwdCtaServicesLabel = "our services",
+  wwdCtaProjectsLabel = "projects",
+  wwdCtaWatchLabel = "watch the latest",
+  wwdCtaServicesHref = navServicesHref,
+  wwdCtaProjectsHref = navPortfolioHref,
   wwdLeadFs = 18,
   wwdLeadFsMobile = 24,
   wwdLeadMaxWMobile = 280,
@@ -616,6 +648,7 @@ export default function ParallaxDemo({
   projectsTextX = 18,
   projectsTextY = 100,
   projectsTextYMobile = 159,
+  projectsHeadline = "We start with who you are and design a space that feels like you.",
   projectsGridGap = 1,
   projectsGridGapMobile = 1,
   projectsGridX = 20,
@@ -760,6 +793,7 @@ export default function ParallaxDemo({
   aboutCaptionGap = 202,
   /* === ABOUT CTA (line-from-guide button above video) === */
   aboutCtaLabel = "get to know us",
+  aboutCtaHref = navAboutHref,
   aboutCtaX = 16,
   aboutCtaY = 1030,
   aboutCtaUnderlineW = 175,
@@ -878,7 +912,21 @@ export default function ParallaxDemo({
   testiHlineY = 0,
   testiHlineXMobile = 0,
   testiHlineYMobile = -790,
+  testiTitle = "HEAR FROM OUR CUSTOMERS",
+  testiInitialIndex = 0,
   followHandle = "@siamo_design",
+  followLabel = "Follow",
+  mobileCtaLabel = "Have a project in mind?",
+  footerServicesLabel = "Services",
+  footerPortfolioLabel = "Portfolio",
+  footerAboutLabel = "About",
+  footerEmailLabel = "Email",
+  footerWhatsappLabel = "WhatsApp",
+  footerServicesHref = navServicesHref,
+  footerPortfolioHref = navPortfolioHref,
+  footerAboutHref = navAboutHref,
+  footerEmailHref = "mailto:hello@siamodesign.com",
+  footerWhatsappHref = "https://wa.me/529842111989",
   followX = 0,
   followY = 140,
   followGap = 0,
@@ -920,6 +968,21 @@ export default function ParallaxDemo({
   bgUrlMobile?: string;
   useDesktopHeroOnMobile?: boolean;
   initialIsMobile?: boolean | null;
+  navAboutLabel?: string;
+  navServicesLabel?: string;
+  navPortfolioLabel?: string;
+  navAboutHref?: string;
+  navServicesHref?: string;
+  navPortfolioHref?: string;
+  navMenuLabel?: string;
+  navCloseLabel?: string;
+  navLanguageLabel?: string;
+  navLanguageShort?: string;
+  navLanguageHref?: string;
+  ctaLabel?: string;
+  ctaAriaLabel?: string;
+  ctaHref?: string;
+  heroSubline?: string;
   heroOverlay?: number;
   heroOverlayMobile?: number;
   title?: string;
@@ -952,6 +1015,13 @@ export default function ParallaxDemo({
   wwdTextY?: number;  // knob: px offset Y for lead paragraph
   wwdTextXMobile?: number; // MOBILE override for X (falls back to 0px if unset)
   wwdTextYMobile?: number; // MOBILE override for Y (falls back to 0px if unset)
+  wwdEyebrow?: string;
+  wwdIntro?: string;
+  wwdCtaServicesLabel?: string;
+  wwdCtaProjectsLabel?: string;
+  wwdCtaWatchLabel?: string;
+  wwdCtaServicesHref?: string;
+  wwdCtaProjectsHref?: string;
   wwdLeadFs?: number;        // knob: px font-size for WWD lead paragraph (desktop)
   wwdLeadFsMobile?: number;  // knob: px font-size for WWD lead paragraph (mobile override)
   wwdLeadMaxWMobile?: number;  // knob: px max-width for WWD lead paragraph on mobile
@@ -965,6 +1035,7 @@ export default function ParallaxDemo({
   projectsTextX?: number;   // knob: px horizontal offset for PROJECTS paragraph
   projectsTextY?: number;   // knob: px vertical offset for PROJECTS paragraph
   projectsTextYMobile?: number; // knob: px vertical offset for PROJECTS paragraph (mobile-only)
+  projectsHeadline?: string;
   projectsBandBg?: string;
   projectsBandPadY?: number;
   projectsBandPadYMobile?: number;
@@ -1123,6 +1194,7 @@ export default function ParallaxDemo({
   aboutCaptionGap?: number;
   /* About CTA knobs */
   aboutCtaLabel?: string;
+  aboutCtaHref?: string;
   aboutCtaX?: number;
   aboutCtaY?: number;
   aboutCtaUnderlineW?: number;
@@ -1227,7 +1299,21 @@ export default function ParallaxDemo({
   testiHlineY?: number;
   testiHlineXMobile?: number;
   testiHlineYMobile?: number;
+  testiTitle?: string;
+  testiInitialIndex?: number;
   followHandle?: string;
+  followLabel?: string;
+  mobileCtaLabel?: string;
+  footerServicesLabel?: string;
+  footerPortfolioLabel?: string;
+  footerAboutLabel?: string;
+  footerEmailLabel?: string;
+  footerWhatsappLabel?: string;
+  footerServicesHref?: string;
+  footerPortfolioHref?: string;
+  footerAboutHref?: string;
+  footerEmailHref?: string;
+  footerWhatsappHref?: string;
   followX?: number;
   followY?: number;
   followGap?: number;
@@ -1936,12 +2022,12 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
   const renderFooterExplore = () => (
     <div className="footer-explore" aria-label="Explore and social">
       <nav className="explore" aria-label="Explore">
-        <Link href="/services">Services</Link>
-        <Link href="/portfolio">Portfolio</Link>
-        <Link href="/get-to-know-us">About</Link>
-        <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
-        <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
-          WhatsApp
+        <Link href={footerServicesHref}>{footerServicesLabel}</Link>
+        <Link href={footerPortfolioHref}>{footerPortfolioLabel}</Link>
+        <Link href={footerAboutHref}>{footerAboutLabel}</Link>
+        <a href={footerEmailHref} aria-label="Email us">{footerEmailLabel}</a>
+        <a href={footerWhatsappHref} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+          {footerWhatsappLabel}
         </a>
       </nav>
       <div className="social" aria-label="Social profiles">
@@ -2018,12 +2104,12 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen(v => !v)}
           >
-            <span className="label">{menuOpen ? 'CLOSE' : 'MENU'}</span>
+            <span className="label">{menuOpen ? navCloseLabel : navMenuLabel}</span>
           </button>
           <ul className="nav-left" role="list">
-            <li><a className="nav-link" href="/get-to-know-us">GET TO KNOW US</a></li>
-            <li><Link className="nav-link" href="/services">SERVICES</Link></li>
-            <li><a className="nav-link" href="/portfolio">PORTFOLIO</a></li>
+            <li><a className="nav-link" href={navAboutHref}>{navAboutLabel}</a></li>
+            <li><Link className="nav-link" href={navServicesHref}>{navServicesLabel}</Link></li>
+            <li><a className="nav-link" href={navPortfolioHref}>{navPortfolioLabel}</a></li>
           </ul>
 
           <a href="/" className="brand-mark" aria-label="Siamo Design">
@@ -2038,13 +2124,13 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
           </a>
 
           <div className="nav-right">
-            <a className="nav-link nav-lang" href="/es/">
-              <span className="lang-dsk">ESPAÑOL</span>
-              <span className="lang-mbl">ES</span>
+            <a className="nav-link nav-lang" href={navLanguageHref}>
+              <span className="lang-dsk">{navLanguageLabel}</span>
+              <span className="lang-mbl">{navLanguageShort}</span>
             </a>
             <QuestionnaireCtaLink
               className={`cta nav-cta${navSolid ? " is-visible" : ""}`}
-              href="/questionnaire/"
+              href={ctaHref}
               aria-hidden={!navSolid}
               tabIndex={navSolid ? 0 : -1}
               style={{
@@ -2052,7 +2138,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 ['--nav-cta-ink' as any]: navSolid ? "#111111" : navCtaInk,
               }}
             >
-              GET STARTED <span aria-hidden="true">→</span>
+              {ctaLabel} <span aria-hidden="true">→</span>
             </QuestionnaireCtaLink>
           </div>
         </div>
@@ -2087,7 +2173,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 aria-label="Close menu"
                 onClick={() => setMenuOpen(false)}
               >
-                CLOSE
+                {navCloseLabel}
               </button>
               <a className="m-brand" href="/">
                 <Image
@@ -2101,11 +2187,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
               </a>
             </div>
             <nav className="m-nav" aria-label="Mobile menu">
-              <a className="m-link" href="/get-to-know-us" onClick={() => setMenuOpen(false)}>GET TO KNOW US</a>
-              <Link className="m-link" href="/services" onClick={() => setMenuOpen(false)}>SERVICES</Link>
-              <a className="m-link" href="/portfolio" onClick={() => setMenuOpen(false)}>PORTFOLIO</a>
+              <a className="m-link" href={navAboutHref} onClick={() => setMenuOpen(false)}>{navAboutLabel}</a>
+              <Link className="m-link" href={navServicesHref} onClick={() => setMenuOpen(false)}>{navServicesLabel}</Link>
+              <a className="m-link" href={navPortfolioHref} onClick={() => setMenuOpen(false)}>{navPortfolioLabel}</a>
             </nav>
-            <div className="m-follow-label">Follow</div>
+            <div className="m-follow-label">{followLabel}</div>
 	            <div
 	              className="m-social"
 	              aria-label="Redes sociales"
@@ -2179,9 +2265,9 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 </svg>
               </a>
             </div>
-            <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
-            <QuestionnaireCtaLink className="m-cta" href="/questionnaire/">
-              GET STARTED <span aria-hidden="true">→</span>
+            <p className={`m-cta-label ${playfairFont.className}`}>{mobileCtaLabel}</p>
+            <QuestionnaireCtaLink className="m-cta" href={ctaHref}>
+              {ctaLabel} <span aria-hidden="true">→</span>
             </QuestionnaireCtaLink>
           </div>
         </div>
@@ -2271,12 +2357,12 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 </h1>
 
                 <p className={`subline ${isFinished ? "is-visible" : "is-hidden"}`}>
-                  Warm, timeless spaces designed for modern living and vacation rentals.
+                  {heroSubline}
                 </p>
                 <QuestionnaireCtaLink
                   className={`hero-cta ${isFinished ? "is-visible" : "is-hidden"}`}
-                  href="/questionnaire/"
-                  aria-label="Get started"
+                  href={ctaHref}
+                  aria-label={ctaAriaLabel}
                   aria-hidden={!isFinished}
                   tabIndex={isFinished ? 0 : -1}
                   style={
@@ -2288,7 +2374,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                       : undefined
                   }
                 >
-                  GET STARTED <span aria-hidden="true">→</span>
+                  {ctaLabel} <span aria-hidden="true">→</span>
                 </QuestionnaireCtaLink>
               </div>
             </header>
@@ -2506,25 +2592,25 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                   </Link>
                 </h3>
                 <p className={`eyebrow wwd-intro-eyebrow${wwdIntroVisible ? " is-visible" : ""}`}>
-                  WHAT WE DO
+                  {wwdEyebrow}
                 </p>
 
                 <p
                   ref={wwdIntroRef}
                   className={`lead wwd-lead wwd-intro-text${wwdIntroVisible ? " is-visible" : ""}`}
                 >
-                  At Siamo Design, we craft sanctuaries: modern, restorative, unmistakably yours.
+                  {wwdIntro}
                 </p>
 
                 <WwdTriptych />
                 <div className="wwd-guides-descriptions" aria-hidden="false">
                   <p className="g-desc col1">{wwdDesc1}</p>
-                  <Link className="g-cta col1" href="/services">
-                    <span className="cta-label">our services</span>
+                  <Link className="g-cta col1" href={wwdCtaServicesHref}>
+                    <span className="cta-label">{wwdCtaServicesLabel}</span>
                   </Link>
                   <p className="g-eyebrow col1">
-                    <Link href="/portfolio" aria-label="View portfolio">
-                      projects
+                    <Link href={wwdCtaProjectsHref} aria-label="View portfolio">
+                      {wwdCtaProjectsLabel}
                     </Link>
                   </p>
                   <div
@@ -2579,11 +2665,11 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     rel="noopener noreferrer"
                     aria-label="Open Siamo Design on YouTube"
                   >
-                    <span className="cta-label">watch the latest</span>
+                    <span className="cta-label">{wwdCtaWatchLabel}</span>
                   </a>
                   <a
                     className="g-cta col2 about-cta-mobile"
-                    href="/get-to-know-us"
+                    href={aboutCtaHref}
                     aria-label="Get to know us"
                     style={{
                       ['--about-cta-x' as any]: `${aboutCtaX}px`,
@@ -2628,7 +2714,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     aria-label="Projects section"
                   >
                     <h2 className="projects-headline lead">
-                      We start with who you are and design a space that feels like you.
+                      {projectsHeadline}
                     </h2>
                   </section>
 
@@ -2706,7 +2792,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
 	                    ['--about-title-gap' as any]: `${aboutTitleGap}px`,
 	                  }}
 	                >
-	                  <Link href="/get-to-know-us" aria-label="Get to know us">
+                  <Link href={aboutCtaHref} aria-label="Get to know us">
 	                    {aboutTitle}
 	                  </Link>
 	                </h3>
@@ -2725,7 +2811,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 </p>
                 <a
                   className="about-cta desktop-only"
-                  href="/get-to-know-us"
+                  href={aboutCtaHref}
                   aria-label="Get to know us"
                   style={{
                     ['--about-cta-x' as any]: `${aboutCtaX}px`,
@@ -2813,7 +2899,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                 >
                   <div className="testi-block">
                     <h2 className="lead testi-title" aria-label="Hear from our customers">
-                      HEAR FROM OUR CUSTOMERS
+                      {testiTitle}
                     </h2>
                     <p className="testi-subtitle" aria-label="Client testimonials intro">
                       IN THEIR WORDS
@@ -2824,6 +2910,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                       "/assets/videos/capitulo1.mp4",
                       "/assets/videos/capitulo2.mp4",
                     ]}
+                    initialIndex={testiInitialIndex}
                     posters={[
                       "/assets/videos/testimonials-thumb.webp",
                       "/assets/videos/capitulo1-thumb.jpg",
@@ -2916,7 +3003,7 @@ const lines = normalizedTitle.split("\n").map(l => l.replace(/hom$/i, "home"));
                     ['--follow-title-y-m' as any]: `${followTitleYMobile}px`,
                   }}
                   >
-                    <span className="follow-label">Follow</span>
+                    <span className="follow-label">{followLabel}</span>
                     <a
                       className="follow-handle"
                       href={`https://www.instagram.com/${(followHandle || '').replace(/^@/, '') || 'siamo_design'}`}

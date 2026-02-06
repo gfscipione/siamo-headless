@@ -35,7 +35,7 @@ export default function PortfolioNav({
   const portfolioLabel = labels?.portfolio ?? "PORTFOLIO";
   const langDesktopLabel = labels?.langDesktop ?? "ESPAÑOL";
   const langMobileLabel = labels?.langMobile ?? "ES";
-  const ctaLabel = labels?.cta ?? "GET STARTED";
+  const ctaLabel = labels?.cta ?? "LET'S TALK";
 
   useEffect(() => {
     // Keep it simple: listen only to the viewport scroll.
