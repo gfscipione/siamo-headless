@@ -10,6 +10,10 @@ type PortfolioNavProps = {
   isHero?: boolean; // allow hero contrast (e.g., services) without affecting other pages
   variant?: "default" | "services" | "gtku";
   langHref?: string;
+  getToKnowUsHref?: string;
+  servicesHref?: string;
+  portfolioHref?: string;
+  ctaHref?: string;
   labels?: {
     getToKnowUs?: string;
     services?: string;
@@ -17,6 +21,9 @@ type PortfolioNavProps = {
     langDesktop?: string;
     langMobile?: string;
     cta?: string;
+    menuOpen?: string;
+    menuClose?: string;
+    follow?: string;
   };
 };
 
@@ -25,6 +32,10 @@ export default function PortfolioNav({
   isHero = false,
   variant = "default",
   langHref = "/es/",
+  getToKnowUsHref = "/get-to-know-us",
+  servicesHref = "/services",
+  portfolioHref = "/portfolio",
+  ctaHref = "/questionnaire/",
   labels,
 }: PortfolioNavProps) {
   const [navSolid, setNavSolid] = useState(false);
@@ -36,6 +47,9 @@ export default function PortfolioNav({
   const langDesktopLabel = labels?.langDesktop ?? "ESPAÑOL";
   const langMobileLabel = labels?.langMobile ?? "ES";
   const ctaLabel = labels?.cta ?? "LET'S TALK";
+  const menuOpenLabel = labels?.menuOpen ?? "MENU";
+  const menuCloseLabel = labels?.menuClose ?? "CLOSE";
+  const followLabel = labels?.follow ?? "Follow";
 
   useEffect(() => {
     // Keep it simple: listen only to the viewport scroll.
@@ -96,12 +110,12 @@ export default function PortfolioNav({
           aria-controls="mobile-menu"
           onClick={() => setMenuOpen((v) => !v)}
         >
-          <span className="label">{menuOpen ? "CLOSE" : "MENU"}</span>
+          <span className="label">{menuOpen ? menuCloseLabel : menuOpenLabel}</span>
         </button>
         <ul className="nav-left" role="list">
-          <li><a className="nav-link" href="/get-to-know-us">{getToKnowUsLabel}</a></li>
-          <li><a className="nav-link" href="/services">{servicesLabel}</a></li>
-          <li><a className="nav-link" href="/portfolio">{portfolioLabel}</a></li>
+          <li><a className="nav-link" href={getToKnowUsHref}>{getToKnowUsLabel}</a></li>
+          <li><a className="nav-link" href={servicesHref}>{servicesLabel}</a></li>
+          <li><a className="nav-link" href={portfolioHref}>{portfolioLabel}</a></li>
         </ul>
 
         <a href="/" className="brand-mark" aria-label="Siamo Design">
@@ -120,7 +134,7 @@ export default function PortfolioNav({
             <span className="lang-dsk">{langDesktopLabel}</span>
             <span className="lang-mbl">{langMobileLabel}</span>
           </a>
-          <QuestionnaireCtaLink className="cta nav-cta is-visible" href="/questionnaire/">
+          <QuestionnaireCtaLink className="cta nav-cta is-visible" href={ctaHref}>
             {ctaLabel} <span aria-hidden="true">→</span>
           </QuestionnaireCtaLink>
         </div>
@@ -157,7 +171,7 @@ export default function PortfolioNav({
               aria-label="Close menu"
               onClick={() => setMenuOpen(false)}
             >
-              CLOSE
+              {menuCloseLabel}
             </button>
             <a className="m-brand" href="/">
               <Image
@@ -171,11 +185,11 @@ export default function PortfolioNav({
             </a>
           </div>
           <nav className="m-nav" aria-label="Mobile menu">
-            <a className="m-link" href="/get-to-know-us">{getToKnowUsLabel}</a>
-            <a className="m-link" href="/services">{servicesLabel}</a>
-            <a className="m-link" href="/portfolio">{portfolioLabel}</a>
+            <a className="m-link" href={getToKnowUsHref}>{getToKnowUsLabel}</a>
+            <a className="m-link" href={servicesHref}>{servicesLabel}</a>
+            <a className="m-link" href={portfolioHref}>{portfolioLabel}</a>
           </nav>
-          <div className="m-follow-label">Follow</div>
+          <div className="m-follow-label">{followLabel}</div>
           <div className="m-social" aria-label="Redes sociales">
             <a className="m-social__link" href="https://www.linkedin.com/company/siamo-design/" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" aria-hidden="true">

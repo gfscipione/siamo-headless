@@ -1,20 +1,20 @@
-import PortfolioNav from "../../components/PortfolioNav";
-import { playfairFont, poppinsFont } from "../../fonts";
-import AboutHeroVideo from "./video";
+import PortfolioNav from "../../../components/PortfolioNav";
+import { playfairFont, poppinsFont } from "../../../fonts";
+import AboutHeroVideo from "../../../(en)/get-to-know-us/video";
 import type { Metadata } from "next";
-import { getSiteUrl } from "../../lib/siteUrl";
-import DragScroll from "./DragScroll";
+import { getSiteUrl } from "../../../lib/siteUrl";
+import DragScroll from "../../../(en)/get-to-know-us/DragScroll";
 
-const TITLE = "Get to know us - Siamo Design";
+const TITLE = "Conocenos - Siamo Design";
 const DESCRIPTION =
-  "Who are we? Siamo Design was born from the initiative of Stephania Scipione and Krystle Torres, who observed that many people were dissatisfied with their homes despite having invested time and money in them.";
-const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/03/Diseno-sin-titulo-1.webp";
+  "¿Quiénes somos? Siamo Design nace de la iniciativa de Stephania Scipione y Krystle Torres, quienes observaron que muchas personas se sentían insatisfechas con sus hogares a pesar de haber invertido tiempo y dinero en ellos.";
+const OG_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/03/Diseno-sin-titulo-1.webp";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: {
-    canonical: "/get-to-know-us/",
+    canonical: "/es/conocenos/",
     languages: {
       en: "/get-to-know-us/",
       es: "/es/conocenos/",
@@ -23,21 +23,24 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "article",
-    url: "/get-to-know-us/",
+    url: "/es/conocenos/",
     title: TITLE,
     description: DESCRIPTION,
     siteName: "Siamo Design",
-    locale: "en_US",
+    locale: "es_ES",
     images: [{ url: OG_IMAGE, width: 555, height: 630, type: "image/webp" }],
   },
   twitter: {
     card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
 };
 
-export default function GetToKnowUsPage() {
+export default function ConocenosPage() {
   const siteUrl = getSiteUrl();
-  const canonical = `${siteUrl}/get-to-know-us/`;
+  const canonical = `${siteUrl}/es/conocenos/`;
 
   const schemaGraph = {
     "@context": "https://schema.org",
@@ -54,12 +57,12 @@ export default function GetToKnowUsPage() {
         datePublished: "2024-03-19T15:56:34+00:00",
         dateModified: "2025-03-27T22:51:20+00:00",
         breadcrumb: { "@id": `${canonical}#breadcrumb` },
-        inLanguage: "en",
+        inLanguage: "es",
         potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
       },
       {
         "@type": "ImageObject",
-        inLanguage: "en",
+        inLanguage: "es",
         "@id": `${canonical}#primaryimage`,
         url: OG_IMAGE,
         contentUrl: OG_IMAGE,
@@ -70,8 +73,8 @@ export default function GetToKnowUsPage() {
         "@type": "BreadcrumbList",
         "@id": `${canonical}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Get to know us" },
+          { "@type": "ListItem", position: 1, name: "Inicio", item: `${siteUrl}/` },
+          { "@type": "ListItem", position: 2, name: "Conócenos" },
         ],
       },
       {
@@ -87,7 +90,7 @@ export default function GetToKnowUsPage() {
             "query-input": { "@type": "PropertyValueSpecification", valueRequired: true, valueName: "search_term_string" },
           },
         ],
-        inLanguage: "en",
+        inLanguage: "es",
       },
       {
         "@type": "Organization",
@@ -96,7 +99,7 @@ export default function GetToKnowUsPage() {
         url: `${siteUrl}/`,
         logo: {
           "@type": "ImageObject",
-          inLanguage: "en",
+          inLanguage: "es",
           "@id": `${siteUrl}/#/schema/logo/image/`,
           url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
           contentUrl: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
@@ -111,9 +114,9 @@ export default function GetToKnowUsPage() {
 
   const wwdItems = [
     {
-      title: "Full-Service Interior Design",
+      title: "Diseño de Interiores Llave en Mano",
       copy:
-        "We handle everything from start to finish: design, procurement, contractor coordination, deliveries and installation, through final styling. You simply arrive and live in it.",
+        "Nos encargamos de todo, de principio a fin: diseño, compras, coordinación de contratistas, entregas e instalación, hasta el styling final. Tú solo llegas a habitarlo.",
       icon: (
         <svg
           viewBox="0 0 24 24"
@@ -132,9 +135,9 @@ export default function GetToKnowUsPage() {
       ),
     },
     {
-      title: "Virtual Design (Remote)",
+      title: "Diseño Virtual a Distancia",
       copy:
-        "A remote service for anywhere in the world: we define the concept, select materials and furnishings, and deliver a clear plan for you to execute at your own pace.",
+        "Un servicio remoto para cualquier parte del mundo: definimos el concepto, seleccionamos materiales y mobiliario, y te entregamos un plan claro para ejecutarlo a tu ritmo.",
       icon: (
         <svg
           viewBox="0 0 24 24"
@@ -155,7 +158,7 @@ export default function GetToKnowUsPage() {
     {
       title: "Siamo Real Life",
       copy:
-        "We share the real behind-the-scenes of each project: the process, the decisions, and the transformation from start to finish.",
+        "Mostramos el detrás de cámaras real de cada proyecto: el proceso, las decisiones y la transformación, de inicio a final.",
       icon: (
         <svg
           viewBox="0 0 24 24"
@@ -178,37 +181,37 @@ export default function GetToKnowUsPage() {
   const journeyEntries = [
     {
       year: "2016",
-      title: "The Beginning",
+      title: "El comienzo",
       copy:
-        "It all started as Stephania Design. The idea took shape while Stephania was working at a stone and surface showroom, where she saw firsthand how many people approached finish selections with doubt and uncertainty. That experience sparked a clear purpose: to create interior design services that guide clients through every decision—so choosing materials and finishes feels confident, clear, and stress-free.",
+        "Todo comenzó como Stephania Design. La idea tomó forma cuando Stephania trabajaba en un showroom de piedra y superficies, donde vio de cerca cómo muchas personas elegían acabados con duda e incertidumbre. Esa experiencia definió un propósito claro: crear servicios de diseño interior que guiaran a los clientes en cada decisión para que elegir materiales y acabados se sienta seguro, claro y sin estrés.",
       image: "/assets/People/about-2.webp",
     },
     {
       year: "2018",
-      title: "Full Commitment",
+      title: "Compromiso total",
       copy:
-        "That year, Stephania committed fully to Stephania Design. Projects focused primarily on remodels, finish and material selections, and personalized interior design consultations—helping clients make confident decisions and bring their spaces together with clarity and style.",
+        "Ese año, Stephania se dedicó por completo a Stephania Design. Los proyectos se enfocaban principalmente en remodelaciones, selección de materiales y acabados, y asesorías personalizadas de diseño interior—ayudando a los clientes a tomar decisiones seguras y a integrar sus espacios con claridad y estilo.",
       image: "/assets/People/about-3.webp",
     },
     {
       year: "2020",
-      title: "Team Growth",
+      title: "Crecimiento del equipo",
       copy:
-        "Krystle joined the team to bring a stronger focus on decoration and interior styling—adding a refined, detail-driven perspective that elevated the creative direction of each space and strengthened the brand’s signature look.",
+        "Krystle se unió al equipo para fortalecer el enfoque en decoración y styling interior—sumando una mirada refinada y detallista que elevó la dirección creativa de cada espacio y consolidó el sello de la marca.",
       image: "/assets/People/about-4.webp",
     },
     {
       year: "2022",
-      title: "Siamo Design Is Born",
+      title: "Nace Siamo Design",
       copy:
-        "We refined our focus around full-scope residential projects and took a major step forward: we rebranded as Siamo Design—a name that reflects a clearer, more mature vision and a brand identity fully aligned with the elevated interior design services we set out to build.",
+        "Refinamos nuestro enfoque en proyectos residenciales de alcance completo y dimos un gran paso: nos rebrandeamos como Siamo Design, un nombre que refleja una visión más clara y madura y una identidad alineada con los servicios de diseño interior que queríamos construir.",
       image: "/assets/People/about-6.webp",
     },
     {
       year: "2025",
       title: "Siamo Real Life",
       copy:
-        "We expanded our vision and launched our YouTube channel, Siamo Real Life, to share what happens behind every project—our process, the decisions, the challenges, and the real-life side of design from concept to completion.",
+        "Expandimos nuestra visión y lanzamos nuestro canal de YouTube, Siamo Real Life, para compartir lo que pasa detrás de cada proyecto: el proceso, las decisiones, los retos y el lado real del diseño desde el concepto hasta la entrega.",
       image: "/assets/People/about-5.webp",
     },
   ];
@@ -241,29 +244,44 @@ export default function GetToKnowUsPage() {
         }}
         isHero
         variant="gtku"
-        langHref="/es/conocenos/"
+        langHref="/get-to-know-us/"
+        getToKnowUsHref="/es/conocenos/"
+        servicesHref="/es/servicios/"
+        portfolioHref="/es/portafolio/"
+        ctaHref="/es/cuestionario/"
+        labels={{
+          getToKnowUs: "CONÓCENOS",
+          services: "SERVICIOS",
+          portfolio: "PORTAFOLIO",
+          langDesktop: "ENGLISH",
+          langMobile: "EN",
+          cta: "AGENDAR CONSULTA",
+          menuOpen: "MENÚ",
+          menuClose: "CERRAR",
+          follow: "Síguenos",
+        }}
       />
 
       <main className="about-hero-page overscroll-safe">
-        <section className="about-hero" aria-label="About hero">
+        <section className="about-hero" aria-label="Sobre el estudio">
           <div className="about-hero__content">
-            <h1 className={`about-hero__title ${playfairFont.className}`}>About</h1>
+            <h1 className={`about-hero__title ${playfairFont.className}`}>Conócenos</h1>
           </div>
           <div className="about-hero__media">
-            <AboutHeroVideo src="/assets/videos/about.mp4" ariaLabel="About Siamo Design" />
+            <AboutHeroVideo src="/assets/videos/about.mp4" ariaLabel="Siamo Design" />
           </div>
         </section>
 
-        <section className="about-story" aria-label="About Siamo story">
+        <section className="about-story" aria-label="Historia de Siamo">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Siamo Design is a multi-disciplinary interior design studio creating warm, timeless spaces that feel both classic and current.
+            Siamo Design es un estudio de diseño interior multidisciplinario que crea espacios cálidos y atemporales, con un estilo que se siente a la vez clásico y actual.
           </h2>
 
           <div className="about-story__grid">
             <div className="about-story__media">
               <AboutHeroVideo
                 src="/assets/People/about-1.mp4"
-                ariaLabel="About Siamo Design video"
+                ariaLabel="Video sobre Siamo Design"
                 className="about-story__media-video"
                 preload="none"
                 poster="/assets/People/about-1-thumb.png"
@@ -271,35 +289,35 @@ export default function GetToKnowUsPage() {
             </div>
             <div className="about-story__body">
               <h3 className={`about-story__title ${playfairFont.className}`}>
-                Our mission is to create interiors that elevate the way you live.
+                Nuestra misión es crear interiores que eleven tu forma de vivir.
               </h3>
               <p className={poppinsFont.className}>
-                At Siamo Design, we believe a space isn’t just something you see—it’s something you feel. Because you live in it every day—eating, resting, and unwinding—your environment has a direct impact on your well-being and how you experience life. Our purpose is to bring awareness to that influence and turn it into thoughtful, livable interiors through intentional interior design services.
+                En Siamo Design creemos que un espacio no es solo algo que ves: es algo que sientes. Y como lo habitas todos los días —comes, descansas y desconectas— tu entorno influye directamente en tu bienestar y en cómo experimentas la vida. Nuestro propósito es hacer consciente ese impacto y convertirlo en interiores pensados para vivirse, a través de servicios de diseño interior intencionales.
               </p>
               <p className={poppinsFont.className}>
-                Co-founders Stephania Scipione and Krystle Torres noticed that furnishing and decorating a home often becomes stressful and uncertain. That’s why we created a clear, guided process—so working with our interior designers feels smooth, organized, and genuinely enjoyable from start to finish.
+                Las cofundadoras, Stephania Scipione y Krystle Torres, notaron que amueblar y decorar un hogar suele volverse estresante e incierto. Por eso creamos un proceso claro y guiado: para que trabajar con nuestras diseñadoras se sienta fluido, organizado y genuinamente disfrutable de principio a fin.
               </p>
               <h3
                 className={`about-story__title about-story__title--spaced ${playfairFont.className}`}
               >
-                What does Siamo Design mean?
+                ¿Qué significa Siamo Design?
               </h3>
               <p className={poppinsFont.className}>
-                “Siamo Design” means “We are design.” To us, every person is design in their own way—your tastes, style, colors, and forms that make you feel most at home. That insight is the foundation of our work, and the starting point of every project.
+                “Siamo Design” significa “Somos diseño”. Para nosotras, cada persona es diseño a su manera: tus gustos, tu estilo, tus colores y esas formas que te hacen sentir en casa. Esa idea es la base de nuestro trabajo y el punto de partida de cada proyecto.
               </p>
               <p className={poppinsFont.className}>
-                That’s why we see each project as an opportunity to transform a space into a true home—balancing beauty and function through thoughtful materials, layered textures, and a strong sense of sensitivity to how you live.
+                Por eso vemos cada proyecto como una oportunidad de transformar un espacio en un verdadero hogar: equilibrando belleza y funcionalidad mediante materiales bien elegidos, texturas en capas y una sensibilidad real hacia tu forma de vivir.
               </p>
               <p className={poppinsFont.className}>
-                We guide our clients through the full journey—from the first concept to the final installation—refining every detail so the end result feels authentic, elevated, and unmistakably yours.
+                Acompañamos a nuestros clientes durante todo el recorrido —desde el primer concepto hasta la instalación final— afinando cada detalle para que el resultado se sienta auténtico, elevado y completamente tuyo.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="about-wwd" aria-label="What we do">
+        <section className="about-wwd" aria-label="Lo que hacemos">
           <div className="about-wwd__inner">
-            <h2 className={`about-wwd__title ${playfairFont.className}`}>What We Do</h2>
+            <h2 className={`about-wwd__title ${playfairFont.className}`}>Lo Que Hacemos</h2>
             <div className="about-wwd__grid">
               {wwdItems.map((item) => (
                 <article className="about-wwd__item" key={item.title}>
@@ -312,10 +330,10 @@ export default function GetToKnowUsPage() {
           </div>
         </section>
 
-        <section className="about-journey-placeholder" aria-label="Upcoming timeline section">
+        <section className="about-journey-placeholder" aria-label="Línea de tiempo">
           <div className="about-journey-placeholder__inner">
             <h2 className={`about-journey__title ${playfairFont.className}`}>Siamo Design</h2>
-            <p className={`about-journey__subtitle ${playfairFont.className}`}>Through The Years</p>
+            <p className={`about-journey__subtitle ${playfairFont.className}`}>A través de los años</p>
             <DragScroll className="about-journey__grid" aria-label="Timeline">
               {journeyEntries.map((entry) => (
                 <article className="about-journey__item" key={entry.image}>
@@ -338,16 +356,16 @@ export default function GetToKnowUsPage() {
           </div>
         </section>
 
-        <section className="about-cta" aria-label="Explore design services">
+        <section className="about-cta" aria-label="Explorar servicios">
           <div className="about-cta__inner">
             <div className="about-cta__text">
               <h3 className={`about-cta__headline ${playfairFont.className}`}>
-                Have a project in mind?<br />Explore Our Design Services
+                ¿Tienes un proyecto en mente?<br />Conoce nuestros servicios de diseño
               </h3>
             </div>
-            <a className="about-cta__btn" href="/services">Find out more</a>
+            <a className="about-cta__btn" href="/es/servicios/">Conoce más</a>
             <div className="about-cta__media">
-              <img src="/assets/img/post5.jpeg" alt="Dining room styled by Siamo Design" loading="lazy" />
+              <img src="/assets/img/post5.jpeg" alt="Comedor diseñado por Siamo Design" loading="lazy" />
             </div>
           </div>
         </section>
@@ -394,17 +412,17 @@ export default function GetToKnowUsPage() {
               </ul>
             </section>
 
-            <div className="footer-explore" aria-label="Explore and social">
-              <nav className="explore" aria-label="Explore">
-                <a href="/services">Services</a>
-                <a href="/portfolio">Portfolio</a>
-                <a href="/get-to-know-us">About</a>
-                <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
-                <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+            <div className="footer-explore" aria-label="Explorar y redes">
+              <nav className="explore" aria-label="Explorar">
+                <a href="/es/servicios/">Servicios</a>
+                <a href="/es/portafolio/">Portafolio</a>
+                <a href="/es/conocenos/">Conócenos</a>
+                <a href="mailto:hello@siamodesign.com" aria-label="Escríbenos">Correo</a>
+                <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat en WhatsApp">
                   WhatsApp
                 </a>
               </nav>
-              <div className="social" aria-label="Social profiles">
+              <div className="social" aria-label="Redes sociales">
                 <a className="social__link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
@@ -431,7 +449,7 @@ export default function GetToKnowUsPage() {
               </div>
             </div>
 
-          <div className="footer-legal" aria-label="Legal information">
+          <div className="footer-legal" aria-label="Legal">
             <p className="legal-line">
               <span className="legal-full">Siamo Design | Interior Design Studio</span>
             </p>
