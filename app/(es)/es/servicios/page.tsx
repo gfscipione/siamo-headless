@@ -392,11 +392,10 @@ export default function ServicesPage() {
             <p
               className={`services-hero__lead services-hero__lead--desktop ${playfairFont.className}`}
             >
-              Siamo Design ofrece servicios de diseño interior llave en mano y diseño interior
-              virtual. Combinamos materiales pensados y texturas en capas para crear espacios que
-              favorecen el bienestar. Con base en la Riviera Maya, diseñamos interiores relajados y
-              refinados tanto para proyectos residenciales locales como para clientes en todo el
-              mundo, convirtiendo cada espacio en un verdadero hogar.
+              Siamo Design ofrece diseño de interiores llave en mano y diseño interior virtual.
+              Combinamos materiales bien elegidos y texturas en capas para crear espacios cálidos y
+              atemporales. Desde la Riviera Maya, trabajamos con clientes locales y en cualquier
+              parte del mundo.
             </p>
             <p
               className={`services-hero__lead services-hero__lead--mobile ${playfairFont.className}`}
