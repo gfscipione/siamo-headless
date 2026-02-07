@@ -1,11 +1,11 @@
-import ProjectPage from "../components/ProjectPage";
+import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 import type { Metadata } from "next";
-import { getSiteUrl } from "../../../lib/siteUrl";
+import { getSiteUrl } from "../../../../lib/siteUrl";
 
-const canonicalPath = "/portfolio/soul-in-concrete/";
+const canonicalPath = "/es/portafolio/soul-in-concrete/";
 const TITLE = "Soul in Concrete - Siamo Design";
 const DESCRIPTION =
-  "Brutalist warmth with sculpted concrete volumes, softened by layered textiles and organic light in Tulum.";
+  "Proyecto de interiorismo en Tulum con concreto aparente, textiles cálidos y luz orgánica que equilibran fuerza brutalista y calidez.";
 const OG_IMAGE_PATH = "/assets/soul-in-concrete/master-bedroom-3.webp";
 
 export const metadata: Metadata = {
@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: canonicalPath,
     languages: {
-      en: canonicalPath,
-      es: "/es/portafolio/soul-in-concrete/",
-      "x-default": canonicalPath,
+      en: "/portfolio/soul-in-concrete/",
+      es: canonicalPath,
+      "x-default": "/portfolio/soul-in-concrete/",
     },
   },
   openGraph: {
     type: "article",
-    locale: "en_US",
+    locale: "es_ES",
     title: TITLE,
     description: DESCRIPTION,
     url: canonicalPath,
@@ -36,9 +36,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SoulInConcretePage() {
+export default function SoulInConcretePageEs() {
   const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}${canonicalPath}`;
+  const esRoot = `${siteUrl}/es/`;
   const primaryImageUrl = `${siteUrl}${OG_IMAGE_PATH}`;
 
   const schemaGraph = {
@@ -49,17 +50,17 @@ export default function SoulInConcretePage() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
-        isPartOf: { "@id": `${siteUrl}/#website` },
+        isPartOf: { "@id": `${esRoot}#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
         thumbnailUrl: primaryImageUrl,
         breadcrumb: { "@id": `${canonical}#breadcrumb` },
-        inLanguage: "en",
+        inLanguage: "es",
         potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
       },
       {
         "@type": "ImageObject",
-        inLanguage: "en",
+        inLanguage: "es",
         "@id": `${canonical}#primaryimage`,
         url: primaryImageUrl,
         contentUrl: primaryImageUrl,
@@ -68,21 +69,22 @@ export default function SoulInConcretePage() {
         "@type": "BreadcrumbList",
         "@id": `${canonical}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Portfolio", item: `${siteUrl}/portfolio/` },
+          { "@type": "ListItem", position: 1, name: "Portada", item: esRoot },
+          { "@type": "ListItem", position: 2, name: "Portafolio", item: `${esRoot}portafolio/` },
           { "@type": "ListItem", position: 3, name: "Soul in Concrete" },
         ],
       },
       {
         "@type": "WebSite",
-        "@id": `${siteUrl}/#website`,
-        url: `${siteUrl}/`,
+        "@id": `${esRoot}#website`,
+        url: esRoot,
         name: "Siamo Design",
-        publisher: { "@id": `${siteUrl}/#organization` },
+        description: "",
+        publisher: { "@id": `${esRoot}#organization` },
         potentialAction: [
           {
             "@type": "SearchAction",
-            target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
+            target: { "@type": "EntryPoint", urlTemplate: `${esRoot}?s={search_term_string}` },
             "query-input": {
               "@type": "PropertyValueSpecification",
               valueRequired: true,
@@ -90,17 +92,17 @@ export default function SoulInConcretePage() {
             },
           },
         ],
-        inLanguage: "en",
+        inLanguage: "es",
       },
       {
         "@type": "Organization",
-        "@id": `${siteUrl}/#organization`,
+        "@id": `${esRoot}#organization`,
         name: "Siamo Design",
-        url: `${siteUrl}/`,
+        url: esRoot,
         logo: {
           "@type": "ImageObject",
-          inLanguage: "en",
-          "@id": `${siteUrl}/#/schema/logo/image/`,
+          inLanguage: "es",
+          "@id": `${esRoot}#/schema/logo/image/`,
           url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
           contentUrl:
             "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
@@ -108,10 +110,11 @@ export default function SoulInConcretePage() {
           height: 167,
           caption: "Siamo Design",
         },
-        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
+        image: { "@id": `${esRoot}#/schema/logo/image/` },
       },
     ],
   };
+
   const styleVars = {
     ["--nav-col-gap" as any]: "0px",
     ["--nav-inner-maxw" as any]: "1700px",
@@ -134,78 +137,78 @@ export default function SoulInConcretePage() {
   };
 
   const contents = [
-    "Living Room",
-    "Master Suite",
-    "Guest Suite",
-    "Terraces",
+    "Sala",
+    "Suite principal",
+    "Suite de invitados",
+    "Terrazas",
   ];
 
   const sections = [
     {
-      title: "Living Room",
+      title: "Sala",
       mainImage: {
         src: "/assets/soul-in-concrete/living-room-6.webp",
-        alt: "Living room wrapped in concrete with layered textures",
+        alt: "Sala envuelta en concreto con texturas en capas",
       },
       isSquare: true,
       duoImages: [
-        { src: "/assets/soul-in-concrete/living-room-4.webp", alt: "Living room corner with organic seating" },
-        { src: "/assets/soul-in-concrete/living-room-3.webp", alt: "Living room vignette with sculptural lighting" },
+        { src: "/assets/soul-in-concrete/living-room-4.webp", alt: "Rincón de la sala con asientos orgánicos" },
+        { src: "/assets/soul-in-concrete/living-room-3.webp", alt: "Viñeta de sala con iluminación escultórica" },
       ],
       secondaryImage: {
         src: "/assets/soul-in-concrete/living-room-1.webp",
-        alt: "Alternate living room perspective with warm light",
+        alt: "Vista alterna de la sala con luz cálida",
         isSquare: true,
       },
     },
     {
-      title: "Master Suite",
+      title: "Suite principal",
       mainImage: {
         src: "/assets/soul-in-concrete/master-bedroom-4.webp",
-        alt: "Master bedroom with soft bedding against concrete planes",
+        alt: "Recámara principal con textiles suaves frente al concreto",
       },
       isSquare: true,
       duoImages: [
-        { src: "/assets/soul-in-concrete/master-bedroom-4.webp", alt: "Bedside detail with warm sconces" },
-        { src: "/assets/soul-in-concrete/master-bedroom-1.webp", alt: "Master bedroom angle with layered linens" },
+        { src: "/assets/soul-in-concrete/master-bedroom-4.webp", alt: "Detalle de buró con apliques cálidos" },
+        { src: "/assets/soul-in-concrete/master-bedroom-1.webp", alt: "Ángulo de la recámara principal con textiles en capas" },
       ],
       secondaryImage: {
         src: "/assets/soul-in-concrete/master-bedroom-3.webp",
-        alt: "Master bedroom seating nook",
+        alt: "Rincón de lectura en la recámara principal",
         isSquare: true,
       },
     },
     {
-      title: "Guest Suite",
+      title: "Suite de invitados",
       mainImage: {
         src: "/assets/soul-in-concrete/guest-bedroom-2.webp",
-        alt: "Guest bedroom with tonal bedding and concrete walls",
+        alt: "Recámara de invitados con textiles tonales y concreto expuesto",
       },
       isSquare: true,
       duoImages: [
-        { src: "/assets/soul-in-concrete/guest-bedroom-3.webp", alt: "Guest bedroom bedside detail" },
-        { src: "/assets/soul-in-concrete/guest-bedroom-4.webp", alt: "Guest bedroom angle with art" },
+        { src: "/assets/soul-in-concrete/guest-bedroom-3.webp", alt: "Detalle de buró en la recámara de invitados" },
+        { src: "/assets/soul-in-concrete/guest-bedroom-4.webp", alt: "Ángulo de la recámara de invitados con arte" },
       ],
       secondaryImage: {
         src: "/assets/soul-in-concrete/guest-bedroom-1.webp",
-        alt: "Guest bedroom alternate view with bench",
+        alt: "Vista alterna de la recámara de invitados con banca",
         isSquare: true,
       },
     },
     {
-      title: "Terraces",
+      title: "Terrazas",
       mainImage: {
         src: "/assets/soul-in-concrete/terrace-1.webp",
-        alt: "Terrace with concrete seating and greenery",
+        alt: "Terraza con asientos de concreto y vegetación",
       },
       isSquare: true,
       duoImages: [
-        { src: "/assets/soul-in-concrete/terrace-3.webp", alt: "Terrace lounge moment" },
-        { src: "/assets/soul-in-concrete/terrace-2.webp", alt: "Terrace dining scene at sunset" },
+        { src: "/assets/soul-in-concrete/terrace-3.webp", alt: "Momento lounge en la terraza" },
+        { src: "/assets/soul-in-concrete/terrace-2.webp", alt: "Comedor exterior al atardecer" },
       ],
       secondaryImage: {
         src: "/assets/soul-in-concrete/terrace-4.webp",
-        alt: "Terrace corner with sculptural planters",
+        alt: "Rincón de terraza con macetas escultóricas",
         isSquare: true,
       },
     },
@@ -215,32 +218,32 @@ export default function SoulInConcretePage() {
     {
       title: "Timeless Nature",
       location: "Puerto Morelos",
-      summary: "A timeless blend of natural elements and contemporary design.",
+      summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
       href: "/portfolio/timeless-nature",
     },
     {
       title: "Roots Tulum",
       location: "Tulum",
-      summary: "A timeless expression of pure, natural materials.",
+      summary: "Una expresión atemporal de materiales puros y naturales.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
       href: "/portfolio/roots-tulum",
     },
     {
       title: "Mid-Century Waves",
       location: "Akumal",
-      summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
+      summary: "Un refugio sereno y textural con tonos cálidos y calma costera.",
       image: "/assets/mid-century-waves/terrace-1.jpg",
       href: "/portfolio/mid-century-waves",
     },
   ];
 
   const socialItems = [
-    { image: "/assets/soul-in-concrete/living-room-7.webp", text: "Layered seating in sculpted concrete." },
-    { image: "/assets/soul-in-concrete/master-bedroom-1.webp", text: "Soft textures warming the master suite." },
-    { image: "/assets/soul-in-concrete/guest-bedroom-2.webp", text: "Guest room calm in tonal neutrals." },
-    { image: "/assets/soul-in-concrete/terrace-2.webp", text: "Outdoor living framed by concrete planes." },
-    { image: "/assets/soul-in-concrete/living-room-2.webp", text: "Brutalist lines balanced with light." },
+    { image: "/assets/soul-in-concrete/living-room-7.webp", text: "Asientos en capas sobre concreto esculpido." },
+    { image: "/assets/soul-in-concrete/master-bedroom-1.webp", text: "Texturas suaves que calientan la suite principal." },
+    { image: "/assets/soul-in-concrete/guest-bedroom-2.webp", text: "Calma de invitados en neutros tonales." },
+    { image: "/assets/soul-in-concrete/terrace-2.webp", text: "Vida exterior enmarcada por planos de concreto." },
+    { image: "/assets/soul-in-concrete/living-room-2.webp", text: "Líneas brutalistas equilibradas con luz." },
   ];
 
   return (
@@ -253,7 +256,45 @@ export default function SoulInConcretePage() {
       <ProjectPage
         title="Soul in Concrete"
         styleVars={styleVars}
-        navLangHref="/es/portafolio/soul-in-concrete/"
+        navLangHref="/portfolio/soul-in-concrete/"
+        navLabels={{
+          getToKnowUs: "CONÓCENOS",
+          services: "SERVICIOS",
+          portfolio: "PORTAFOLIO",
+          langDesktop: "ENGLISH",
+          langMobile: "EN",
+          cta: "AGENDAR CONSULTA",
+        }}
+        metaLabels={{
+          location: "Ubicación",
+          workWithUs: "Trabaja con nosotros",
+          bookConsultation: "Agendar consulta",
+        }}
+        sectionLabels={{
+          contentsTitleRight: "Contenido",
+          featuredProjects: "Proyectos destacados",
+          follow: "Síguenos",
+        }}
+        footerNavLabels={{
+          services: "Servicios",
+          portfolio: "Portafolio",
+          about: "Conócenos",
+          email: "Email",
+          whatsapp: "WhatsApp",
+        }}
+        footerLegal={{
+          line1: "Siamo Design | Estudio de Diseño de Interiores",
+          line2: "© 2025 Siamo Design. Todos los derechos reservados.",
+          sig: (
+            <a
+              href="https://donebyelevator.com/website-redesign-service"
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+            >
+              Diseñado y construido por Elevator
+            </a>
+          ),
+        }}
         hero={{
           backgroundImage: "/assets/soul-in-concrete/master-bedroom-3.webp",
           titleSize: "64px",
@@ -266,11 +307,11 @@ export default function SoulInConcretePage() {
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/questionnaire/",
+          workLinkHref: "/es/cuestionario/",
           shareLinks: [
-            { label: "Facebook", href: "#", aria: "Share on Facebook" },
-            { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
-            { label: "Email", href: "#", aria: "Share via Email" },
+            { label: "Facebook", href: "#", aria: "Compartir en Facebook" },
+            { label: "Pinterest", href: "#", aria: "Compartir en Pinterest" },
+            { label: "Email", href: "#", aria: "Compartir por email" },
           ],
         }}
         sections={sections}

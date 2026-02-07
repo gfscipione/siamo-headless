@@ -30,11 +30,11 @@ const projects: Project[] = [
     href: "/es/portafolio/mayan-sanctuary",
   },
   {
-    title: "Timeless Nature",
+    title: "Naturaleza Atemporal",
     location: "Puerto Morelos",
     summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
     image: "/assets/timeless-nature/living-room-19.jpg",
-    href: "/es/portafolio/timeless-nature",
+    href: "/es/portafolio/naturaleza-atemporal",
   },
   {
     title: "Soul in Concrete",

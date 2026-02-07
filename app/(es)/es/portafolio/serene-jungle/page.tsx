@@ -1,11 +1,11 @@
-import ProjectPage from "../components/ProjectPage";
+import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 import type { Metadata } from "next";
-import { getSiteUrl } from "../../../lib/siteUrl";
+import { getSiteUrl } from "../../../../lib/siteUrl";
 
-const canonicalPath = "/portfolio/serene-jungle/";
+const canonicalPath = "/es/portafolio/serene-jungle/";
 const TITLE = "Serene Jungle - Siamo Design";
 const DESCRIPTION =
-  "Soft, airy interiors nestled in the jungle canopy with warm woods, natural light, and a calm Riviera Maya palette.";
+  "Interiores suaves y luminosos, enmarcados por la selva, con maderas cálidas, luz natural y una paleta serena de la Riviera Maya.";
 const OG_IMAGE_PATH = "/assets/serene-jungle/terrace-2.webp";
 
 export const metadata: Metadata = {
@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: canonicalPath,
     languages: {
-      en: canonicalPath,
-      es: "/es/portafolio/serene-jungle/",
-      "x-default": canonicalPath,
+      en: "/portfolio/serene-jungle/",
+      es: canonicalPath,
+      "x-default": "/portfolio/serene-jungle/",
     },
   },
   openGraph: {
     type: "article",
-    locale: "en_US",
+    locale: "es_ES",
     title: TITLE,
     description: DESCRIPTION,
     url: canonicalPath,
@@ -36,9 +36,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SereneJunglePage() {
+export default function SereneJungleEsPage() {
   const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}${canonicalPath}`;
+  const esRoot = `${siteUrl}/es/`;
   const primaryImageUrl = `${siteUrl}${OG_IMAGE_PATH}`;
 
   const schemaGraph = {
@@ -49,17 +50,17 @@ export default function SereneJunglePage() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
-        isPartOf: { "@id": `${siteUrl}/#website` },
+        isPartOf: { "@id": `${esRoot}#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
         thumbnailUrl: primaryImageUrl,
         breadcrumb: { "@id": `${canonical}#breadcrumb` },
-        inLanguage: "en",
+        inLanguage: "es",
         potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
       },
       {
         "@type": "ImageObject",
-        inLanguage: "en",
+        inLanguage: "es",
         "@id": `${canonical}#primaryimage`,
         url: primaryImageUrl,
         contentUrl: primaryImageUrl,
@@ -68,21 +69,22 @@ export default function SereneJunglePage() {
         "@type": "BreadcrumbList",
         "@id": `${canonical}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Portfolio", item: `${siteUrl}/portfolio/` },
+          { "@type": "ListItem", position: 1, name: "Portada", item: esRoot },
+          { "@type": "ListItem", position: 2, name: "Portafolio", item: `${esRoot}portafolio/` },
           { "@type": "ListItem", position: 3, name: "Serene Jungle" },
         ],
       },
       {
         "@type": "WebSite",
-        "@id": `${siteUrl}/#website`,
-        url: `${siteUrl}/`,
+        "@id": `${esRoot}#website`,
+        url: esRoot,
         name: "Siamo Design",
-        publisher: { "@id": `${siteUrl}/#organization` },
+        description: "",
+        publisher: { "@id": `${esRoot}#organization` },
         potentialAction: [
           {
             "@type": "SearchAction",
-            target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
+            target: { "@type": "EntryPoint", urlTemplate: `${esRoot}?s={search_term_string}` },
             "query-input": {
               "@type": "PropertyValueSpecification",
               valueRequired: true,
@@ -90,17 +92,17 @@ export default function SereneJunglePage() {
             },
           },
         ],
-        inLanguage: "en",
+        inLanguage: "es",
       },
       {
         "@type": "Organization",
-        "@id": `${siteUrl}/#organization`,
+        "@id": `${esRoot}#organization`,
         name: "Siamo Design",
-        url: `${siteUrl}/`,
+        url: esRoot,
         logo: {
           "@type": "ImageObject",
-          inLanguage: "en",
-          "@id": `${siteUrl}/#/schema/logo/image/`,
+          inLanguage: "es",
+          "@id": `${esRoot}#/schema/logo/image/`,
           url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
           contentUrl:
             "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
@@ -108,10 +110,11 @@ export default function SereneJunglePage() {
           height: 167,
           caption: "Siamo Design",
         },
-        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
+        image: { "@id": `${esRoot}#/schema/logo/image/` },
       },
     ],
   };
+
   const styleVars = {
     ["--nav-col-gap" as any]: "0px",
     ["--nav-inner-maxw" as any]: "1700px",
@@ -134,96 +137,96 @@ export default function SereneJunglePage() {
   };
 
   const contents = [
-    "Living Room",
-    "Kitchen",
-    "Master Suite",
-    "Guest Suite",
-    "Terrace",
+    "Sala",
+    "Cocina",
+    "Suite principal",
+    "Suite de invitados",
+    "Terraza",
   ];
 
   const sections = [
     {
-      title: "Living Room",
+      title: "Sala",
       mainImage: {
         src: "/assets/serene-jungle/living-room-2.webp",
-        alt: "Living room with soft seating and jungle views",
+        alt: "Sala con asientos suaves y vista a la selva",
       },
       isSquare: true,
       duoImages: [
-        { src: "/assets/serene-jungle/living-room-1.webp", alt: "Living room corner with natural light" },
-        { src: "/assets/serene-jungle/living-room-5.webp", alt: "Living room vignette with greenery" },
+        { src: "/assets/serene-jungle/living-room-1.webp", alt: "Rincón de la sala con luz natural" },
+        { src: "/assets/serene-jungle/living-room-5.webp", alt: "Viñeta de la sala con vegetación" },
       ],
       secondaryImage: {
         src: "/assets/serene-jungle/living-room-3.webp",
-        alt: "Alternate lounge perspective with woven textures",
+        alt: "Vista alterna con texturas tejidas",
         isSquare: true,
       },
     },
     {
-      title: "Kitchen",
+      title: "Cocina",
       mainImage: {
         src: "/assets/serene-jungle/kitchen-1.webp",
-        alt: "Kitchen with warm wood cabinetry and stone tops",
+        alt: "Cocina con maderas cálidas y cubiertas de piedra",
       },
       isSquare: true,
       secondaryImage: {
         src: "/assets/serene-jungle/kitchen-2.webp",
-        alt: "Kitchen island with seating",
+        alt: "Isla de cocina con asientos",
         isSquare: true,
       },
       extraImages: [
         {
           src: "/assets/serene-jungle/kitchen-3.webp",
-          alt: "Kitchen shelving with ceramics",
+          alt: "Repisas de cocina con cerámica",
           isSquare: true,
         },
       ],
     },
     {
-      title: "Master Suite",
+      title: "Suite principal",
       mainImage: {
         src: "/assets/serene-jungle/master-room-1.webp",
-        alt: "Master suite with layered linens and soft light",
+        alt: "Suite principal con textiles en capas y luz suave",
       },
       isSquare: true,
       extraImages: [
         {
           src: "/assets/serene-jungle/master-room-2.webp",
-          alt: "Master suite bedside detail",
+          alt: "Detalle de buró en la suite principal",
           isSquare: true,
         },
       ],
     },
     {
-      title: "Guest Suite",
+      title: "Suite de invitados",
       mainImage: {
         src: "/assets/serene-jungle/guest-room-3.webp",
-        alt: "Guest suite with layered linens and soft light",
+        alt: "Suite de invitados con textiles en capas y luz suave",
       },
       isSquare: true,
       secondaryImage: {
         src: "/assets/serene-jungle/guest-room-4.webp",
-        alt: "Calm seating nook with jungle view",
+        alt: "Rincón sereno con vista a la selva",
         isSquare: true,
       },
       extraImages: [
         {
           src: "/assets/serene-jungle/guest-room-1.webp",
-          alt: "Guest suite seating corner",
+          alt: "Rincón de asientos en la suite de invitados",
           isSquare: true,
         },
       ],
     },
     {
-      title: "Terrace",
+      title: "Terraza",
       mainImage: {
         src: "/assets/serene-jungle/terrace-1.webp",
-        alt: "Terrace with woven seating and jungle backdrop",
+        alt: "Terraza con asientos tejidos y selva al fondo",
       },
       isSquare: true,
       secondaryImage: {
         src: "/assets/serene-jungle/terrace-2.webp",
-        alt: "Alternate terrace angle with greenery",
+        alt: "Vista alterna de la terraza con vegetación",
         isSquare: true,
       },
     },
@@ -233,32 +236,32 @@ export default function SereneJunglePage() {
     {
       title: "Mayan Sanctuary",
       location: "Tulum",
-      summary: "A serene retreat weaving local craft, limestone, and lush greenery into a calm sanctuary.",
+      summary: "Un refugio sereno que integra artesanía local, piedra caliza y vegetación exuberante.",
       image: "/assets/mayan-sanctuary/lounge-terrace-3.webp",
       href: "/portfolio/mayan-sanctuary",
     },
     {
       title: "Soul in Concrete",
       location: "Tulum",
-      summary: "Brutalist warmth with sculpted concrete volumes and soft, textural layers.",
+      summary: "Calidez brutalista con volúmenes de concreto esculpidos y capas suaves y texturales.",
       image: "/assets/soul-in-concrete/master-bedroom-4.webp",
       href: "/portfolio/soul-in-concrete",
     },
     {
       title: "Timeless Nature",
       location: "Puerto Morelos",
-      summary: "A timeless blend of natural elements and contemporary design.",
+      summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
       href: "/portfolio/timeless-nature",
     },
   ];
 
   const socialItems = [
-    { image: "/assets/serene-jungle/living-room-1.jpg", text: "Sunlit lounge framed by the jungle." },
-    { image: "/assets/serene-jungle/kitchen-1.jpg", text: "Open shelving with crafted ceramics." },
-    { image: "/assets/serene-jungle/guest-room-1.jpg", text: "Guest suite calm with woven texture." },
-    { image: "/assets/serene-jungle/living-room-2.jpg", text: "Soft seating facing greenery." },
-    { image: "/assets/serene-jungle/guest-room-4.jpg", text: "Bedside detail with warm light." },
+    { image: "/assets/serene-jungle/living-room-1.jpg", text: "Sala iluminada por el sol enmarcada por la selva." },
+    { image: "/assets/serene-jungle/kitchen-1.jpg", text: "Repisas abiertas con cerámica artesanal." },
+    { image: "/assets/serene-jungle/guest-room-1.jpg", text: "Calma en la suite de invitados con texturas tejidas." },
+    { image: "/assets/serene-jungle/living-room-2.jpg", text: "Asientos suaves frente a la vegetación." },
+    { image: "/assets/serene-jungle/guest-room-4.jpg", text: "Detalle de buró con luz cálida." },
   ];
 
   return (
@@ -271,7 +274,45 @@ export default function SereneJunglePage() {
       <ProjectPage
         title="Serene Jungle"
         styleVars={styleVars}
-        navLangHref="/es/portafolio/serene-jungle/"
+        navLangHref="/portfolio/serene-jungle/"
+        navLabels={{
+          getToKnowUs: "CONÓCENOS",
+          services: "SERVICIOS",
+          portfolio: "PORTAFOLIO",
+          langDesktop: "ENGLISH",
+          langMobile: "EN",
+          cta: "AGENDAR CONSULTA",
+        }}
+        metaLabels={{
+          location: "Ubicación",
+          workWithUs: "Trabaja con nosotros",
+          bookConsultation: "Agendar consulta",
+        }}
+        sectionLabels={{
+          contentsTitleRight: "Contenido",
+          featuredProjects: "Proyectos destacados",
+          follow: "Síguenos",
+        }}
+        footerNavLabels={{
+          services: "Servicios",
+          portfolio: "Portafolio",
+          about: "Conócenos",
+          email: "Email",
+          whatsapp: "WhatsApp",
+        }}
+        footerLegal={{
+          line1: "Siamo Design | Estudio de Diseño de Interiores",
+          line2: "© 2025 Siamo Design. Todos los derechos reservados.",
+          sig: (
+            <a
+              href="https://donebyelevator.com/website-redesign-service"
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+            >
+              Diseñado y construido por Elevator
+            </a>
+          ),
+        }}
         hero={{
           backgroundImage: "/assets/serene-jungle/terrace-2.webp",
           titleSize: "64px",
@@ -284,11 +325,11 @@ export default function SereneJunglePage() {
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/questionnaire/",
+          workLinkHref: "/es/cuestionario/",
           shareLinks: [
-            { label: "Facebook", href: "#", aria: "Share on Facebook" },
-            { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
-            { label: "Email", href: "#", aria: "Share via Email" },
+            { label: "Facebook", href: "#", aria: "Compartir en Facebook" },
+            { label: "Pinterest", href: "#", aria: "Compartir en Pinterest" },
+            { label: "Email", href: "#", aria: "Compartir por email" },
           ],
         }}
         sections={sections}
