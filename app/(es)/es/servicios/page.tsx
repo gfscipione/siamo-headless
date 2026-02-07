@@ -61,7 +61,7 @@ const services: Service[] = [
       "Llevamos tu proyecto de concepto a instalación, gestionando proveedores, tiempos, compras y cada detalle para entregarte un espacio elevado y listo para habitar.",
     image: "/assets/People/full-service.mp4",
     cta: "Conoce más",
-    href: "/services/full-service/",
+    href: "/es/servicios/diseno-llave-en-mano/",
     mediaType: "video",
     playbackThreshold: 1,
   },
@@ -142,7 +142,7 @@ const faqs = [
         <br />
         Si tienes poco tiempo, no estás en el lugar donde está el proyecto, o simplemente quieres
         que todo esté listo cuando llegues sin tener que gestionar nada, entonces nuestro{" "}
-        <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+        <a href="/es/servicios/diseno-llave-en-mano/" style={{ fontWeight: 600, textDecoration: "underline" }}>
           Diseño de Interiores Llave en Mano
         </a>{" "}
         es la opción ideal.

@@ -1,31 +1,39 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import PortfolioNav from "../../../components/PortfolioNav";
-import FaqAccordion from "../../../components/FaqAccordion";
-import HeroVideo from "../HeroVideo";
-import { playfairFont, poppinsFont } from "../../../fonts";
-import { getSiteUrl } from "../../../lib/siteUrl";
+import PortfolioNav from "../../../../components/PortfolioNav";
+import FaqAccordion from "../../../../components/FaqAccordion";
+import HeroVideo from "../../../../(en)/services/HeroVideo";
+import { playfairFont, poppinsFont } from "../../../../fonts";
+import { getSiteUrl } from "../../../../lib/siteUrl";
 
-const canonicalPath = "/services/full-service/";
-const yoastDescription =
-  "Our design and project execution service combines the creativity of design with the practical experience of execution, achieving the materialization of spaces that reflect your style and are functional in your daily life with the help of professionals in design and project execution.";
+const TITLE = "Diseño de Interiores Llave en Mano en Riviera Maya | Siamo Design";
+const DESCRIPTION =
+  "Servicio llave en mano en Tulum y Riviera Maya: diseño, compras, coordinación e instalación completa. Nosotros hacemos todo; tú solo te mudas.";
+const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png";
+const canonicalPath = "/es/servicios/diseno-llave-en-mano/";
 
 export const metadata: Metadata = {
-  title: { absolute: "Project Design and Execution - Siamo Design" },
-  description: yoastDescription,
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: canonicalPath,
+    languages: {
+      en: "/services/full-service/",
+      es: canonicalPath,
+      "x-default": "/services/full-service/",
+    },
   },
   openGraph: {
     type: "article",
-    locale: "en_US",
-    title: "Project Design and Execution - Siamo Design",
-    description: yoastDescription,
+    locale: "es_ES",
+    title: TITLE,
+    description: DESCRIPTION,
     url: canonicalPath,
+    siteName: "Siamo Design",
     images: [
       {
-        url: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
+        url: OG_IMAGE,
         width: 64,
         height: 64,
         type: "image/png",
@@ -34,12 +42,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
 };
 
 export default function FullServicePage() {
   const siteUrl = getSiteUrl();
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
+  const esRoot = `${siteUrl}/es/`;
 
   const schemaGraph = {
     "@context": "https://schema.org",
@@ -48,16 +60,16 @@ export default function FullServicePage() {
         "@type": "WebPage",
         "@id": canonicalUrl,
         url: canonicalUrl,
-        name: "Project Design and Execution - Siamo Design",
-        isPartOf: { "@id": `${siteUrl}/#website` },
+        name: TITLE,
+        isPartOf: { "@id": `${esRoot}#website` },
         primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
         image: { "@id": `${canonicalUrl}#primaryimage` },
-        thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
+        thumbnailUrl: OG_IMAGE,
         datePublished: "2025-04-23T23:56:03+00:00",
         dateModified: "2025-04-24T00:00:41+00:00",
-        description: yoastDescription,
+        description: DESCRIPTION,
         breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
-        inLanguage: "en",
+        inLanguage: "es",
         potentialAction: [
           {
             "@type": "ReadAction",
@@ -67,36 +79,36 @@ export default function FullServicePage() {
       },
       {
         "@type": "ImageObject",
-        inLanguage: "en",
+        inLanguage: "es",
         "@id": `${canonicalUrl}#primaryimage`,
-        url: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
-        contentUrl: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
+        url: OG_IMAGE,
+        contentUrl: OG_IMAGE,
         width: 64,
         height: 64,
-        caption: "Project Design and Execution",
+        caption: "Diseño de Interiores Llave en Mano",
       },
       {
         "@type": "BreadcrumbList",
         "@id": `${canonicalUrl}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl.replace(/\/$/, "")}/` },
-          { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl.replace(/\/$/, "")}/services/` },
-          { "@type": "ListItem", position: 3, name: "Project Design and Execution" },
+          { "@type": "ListItem", position: 1, name: "Inicio", item: esRoot },
+          { "@type": "ListItem", position: 2, name: "Servicios", item: `${esRoot}servicios/` },
+          { "@type": "ListItem", position: 3, name: "Diseño de Interiores Llave en Mano" },
         ],
       },
       {
         "@type": "WebSite",
-        "@id": `${siteUrl.replace(/\/$/, "")}/#website`,
-        url: `${siteUrl.replace(/\/$/, "")}/`,
+        "@id": `${esRoot}#website`,
+        url: esRoot,
         name: "Siamo Design",
         description: "",
-        publisher: { "@id": `${siteUrl.replace(/\/$/, "")}/#organization` },
+        publisher: { "@id": `${esRoot}#organization` },
         potentialAction: [
           {
             "@type": "SearchAction",
             target: {
               "@type": "EntryPoint",
-              urlTemplate: `${siteUrl.replace(/\/$/, "")}/?s={search_term_string}`,
+              urlTemplate: `${esRoot}?s={search_term_string}`,
             },
             "query-input": {
               "@type": "PropertyValueSpecification",
@@ -105,17 +117,17 @@ export default function FullServicePage() {
             },
           },
         ],
-        inLanguage: "en",
+        inLanguage: "es",
       },
       {
         "@type": "Organization",
-        "@id": `${siteUrl.replace(/\/$/, "")}/#organization`,
+        "@id": `${esRoot}#organization`,
         name: "Siamo Design",
-        url: `${siteUrl.replace(/\/$/, "")}/`,
+        url: esRoot,
         logo: {
           "@type": "ImageObject",
-          inLanguage: "en",
-          "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/`,
+          inLanguage: "es",
+          "@id": `${esRoot}#/schema/logo/image/`,
           url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
           contentUrl:
             "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
@@ -123,7 +135,7 @@ export default function FullServicePage() {
           height: 167,
           caption: "Siamo Design",
         },
-        image: { "@id": `${siteUrl.replace(/\/$/, "")}/#/schema/logo/image/` },
+        image: { "@id": `${esRoot}#/schema/logo/image/` },
       },
     ],
   };
@@ -152,18 +164,18 @@ export default function FullServicePage() {
 
   const benefits = [
     {
-      title: "Personalized Approach",
-      copy: "Custom design plans tailored to your unique style and preferences.",
+      title: "Enfoque Personalizado",
+      copy: "Planes de diseño a medida según tu estilo y preferencias.",
       icon: "bars",
     },
     {
-      title: "Seamless Experience",
-      copy: "End-to-end project management for a stress-free design journey.",
+      title: "Experiencia Sin Fricciones",
+      copy: "Gestión integral del proyecto para una experiencia de diseño sin estrés.",
       icon: "arrows",
     },
     {
-      title: "Expert Guidance",
-      copy: "Benefit from our extensive industry knowledge and expertise.",
+      title: "Guía Experta",
+      copy: "Aprovecha nuestro amplio conocimiento y experiencia en la industria.",
       icon: "bulb",
     },
   ];
@@ -171,133 +183,146 @@ export default function FullServicePage() {
   const deliverables = [
     {
       title: "Mood Board",
-      copy: "An important foundation! Your designer will curate a group of images, colors, and design elements to inspire the look and concept of your project.",
+      copy:
+        "Una base esencial. Tu diseñadora curará un conjunto de imágenes, colores y elementos de diseño para inspirar el look y el concepto de tu proyecto.",
       icon: "mood",
     },
     {
-      title: "3D Modeling",
-      copy: "See your space fully furnished and styled before making any purchases or starting fabrication. Through 3D modeling, our designers define every detail—selecting furniture based on your lifestyle, scale, color palette, and budget.",
+      title: "Modelado 3D",
+      copy:
+        "Visualiza tu espacio completamente amueblado y estilizado antes de comprar o fabricar. A través del modelado 3D, nuestras diseñadoras definen cada detalle: seleccionan mobiliario según tu estilo de vida, escala, paleta de color y presupuesto.",
       icon: "space",
     },
     {
-      title: "Shopping List with Links",
-      copy: "We’ll deliver a curated shopping list with direct links to each selected item, so you can implement it at your own pace.",
+      title: "Lista de compras con enlaces",
+      copy:
+        "Te entregaremos una lista de compras curada con enlaces directos a cada elemento seleccionado, para que puedas implementarla a tu ritmo.",
       icon: "leaf",
     },
     {
-      title: "Project Documentation",
-      copy: "The blueprint of your project. It includes technical drawings for fabrication, electrical, and installations—ensuring precise execution.",
+      title: "Documentación del Proyecto",
+      copy:
+        "El plano de tu proyecto. Incluye planos técnicos para fabricación, eléctrica e instalaciones, garantizando una ejecución precisa.",
       icon: "cabinet",
     },
     {
-      title: "Purchasing & Vendor Coordination",
-      copy: "Our team coordinates with vendors and warehouses to order, track, and resolve any issues related to your furniture and décor. You’ll have access to the status of every item.",
+      title: "Compras y Coordinación con Proveedores",
+      copy:
+        "Nuestro equipo coordina con proveedores y bodegas para ordenar, dar seguimiento y resolver cualquier incidencia relacionada con tu mobiliario y decoración. Tendrás acceso al estatus de cada artículo.",
       icon: "checklist",
     },
     {
-      title: "Project Management",
-      copy: "We handle every detail from start to finish to keep your project organized, on time, and on track.",
+      title: "Gestión del Proyecto",
+      copy:
+        "Nos encargamos de cada detalle de principio a fin para mantener tu proyecto organizado, en tiempo y en ruta.",
       icon: "calendar",
     },
     {
-      title: "Turnkey Installation",
-      copy: "A full-service experience that includes delivery, assembly, and placement of furniture in your home, following the design plan in detail for a seamless final reveal.",
+      title: "Instalación Llave en Mano",
+      copy:
+        "Una experiencia full-service que incluye entrega, armado y colocación del mobiliario en tu hogar, siguiendo el plan de diseño al detalle para un reveal final impecable.",
       icon: "key",
     },
     {
-      title: "Professional Photography",
-      copy: "A final photo shoot to document and showcase your finished project.",
+      title: "Fotografía Profesional",
+      copy: "Una sesión fotográfica final para documentar y mostrar tu proyecto terminado.",
       icon: "video",
     },
   ];
 
   const faqs = [
     {
-      question: "What is the difference between Full Service Interior Design and Virtual Interior Design?",
+      question:
+        "¿Cuál es la diferencia entre Diseño de Interiores Llave en Mano y Diseño de Interiores Virtual?",
       answer:
-        "Full Service Interior Design involves larger scale projects and include in-person consultations, comprehensive project management, site visits, furniture procurement, and hands-on installation. Virtual Interior Design offers a more flexible, remote approach for one space at a time to create custom design plans and shopping lists that can be implemented on your own as time and budget allow.",
+        "El Diseño de Interiores Llave en Mano implica proyectos de mayor escala e incluye consultas presenciales, gestión integral del proyecto, visitas al sitio, compra de mobiliario y una instalación completa. El Diseño de Interiores Virtual ofrece un enfoque más flexible y remoto, para un espacio a la vez, con planes de diseño personalizados y listas de compras que puedes implementar por tu cuenta según tu tiempo y presupuesto.",
     },
     {
-      question: "How do I know which service is right for me?",
+      question: "¿Cómo sé cuál servicio es el adecuado para mí?",
       answer: (
         <>
-          To help you choose the service that best fits you and your lifestyle, there are a few key
-          factors to consider—your available time, the size and scope of the project, your budget,
-          and how hands-on you’d like to be.
+          Para ayudarte a elegir el servicio que mejor se adapta a ti y a tu estilo de vida, hay
+          algunos factores clave a considerar: el tiempo que tienes disponible, el tamaño y alcance
+          del proyecto, tu presupuesto y qué tan involucrada/o quieres estar.
           <br />
           <br />
-          If you’re short on time, you’re not located where the project is, or you simply want
-          everything ready when you arrive without having to manage a thing, then our{" "}
-          <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            Full-Service Interior Design
+          Si tienes poco tiempo, no estás donde está el proyecto, o simplemente quieres que todo
+          esté listo cuando llegues sin tener que gestionar nada, entonces nuestro{" "}
+          <a
+            href="/es/servicios/diseno-llave-en-mano/"
+            style={{ fontWeight: 600, textDecoration: "underline" }}
+          >
+            Diseño de Interiores Llave en Mano
           </a>{" "}
-          is the ideal fit.
+          es la opción ideal.
           <br />
           <br />
-          If, on the other hand, you do have the time, prefer to execute your project in phases,
-          you’re local, and you mainly need professional direction to bring your ideas into focus,
-          then our{" "}
+          Si por el contrario sí tienes tiempo, prefieres ejecutar tu proyecto por etapas, estás
+          localmente y principalmente necesitas dirección profesional para enfocar tus ideas,
+          entonces nuestro{" "}
           <a
             href="/services/virtual-design/"
             style={{ fontWeight: 600, textDecoration: "underline" }}
           >
-            Virtual Interior Design
+            Diseño de Interiores Virtual
           </a>{" "}
-          is perfect for you.
+          es perfecto para ti.
         </>
       ),
     },
     {
-      question: "How much do your design services cost?",
+      question: "¿Cuánto cuestan sus servicios de diseño?",
       answer: (
         <>
-          Our fees vary depending on the scope of the project, the size of the spaces, and each
-          client’s specific needs. We invite you to{" "}
-          <a href="/questionnaire/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            complete our questionnaire
+          Nuestros honorarios varían según el alcance del proyecto, el tamaño de los espacios y las
+          necesidades específicas de cada cliente. Te invitamos a{" "}
+          <a href="/es/cuestionario/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+            completar nuestro cuestionario
           </a>{" "}
-          to schedule a consultation—this helps us understand your project and prepare a personalized
-          proposal, including a fixed design fee and an estimated furniture/investment budget, with
-          no obligation.
+          para agendar una consulta; esto nos ayuda a entender tu proyecto y preparar una propuesta
+          personalizada, incluyendo una tarifa fija de diseño y un presupuesto estimado de
+          mobiliario/inversión, sin compromiso.
         </>
       ),
     },
     {
-      question: "Can I see examples of your past work?",
+      question: "¿Puedo ver ejemplos de su trabajo anterior?",
       answer: (
         <>
-          Yes. Our portfolio features a selection of recent projects across different styles, since
-          each design is based on each client’s tastes, needs, and lifestyle. While all projects
-          carry the essence of Siamo Design, every one is unique and created to fit the client.
-          Our portfolio is meant to inspire you and help you imagine what we can create together.
+          Sí. Nuestro portafolio muestra una selección de proyectos recientes en distintos estilos,
+          ya que cada diseño se basa en los gustos, necesidades y estilo de vida de cada cliente.
+          Aunque todos los proyectos conservan la esencia de Siamo Design, cada uno es único y
+          creado para el cliente. Nuestro portafolio busca inspirarte y ayudarte a imaginar lo que
+          podemos crear juntos.
           <br />
           <br />
-          <a href="/portfolio" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            View Portfolio
+          <a href="/es/portafolio/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+            Ver Portafolio
           </a>
         </>
       ),
     },
     {
-      question: "Do you work with clients outside of your local area?",
+      question: "¿Trabajan con clientes fuera de su zona local?",
       answer:
-        "Yes. We serve clients both locally and remotely. For on-site projects, we travel as needed; for remote projects, our Virtual Interior Design service keeps everything coordinated from afar.",
+        "Sí. Atendemos clientes tanto locales como remotos. Para proyectos en sitio, viajamos cuando es necesario; para proyectos a distancia, nuestro servicio de Diseño de Interiores Virtual mantiene todo coordinado desde lejos.",
     },
     {
-      question: "What interior design styles do you specialize in?",
+      question: "¿En qué estilos de diseño de interiores se especializan?",
       answer: (
         <>
-          We’ve built our reputation by creating beautifully balanced spaces that feel both fresh and
-          timeless. Siamo Design’s signature style is warm, intentional, and welcoming—grounded in
-          the integration of natural materials, curated pieces, and layered textures.
+          Hemos construido nuestra reputación creando espacios equilibrados que se sienten frescos y
+          atemporales. El estilo distintivo de Siamo Design es cálido, intencional y acogedor,
+          basado en la integración de materiales naturales, piezas curadas y texturas en capas.
           <br />
           <br />
-          We’ve designed homes with traditional details and vintage finds, as well as spaces defined
-          by clean lines and organic materials—always weaving our essence into every project.
+          Hemos diseñado hogares con detalles tradicionales y hallazgos vintage, así como espacios
+          definidos por líneas limpias y materiales orgánicos, siempre integrando nuestra esencia en
+          cada proyecto.
           <br />
           <br />
-          Our team tailors each design to the client’s needs, tastes, and lifestyle, with the goal of
-          creating spaces that bring a sense of well-being and harmony to everyday life.
+          Nuestro equipo adapta cada diseño a las necesidades, gustos y estilo de vida del cliente,
+          con el objetivo de crear espacios que aporten bienestar y armonía a la vida diaria.
         </>
       ),
     },
@@ -306,21 +331,21 @@ export default function FullServicePage() {
     {
       title: "Timeless Nature",
       location: "Puerto Morelos",
-      summary: "A timeless blend of natural elements and contemporary design.",
+      summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
       href: "/portfolio/timeless-nature",
     },
     {
       title: "Roots Tulum",
       location: "Tulum",
-      summary: "A timeless expression of pure, natural materials.",
+      summary: "Una expresión atemporal de materiales puros y naturales.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
       href: "/portfolio/roots-tulum",
     },
     {
       title: "Mid-Century Waves",
       location: "Akumal",
-      summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
+      summary: "Un refugio sereno y textural en tonos cálidos.",
       image: "/assets/mid-century-waves/terrace-1.jpg",
       href: "/portfolio/mid-century-waves",
     },
@@ -333,12 +358,31 @@ export default function FullServicePage() {
         className="yoast-schema-graph"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
-      <PortfolioNav styleVars={styleVars} isHero langHref="/es/servicios/diseno-llave-en-mano/" />
+      <PortfolioNav
+        styleVars={styleVars}
+        isHero
+        langHref="/services/full-service/"
+        getToKnowUsHref="/es/conocenos/"
+        servicesHref="/es/servicios/"
+        portfolioHref="/es/portafolio/"
+        ctaHref="/es/cuestionario/"
+        labels={{
+          getToKnowUs: "CONÓCENOS",
+          services: "SERVICIOS",
+          portfolio: "PORTAFOLIO",
+          langDesktop: "ENGLISH",
+          langMobile: "EN",
+          cta: "AGENDAR CONSULTA",
+          menuOpen: "MENÚ",
+          menuClose: "CERRAR",
+          follow: "Síguenos",
+        }}
+      />
 
       <main className="services-page overscroll-safe about-hero-page">
         <section
           className="services-hero hero-virtual-compact"
-          aria-label="Full service hero"
+          aria-label="Hero de servicio llave en mano"
           style={{
             backgroundImage: "none",
             alignItems: "flex-start",
@@ -348,7 +392,7 @@ export default function FullServicePage() {
           }}
         >
           <div className="services-hero__content">
-            <section className="portfolio-hero-block" aria-label="Full service intro">
+            <section className="portfolio-hero-block" aria-label="Introducción de servicio llave en mano">
               <div
                 className="portfolio-crumb"
                 style={{
@@ -358,7 +402,7 @@ export default function FullServicePage() {
                   top: "-5rem",
                 }}
               >
-                <Link href="/">HOME</Link> • <Link href="/services">SERVICES</Link> • FULL-SERVICE INTERIOR DESIGN
+                <Link href="/es/">INICIO</Link> • <Link href="/es/servicios/">SERVICIOS</Link> • DISEÑO DE INTERIORES LLAVE EN MANO
               </div>
               <h1
                 className={`portfolio-hero-title fullservice-title ${playfairFont.className}`}
@@ -368,11 +412,11 @@ export default function FullServicePage() {
                   margin: "0 0 1.5rem",
                 }}
               >
-                Full-Service Interior Design
+                Diseño de Interiores Llave en Mano
               </h1>
               <div className="portfolio-filter-row">
                 <button className="portfolio-filter-btn">
-                  FILTER <span className="chevron">⌄</span>
+                  FILTRAR <span className="chevron">⌄</span>
                 </button>
               </div>
             </section>
@@ -392,61 +436,63 @@ export default function FullServicePage() {
           <div className="virtual-hero-image__scrim" aria-hidden="true" />
         </div>
 
-        <section className="about-story" aria-label="About Siamo story">
+        <section className="about-story" aria-label="Descripción del servicio">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Full-service interior design—handled from start to finish. We manage the design,
-            sourcing, ordering, and installation, so your home is ready to live in (or rent)
-            without the stress.
+            Diseño de interiores llave en mano de principio a fin. Gestionamos el diseño, la
+            selección, las compras y la instalación para que tu hogar esté listo para vivir (o
+            rentar) sin estrés.
           </h2>
         </section>
 
-        <section className="how-it-works" aria-label="How it works">
+        <section className="how-it-works" aria-label="Cómo funciona">
           <div className="how-it-works__inner">
-            <h2 className={`how-it-works__title ${playfairFont.className}`}>How it Works</h2>
+            <h2 className={`how-it-works__title ${playfairFont.className}`}>Cómo funciona</h2>
             <div className="how-it-works__grid">
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>1</div>
                 <div className={`how-step__label ${playfairFont.className}`}>
-                  Site Review
+                  Revisión del sitio
                   <br />
-                  &amp; Measurements
+                  y mediciones
                 </div>
               </article>
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>2</div>
                 <div className={`how-step__label ${playfairFont.className}`}>
-                  Furniture &amp;
+                  Selección de mobiliario
                   <br />
-                  D&eacute;cor Selection
+                  y decoración
                 </div>
               </article>
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>3</div>
-                <div className={`how-step__label ${playfairFont.className}`}>3D Renderings</div>
+                <div className={`how-step__label ${playfairFont.className}`}>Renders 3D</div>
               </article>
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>4</div>
                 <div className={`how-step__label ${playfairFont.className}`}>
-                  Purchasing &amp;
+                  Compras y
                   <br />
-                  Project Management
+                  gestión del proyecto
                 </div>
               </article>
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>5</div>
                 <div className={`how-step__label ${playfairFont.className}`}>
-                  Installation
+                  Instalación
                   <br />
-                  &amp; Styling
+                  y styling
                 </div>
               </article>
             </div>
           </div>
         </section>
 
-        <section className="virtual-benefits" aria-label="Benefits of virtual design">
+        <section className="virtual-benefits" aria-label="Beneficios del diseño llave en mano">
           <div className="virtual-benefits__inner">
-            <h2 className={`virtual-benefits__title ${playfairFont.className}`}>Benefits of Full Service Design</h2>
+            <h2 className={`virtual-benefits__title ${playfairFont.className}`}>
+              Beneficios del Diseño Llave en Mano
+            </h2>
             <div className="virtual-benefits__grid">
               {benefits.map((benefit) => (
                 <article className="virtual-benefit" key={benefit.title}>
@@ -501,12 +547,12 @@ export default function FullServicePage() {
           </div>
         </section>
 
-        <section className="virtual-video-bridge" aria-label="Virtual design video teaser">
+        <section className="virtual-video-bridge" aria-label="Sección de video del servicio">
           <div className="virtual-video-bridge__inner virtual-video-bridge__inner--double">
             <div className="virtual-video-bridge__frame">
               <Image
                 src="/assets/services/full-service-3.jpg"
-                alt="Full service inspiration 1"
+                alt="Inspiración de diseño llave en mano 1"
                 fill
                 sizes="100vw"
                 priority={false}
@@ -516,7 +562,7 @@ export default function FullServicePage() {
             <div className="virtual-video-bridge__frame">
               <Image
                 src="/assets/services/full-service-2.jpg"
-                alt="Full service inspiration 2"
+                alt="Inspiración de diseño llave en mano 2"
                 fill
                 sizes="100vw"
                 priority={false}
@@ -526,9 +572,9 @@ export default function FullServicePage() {
           </div>
         </section>
 
-        <section className="virtual-deliverables" aria-label="Deliverables">
+        <section className="virtual-deliverables" aria-label="Entregables">
           <div className="virtual-deliverables__inner">
-            <h2 className={`virtual-deliverables__title ${playfairFont.className}`}>Deliverables</h2>
+            <h2 className={`virtual-deliverables__title ${playfairFont.className}`}>Entregables</h2>
             <div className="virtual-deliverables__grid">
               {deliverables.map((item) => (
                 <article className="virtual-deliverable" key={item.title}>
@@ -730,9 +776,9 @@ export default function FullServicePage() {
           </div>
         </section>
 
-        <section className="featured-projects" aria-label="Featured projects">
+        <section className="featured-projects" aria-label="Proyectos destacados">
           <div className="featured-projects__inner">
-            <h2 className={`featured-projects__title ${playfairFont.className}`}>Featured Projects</h2>
+            <h2 className={`featured-projects__title ${playfairFont.className}`}>Proyectos Destacados</h2>
             <div className="featured-projects__grid">
               {featuredProjects.map((project) => (
                 <article key={project.title} className="featured-project">
@@ -762,11 +808,11 @@ export default function FullServicePage() {
           </div>
         </section>
 
-        <section className="faq-section" aria-label="Frequently asked questions">
+        <section className="faq-section" aria-label="Preguntas frecuentes">
           <div className="faq-section__inner">
             <div className="faq-section__title-col">
               <h2 className={`faq-section__title ${playfairFont.className}`}>
-                Frequently Asked Questions
+                Preguntas Frecuentes
               </h2>
             </div>
             <FaqAccordion items={faqs} />
@@ -787,45 +833,45 @@ export default function FullServicePage() {
           }}
         >
           <div className="footer-inner">
-            <section className="footer-seo" aria-label="Service areas and keyword index">
+            <section className="footer-seo" aria-label="Áreas de servicio y palabras clave">
               <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design playa del carmen</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Playa del Carmen</li>
+                <li><span className="check" aria-hidden="true">✓</span> Servicios de diseño de interiores Playa del Carmen</li>
+                <li><span className="check" aria-hidden="true">✓</span> Home staging Playa del Carmen</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Playa del Carmen</li>
               </ul>
               <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design riviera maya</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Riviera Maya</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseñadores de interiores y decoradores Riviera Maya</li>
+                <li><span className="check" aria-hidden="true">✓</span> Home staging Riviera Maya</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Riviera Maya</li>
               </ul>
               <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design Cancun</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Cancún</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseñadores de interiores y decoradores Cancún</li>
+                <li><span className="check" aria-hidden="true">✓</span> Home staging Cancún</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Cancún</li>
               </ul>
               <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design tulum</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Tulum</li>
+                <li><span className="check" aria-hidden="true">✓</span> Servicios de diseño de interiores Tulum</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseñadores de interiores y decoradores Tulum</li>
+                <li><span className="check" aria-hidden="true">✓</span> Home staging Tulum</li>
+                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Tulum</li>
               </ul>
             </section>
 
-            <div className="footer-explore" aria-label="Explore and social">
-              <nav className="explore" aria-label="Explore">
-                <a href="/services">Services</a>
-                <a href="/portfolio">Portfolio</a>
-                <a href="/get-to-know-us">About</a>
-                <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
-                <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+            <div className="footer-explore" aria-label="Explorar y redes">
+              <nav className="explore" aria-label="Explorar">
+                <a href="/es/servicios/">Servicios</a>
+                <a href="/es/portafolio/">Portafolio</a>
+                <a href="/es/conocenos/">Conócenos</a>
+                <a href="mailto:hello@siamodesign.com" aria-label="Envíanos un correo">Email</a>
+                <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chatea por WhatsApp">
                   WhatsApp
                 </a>
               </nav>
-              <div className="social" aria-label="Social profiles">
+              <div className="social" aria-label="Perfiles sociales">
                 <a className="social__link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
@@ -852,14 +898,14 @@ export default function FullServicePage() {
               </div>
             </div>
 
-            <div className="footer-legal" aria-label="Legal information">
+            <div className="footer-legal" aria-label="Información legal">
               <p className="legal-line">
-                <span className="legal-full">Siamo Design | Interior Design Studio</span>
+                <span className="legal-full">Siamo Design | Estudio de Diseño de Interiores</span>
               </p>
               <p className="legal-line">
-                <span className="legal-full">© 2025 Siamo Design. All rights reserved.</span>
+                <span className="legal-full">© 2025 Siamo Design. Todos los derechos reservados.</span>
               </p>
-              <p className="legal-sig"><a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer sponsored">Designed & Built by Elevator</a></p>
+              <p className="legal-sig"><a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer sponsored">Diseñado y construido por Elevator</a></p>
             </div>
           </div>
         </footer>
