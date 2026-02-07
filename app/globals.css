@@ -3610,6 +3610,15 @@ h1 .caret { letter-spacing: 0; }
   font-size: clamp(2.4rem, 5vw, 3rem);
   color: rgba(244, 242, 234, 0.92);
   text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+.virtual-video-bridge__frame.is-playing .virtual-video-bridge__play{
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 @media (max-width: 860px){

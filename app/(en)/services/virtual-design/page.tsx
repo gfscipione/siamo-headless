@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import PortfolioNav from "../../../components/PortfolioNav";
 import FaqAccordion from "../../../components/FaqAccordion";
 import HeroVideo from "../HeroVideo";
+import VideoWithOverlay from "../../../components/VideoWithOverlay";
 import { playfairFont, poppinsFont } from "../../../fonts";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
@@ -245,7 +246,7 @@ export default function VirtualDesignPage() {
         className="yoast-schema-graph"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
-      <PortfolioNav styleVars={styleVars} isHero langHref="/es/servicios/" />
+      <PortfolioNav styleVars={styleVars} isHero langHref="/es/servicios/diseno-virtual/" />
 
       <main className="services-page overscroll-safe about-hero-page">
         <section
@@ -409,17 +410,11 @@ export default function VirtualDesignPage() {
 
         <section className="virtual-video-bridge" aria-label="Virtual design video teaser">
           <div className="virtual-video-bridge__inner">
-            <div className="virtual-video-bridge__frame">
-              <video
-                className="virtual-video-bridge__poster"
-                src="/assets/services/virtual-design-2.mp4"
-                poster="/assets/services/virtual-design-2-thumb.jpg"
-                preload="metadata"
-                controls
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              />
-              <div className="virtual-video-bridge__play" aria-hidden="true">▶</div>
-            </div>
+            <VideoWithOverlay
+              src="/assets/services/virtual-design-2.mp4"
+              poster="/assets/services/virtual-design-1.webp"
+              preload="metadata"
+            />
           </div>
         </section>
 

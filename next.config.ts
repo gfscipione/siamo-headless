@@ -52,6 +52,11 @@ const nextConfig: NextConfig = {
         destination: "/es/servicios/diseno-llave-en-mano/:path*",
         permanent: true,
       },
+      {
+        source: "/es/servicios/virtual-design/:path*",
+        destination: "/es/servicios/diseno-virtual/:path*",
+        permanent: true,
+      },
 
       // Old portfolio project removed from Next: keep backlinks alive.
       { source: "/portfolio/vintage-tulum/:path*", destination: "/portfolio/", permanent: true },

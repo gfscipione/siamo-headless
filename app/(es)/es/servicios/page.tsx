@@ -76,7 +76,7 @@ const services: Service[] = [
     preload: "metadata",
     poster: "/assets/services/virtual-design-1.webp",
     cta: "Conoce más",
-    href: "/services/virtual-design/",
+    href: "/es/servicios/diseno-virtual/",
   },
 ];
 
@@ -152,7 +152,7 @@ const faqs = [
         local y principalmente necesitas dirección profesional para enfocar tus ideas, entonces
         nuestro{" "}
         <a
-          href="/services/virtual-design/"
+          href="/es/servicios/diseno-virtual/"
           style={{ fontWeight: 600, textDecoration: "underline" }}
         >
           Diseño de Interiores Virtual
@@ -456,7 +456,12 @@ export default function ServicesPage() {
                   </p>
                   <Link
                     className="service-card__cta"
-                    href={service.href || (service.title.toLowerCase().includes("virtual") ? "/services/virtual-design" : "/services#on-site")}
+                    href={
+                      service.href ||
+                      (service.title.toLowerCase().includes("virtual")
+                        ? "/es/servicios/diseno-virtual/"
+                        : "/es/servicios/#on-site")
+                    }
                   >
                     {service.cta}
                   </Link>

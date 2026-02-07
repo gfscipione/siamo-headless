@@ -1,17 +1,17 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import PortfolioNav from "../../../../components/PortfolioNav";
 import FaqAccordion from "../../../../components/FaqAccordion";
 import HeroVideo from "../../../../(en)/services/HeroVideo";
+import VideoWithOverlay from "../../../../components/VideoWithOverlay";
 import { playfairFont, poppinsFont } from "../../../../fonts";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
-const TITLE = "Diseño de Interiores Llave en Mano en Riviera Maya | Siamo Design";
+const TITLE = "Diseño de Interiores Virtual | Asesoría Online Personalizada";
 const DESCRIPTION =
-  "Servicio llave en mano en Tulum y Riviera Maya: diseño, compras, coordinación e instalación completa. Nosotros hacemos todo; tú solo te mudas.";
-const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png";
-const canonicalPath = "/es/servicios/diseno-llave-en-mano/";
+  "Transforma tu espacio con diseño de interiores virtual: concepto, distribución, paleta de color y lista de compras. Servicio online, claro y profesional.";
+const OG_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/06/Virtual-design.png";
+const canonicalPath = "/es/servicios/diseno-virtual/";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: canonicalPath,
     languages: {
-      en: "/services/full-service/",
+      en: "/services/virtual-design/",
       es: canonicalPath,
-      "x-default": "/services/full-service/",
+      "x-default": "/services/virtual-design/",
     },
   },
   openGraph: {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function FullServicePage() {
+export default function VirtualDesignPage() {
   const siteUrl = getSiteUrl();
   const canonicalUrl = `${siteUrl}${canonicalPath}`;
   const esRoot = `${siteUrl}/es/`;
@@ -65,8 +65,8 @@ export default function FullServicePage() {
         primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
         image: { "@id": `${canonicalUrl}#primaryimage` },
         thumbnailUrl: OG_IMAGE,
-        datePublished: "2025-04-23T23:56:03+00:00",
-        dateModified: "2025-04-24T00:00:41+00:00",
+        datePublished: "2025-04-23T23:51:40+00:00",
+        dateModified: "2025-04-23T23:59:46+00:00",
         description: DESCRIPTION,
         breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
         inLanguage: "es",
@@ -85,7 +85,7 @@ export default function FullServicePage() {
         contentUrl: OG_IMAGE,
         width: 64,
         height: 64,
-        caption: "Diseño de Interiores Llave en Mano",
+        caption: "Diseño de Interiores Virtual",
       },
       {
         "@type": "BreadcrumbList",
@@ -93,7 +93,7 @@ export default function FullServicePage() {
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Inicio", item: esRoot },
           { "@type": "ListItem", position: 2, name: "Servicios", item: `${esRoot}servicios/` },
-          { "@type": "ListItem", position: 3, name: "Diseño de Interiores Llave en Mano" },
+          { "@type": "ListItem", position: 3, name: "Diseño de Interiores Virtual" },
         ],
       },
       {
@@ -164,19 +164,19 @@ export default function FullServicePage() {
 
   const benefits = [
     {
-      title: "Enfoque Personalizado",
-      copy: "Planes de diseño a medida según tu estilo y preferencias.",
-      icon: "bars",
+      title: "Costo Eficiente",
+      copy: "Ahorra en honorarios tradicionales sin renunciar a un diseño transformador.",
+      icon: "wallet",
     },
     {
-      title: "Experiencia Sin Fricciones",
-      copy: "Gestión integral del proyecto para una experiencia de diseño sin estrés.",
-      icon: "arrows",
+      title: "Implementación Flexible",
+      copy: "Aprovecha tu tiempo trabajando el proceso de diseño desde tu casa.",
+      icon: "clock",
     },
     {
-      title: "Guía Experta",
-      copy: "Aprovecha nuestro amplio conocimiento y experiencia en la industria.",
-      icon: "bulb",
+      title: "Diseñadoras Expertas",
+      copy: "Recibe un plan de diseño personalizado según tus preferencias.",
+      icon: "spark",
     },
   ];
 
@@ -190,7 +190,7 @@ export default function FullServicePage() {
     {
       title: "Modelado 3D",
       copy:
-        "Visualiza tu espacio completamente amueblado y estilizado antes de comprar o fabricar. A través del modelado 3D, nuestras diseñadoras definen cada detalle: seleccionan mobiliario según tu estilo de vida, escala, paleta de color y presupuesto.",
+        "Visualiza tu espacio completamente amueblado y estilizado antes de hacer compras o iniciar la fabricación. A través del modelado 3D, nuestras diseñadoras definen cada detalle, seleccionando mobiliario según tu estilo de vida, escala, paleta de color y presupuesto.",
       icon: "space",
     },
     {
@@ -202,31 +202,8 @@ export default function FullServicePage() {
     {
       title: "Documentación del Proyecto",
       copy:
-        "El plano de tu proyecto. Incluye planos técnicos para fabricación, eléctrica e instalaciones, garantizando una ejecución precisa.",
+        "El plano maestro de tu proyecto. Incluye planos técnicos para fabricación, eléctricos e instalaciones, asegurando una ejecución precisa.",
       icon: "cabinet",
-    },
-    {
-      title: "Compras y Coordinación con Proveedores",
-      copy:
-        "Nuestro equipo coordina con proveedores y bodegas para ordenar, dar seguimiento y resolver cualquier incidencia relacionada con tu mobiliario y decoración. Tendrás acceso al estatus de cada artículo.",
-      icon: "checklist",
-    },
-    {
-      title: "Gestión del Proyecto",
-      copy:
-        "Nos encargamos de cada detalle de principio a fin para mantener tu proyecto organizado, en tiempo y en ruta.",
-      icon: "calendar",
-    },
-    {
-      title: "Instalación Llave en Mano",
-      copy:
-        "Una experiencia full-service que incluye entrega, armado y colocación del mobiliario en tu hogar, siguiendo el plan de diseño al detalle para un reveal final impecable.",
-      icon: "key",
-    },
-    {
-      title: "Fotografía Profesional",
-      copy: "Una sesión fotográfica final para documentar y mostrar tu proyecto terminado.",
-      icon: "video",
     },
   ];
 
@@ -235,31 +212,28 @@ export default function FullServicePage() {
       question:
         "¿Cuál es la diferencia entre Diseño de Interiores Llave en Mano y Diseño de Interiores Virtual?",
       answer:
-        "El Diseño de Interiores Llave en Mano implica proyectos de mayor escala e incluye consultas presenciales, gestión integral del proyecto, visitas al sitio, compra de mobiliario y una instalación completa. El Diseño de Interiores Virtual ofrece un enfoque más flexible y remoto, para un espacio a la vez, con planes de diseño personalizados y listas de compras que puedes implementar por tu cuenta según tu tiempo y presupuesto.",
+        "El diseño interior llave en mano abarca proyectos de mayor escala e incluye consultas presenciales, gestión integral del proyecto, visitas a obra, compra de mobiliario e instalación. El diseño interior virtual ofrece un enfoque remoto y flexible, pensado para un solo espacio a la vez, con planes de diseño personalizados y listas de compras que puedes implementar según tu tiempo y presupuesto.",
     },
     {
       question: "¿Cómo sé cuál servicio es el adecuado para mí?",
       answer: (
         <>
           Para ayudarte a elegir el servicio que mejor se adapta a ti y a tu estilo de vida, hay
-          algunos factores clave a considerar: el tiempo que tienes disponible, el tamaño y alcance
-          del proyecto, tu presupuesto y qué tan involucrada/o quieres estar.
+          algunos factores clave a considerar: el tiempo disponible, el tamaño y alcance del
+          proyecto, tu presupuesto y qué tan involucrado quieres estar.
           <br />
           <br />
-          Si tienes poco tiempo, no estás donde está el proyecto, o simplemente quieres que todo
-          esté listo cuando llegues sin tener que gestionar nada, entonces nuestro{" "}
-          <a
-            href="/es/servicios/diseno-llave-en-mano/"
-            style={{ fontWeight: 600, textDecoration: "underline" }}
-          >
+          Si tienes poco tiempo, no estás en el lugar donde está el proyecto, o simplemente quieres
+          que todo esté listo cuando llegues sin tener que gestionar nada, entonces nuestro{" "}
+          <a href="/es/servicios/diseno-llave-en-mano/" style={{ fontWeight: 600, textDecoration: "underline" }}>
             Diseño de Interiores Llave en Mano
           </a>{" "}
           es la opción ideal.
           <br />
           <br />
-          Si por el contrario sí tienes tiempo, prefieres ejecutar tu proyecto por etapas, estás
-          localmente y principalmente necesitas dirección profesional para enfocar tus ideas,
-          entonces nuestro{" "}
+          Si, por el contrario, sí tienes tiempo, prefieres ejecutar tu proyecto por fases, estás
+          local y principalmente necesitas dirección profesional para enfocar tus ideas, entonces
+          nuestro{" "}
           <a
             href="/es/servicios/diseno-virtual/"
             style={{ fontWeight: 600, textDecoration: "underline" }}
@@ -279,8 +253,8 @@ export default function FullServicePage() {
           <a href="/es/cuestionario/" style={{ fontWeight: 600, textDecoration: "underline" }}>
             completar nuestro cuestionario
           </a>{" "}
-          para agendar una consulta; esto nos ayuda a entender tu proyecto y preparar una propuesta
-          personalizada, incluyendo una tarifa fija de diseño y un presupuesto estimado de
+          para agendar una consulta—esto nos ayuda a entender tu proyecto y preparar una propuesta
+          personalizada, que incluye una tarifa de diseño fija y un presupuesto estimado de
           mobiliario/inversión, sin compromiso.
         </>
       ),
@@ -291,8 +265,8 @@ export default function FullServicePage() {
         <>
           Sí. Nuestro portafolio muestra una selección de proyectos recientes en distintos estilos,
           ya que cada diseño se basa en los gustos, necesidades y estilo de vida de cada cliente.
-          Aunque todos los proyectos conservan la esencia de Siamo Design, cada uno es único y
-          creado para el cliente. Nuestro portafolio busca inspirarte y ayudarte a imaginar lo que
+          Aunque todos mantienen la esencia de Siamo Design, cada proyecto es único y creado a
+          medida. Nuestro portafolio está pensado para inspirarte y ayudarte a imaginar lo que
           podemos crear juntos.
           <br />
           <br />
@@ -305,49 +279,27 @@ export default function FullServicePage() {
     {
       question: "¿Trabajan con clientes fuera de su zona local?",
       answer:
-        "Sí. Atendemos clientes tanto locales como remotos. Para proyectos en sitio, viajamos cuando es necesario; para proyectos a distancia, nuestro servicio de Diseño de Interiores Virtual mantiene todo coordinado desde lejos.",
+        "Sí. Atendemos a clientes tanto locales como remotos. Para proyectos en sitio, viajamos cuando es necesario; para proyectos a distancia, nuestro servicio de Diseño de Interiores Virtual mantiene todo coordinado.",
     },
     {
       question: "¿En qué estilos de diseño de interiores se especializan?",
       answer: (
         <>
-          Hemos construido nuestra reputación creando espacios equilibrados que se sienten frescos y
-          atemporales. El estilo distintivo de Siamo Design es cálido, intencional y acogedor,
-          basado en la integración de materiales naturales, piezas curadas y texturas en capas.
+          Hemos construido nuestra reputación creando espacios bellamente equilibrados que se sienten
+          frescos y atemporales. El estilo distintivo de Siamo Design es cálido, intencional y
+          acogedor—basado en la integración de materiales naturales, piezas curadas y texturas en
+          capas.
           <br />
           <br />
           Hemos diseñado hogares con detalles tradicionales y hallazgos vintage, así como espacios
-          definidos por líneas limpias y materiales orgánicos, siempre integrando nuestra esencia en
+          definidos por líneas limpias y materiales orgánicos—siempre integrando nuestra esencia en
           cada proyecto.
           <br />
           <br />
           Nuestro equipo adapta cada diseño a las necesidades, gustos y estilo de vida del cliente,
-          con el objetivo de crear espacios que aporten bienestar y armonía a la vida diaria.
+          con el objetivo de crear espacios que aporten bienestar y armonía a la vida cotidiana.
         </>
       ),
-    },
-  ];
-  const featuredProjects = [
-    {
-      title: "Timeless Nature",
-      location: "Puerto Morelos",
-      summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
-      image: "/assets/timeless-nature/living-room-19.jpg",
-      href: "/portfolio/timeless-nature",
-    },
-    {
-      title: "Roots Tulum",
-      location: "Tulum",
-      summary: "Una expresión atemporal de materiales puros y naturales.",
-      image: "/assets/raices-tulum/bedroom-4.jpg",
-      href: "/portfolio/roots-tulum",
-    },
-    {
-      title: "Mid-Century Waves",
-      location: "Akumal",
-      summary: "Un refugio sereno y textural en tonos cálidos.",
-      image: "/assets/mid-century-waves/terrace-1.jpg",
-      href: "/portfolio/mid-century-waves",
     },
   ];
 
@@ -361,7 +313,7 @@ export default function FullServicePage() {
       <PortfolioNav
         styleVars={styleVars}
         isHero
-        langHref="/services/full-service/"
+        langHref="/services/virtual-design/"
         getToKnowUsHref="/es/conocenos/"
         servicesHref="/es/servicios/"
         portfolioHref="/es/portafolio/"
@@ -382,7 +334,7 @@ export default function FullServicePage() {
       <main className="services-page overscroll-safe about-hero-page">
         <section
           className="services-hero hero-virtual-compact"
-          aria-label="Hero de servicio llave en mano"
+          aria-label="Hero de diseño virtual"
           style={{
             backgroundImage: "none",
             alignItems: "flex-start",
@@ -392,7 +344,7 @@ export default function FullServicePage() {
           }}
         >
           <div className="services-hero__content">
-            <section className="portfolio-hero-block" aria-label="Introducción de servicio llave en mano">
+            <section className="portfolio-hero-block" aria-label="Introducción de diseño virtual">
               <div
                 className="portfolio-crumb"
                 style={{
@@ -402,17 +354,13 @@ export default function FullServicePage() {
                   top: "-5rem",
                 }}
               >
-                <Link href="/es/">INICIO</Link> • <Link href="/es/servicios/">SERVICIOS</Link> • DISEÑO DE INTERIORES LLAVE EN MANO
+                <Link href="/es/">INICIO</Link> • <Link href="/es/servicios/">SERVICIOS</Link> • DISEÑO VIRTUAL
               </div>
               <h1
                 className={`portfolio-hero-title fullservice-title ${playfairFont.className}`}
-                style={{
-                  color: "#ffffff",
-                  opacity: 1,
-                  margin: "0 0 1.5rem",
-                }}
+                style={{ color: "#ffffff", opacity: 1, margin: "0 0 1.5rem" }}
               >
-                Diseño de Interiores Llave en Mano
+                Diseño de Interiores Virtual (Asesoría Online)
               </h1>
               <div className="portfolio-filter-row">
                 <button className="portfolio-filter-btn">
@@ -426,11 +374,11 @@ export default function FullServicePage() {
         <div className="virtual-hero-image">
           <HeroVideo
             className="virtual-hero-image__media"
-            src="/assets/services/full-service.mp4"
+            src="/assets/services/virtual-design-1.mp4"
             playbackRate={0.75}
             autoPlay
             preload="metadata"
-            poster="/assets/People/full-service-thumb.webp"
+            poster="/assets/services/virtual-design-1.webp"
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
           <div className="virtual-hero-image__scrim" aria-hidden="true" />
@@ -438,9 +386,9 @@ export default function FullServicePage() {
 
         <section className="about-story" aria-label="Descripción del servicio">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Diseño de interiores llave en mano de principio a fin. Gestionamos el diseño, la
-            selección, las compras y la instalación para que tu hogar esté listo para vivir (o
-            rentar) sin estrés.
+            Descubre la comodidad y flexibilidad del Diseño de Interiores Virtual de Siamo Design:
+            una asesoría online personalizada que te permite avanzar a tu ritmo con claridad y
+            dirección profesional.
           </h2>
         </section>
 
@@ -451,64 +399,51 @@ export default function FullServicePage() {
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>1</div>
                 <div className={`how-step__label ${playfairFont.className}`}>
-                  Revisión del sitio
+                  Elige un servicio
                   <br />
-                  y mediciones
+                  y tu espacio
                 </div>
               </article>
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>2</div>
                 <div className={`how-step__label ${playfairFont.className}`}>
-                  Selección de mobiliario
+                  Creación de diseño
                   <br />
-                  y decoración
+                  personalizada
                 </div>
               </article>
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>3</div>
-                <div className={`how-step__label ${playfairFont.className}`}>Renders 3D</div>
+                <div className={`how-step__label ${playfairFont.className}`}>
+                  Sesiones de revisión
+                </div>
               </article>
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>4</div>
-                <div className={`how-step__label ${playfairFont.className}`}>
-                  Compras y
-                  <br />
-                  gestión del proyecto
-                </div>
+                <div className={`how-step__label ${playfairFont.className}`}>Toques finales</div>
               </article>
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>5</div>
                 <div className={`how-step__label ${playfairFont.className}`}>
-                  Instalación
+                  Implementa el
                   <br />
-                  y styling
+                  diseño
                 </div>
               </article>
             </div>
           </div>
         </section>
 
-        <section className="virtual-benefits" aria-label="Beneficios del diseño llave en mano">
+        <section className="virtual-benefits" aria-label="Beneficios del diseño virtual">
           <div className="virtual-benefits__inner">
             <h2 className={`virtual-benefits__title ${playfairFont.className}`}>
-              Beneficios del Diseño Llave en Mano
+              Beneficios del Diseño Virtual
             </h2>
             <div className="virtual-benefits__grid">
               {benefits.map((benefit) => (
                 <article className="virtual-benefit" key={benefit.title}>
                   <div className="virtual-benefit__icon" aria-hidden="true">
-                    {benefit.icon === "bars" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        role="presentation"
-                        fill="none"
-                        stroke="currentColor"
-                        style={{ strokeWidth: 0.5 }}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5" />
-                      </svg>
-                    )}
-                    {benefit.icon === "arrows" && (
+                    {benefit.icon === "wallet" && (
                       <svg
                         viewBox="0 0 24 24"
                         role="presentation"
@@ -519,11 +454,11 @@ export default function FullServicePage() {
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+                          d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3"
                         />
                       </svg>
                     )}
-                    {benefit.icon === "bulb" && (
+                    {benefit.icon === "clock" && (
                       <svg
                         viewBox="0 0 24 24"
                         role="presentation"
@@ -534,7 +469,22 @@ export default function FullServicePage() {
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
+                          d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                      </svg>
+                    )}
+                    {benefit.icon === "spark" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
                         />
                       </svg>
                     )}
@@ -548,27 +498,12 @@ export default function FullServicePage() {
         </section>
 
         <section className="virtual-video-bridge" aria-label="Sección de video del servicio">
-          <div className="virtual-video-bridge__inner virtual-video-bridge__inner--double">
-            <div className="virtual-video-bridge__frame">
-              <Image
-                src="/assets/services/full-service-3.jpg"
-                alt="Inspiración de diseño llave en mano 1"
-                fill
-                sizes="100vw"
-                priority={false}
-                className="virtual-video-bridge__poster"
-              />
-            </div>
-            <div className="virtual-video-bridge__frame">
-              <Image
-                src="/assets/services/full-service-2.jpg"
-                alt="Inspiración de diseño llave en mano 2"
-                fill
-                sizes="100vw"
-                priority={false}
-                className="virtual-video-bridge__poster"
-              />
-            </div>
+          <div className="virtual-video-bridge__inner">
+            <VideoWithOverlay
+              src="/assets/services/virtual-design-2.mp4"
+              poster="/assets/services/virtual-design-1.webp"
+              preload="metadata"
+            />
           </div>
         </section>
 
@@ -609,28 +544,6 @@ export default function FullServicePage() {
                         />
                       </svg>
                     )}
-                    {item.icon === "plan" && (
-                      <svg viewBox="0 0 64 64" role="presentation">
-                        <rect x="12" y="10" width="40" height="44" rx="3" />
-                        <path d="M20 10v44M44 26H20M32 10v10M32 36v18" />
-                        <path d="M32 26h12v18H32" />
-                      </svg>
-                    )}
-                    {item.icon === "tower" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        role="presentation"
-                        fill="none"
-                        stroke="currentColor"
-                        style={{ strokeWidth: 0.5 }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
-                        />
-                      </svg>
-                    )}
                     {item.icon === "swatch" && (
                       <svg
                         viewBox="0 0 24 24"
@@ -661,21 +574,6 @@ export default function FullServicePage() {
                         />
                       </svg>
                     )}
-                    {item.icon === "book" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        role="presentation"
-                        fill="none"
-                        stroke="currentColor"
-                        style={{ strokeWidth: 0.5 }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6A2.25 2.25 0 0 1 6 3.75h1.5m9 0h-9"
-                        />
-                      </svg>
-                    )}
                     {item.icon === "video" && (
                       <svg
                         viewBox="0 0 24 24"
@@ -691,21 +589,6 @@ export default function FullServicePage() {
                         />
                       </svg>
                     )}
-                    {item.icon === "checklist" && (
-                      <svg
-                        viewBox="0 0 24 24"
-                        role="presentation"
-                        fill="none"
-                        stroke="currentColor"
-                        style={{ strokeWidth: 0.5 }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75"
-                        />
-                      </svg>
-                    )}
                     {item.icon === "cabinet" && (
                       <svg
                         viewBox="0 0 24 24"
@@ -718,6 +601,21 @@ export default function FullServicePage() {
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                        />
+                      </svg>
+                    )}
+                    {item.icon === "checklist" && (
+                      <svg
+                        viewBox="0 0 24 24"
+                        role="presentation"
+                        fill="none"
+                        stroke="currentColor"
+                        style={{ strokeWidth: 0.5 }}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75"
                         />
                       </svg>
                     )}
@@ -770,38 +668,6 @@ export default function FullServicePage() {
                   </div>
                   <h3 className={`virtual-deliverable__title ${playfairFont.className}`}>{item.title}</h3>
                   <p className={`virtual-deliverable__copy ${poppinsFont.className}`}>{item.copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="featured-projects" aria-label="Proyectos destacados">
-          <div className="featured-projects__inner">
-            <h2 className={`featured-projects__title ${playfairFont.className}`}>Proyectos Destacados</h2>
-            <div className="featured-projects__grid">
-              {featuredProjects.map((project) => (
-                <article key={project.title} className="featured-project">
-                  <div className="featured-project__media">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      priority={false}
-                    />
-                  </div>
-                  <div className="featured-project__body">
-                    <h3 className={`featured-project__title ${playfairFont.className}`}>
-                      {project.title}
-                    </h3>
-                    <p className={`featured-project__summary ${playfairFont.className}`}>
-                      {project.summary}
-                    </p>
-                    <p className={`featured-project__location ${poppinsFont.className}`}>
-                      {project.location}
-                    </p>
-                  </div>
                 </article>
               ))}
             </div>
