@@ -19,7 +19,7 @@ const projects: Project[] = [
     summary:
       "Interiores suaves y luminosos, envueltos por la selva, con maderas cálidas y luz natural.",
     image: "/assets/serene-jungle/living-room-3.webp",
-    href: "/portfolio/serene-jungle",
+    href: "/es/portafolio/serene-jungle",
   },
   {
     title: "Mayan Sanctuary",
@@ -27,49 +27,49 @@ const projects: Project[] = [
     summary:
       "Un refugio sereno que integra artesanía local, piedra caliza y vegetación exuberante en un santuario de calma.",
     image: "/assets/mayan-sanctuary/lounge-terrace-3.webp",
-    href: "/portfolio/mayan-sanctuary",
+    href: "/es/portafolio/mayan-sanctuary",
   },
   {
     title: "Timeless Nature",
     location: "Puerto Morelos",
     summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
     image: "/assets/timeless-nature/living-room-19.jpg",
-    href: "/portfolio/timeless-nature",
+    href: "/es/portafolio/timeless-nature",
   },
   {
     title: "Soul in Concrete",
     location: "Tulum",
     summary: "Calidez brutalista con volúmenes de concreto esculpidos y capas suaves y texturales.",
     image: "/assets/soul-in-concrete/master-bedroom-4.webp",
-    href: "/portfolio/soul-in-concrete",
+    href: "/es/portafolio/soul-in-concrete",
   },
   {
     title: "Tuluminati House",
     location: "Cancún",
     summary: "Una celebración de los materiales naturales de Tulum y la artesanía local.",
     image: "/assets/tuluminati-house/living-room-7.jpg",
-    href: "/portfolio/tuluminati-house",
+    href: "/es/portafolio/tuluminati-house",
   },
   {
     title: "Mid-Century Waves",
     location: "Akumal",
     summary: "Un refugio sereno y textural con tonos cálidos y calma costera.",
     image: "/assets/mid-century-waves/terrace-1.jpg",
-    href: "/portfolio/mid-century-waves",
+    href: "/es/portafolio/mid-century-waves",
   },
   {
     title: "Roots Tulum",
     location: "Tulum",
     summary: "Una expresión atemporal de materiales puros y naturales.",
     image: "/assets/raices-tulum/bedroom-4.jpg",
-    href: "/portfolio/roots-tulum",
+    href: "/es/portafolio/roots-tulum",
   },
   {
     title: "Contemporary Retreat",
     location: "Cancún",
     summary: "Arquitectura moderna con materiales refinados y de alta gama.",
     image: "/assets/retiro-contemporaneo/living-room-1.png",
-    href: "/portfolio/contemporary-retreat",
+    href: "/es/portafolio/contemporary-retreat",
   },
 ];
 

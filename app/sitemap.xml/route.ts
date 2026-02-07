@@ -32,6 +32,7 @@ const paths = [
   "/portfolio/timeless-nature/",
   "/portfolio/soul-in-concrete/",
   "/portfolio/tuluminati-house/",
+  "/es/portafolio/tuluminati-house/",
   "/portfolio/mid-century-waves/",
   "/portfolio/roots-tulum/",
   "/portfolio/contemporary-retreat/",
