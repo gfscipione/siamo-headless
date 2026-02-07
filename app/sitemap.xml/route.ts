@@ -26,6 +26,7 @@ const paths = [
   "/es/servicios/diseno-llave-en-mano/",
   "/es/servicios/diseno-virtual/",
   "/portfolio/",
+  "/es/portafolio/",
   "/portfolio/serene-jungle/",
   "/portfolio/mayan-sanctuary/",
   "/portfolio/timeless-nature/",
