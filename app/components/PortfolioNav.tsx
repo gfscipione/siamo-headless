@@ -14,6 +14,7 @@ type PortfolioNavProps = {
   servicesHref?: string;
   portfolioHref?: string;
   ctaHref?: string;
+  hideCta?: boolean;
   labels?: {
     getToKnowUs?: string;
     services?: string;
@@ -36,6 +37,7 @@ export default function PortfolioNav({
   servicesHref = "/services",
   portfolioHref = "/portfolio",
   ctaHref = "/questionnaire/",
+  hideCta = false,
   labels,
 }: PortfolioNavProps) {
   const [navSolid, setNavSolid] = useState(false);
@@ -134,9 +136,11 @@ export default function PortfolioNav({
             <span className="lang-dsk">{langDesktopLabel}</span>
             <span className="lang-mbl">{langMobileLabel}</span>
           </a>
-          <QuestionnaireCtaLink className="cta nav-cta is-visible" href={ctaHref}>
-            {ctaLabel} <span aria-hidden="true">→</span>
-          </QuestionnaireCtaLink>
+          {!hideCta && (
+            <QuestionnaireCtaLink className="cta nav-cta is-visible" href={ctaHref}>
+              {ctaLabel} <span aria-hidden="true">→</span>
+            </QuestionnaireCtaLink>
+          )}
         </div>
       </div>
       <div
@@ -220,10 +224,14 @@ export default function PortfolioNav({
               </svg>
             </a>
           </div>
-          <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
-          <QuestionnaireCtaLink className="cta m-cta" href="/questionnaire/">
-            {ctaLabel} <span aria-hidden="true">→</span>
-          </QuestionnaireCtaLink>
+          {!hideCta && (
+            <>
+              <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
+              <QuestionnaireCtaLink className="cta m-cta" href="/questionnaire/">
+                {ctaLabel} <span aria-hidden="true">→</span>
+              </QuestionnaireCtaLink>
+            </>
+          )}
         </div>
       </div>
     </nav>
