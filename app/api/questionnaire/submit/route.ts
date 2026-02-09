@@ -71,7 +71,7 @@ export async function POST(request: Request) {
     from: fromAddress,
     to: toAddress,
     replyTo: body.email || undefined,
-    subject: `New Questionnaire Submission${body.contactName ? ` - ${body.contactName}` : ""}`,
+    subject: "New Questionnaire Submission",
     html,
     text,
   });

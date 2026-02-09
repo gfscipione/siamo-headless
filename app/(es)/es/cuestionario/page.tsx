@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import PortfolioNav from "../../components/PortfolioNav";
-import { getSiteUrl } from "../../lib/siteUrl";
+import PortfolioNav from "../../../components/PortfolioNav";
+import { getSiteUrl } from "../../../lib/siteUrl";
 import QuestionnaireForm from "./QuestionnaireForm";
 
-const canonicalPath = "/questionnaire/";
-const TITLE = "Questionnaire - Siamo Design";
+const canonicalPath = "/es/cuestionario/";
+const TITLE = "Cuestionario - Siamo Design";
 const OG_DESCRIPTION =
-  "Por favor, activa JavaScript en tu navegador para completar este formulario.Nombre y Apellido *Teléfono de contacto *Correo Electrónico *Dirección de la propiedad *Seleccione servicio *Escoge la opción de tu preferenciaDiseño VirtualDiseño y Ejecución / Servicio Full¿Tiene planos específicos de la propiedad? *A) Si, cuento con planos.B) Tengo un croquis con los m2.C) No, requiero contratar […]";
+  "Please enable JavaScript in your browser to complete this form.Nombre y Apellido *Teléfono de contacto *Correo Electrónico *Dirección de la propiedad *Seleccione servicio *Escoge la opción de tu preferenciaDiseño VirtualDiseño y Ejecución / Servicio Full¿Tiene planos específicos de la propiedad? *A) Si, cuento con planos.B) Tengo un croquis con los m2.C) No, requiero contratar una […]";
 const DATE_PUBLISHED = "2024-04-28T21:00:50+00:00";
-const DATE_MODIFIED = "2025-03-21T22:04:32+00:00";
+const DATE_MODIFIED = "2025-03-21T22:10:12+00:00";
 const HERO_SLIDES = [
   "/assets/serene-jungle/living-room-3.webp",
   "/assets/mayan-sanctuary/lounge-terrace-3.webp",
@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   alternates: {
     canonical: canonicalPath,
+    languages: {
+      en: "/questionnaire/",
+      es: canonicalPath,
+      "x-default": "/questionnaire/",
+    },
   },
   openGraph: {
     type: "article",
@@ -30,9 +35,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function QuestionnairePage() {
+export default function CuestionarioPage() {
   const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}${canonicalPath}`;
+  const esRoot = `${siteUrl}/es/`;
 
   const schemaGraph = {
     "@context": "https://schema.org",
@@ -42,7 +48,7 @@ export default function QuestionnairePage() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
-        isPartOf: { "@id": `${siteUrl}/#website` },
+        isPartOf: { "@id": `${esRoot}#website` },
         datePublished: DATE_PUBLISHED,
         dateModified: DATE_MODIFIED,
         breadcrumb: { "@id": `${canonical}#breadcrumb` },
@@ -53,21 +59,21 @@ export default function QuestionnairePage() {
         "@type": "BreadcrumbList",
         "@id": `${canonical}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Portada", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Questionnaire" },
+          { "@type": "ListItem", position: 1, name: "Portada", item: esRoot },
+          { "@type": "ListItem", position: 2, name: "Cuestionario" },
         ],
       },
       {
         "@type": "WebSite",
-        "@id": `${siteUrl}/#website`,
-        url: `${siteUrl}/`,
+        "@id": `${esRoot}#website`,
+        url: esRoot,
         name: "Siamo Design",
         description: "",
-        publisher: { "@id": `${siteUrl}/#organization` },
+        publisher: { "@id": `${esRoot}#organization` },
         potentialAction: [
           {
             "@type": "SearchAction",
-            target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
+            target: { "@type": "EntryPoint", urlTemplate: `${esRoot}?s={search_term_string}` },
             "query-input": {
               "@type": "PropertyValueSpecification",
               valueRequired: true,
@@ -79,13 +85,13 @@ export default function QuestionnairePage() {
       },
       {
         "@type": "Organization",
-        "@id": `${siteUrl}/#organization`,
+        "@id": `${esRoot}#organization`,
         name: "Siamo Design",
-        url: `${siteUrl}/`,
+        url: esRoot,
         logo: {
           "@type": "ImageObject",
           inLanguage: "es",
-          "@id": `${siteUrl}/#/schema/logo/image/`,
+          "@id": `${esRoot}#/schema/logo/image/`,
           url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
           contentUrl:
             "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
@@ -93,7 +99,7 @@ export default function QuestionnairePage() {
           height: 167,
           caption: "Siamo Design",
         },
-        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
+        image: { "@id": `${esRoot}#/schema/logo/image/` },
       },
     ],
   };
@@ -126,9 +132,24 @@ export default function QuestionnairePage() {
         className="yoast-schema-graph"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
-      <PortfolioNav styleVars={styleVars} langHref="/es/cuestionario/" hideCta />
+      <PortfolioNav
+        styleVars={styleVars}
+        langHref="/questionnaire/"
+        hideCta
+        labels={{
+          getToKnowUs: "CONÓCENOS",
+          services: "SERVICIOS",
+          portfolio: "PORTAFOLIO",
+          langDesktop: "ENGLISH",
+          langMobile: "EN",
+          cta: "AGENDAR CONSULTA",
+          menuOpen: "MENÚ",
+          menuClose: "CERRAR",
+          follow: "Síguenos",
+        }}
+      />
       <main className="questionnaire-page">
-        <section className="questionnaire-hero" aria-label="Contact introduction">
+        <section className="questionnaire-hero" aria-label="Introducción de contacto">
           <div className="questionnaire-inner">
             <div className="questionnaire-top">
               <div className="questionnaire-photo" aria-hidden="true">
@@ -146,19 +167,19 @@ export default function QuestionnairePage() {
                 </div>
               </div>
               <div className="questionnaire-copy">
-                <p className="questionnaire-eyebrow">BEFORE WE MEET</p>
-                <h2 className="questionnaire-subhead">Let&apos;s make our call count.</h2>
+                <p className="questionnaire-eyebrow">ANTES DE LA LLAMADA</p>
+                <h2 className="questionnaire-subhead">Hagamos que la llamada cuente.</h2>
                 <p className="questionnaire-body">
-                  Before our video call, please share a few details about your space and what
-                  you’re trying to achieve. It takes 3–5 minutes and helps us come prepared.
+                  Antes de la videollamada, comparte algunos detalles sobre tu espacio y lo que
+                  quieres lograr. Toma 3–5 minutos y nos ayuda a llegar preparados.
                 </p>
               </div>
             </div>
-            <h1 className="questionnaire-title">Get Started</h1>
+            <h1 className="questionnaire-title">Empecemos</h1>
           </div>
         </section>
 
-        <section className="questionnaire-form-section" aria-label="Contact form">
+        <section className="questionnaire-form-section" aria-label="Formulario de contacto">
           <div className="questionnaire-form-inner">
             <QuestionnaireForm />
           </div>
@@ -177,24 +198,24 @@ export default function QuestionnairePage() {
         }}
       >
         <div className="footer-inner">
-          <div className="footer-explore" aria-label="Explore and social">
-            <nav className="explore" aria-label="Explore">
-              <a href="/services">Services</a>
-              <a href="/portfolio">Portfolio</a>
-              <a href="/get-to-know-us">About</a>
-              <a href="mailto:hello@siamodesign.com" aria-label="Email us">
+          <div className="footer-explore" aria-label="Explorar y redes">
+            <nav className="explore" aria-label="Explorar">
+              <a href="/es/servicios/">Servicios</a>
+              <a href="/es/portafolio/">Portafolio</a>
+              <a href="/es/conocenos/">Conócenos</a>
+              <a href="mailto:hello@siamodesign.com" aria-label="Envíanos un correo">
                 Email
               </a>
               <a
                 href="https://wa.me/529842111989"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Chat on WhatsApp"
+                aria-label="Chatea por WhatsApp"
               >
                 WhatsApp
               </a>
             </nav>
-            <div className="social" aria-label="Social profiles">
+            <div className="social" aria-label="Perfiles sociales">
               <a
                 className="social__link"
                 href="https://www.linkedin.com/company/siamo-design/"
@@ -245,7 +266,7 @@ export default function QuestionnairePage() {
             </div>
           </div>
 
-          <div className="footer-legal" aria-label="Legal information">
+          <div className="footer-legal" aria-label="Información legal">
             <p className="legal-line">
               <span className="legal-full">Siamo Design | Interior Design Studio</span>
             </p>

@@ -83,6 +83,12 @@ export function buildQuestionnaireEmail(
   const budgetVirtualLabel = budgetVirtualMap[budgetVirtual] ?? budgetVirtual;
   const budgetFullLabel = budgetFullMap[budgetFull] ?? budgetFull;
   const budgetCombined = budgetFullLabel || budgetVirtualLabel || "-";
+  const projectTypeLabel =
+    projectType === "full-service"
+      ? "Servicio completo"
+      : projectType === "virtual"
+        ? "Diseño virtual"
+        : projectType || "-";
   const propertyStatusCombined = propertyStatus.join(", ") || "-";
   const areaLabelMap: Record<string, string> = {
     "area-living-room": "Sala",
@@ -95,11 +101,24 @@ export function buildQuestionnaireEmail(
     "area-outdoor": "Exterior",
     "area-others": "Otros",
   };
-  const areasEntries = Object.entries(areas).map(([key, value]) => ({
-    label: areaLabelMap[key] ?? key,
-    value,
-  }));
+  const areasEntries = Object.entries(areas)
+    .filter(([, value]) => Number(value) > 0)
+    .map(([key, value]) => ({
+      label: areaLabelMap[key] ?? key,
+      value,
+    }));
 
+  const summaryName = contactName || "Sin nombre";
+  const summaryService = projectTypeLabel || "-";
+  const summaryBudget = budgetCombined || "-";
+  const summaryLines = [
+    `Resumen: ${summaryName}`,
+    `Servicio: ${summaryService}`,
+    `Presupuesto: ${summaryBudget}`,
+  ];
+  const summaryText = summaryLines.join(" • ");
+
+  const previewPadding = "&nbsp;&zwnj;".repeat(300);
   const html = `
   <style>
     @media only screen and (max-width: 640px) {
@@ -113,6 +132,9 @@ export function buildQuestionnaireEmail(
     }
   </style>
   <div style="background:#f4f1eb; padding:32px 16px; font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;">
+    <div style="display:none; max-height:0; max-width:0; overflow:hidden; opacity:0; color:transparent; mso-hide:all; font-size:1px; line-height:1px;">
+      ${escapeHtml(summaryText)}${previewPadding}
+    </div>
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
         <td align="center">
@@ -126,9 +148,7 @@ export function buildQuestionnaireEmail(
                   height="40"
                   style="display:block; width:180px; height:40px; object-fit:contain; margin:0 auto;"
                 />
-                <div style="font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:#8a847d; margin-top:10px;">
-                  New Questionnaire Submission
-                </div>
+                <div style="height:8px; line-height:8px; font-size:8px;">&nbsp;</div>
               </td>
             </tr>
             <tr>
@@ -139,7 +159,7 @@ export function buildQuestionnaireEmail(
                       <div style="border:1px solid #e6e1d8; padding:12px;">
                         <div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#8a847d;">Tipo de proyecto</div>
                         <div style="font-family:'Playfair Display','Times New Roman',serif; font-size:16px; color:#3d3a36;">${escapeHtml(
-                          projectType || "-"
+                          projectTypeLabel
                         )}</div>
                       </div>
                     </td>
@@ -179,18 +199,22 @@ export function buildQuestionnaireEmail(
 
                 <div style="border:1px solid #e6e1d8; padding:16px; margin-bottom:16px;">
                   <div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#8a847d; margin-bottom:8px;">Detalles</div>
-                  <table width="100%" cellspacing="0" cellpadding="8" border="0" style="font-size:13px; color:#3d3a36; line-height:1.7; border-collapse:collapse;">
+                  <table width="100%" cellspacing="0" cellpadding="8" border="0" style="font-size:13px; color:#3d3a36; line-height:1.7; border-collapse:collapse; table-layout:fixed;">
+                    <colgroup>
+                      <col style="width:35%;" />
+                      <col style="width:65%;" />
+                    </colgroup>
                     <tr>
-                      <td style="width:200px; border:1px solid #e6e1d8; background:#f8f6f1;"><b>Dirección de la propiedad</b></td>
-                      <td style="border:1px solid #e6e1d8;">${escapeHtml(venue || "-")}</td>
+                      <td style="border:1px solid #e6e1d8; background:#f8f6f1; vertical-align:top;"><b>Dirección de la propiedad</b></td>
+                      <td style="border:1px solid #e6e1d8; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:pre-wrap;">${escapeHtml(venue || "-")}</td>
                     </tr>
                     <tr>
-                      <td style="border:1px solid #e6e1d8; background:#f8f6f1;"><b>Fuentes de referencia</b></td>
-                      <td style="border:1px solid #e6e1d8;">${escapeHtml(referralSources.join(", ") || "-")}</td>
+                      <td style="border:1px solid #e6e1d8; background:#f8f6f1; vertical-align:top;"><b>Fuentes de referencia</b></td>
+                      <td style="border:1px solid #e6e1d8; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:pre-wrap;">${escapeHtml(referralSources.join(", ") || "-")}</td>
                     </tr>
                     <tr>
-                      <td style="border:1px solid #e6e1d8; background:#f8f6f1;"><b>Comentarios adicionales</b></td>
-                      <td style="border:1px solid #e6e1d8;">${escapeHtml(notes || "-")}</td>
+                      <td style="border:1px solid #e6e1d8; background:#f8f6f1; vertical-align:top;"><b>Comentarios adicionales</b></td>
+                      <td style="border:1px solid #e6e1d8; vertical-align:top; word-break:break-word; overflow-wrap:anywhere; white-space:pre-wrap;">${escapeHtml(notes || "-")}</td>
                     </tr>
                   </table>
                   ${
@@ -255,27 +279,7 @@ export function buildQuestionnaireEmail(
   </div>
   `;
 
-  const text = [
-    "New Questionnaire Submission",
-    `Nombre: ${contactName}`,
-    `Email: ${email}`,
-    `Teléfono: ${phoneCountry} ${phone}`,
-    `Tipo de proyecto: ${projectType}`,
-    `Dirección de la propiedad: ${venue}`,
-    `Presupuesto (Virtual): ${budgetVirtualLabel}`,
-    `Presupuesto (Servicio completo): ${budgetFullLabel}`,
-    `Estado de la propiedad: ${propertyStatus.join(", ")} ${
-      propertyStatusOther ? `(${propertyStatusOther})` : ""
-    }`,
-    `Fuentes de referencia: ${referralSources.join(", ")}`,
-    `Áreas: ${Object.entries(areas)
-      .map(([key, value]) => `${areaLabelMap[key] ?? key}: ${value}`)
-      .join(" | ")}`,
-    `Comentarios adicionales: ${notes}`,
-    "",
-    "Archivos subidos (los enlaces expiran en 7 días):",
-    ...signedFiles.map((file) => `${file.name ?? "File"}: ${file.signedUrl}`),
-  ].join("\n");
+  const text = [...summaryLines, "", "Abre el correo para ver el detalle completo."].join("\n");
 
   return { html, text };
 }
