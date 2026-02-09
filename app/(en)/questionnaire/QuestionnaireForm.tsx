@@ -282,17 +282,6 @@ export default function QuestionnaireForm() {
       setSubmitSuccess(true);
       window.location.assign("/thank-you/");
       return;
-      if (formRef.current) {
-        formRef.current.reset();
-      }
-      setProjectType("");
-      setHasNoPlans(false);
-      setPropertyStatus("");
-      setReferralSources([]);
-      setUploadedFiles([]);
-      setFileError(null);
-      setIsFormValid(false);
-      setIsSubmitting(false);
     } catch (error) {
       setSubmitError(
         error instanceof Error ? error.message : "Something went wrong."
