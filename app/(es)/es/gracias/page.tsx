@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PortfolioNav from "../../../components/PortfolioNav";
 import CalendlyEmbed from "./CalendlyEmbed";
+import ThankYouCopy from "./ThankYouCopy";
 
 const TITLE = "Gracias - Siamo Design";
 const DESCRIPTION =
@@ -53,15 +54,7 @@ export default function GraciasPage() {
         <section className="questionnaire-hero" aria-label="Gracias">
           <div className="questionnaire-inner">
             <div className="questionnaire-top">
-              <div className="thankyou-copy">
-                <p className="thankyou-title">Programemos tu llamada</p>
-                <div className="thankyou-rule" aria-hidden="true" />
-                <p className="thankyou-body">
-                  Elige un horario de 30 minutos que te funcione. Revisaremos tu cuestionario y
-                  definiremos los siguientes pasos.
-                </p>
-                <div className="thankyou-signature">Siamo Design</div>
-              </div>
+              <ThankYouCopy />
               <div className="thankyou-calendar">
                 <CalendlyEmbed url={CALENDLY_URL} />
               </div>

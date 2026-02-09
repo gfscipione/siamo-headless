@@ -63,6 +63,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <head>
+        <link rel="preconnect" href="https://assets.calendly.com" />
+        <link rel="dns-prefetch" href="https://assets.calendly.com" />
+      </head>
       <body
         className={`${playfairFont.variable} ${poppinsFont.variable} ${poppinsFont.className} antialiased`}
         style={{ fontFamily: poppinsFont.style.fontFamily }}
@@ -72,4 +76,3 @@ export default function RootLayout({
     </html>
   );
 }
-

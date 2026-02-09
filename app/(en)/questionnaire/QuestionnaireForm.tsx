@@ -125,6 +125,10 @@ export default function QuestionnaireForm() {
     }
   };
 
+  const removeUploadedFile = (index: number) => {
+    setUploadedFiles((prev) => prev.filter((_, idx) => idx !== index));
+  };
+
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const incoming = Array.from(event.target.files ?? []);
     if (!incoming.length) {
@@ -280,6 +284,18 @@ export default function QuestionnaireForm() {
       }
 
       setSubmitSuccess(true);
+      const prefillName = String(formData.get("contactName") ?? "").trim();
+      const prefillEmail = String(formData.get("email") ?? "").trim();
+      if (prefillName || prefillEmail) {
+        try {
+          sessionStorage.setItem(
+            "calendly_prefill",
+            JSON.stringify({ name: prefillName, email: prefillEmail })
+          );
+        } catch {
+          // ignore storage errors (private mode, quota, etc.)
+        }
+      }
       window.location.assign("/thank-you/");
       return;
     } catch (error) {
@@ -439,6 +455,14 @@ export default function QuestionnaireForm() {
                       {formatFileSize(file.size)}
                     </span>
                     <span className="questionnaire-file-dot" aria-hidden="true" />
+                    <button
+                      type="button"
+                      className="questionnaire-file-remove"
+                      aria-label={`Remove ${file.name}`}
+                      onClick={() => removeUploadedFile(index)}
+                    >
+                      ×
+                    </button>
                   </div>
                 ))}
               </div>
