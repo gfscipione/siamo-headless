@@ -416,7 +416,6 @@ export default function QuestionnaireForm() {
                 accept=".pdf,.jpg,.jpeg,.png"
                 multiple
                 disabled={hasNoPlans}
-                required={!hasNoPlans}
                 onChange={handleFileChange}
               />
               <label
