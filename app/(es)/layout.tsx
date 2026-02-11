@@ -4,6 +4,8 @@ import "../globals.css";
 
 const deployEnv = (process.env.VERCEL_ENV ?? process.env.DEPLOY_ENV ?? "development").toLowerCase();
 const isProductionDeploy = deployEnv === "production";
+const clarityProjectId = "v40q6xud75";
+const shouldLoadClarity = process.env.NODE_ENV === "production";
 const inferredSiteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (isProductionDeploy
@@ -66,6 +68,16 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://assets.calendly.com" />
         <link rel="dns-prefetch" href="https://assets.calendly.com" />
+        {shouldLoadClarity && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html:
+                "(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,'clarity','script','" +
+                clarityProjectId +
+                "');",
+            }}
+          />
+        )}
       </head>
       <body
         className={`${playfairFont.variable} ${poppinsFont.variable} ${poppinsFont.className} antialiased`}
