@@ -253,6 +253,35 @@ export default function QuestionnaireForm() {
 
     setIsSubmitting(true);
     try {
+      const pagePath = window.location.pathname;
+      const referrer = document.referrer || "";
+      const params = new URLSearchParams(window.location.search);
+      const getCookie = (name: string) => {
+        const parts = document.cookie.split(";").map((part) => part.trim());
+        const match = parts.find((part) => part.startsWith(`${name}=`));
+        if (!match) return "";
+        return decodeURIComponent(match.slice(name.length + 1));
+      };
+
+      const utmSource = params.get("utm_source") ?? "";
+      const utmMedium = params.get("utm_medium") ?? "";
+      const utmCampaign = params.get("utm_campaign") ?? "";
+      const utmContent = params.get("utm_content") ?? "";
+      const utmTerm = params.get("utm_term") ?? "";
+      const gclid = params.get("gclid") ?? "";
+      const language = navigator.language ?? "";
+      const entryPage = (() => {
+        try {
+          const key = "insights_entry_page";
+          const existing = sessionStorage.getItem(key);
+          if (existing) return existing;
+          sessionStorage.setItem(key, pagePath);
+          return pagePath;
+        } catch {
+          return pagePath;
+        }
+      })();
+
       const payload = {
         contactName: String(formData.get("contactName") ?? ""),
         phoneCountry: String(formData.get("phoneCountry") ?? ""),
@@ -270,6 +299,18 @@ export default function QuestionnaireForm() {
         notes: String(formData.get("notes") ?? ""),
         areas,
         files: filesToSend,
+        page_path: pagePath,
+        referrer,
+        entry_page: entryPage,
+        utm_source: utmSource,
+        utm_medium: utmMedium,
+        utm_campaign: utmCampaign,
+        utm_content: utmContent,
+        utm_term: utmTerm,
+        gclid,
+        insights_session_id: getCookie("__insights_sid_siamo"),
+        insights_visitor_id: getCookie("__insights_vid_siamo"),
+        language,
       };
 
       const res = await fetch("/api/questionnaire/send-email/", {
@@ -281,6 +322,15 @@ export default function QuestionnaireForm() {
       if (!res.ok) {
         const data = await res.json().catch(() => null);
         throw new Error(data?.error || "Submission failed.");
+      }
+
+      const submitData = await res.json().catch(() => null);
+      if (submitData?.submission_id) {
+        try {
+          sessionStorage.setItem("questionnaire_submission_id", String(submitData.submission_id));
+        } catch {
+          // ignore storage errors
+        }
       }
 
       setSubmitSuccess(true);

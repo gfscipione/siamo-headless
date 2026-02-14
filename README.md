@@ -20,6 +20,33 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Insights Conversion Tracking (Questionnaire)
+
+When a user submits the `/questionnaire` (EN) or `/es/cuestionario` (ES) form, the server generates a unique `submission_id` and emits a server-side analytics event:
+
+- `event_name`: `contact_form_submit`
+- Join keys (when available): `__insights_sid_siamo` (session_id), `__insights_vid_siamo` (visitor_id)
+
+Client context sent with the form submit (no UI changes):
+
+- `page_path`, `referrer`, `entry_page`
+- `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `gclid`
+- `language` (from `navigator.language`)
+
+Server context:
+
+- `accept-language` (request header)
+- `country` (from `x-vercel-ip-country` when present)
+
+PII policy:
+
+- The analytics payload does **not** include name/email/phone.
+- Optionally, `email_hash` is included in analytics metadata as `sha256(lowercase(trim(email)))` for audit joins without exposing the email.
+
+Required environment:
+
+- `NEXT_PUBLIC_INSIGHTS_API_KEY` (public write key used server-side to post events)
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
