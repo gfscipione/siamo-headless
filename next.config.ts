@@ -1,8 +1,23 @@
 import type { NextConfig } from "next";
+import { PHASE_DEVELOPMENT_SERVER } from "next/constants";
 
 const wpOrigin = (process.env.WP_ORIGIN_URL ?? "https://origin.siamodesign.com").replace(/\/+$/, "");
+const wpQuestionnaireHosts = ["siamodesign.com", "www.siamodesign.com"];
 
-const nextConfig: NextConfig = {
+const nextConfig = (phase: string): NextConfig => {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+  const isLocal =
+    siteUrl.includes("localhost") ||
+    siteUrl.includes("127.0.0.1") ||
+    siteUrl.includes("0.0.0.0");
+  const isDev = phase === PHASE_DEVELOPMENT_SERVER;
+  const useWpQuestionnaire =
+    !isDev &&
+    process.env.VERCEL_ENV === "production" &&
+    process.env.NODE_ENV === "production" &&
+    !isLocal;
+
+  return {
   // NOTE: App Router no longer supports `i18n` in next.config.*.
   // We handle locales via routes (e.g. `/es/...`) and optional middleware.
 
@@ -78,13 +93,37 @@ const nextConfig: NextConfig = {
         { source: "/:path*-sitemap.xml", destination: `${wpOrigin}/:path*-sitemap.xml` },
 
         // WPForms questionnaire (WP origin).
-        { source: "/questionnaire/:path*", destination: `${wpOrigin}/questionnaire/:path*` },
-        { source: "/es/cuestionario/:path*", destination: `${wpOrigin}/es/cuestionario/:path*` },
+        ...(useWpQuestionnaire
+          ? [
+              ...wpQuestionnaireHosts.map((host) => ({
+                source: "/questionnaire/:path*",
+                has: [{ type: "host" as const, value: host }],
+                destination: `${wpOrigin}/questionnaire/:path*`,
+              })),
+              ...wpQuestionnaireHosts.map((host) => ({
+                source: "/es/cuestionario/:path*",
+                has: [{ type: "host" as const, value: host }],
+                destination: `${wpOrigin}/es/cuestionario/:path*`,
+              })),
+            ]
+          : []),
 
         // WPForms thank-you pages (currently served by WP).
         // NOTE: These are inverted on the live site: EN → /gracias/ and ES → /es/thank-you/.
-        { source: "/gracias/:path*", destination: `${wpOrigin}/gracias/:path*` },
-        { source: "/es/thank-you/:path*", destination: `${wpOrigin}/es/thank-you/:path*` },
+        ...(useWpQuestionnaire
+          ? [
+              ...wpQuestionnaireHosts.map((host) => ({
+                source: "/gracias/:path*",
+                has: [{ type: "host" as const, value: host }],
+                destination: `${wpOrigin}/gracias/:path*`,
+              })),
+              ...wpQuestionnaireHosts.map((host) => ({
+                source: "/es/thank-you/:path*",
+                has: [{ type: "host" as const, value: host }],
+                destination: `${wpOrigin}/es/thank-you/:path*`,
+              })),
+            ]
+          : []),
 
         // Minimal WP endpoints/assets required for the questionnaire + uploads.
         { source: "/wp-content/:path*", destination: `${wpOrigin}/wp-content/:path*` },
@@ -139,6 +178,7 @@ const nextConfig: NextConfig = {
       { source: "/es/wp-json/:path*", headers: noStore },
     ];
   },
+  };
 };
 
 export default nextConfig;

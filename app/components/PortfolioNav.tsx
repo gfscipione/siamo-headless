@@ -227,7 +227,7 @@ export default function PortfolioNav({
           {!hideCta && (
             <>
               <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
-              <QuestionnaireCtaLink className="cta m-cta" href="/questionnaire/">
+              <QuestionnaireCtaLink className="cta m-cta" href={ctaHref}>
                 {ctaLabel} <span aria-hidden="true">→</span>
               </QuestionnaireCtaLink>
             </>

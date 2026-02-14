@@ -59,7 +59,7 @@ export default function QuestionnaireForm() {
     const hasPositive = areaInputs.some((input) => Number(input.value) > 0);
     const message = hasPositive
       ? ""
-      : "Select at least one area with a quantity greater than 0.";
+      : "Selecciona al menos un área con cantidad mayor a 0.";
     areaInputs.forEach((input, index) =>
       input.setCustomValidity(index === 0 ? message : "")
     );
@@ -99,11 +99,11 @@ export default function QuestionnaireForm() {
       return;
     }
     if (uploadedFiles.length === 0) {
-      input.setCustomValidity("Please upload at least one file.");
+      input.setCustomValidity("Sube al menos un archivo.");
     } else if (uploadedFiles.some((file) => file.status === "uploading")) {
-      input.setCustomValidity("Please wait for uploads to finish.");
+      input.setCustomValidity("Espera a que terminen las cargas.");
     } else if (uploadedFiles.some((file) => file.status === "error")) {
-      input.setCustomValidity("Please remove failed uploads and try again.");
+      input.setCustomValidity("Elimina los archivos fallidos e inténtalo de nuevo.");
     } else {
       input.setCustomValidity("");
     }
@@ -145,7 +145,7 @@ export default function QuestionnaireForm() {
 
     if (combined.length > MAX_FILES) {
       setIsUploading(false);
-      setFileError(`You can upload up to ${MAX_FILES} files.`);
+      setFileError(`Puedes subir hasta ${MAX_FILES} archivos.`);
       resetUploads();
       return;
     }
@@ -153,7 +153,7 @@ export default function QuestionnaireForm() {
     const tooLarge = incoming.find((file) => file.size > MAX_FILE_SIZE_BYTES);
     if (tooLarge) {
       setIsUploading(false);
-      setFileError(`Each file must be ${MAX_FILE_SIZE_MB} MB or smaller.`);
+      setFileError(`Cada archivo debe ser de ${MAX_FILE_SIZE_MB} MB o menos.`);
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
@@ -180,11 +180,11 @@ export default function QuestionnaireForm() {
             }),
           });
           if (!res.ok) {
-            throw new Error("Failed to create upload URL.");
+            throw new Error("No se pudo crear la URL de carga.");
           }
           const { uploadUrl, path } = await res.json();
           if (!uploadUrl || !path) {
-            throw new Error("Missing upload URL.");
+            throw new Error("Falta la URL de carga.");
           }
 
           const uploadRes = await fetch(uploadUrl, {
@@ -194,7 +194,7 @@ export default function QuestionnaireForm() {
           });
 
           if (!uploadRes.ok) {
-            throw new Error("Upload failed.");
+            throw new Error("La carga falló.");
           }
 
           setUploadedFiles((prev) =>
@@ -238,7 +238,7 @@ export default function QuestionnaireForm() {
       }));
 
     if (!hasNoPlans && filesToSend.length === 0) {
-      setSubmitError("Please upload at least one file before submitting.");
+      setSubmitError("Sube al menos un archivo antes de enviar.");
       return;
     }
 
@@ -280,7 +280,7 @@ export default function QuestionnaireForm() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => null);
-        throw new Error(data?.error || "Submission failed.");
+        throw new Error(data?.error || "No se pudo enviar.");
       }
 
       setSubmitSuccess(true);
@@ -296,12 +296,19 @@ export default function QuestionnaireForm() {
           // ignore storage errors (private mode, quota, etc.)
         }
       }
-      window.location.assign("/thank-you/");
-      return;
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+      setProjectType("");
+      setHasNoPlans(false);
+      setPropertyStatus("");
+      setReferralSources([]);
+      setUploadedFiles([]);
+      setFileError(null);
+      setIsFormValid(false);
+      setIsSubmitting(false);
     } catch (error) {
-      setSubmitError(
-        error instanceof Error ? error.message : "Something went wrong."
-      );
+      setSubmitError(error instanceof Error ? error.message : "Algo salió mal.");
       setIsSubmitting(false);
     }
   };
@@ -310,21 +317,21 @@ export default function QuestionnaireForm() {
     <form
       ref={formRef}
       className="questionnaire-form"
-      aria-label="Contact form"
+      aria-label="Formulario de contacto"
       onSubmit={handleSubmit}
       onInput={updateFormValidity}
       onChange={updateFormValidity}
     >
       <div className="questionnaire-field">
         <label className="questionnaire-label" htmlFor="contact-name">
-          Name and Last Name *
+          Nombre y Apellido *
         </label>
         <input
           className="questionnaire-input"
           id="contact-name"
           name="contactName"
           type="text"
-          placeholder="Your name here"
+          placeholder="Tu nombre aquí"
           autoComplete="name"
           required
         />
@@ -332,13 +339,13 @@ export default function QuestionnaireForm() {
 
       <div className="questionnaire-field">
         <label className="questionnaire-label" htmlFor="phone">
-          Phone Number *
+          Teléfono de contacto *
         </label>
         <div className="questionnaire-phone-row">
           <select
             className="questionnaire-select questionnaire-phone-code"
             name="phoneCountry"
-            aria-label="Country code"
+            aria-label="Código de país"
           >
             <option value="+1">+1 US/CA</option>
             <option value="+52">+52 MX</option>
@@ -354,7 +361,7 @@ export default function QuestionnaireForm() {
             id="phone"
             name="phone"
             type="tel"
-            placeholder="E.g. 541 444 0755"
+            placeholder="Ej. 541 444 0755"
             autoComplete="tel"
             required
           />
@@ -363,14 +370,14 @@ export default function QuestionnaireForm() {
 
       <div className="questionnaire-field">
         <label className="questionnaire-label" htmlFor="email">
-          Email Address *
+          Correo Electrónico *
         </label>
         <input
           className="questionnaire-input"
           id="email"
           name="email"
           type="email"
-          placeholder="E.g. myemail@email.com"
+          placeholder="Ej. miemail@email.com"
           autoComplete="email"
           required
         />
@@ -378,20 +385,20 @@ export default function QuestionnaireForm() {
 
       <div className="questionnaire-field">
         <label className="questionnaire-label" htmlFor="venue">
-          Property Address *
+          Dirección de la propiedad *
         </label>
         <input
           className="questionnaire-input"
           id="venue"
           name="venue"
           type="text"
-          placeholder="E.g. 742 Evergreen Terrace, Springfield"
+          placeholder="Ej. 742 Evergreen Terrace, Springfield"
         />
       </div>
 
       <div className="questionnaire-field">
         <label className="questionnaire-label" htmlFor="project-type">
-          What type of project are you seeking? *
+          ¿Qué tipo de proyecto necesitas? *
         </label>
         <select
           className="questionnaire-select"
@@ -402,10 +409,10 @@ export default function QuestionnaireForm() {
           onChange={(event) => setProjectType(event.currentTarget.value)}
         >
           <option value="" disabled>
-            Select a service
+            Seleccione servicio
           </option>
-          <option value="full-service">Full Service</option>
-          <option value="virtual">Virtual Design</option>
+          <option value="virtual">Diseño Virtual</option>
+          <option value="full-service">Diseño y Ejecución / Servicio Full</option>
         </select>
       </div>
 
@@ -413,7 +420,7 @@ export default function QuestionnaireForm() {
         <div className="questionnaire-reveal">
           <div className="questionnaire-field">
             <label className="questionnaire-label" htmlFor="plans-upload">
-              Upload your property plans *
+              Sube los planos de la propiedad *
             </label>
             <div className="questionnaire-file-row">
               <input
@@ -431,12 +438,14 @@ export default function QuestionnaireForm() {
                 className={`questionnaire-file-button${hasNoPlans ? " is-disabled" : ""}`}
                 htmlFor="plans-upload"
               >
-                Choose files
+                Elegir archivos
               </label>
               <span className="questionnaire-file-status">
                 {uploadedFiles.length
-                  ? `${uploadedFiles.length} file${uploadedFiles.length === 1 ? "" : "s"} selected`
-                  : "No files selected"}
+                  ? `${uploadedFiles.length} archivo${uploadedFiles.length === 1 ? "" : "s"} seleccionado${
+                      uploadedFiles.length === 1 ? "" : "s"
+                    }`
+                  : "No hay archivos seleccionados"}
               </span>
             </div>
             {uploadedFiles.length > 0 && (
@@ -458,7 +467,7 @@ export default function QuestionnaireForm() {
                     <button
                       type="button"
                       className="questionnaire-file-remove"
-                      aria-label={`Remove ${file.name}`}
+                      aria-label={`Quitar ${file.name}`}
                       onClick={() => removeUploadedFile(index)}
                     >
                       ×
@@ -468,7 +477,7 @@ export default function QuestionnaireForm() {
               </div>
             )}
             <p className="questionnaire-file-hint">
-              PDF, JPG, or PNG. Up to {MAX_FILES} files. Max {MAX_FILE_SIZE_MB} MB each.
+              PDF, JPG o PNG. Hasta {MAX_FILES} archivos. Máximo {MAX_FILE_SIZE_MB} MB cada uno.
             </p>
             {fileError && (
               <p className="questionnaire-file-error" role="alert">
@@ -488,24 +497,24 @@ export default function QuestionnaireForm() {
                   }
                 }}
               />
-              <span>I don&apos;t have plans</span>
+              <span>No tengo planos</span>
             </label>
             {hasNoPlans && (
               <div className="questionnaire-subfield questionnaire-reveal">
                 <p className="questionnaire-areas-title">
-                  Specify the quantity of each area you would like us to consider.
+                  Especifica la cantidad de cada área que debemos considerar.
                 </p>
                 <div className="questionnaire-areas-grid">
                   {[
-                    { id: "area-living-room", label: "Living room" },
-                    { id: "area-dining-room", label: "Dining room" },
-                    { id: "area-kitchen", label: "Kitchen" },
-                    { id: "area-bedroom", label: "Bedroom" },
-                    { id: "area-bathroom", label: "Bathroom" },
-                    { id: "area-office", label: "Office" },
-                    { id: "area-terrace", label: "Terrace" },
-                    { id: "area-outdoor", label: "Patio / Outdoor areas" },
-                    { id: "area-others", label: "Others" },
+                    { id: "area-living-room", label: "Sala" },
+                    { id: "area-dining-room", label: "Comedor" },
+                    { id: "area-kitchen", label: "Cocina" },
+                    { id: "area-bedroom", label: "Recámara" },
+                    { id: "area-bathroom", label: "Baño" },
+                    { id: "area-office", label: "Oficina" },
+                    { id: "area-terrace", label: "Terraza" },
+                    { id: "area-outdoor", label: "Patio / áreas exteriores" },
+                    { id: "area-others", label: "Otros" },
                   ].map((area) => (
                     <div className="questionnaire-area-field" key={area.id}>
                       <label className="questionnaire-label" htmlFor={area.id}>
@@ -534,15 +543,15 @@ export default function QuestionnaireForm() {
           {projectType === "full-service" && (
             <div className="questionnaire-field questionnaire-reveal">
               <label className="questionnaire-label">
-                What is the status of the property? *
+                ¿Cuál es el estado de la propiedad? *
               </label>
               <div className="questionnaire-checklist">
                 {[
-                  { value: "under-construction", label: "Under construction" },
-                  { value: "completed", label: "Completed" },
-                  { value: "remodeling", label: "Under remodeling" },
-                  { value: "not-received", label: "I haven't received it yet" },
-                  { value: "other", label: "Other" },
+                  { value: "under-construction", label: "En construcción" },
+                  { value: "completed", label: "Terminada" },
+                  { value: "remodeling", label: "En remodelación" },
+                  { value: "not-received", label: "Aún no la recibo" },
+                  { value: "other", label: "Otro" },
                 ].map((item) => (
                   <label className="questionnaire-check" key={item.value}>
                     <input
@@ -560,14 +569,14 @@ export default function QuestionnaireForm() {
               {propertyStatus === "other" && (
                 <div className="questionnaire-subfield">
                   <label className="questionnaire-label" htmlFor="property-status-other">
-                    Please specify
+                    Especifica
                   </label>
                   <input
                     className="questionnaire-input"
                     id="property-status-other"
                     name="propertyStatusOther"
                     type="text"
-                    placeholder="Type here"
+                    placeholder="Escribe aquí"
                   />
                 </div>
               )}
@@ -576,13 +585,13 @@ export default function QuestionnaireForm() {
 
           {projectType === "virtual" && (
             <div className="questionnaire-field questionnaire-reveal">
-              <label className="questionnaire-label">Estimated budget for this service *</label>
+              <label className="questionnaire-label">Presupuesto estimado para este servicio *</label>
               <div className="questionnaire-radio-list">
                 {[
                   { value: "800-2000", label: "800 - 2,000 USD" },
                   { value: "2000-3800", label: "2,000 - 3,800 USD" },
                   { value: "3800-5000", label: "3,800 - 5,000 USD" },
-                  { value: "5000+", label: "More than 5,000 USD" },
+                  { value: "5000+", label: "Más de 5,000 USD" },
                 ].map((item) => (
                   <label className="questionnaire-radio" key={item.value}>
                     <input type="radio" name="budgetVirtual" value={item.value} required />
@@ -596,14 +605,14 @@ export default function QuestionnaireForm() {
           {projectType === "full-service" && (
             <div className="questionnaire-field questionnaire-reveal">
               <label className="questionnaire-label">
-                Estimated budget for the full project (design + execution) *
+                Presupuesto estimado para el proyecto completo (diseño + ejecución) *
               </label>
               <div className="questionnaire-radio-list">
                 {[
-                  { value: "300k-plus", label: "More than 300,000 MXN" },
+                  { value: "300k-plus", label: "Más de 300,000 MXN" },
                   { value: "300-550", label: "300,000 - 550,000 MXN" },
                   { value: "550-750", label: "550,000 - 750,000 MXN" },
-                  { value: "900k-plus", label: "More than 900,000 MXN" },
+                  { value: "900k-plus", label: "Más de 900,000 MXN" },
                 ].map((item) => (
                   <label className="questionnaire-radio" key={item.value}>
                     <input type="radio" name="budgetFull" value={item.value} required />
@@ -616,19 +625,19 @@ export default function QuestionnaireForm() {
 
           <div className="questionnaire-field">
             <label className="questionnaire-label" htmlFor="notes">
-              Additional comments
+              Comentarios adicionales
             </label>
             <textarea
               className="questionnaire-textarea"
               id="notes"
               name="notes"
-              placeholder="Tell us about your project, timing, expectations, or any special needs."
+              placeholder="Cuéntanos sobre tu proyecto, tiempos, expectativas o necesidades especiales."
               rows={4}
             />
           </div>
 
           <div className="questionnaire-field">
-            <label className="questionnaire-label">How did you hear about us?</label>
+            <label className="questionnaire-label">¿Cómo supiste de nosotros?</label>
             <div className="questionnaire-checklist">
               {[
                 { value: "google", label: "Google" },
@@ -636,7 +645,7 @@ export default function QuestionnaireForm() {
                 { value: "facebook", label: "Facebook" },
                 { value: "youtube", label: "YouTube" },
                 { value: "linkedin", label: "LinkedIn" },
-                { value: "referral", label: "Referral" },
+                { value: "referral", label: "Recomendación" },
               ].map((item) => (
                 <label className="questionnaire-check" key={item.value}>
                   <input
@@ -664,7 +673,7 @@ export default function QuestionnaireForm() {
           aria-disabled={!isFormValid || submitSuccess}
           aria-busy={isSubmitting}
         >
-          {isSubmitting ? "Sending..." : "Continue to Scheduling "}
+          {isSubmitting ? "Enviando..." : "Continuar para agendar "}
           <span aria-hidden="true">→</span>
         </button>
       </div>
@@ -675,7 +684,7 @@ export default function QuestionnaireForm() {
       )}
       {submitSuccess && (
         <p className="questionnaire-submit-success" role="status">
-          Thanks! We received your details. Next, schedule your video call below.
+          ¡Gracias! Recibimos tus datos. Ahora agenda tu videollamada abajo.
         </p>
       )}
     </form>

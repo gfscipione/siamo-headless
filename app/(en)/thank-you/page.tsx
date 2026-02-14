@@ -1,103 +1,31 @@
 import type { Metadata } from "next";
 import PortfolioNav from "../../components/PortfolioNav";
-import { getSiteUrl } from "../../lib/siteUrl";
-import QuestionnaireForm from "./QuestionnaireForm";
+import CalendlyEmbed from "./CalendlyEmbed";
+import ThankYouCopy from "./ThankYouCopy";
 
-const canonicalPath = "/questionnaire/";
-const TITLE = "Questionnaire - Siamo Design";
-const OG_DESCRIPTION =
-  "Por favor, activa JavaScript en tu navegador para completar este formulario.Nombre y Apellido *Teléfono de contacto *Correo Electrónico *Dirección de la propiedad *Seleccione servicio *Escoge la opción de tu preferenciaDiseño VirtualDiseño y Ejecución / Servicio Full¿Tiene planos específicos de la propiedad? *A) Si, cuento con planos.B) Tengo un croquis con los m2.C) No, requiero contratar […]";
-const DATE_PUBLISHED = "2024-04-28T21:00:50+00:00";
-const DATE_MODIFIED = "2025-03-21T22:04:32+00:00";
-const HERO_SLIDES = [
-  "/assets/serene-jungle/living-room-3.webp",
-  "/assets/mayan-sanctuary/lounge-terrace-3.webp",
-  "/assets/timeless-nature/living-room-19.jpg",
-];
+const TITLE = "Thank You - Siamo Design";
+const DESCRIPTION =
+  "Thanks for sharing your details. Schedule your 30-minute call with Siamo Design.";
+const CALENDLY_URL =
+  "https://calendly.com/siamo-interiordesign/30min?hide_event_type_details=1&hide_gdpr_banner=1";
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
-    canonical: canonicalPath,
+    canonical: "/thank-you/",
   },
   openGraph: {
     type: "article",
-    locale: "es_ES",
+    locale: "en_US",
     title: TITLE,
-    description: OG_DESCRIPTION,
-    url: canonicalPath,
+    description: DESCRIPTION,
+    url: "/thank-you/",
     siteName: "Siamo Design",
   },
 };
 
-export default function QuestionnairePage() {
-  const siteUrl = getSiteUrl();
-  const canonical = `${siteUrl}${canonicalPath}`;
-
-  const schemaGraph = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": canonical,
-        url: canonical,
-        name: TITLE,
-        isPartOf: { "@id": `${siteUrl}/#website` },
-        datePublished: DATE_PUBLISHED,
-        dateModified: DATE_MODIFIED,
-        breadcrumb: { "@id": `${canonical}#breadcrumb` },
-        inLanguage: "es",
-        potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${canonical}#breadcrumb`,
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Portada", item: `${siteUrl}/` },
-          { "@type": "ListItem", position: 2, name: "Questionnaire" },
-        ],
-      },
-      {
-        "@type": "WebSite",
-        "@id": `${siteUrl}/#website`,
-        url: `${siteUrl}/`,
-        name: "Siamo Design",
-        description: "",
-        publisher: { "@id": `${siteUrl}/#organization` },
-        potentialAction: [
-          {
-            "@type": "SearchAction",
-            target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/?s={search_term_string}` },
-            "query-input": {
-              "@type": "PropertyValueSpecification",
-              valueRequired: true,
-              valueName: "search_term_string",
-            },
-          },
-        ],
-        inLanguage: "es",
-      },
-      {
-        "@type": "Organization",
-        "@id": `${siteUrl}/#organization`,
-        name: "Siamo Design",
-        url: `${siteUrl}/`,
-        logo: {
-          "@type": "ImageObject",
-          inLanguage: "es",
-          "@id": `${siteUrl}/#/schema/logo/image/`,
-          url: "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
-          contentUrl:
-            "https://siamodesign.com/wp-content/uploads/2024/03/cropped-9019c03768d3a9dc34a90a32adf82d72.png",
-          width: 499,
-          height: 167,
-          caption: "Siamo Design",
-        },
-        image: { "@id": `${siteUrl}/#/schema/logo/image/` },
-      },
-    ],
-  };
-
+export default function ThankYouPage() {
   const styleVars = {
     ["--nav-col-gap" as any]: "0px",
     ["--nav-inner-maxw" as any]: "1700px",
@@ -121,46 +49,16 @@ export default function QuestionnairePage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        className="yoast-schema-graph"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
-      />
-      <PortfolioNav styleVars={styleVars} langHref="/es/cuestionario/" hideCta />
-      <main className="questionnaire-page">
-        <section className="questionnaire-hero" aria-label="Contact introduction">
+      <PortfolioNav styleVars={styleVars} langHref="/es/thank-you/" />
+      <main className="questionnaire-page thankyou-page">
+        <section className="questionnaire-hero" aria-label="Thank you">
           <div className="questionnaire-inner">
             <div className="questionnaire-top">
-              <div className="questionnaire-photo" aria-hidden="true">
-                <div className="questionnaire-slideshow">
-                  {HERO_SLIDES.map((src) => (
-                    <img
-                      key={src}
-                      src={src}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                      className="questionnaire-slide"
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="questionnaire-copy">
-                <p className="questionnaire-eyebrow">BEFORE WE MEET</p>
-                <h2 className="questionnaire-subhead">Let&apos;s make our call count.</h2>
-                <p className="questionnaire-body">
-                  Before our video call, please share a few details about your space and what
-                  you’re trying to achieve. It takes 3–5 minutes and helps us come prepared.
-                </p>
+              <ThankYouCopy />
+              <div className="thankyou-calendar">
+                <CalendlyEmbed url={CALENDLY_URL} />
               </div>
             </div>
-            <h1 className="questionnaire-title">Get Started</h1>
-          </div>
-        </section>
-
-        <section className="questionnaire-form-section" aria-label="Contact form">
-          <div className="questionnaire-form-inner">
-            <QuestionnaireForm />
           </div>
         </section>
       </main>
