@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { playfairFont, poppinsFont } from "../fonts";
+import InsightsRouteTracker from "../components/InsightsRouteTracker";
 import "../globals.css";
 
 const deployEnv = (process.env.VERCEL_ENV ?? process.env.DEPLOY_ENV ?? "development").toLowerCase();
@@ -97,6 +98,7 @@ export default function RootLayout({
         style={{ fontFamily: poppinsFont.style.fontFamily }}
       >
         {children}
+        <InsightsRouteTracker />
       </body>
     </html>
   );
