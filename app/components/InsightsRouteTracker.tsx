@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
-const LAST_URL_KEY = "__insights_last_url";
+const LAST_PATH_KEY = "__insights_last_path";
+const ENTRY_PAGE_KEY = "insights_entry_page";
 
 const safeGetCookie = (name: string) => {
   try {
@@ -30,50 +31,168 @@ const trackWhenReady = (fn: (tracker: NonNullable<Window["InsightsTracker"]>) =>
   tick();
 };
 
+const normalizePath = (pathname: string) => (pathname.endsWith("/") ? pathname : `${pathname}/`);
+
 const isThankYouPath = (pathname: string) => {
   const normalized = pathname.endsWith("/") ? pathname : `${pathname}/`;
   return normalized === "/thank-you/";
 };
 
+const isQuestionnairePath = (pathname: string) => {
+  const normalized = normalizePath(pathname);
+  return (
+    normalized === "/questionnaire/" ||
+    normalized === "/es/cuestionario/" ||
+    normalized === "/cuestionario/"
+  );
+};
+
+const isLeadIntakePath = (pathname: string) =>
+  isThankYouPath(pathname) || isQuestionnairePath(pathname);
+
+const isLandingAllowlisted = (pathname: string) => {
+  const normalized = normalizePath(pathname);
+  return (
+    normalized === "/" ||
+    normalized === "/es/" ||
+    normalized.startsWith("/services/") ||
+    normalized.startsWith("/es/servicios/")
+  );
+};
+
 export default function InsightsRouteTracker() {
   const pathname = usePathname() || "/";
-  const currentUrl = `${pathname}${typeof window !== "undefined" ? window.location.search : ""}`;
 
-  const lastUrlRef = useRef<string>("");
+  const lastPathRef = useRef<string>("");
   const didInitRef = useRef(false);
 
   useEffect(() => {
-    // Dedupe for URL changes and avoid duplicating the initial page_view from the snippet.
+    // Dedupe for URL changes (pathname only) and avoid duplicating the initial page_view from the snippet.
     if (!didInitRef.current) {
       didInitRef.current = true;
-      lastUrlRef.current = currentUrl;
+      lastPathRef.current = pathname;
       try {
-        sessionStorage.setItem(LAST_URL_KEY, currentUrl);
+        sessionStorage.setItem(LAST_PATH_KEY, pathname);
       } catch {
         // ignore
       }
       return;
     }
 
-    let lastUrl = lastUrlRef.current;
+    let lastPath = lastPathRef.current;
     try {
-      lastUrl = sessionStorage.getItem(LAST_URL_KEY) || lastUrl;
+      lastPath = sessionStorage.getItem(LAST_PATH_KEY) || lastPath;
     } catch {
       // ignore
     }
 
-    if (lastUrl === currentUrl) return;
+    if (lastPath === pathname) return;
 
-    lastUrlRef.current = currentUrl;
+    lastPathRef.current = pathname;
     try {
-      sessionStorage.setItem(LAST_URL_KEY, currentUrl);
+      sessionStorage.setItem(LAST_PATH_KEY, pathname);
     } catch {
       // ignore
     }
 
     trackWhenReady((tracker) => {
       if (typeof tracker.track !== "function") return;
-      tracker.track("page_view", { source: "route_change" });
+      tracker.track("page_view", { source: "route_change", page_path: pathname });
+    });
+  }, [pathname]);
+
+  useEffect(() => {
+    // Determine entry_page once per session and emit landing_view only for allowlisted entry pages.
+    let entryPage = "";
+    try {
+      entryPage = sessionStorage.getItem(ENTRY_PAGE_KEY) || "";
+      if (!entryPage) {
+        entryPage = pathname;
+        sessionStorage.setItem(ENTRY_PAGE_KEY, entryPage);
+      }
+    } catch {
+      entryPage = entryPage || pathname;
+    }
+
+    if (isLeadIntakePath(entryPage)) return;
+    if (!isLandingAllowlisted(entryPage)) return;
+
+    const sessionId = safeGetCookie("__insights_sid_siamo");
+    const dedupeKey = `__insights_landing_view_${sessionId || "unknown"}`;
+    try {
+      if (sessionStorage.getItem(dedupeKey)) return;
+      sessionStorage.setItem(dedupeKey, "1");
+    } catch {
+      // If storage is blocked, fall back to in-memory dedupe for this tab.
+      if ((window as unknown as { __insightsLanding?: boolean }).__insightsLanding) return;
+      (window as unknown as { __insightsLanding?: boolean }).__insightsLanding = true;
+    }
+
+    trackWhenReady((tracker) => {
+      if (typeof tracker.track !== "function") return;
+      tracker.track("landing_view", { source: "entry_page", page_path: entryPage });
+    });
+  }, [pathname]);
+
+  useEffect(() => {
+    // Delegated listener for clicks that navigate to the lead intake form.
+    const handler = (event: MouseEvent) => {
+      const target = event.target as Element | null;
+      if (!target) return;
+      const anchor = target.closest?.("a");
+      if (!anchor) return;
+      const href = anchor.getAttribute("href") || "";
+      if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) {
+        return;
+      }
+
+      let toPathname = "";
+      try {
+        toPathname = new URL(href, window.location.href).pathname;
+      } catch {
+        return;
+      }
+
+      if (!isQuestionnairePath(toPathname)) return;
+
+      const sessionId = safeGetCookie("__insights_sid_siamo");
+      const dedupeKey = `__insights_cta_click_contact_${sessionId || "unknown"}`;
+      try {
+        if (sessionStorage.getItem(dedupeKey)) return;
+        sessionStorage.setItem(dedupeKey, "1");
+      } catch {
+        // If storage is blocked, fall back to in-memory dedupe for this tab.
+        if ((window as unknown as { __insightsCta?: boolean }).__insightsCta) return;
+        (window as unknown as { __insightsCta?: boolean }).__insightsCta = true;
+      }
+
+      trackWhenReady((tracker) => {
+        if (typeof tracker.track !== "function") return;
+        tracker.track("cta_click_contact", { source: "click", target_path: toPathname });
+      });
+    };
+
+    document.addEventListener("click", handler, true);
+    return () => document.removeEventListener("click", handler, true);
+  }, []);
+
+  useEffect(() => {
+    // Optional: if the user enters the questionnaire page without a prior click, emit the intent event once.
+    if (!isQuestionnairePath(pathname)) return;
+
+    const sessionId = safeGetCookie("__insights_sid_siamo");
+    const dedupeKey = `__insights_cta_click_contact_${sessionId || "unknown"}`;
+    try {
+      if (sessionStorage.getItem(dedupeKey)) return;
+      sessionStorage.setItem(dedupeKey, "1");
+    } catch {
+      if ((window as unknown as { __insightsCta?: boolean }).__insightsCta) return;
+      (window as unknown as { __insightsCta?: boolean }).__insightsCta = true;
+    }
+
+    trackWhenReady((tracker) => {
+      if (typeof tracker.track !== "function") return;
+      tracker.track("cta_click_contact", { source: "route_enter", target_path: pathname });
     });
   }, [pathname]);
 
