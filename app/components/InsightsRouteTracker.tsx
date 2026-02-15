@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 const LAST_URL_KEY = "__insights_last_url";
 
@@ -37,12 +37,7 @@ const isThankYouPath = (pathname: string) => {
 
 export default function InsightsRouteTracker() {
   const pathname = usePathname() || "/";
-  const searchParams = useSearchParams();
-  const search = useMemo(() => searchParams?.toString() ?? "", [searchParams]);
-  const currentUrl = useMemo(
-    () => (search ? `${pathname}?${search}` : pathname),
-    [pathname, search]
-  );
+  const currentUrl = `${pathname}${typeof window !== "undefined" ? window.location.search : ""}`;
 
   const lastUrlRef = useRef<string>("");
   const didInitRef = useRef(false);
@@ -80,17 +75,17 @@ export default function InsightsRouteTracker() {
       if (typeof tracker.track !== "function") return;
       tracker.track("page_view", { source: "route_change" });
     });
-  }, [currentUrl]);
+  }, [pathname]);
 
   useEffect(() => {
     // Calendly booked detection based on thank-you URL params (no iframe instrumentation).
     if (!isThankYouPath(pathname)) return;
-    if (!searchParams) return;
 
+    const params = new URLSearchParams(
+      typeof window !== "undefined" ? window.location.search : ""
+    );
     const hasBooked =
-      searchParams.has("booked") ||
-      searchParams.get("booked") === "1" ||
-      searchParams.get("booked") === "true";
+      params.has("booked") || params.get("booked") === "1" || params.get("booked") === "true";
     if (!hasBooked) return;
 
     const sessionId = safeGetCookie("__insights_sid_siamo");
@@ -113,8 +108,7 @@ export default function InsightsRouteTracker() {
         tracker.track("calendly_booked", { source: "thank_you_booked_param" });
       }
     });
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 }
-
