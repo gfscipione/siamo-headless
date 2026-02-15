@@ -77,7 +77,7 @@ export default function InsightsRouteTracker() {
 
     trackWhenReady((tracker) => {
       if (typeof tracker.track !== "function") return;
-      tracker.track("page_view", { source: "route_change", page_path: pathname });
+      tracker.track("page_view", { source: "route_change", sdk: "site_repo", page_path: pathname });
     });
   }, [pathname]);
 
@@ -109,7 +109,11 @@ export default function InsightsRouteTracker() {
 
     trackWhenReady((tracker) => {
       if (typeof tracker.track !== "function") return;
-      tracker.track("landing_view", { source: "entry_page", page_path: entryPage });
+      tracker.track("landing_view", {
+        source: "entry_page",
+        sdk: "site_repo",
+        page_path: entryPage,
+      });
     });
   }, [pathname]);
 
@@ -146,7 +150,11 @@ export default function InsightsRouteTracker() {
 
       trackWhenReady((tracker) => {
         if (typeof tracker.track !== "function") return;
-        tracker.track("cta_click_contact", { source: "click", target_path: toPathname });
+        tracker.track("cta_click_contact", {
+          source: "click",
+          sdk: "site_repo",
+          target_path: toPathname,
+        });
       });
     };
 
@@ -169,7 +177,11 @@ export default function InsightsRouteTracker() {
 
     trackWhenReady((tracker) => {
       if (typeof tracker.track !== "function") return;
-      tracker.track("cta_click_contact", { source: "route_enter", target_path: pathname });
+      tracker.track("cta_click_contact", {
+        source: "route_enter",
+        sdk: "site_repo",
+        target_path: pathname,
+      });
     });
   }, [pathname]);
 
