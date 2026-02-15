@@ -1,26 +1,53 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { hasSessionFlag, safeGetCookie, setSessionFlag, trackWhenReady } from "../../components/insightsClient";
 
 const isCalendlyEvent = (value: unknown): value is { event: string } => {
   if (!value || typeof value !== "object") return false;
   return typeof (value as { event?: unknown }).event === "string";
 };
 
+const CALENDLY_BOOKED_KEY = "__insights_calendly_booked";
+const INSIGHTS_SESSION_COOKIE = "__insights_sid_siamo";
+
 export default function ThankYouCopy() {
   const [isBooked, setIsBooked] = useState(false);
 
   useEffect(() => {
+    const emitBooked = (source: string) => {
+      const sessionId = safeGetCookie(INSIGHTS_SESSION_COOKIE);
+      try {
+        if (hasSessionFlag(CALENDLY_BOOKED_KEY, sessionId)) return;
+        setSessionFlag(CALENDLY_BOOKED_KEY, sessionId);
+      } catch {
+        if ((window as unknown as { __insightsBooked?: boolean }).__insightsBooked) return;
+        (window as unknown as { __insightsBooked?: boolean }).__insightsBooked = true;
+      }
+
+      trackWhenReady((tracker) => {
+        if (typeof tracker.trackCalendlyBooked === "function") {
+          tracker.trackCalendlyBooked({ source });
+          return;
+        }
+        if (typeof tracker.track === "function") {
+          tracker.track("calendly_booked", { source });
+        }
+      });
+    };
+
     const params = new URLSearchParams(window.location.search);
     const previewBooked = params.get("booked");
     if (previewBooked === "1" || previewBooked === "true") {
       setIsBooked(true);
+      emitBooked("thank_you_booked_param");
     }
 
     const handleMessage = (event: MessageEvent) => {
       if (!isCalendlyEvent(event.data)) return;
       if (event.data.event === "calendly.event_scheduled") {
         setIsBooked(true);
+        emitBooked("calendly_postmessage");
       }
     };
 

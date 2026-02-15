@@ -2,34 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { hasSessionFlag, safeGetCookie, setSessionFlag, trackWhenReady } from "./insightsClient";
 
 const LAST_PATH_KEY = "__insights_last_path";
 const ENTRY_PAGE_KEY = "insights_entry_page";
-
-const safeGetCookie = (name: string) => {
-  try {
-    const parts = document.cookie.split(";").map((part) => part.trim());
-    const match = parts.find((part) => part.startsWith(`${name}=`));
-    if (!match) return "";
-    return decodeURIComponent(match.slice(name.length + 1));
-  } catch {
-    return "";
-  }
-};
-
-const trackWhenReady = (fn: (tracker: NonNullable<Window["InsightsTracker"]>) => void) => {
-  const start = Date.now();
-  const tick = () => {
-    const tracker = window.InsightsTracker;
-    if (tracker) {
-      fn(tracker);
-      return;
-    }
-    if (Date.now() - start > 2000) return;
-    setTimeout(tick, 100);
-  };
-  tick();
-};
+const LANDING_VIEW_KEY = "__insights_landing_view";
+const CTA_CLICK_CONTACT_KEY = "__insights_cta_click_contact";
+const CALENDLY_BOOKED_KEY = "__insights_calendly_booked";
+const INSIGHTS_SESSION_COOKIE = "__insights_sid_siamo";
 
 const normalizePath = (pathname: string) => (pathname.endsWith("/") ? pathname : `${pathname}/`);
 
@@ -117,11 +97,10 @@ export default function InsightsRouteTracker() {
     if (isLeadIntakePath(entryPage)) return;
     if (!isLandingAllowlisted(entryPage)) return;
 
-    const sessionId = safeGetCookie("__insights_sid_siamo");
-    const dedupeKey = `__insights_landing_view_${sessionId || "unknown"}`;
+    const sessionId = safeGetCookie(INSIGHTS_SESSION_COOKIE);
     try {
-      if (sessionStorage.getItem(dedupeKey)) return;
-      sessionStorage.setItem(dedupeKey, "1");
+      if (hasSessionFlag(LANDING_VIEW_KEY, sessionId)) return;
+      setSessionFlag(LANDING_VIEW_KEY, sessionId);
     } catch {
       // If storage is blocked, fall back to in-memory dedupe for this tab.
       if ((window as unknown as { __insightsLanding?: boolean }).__insightsLanding) return;
@@ -155,11 +134,10 @@ export default function InsightsRouteTracker() {
 
       if (!isQuestionnairePath(toPathname)) return;
 
-      const sessionId = safeGetCookie("__insights_sid_siamo");
-      const dedupeKey = `__insights_cta_click_contact_${sessionId || "unknown"}`;
+      const sessionId = safeGetCookie(INSIGHTS_SESSION_COOKIE);
       try {
-        if (sessionStorage.getItem(dedupeKey)) return;
-        sessionStorage.setItem(dedupeKey, "1");
+        if (hasSessionFlag(CTA_CLICK_CONTACT_KEY, sessionId)) return;
+        setSessionFlag(CTA_CLICK_CONTACT_KEY, sessionId);
       } catch {
         // If storage is blocked, fall back to in-memory dedupe for this tab.
         if ((window as unknown as { __insightsCta?: boolean }).__insightsCta) return;
@@ -180,11 +158,10 @@ export default function InsightsRouteTracker() {
     // Optional: if the user enters the questionnaire page without a prior click, emit the intent event once.
     if (!isQuestionnairePath(pathname)) return;
 
-    const sessionId = safeGetCookie("__insights_sid_siamo");
-    const dedupeKey = `__insights_cta_click_contact_${sessionId || "unknown"}`;
+    const sessionId = safeGetCookie(INSIGHTS_SESSION_COOKIE);
     try {
-      if (sessionStorage.getItem(dedupeKey)) return;
-      sessionStorage.setItem(dedupeKey, "1");
+      if (hasSessionFlag(CTA_CLICK_CONTACT_KEY, sessionId)) return;
+      setSessionFlag(CTA_CLICK_CONTACT_KEY, sessionId);
     } catch {
       if ((window as unknown as { __insightsCta?: boolean }).__insightsCta) return;
       (window as unknown as { __insightsCta?: boolean }).__insightsCta = true;
@@ -207,11 +184,10 @@ export default function InsightsRouteTracker() {
       params.has("booked") || params.get("booked") === "1" || params.get("booked") === "true";
     if (!hasBooked) return;
 
-    const sessionId = safeGetCookie("__insights_sid_siamo");
-    const dedupeKey = `__insights_calendly_booked_${sessionId || "unknown"}`;
+    const sessionId = safeGetCookie(INSIGHTS_SESSION_COOKIE);
     try {
-      if (sessionStorage.getItem(dedupeKey)) return;
-      sessionStorage.setItem(dedupeKey, "1");
+      if (hasSessionFlag(CALENDLY_BOOKED_KEY, sessionId)) return;
+      setSessionFlag(CALENDLY_BOOKED_KEY, sessionId);
     } catch {
       // If storage is blocked, fall back to in-memory dedupe for this tab.
       if ((window as unknown as { __insightsBooked?: boolean }).__insightsBooked) return;
