@@ -349,17 +349,8 @@ export default function QuestionnaireForm() {
           // ignore storage errors (private mode, quota, etc.)
         }
       }
-      if (formRef.current) {
-        formRef.current.reset();
-      }
-      setProjectType("");
-      setHasNoPlans(false);
-      setPropertyStatus("");
-      setReferralSources([]);
-      setUploadedFiles([]);
-      setFileError(null);
-      setIsFormValid(false);
-      setIsSubmitting(false);
+      window.location.assign("/es/gracias/");
+      return;
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : "Algo salió mal.");
       setIsSubmitting(false);
@@ -733,11 +724,6 @@ export default function QuestionnaireForm() {
       {submitError && (
         <p className="questionnaire-submit-error" role="alert">
           {submitError}
-        </p>
-      )}
-      {submitSuccess && (
-        <p className="questionnaire-submit-success" role="status">
-          ¡Gracias! Recibimos tus datos. Ahora agenda tu videollamada abajo.
         </p>
       )}
     </form>
