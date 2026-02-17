@@ -65,12 +65,83 @@ export default function QuestionnaireForm() {
     );
   };
 
+  const updateReferralValidity = () => {
+    if (!formRef.current) return;
+    const referralInputs = Array.from(
+      formRef.current.querySelectorAll<HTMLInputElement>(
+        'input[name="referralSources"]'
+      )
+    );
+    if (!referralInputs.length) return;
+
+    const hasSelection = referralInputs.some((input) => input.checked);
+    const message = hasSelection ? "" : "Selecciona al menos una opción.";
+    referralInputs.forEach((input, index) =>
+      input.setCustomValidity(index === 0 ? message : "")
+    );
+  };
+
+  const updatePlansValidity = () => {
+    const input = fileInputRef.current;
+    if (!input) return;
+
+    if (!projectType || hasNoPlans) {
+      input.setCustomValidity("");
+      return;
+    }
+
+    if (uploadedFiles.length === 0) {
+      input.setCustomValidity("Sube al menos un archivo o marca No tengo planos.");
+      return;
+    }
+
+    if (uploadedFiles.some((file) => file.status === "uploading")) {
+      input.setCustomValidity("Espera a que terminen las cargas.");
+      return;
+    }
+
+    if (uploadedFiles.some((file) => file.status === "error")) {
+      input.setCustomValidity("Elimina los archivos fallidos e inténtalo de nuevo.");
+      return;
+    }
+
+    const uploadedCount = uploadedFiles.filter((file) => file.status === "uploaded" && file.path)
+      .length;
+    input.setCustomValidity(
+      uploadedCount > 0 ? "" : "Sube al menos un archivo o marca No tengo planos."
+    );
+  };
+
+  const getInvalidFieldLabel = (form: HTMLFormElement) => {
+    const invalid = form.querySelector<HTMLElement>(":invalid");
+    if (!invalid) return "";
+
+    const inputId = invalid.getAttribute("id");
+    if (inputId) {
+      const directLabel = form.querySelector<HTMLLabelElement>(`label[for="${inputId}"]`);
+      if (directLabel?.textContent) {
+        return directLabel.textContent.replace(/\s*\*+\s*$/, "").trim();
+      }
+    }
+
+    const fieldLabel = invalid
+      .closest(".questionnaire-field")
+      ?.querySelector<HTMLElement>(".questionnaire-label");
+    if (fieldLabel?.textContent) {
+      return fieldLabel.textContent.replace(/\s*\*+\s*$/, "").trim();
+    }
+
+    return "";
+  };
+
   const updateFormValidity = () => {
     if (!formRef.current) {
       setIsFormValid(false);
       return;
     }
     updateAreaValidity();
+    updateReferralValidity();
+    updatePlansValidity();
     setIsFormValid(formRef.current.checkValidity());
   };
 
@@ -88,27 +159,7 @@ export default function QuestionnaireForm() {
 
   useEffect(() => {
     updateFormValidity();
-  }, [projectType, hasNoPlans]);
-
-  useEffect(() => {
-    const input = fileInputRef.current;
-    if (!input) return;
-    if (hasNoPlans) {
-      input.setCustomValidity("");
-      updateFormValidity();
-      return;
-    }
-    if (uploadedFiles.length === 0) {
-      input.setCustomValidity("Sube al menos un archivo.");
-    } else if (uploadedFiles.some((file) => file.status === "uploading")) {
-      input.setCustomValidity("Espera a que terminen las cargas.");
-    } else if (uploadedFiles.some((file) => file.status === "error")) {
-      input.setCustomValidity("Elimina los archivos fallidos e inténtalo de nuevo.");
-    } else {
-      input.setCustomValidity("");
-    }
-    updateFormValidity();
-  }, [uploadedFiles, hasNoPlans]);
+  }, [projectType, hasNoPlans, referralSources, uploadedFiles]);
 
   const formatFileSize = (bytes: number) => {
     if (bytes < 1024) return `${bytes} B`;
@@ -223,8 +274,16 @@ export default function QuestionnaireForm() {
     if (!formRef.current) return;
     setSubmitError(null);
     setSubmitSuccess(false);
+    updateFormValidity();
 
-    if (!formRef.current.reportValidity()) {
+    if (!formRef.current.checkValidity()) {
+      const fieldLabel = getInvalidFieldLabel(formRef.current);
+      setSubmitError(
+        fieldLabel
+          ? `Completa el campo obligatorio: ${fieldLabel}.`
+          : "Completa todos los campos obligatorios."
+      );
+      formRef.current.reportValidity();
       return;
     }
 
@@ -437,6 +496,7 @@ export default function QuestionnaireForm() {
           name="venue"
           type="text"
           placeholder="Ej. 742 Evergreen Terrace, Springfield"
+          required
         />
       </div>
 
@@ -669,7 +729,7 @@ export default function QuestionnaireForm() {
 
           <div className="questionnaire-field">
             <label className="questionnaire-label" htmlFor="notes">
-              Comentarios adicionales
+              Comentarios adicionales (opcional)
             </label>
             <textarea
               className="questionnaire-textarea"
@@ -681,7 +741,7 @@ export default function QuestionnaireForm() {
           </div>
 
           <div className="questionnaire-field">
-            <label className="questionnaire-label">¿Cómo supiste de nosotros?</label>
+            <label className="questionnaire-label">¿Cómo supiste de nosotros? *</label>
             <div className="questionnaire-checklist">
               {[
                 { value: "google", label: "Google" },
@@ -713,8 +773,8 @@ export default function QuestionnaireForm() {
         <button
           className="questionnaire-submit"
           type="submit"
-          disabled={!isFormValid || isUploading || isSubmitting || submitSuccess}
-          aria-disabled={!isFormValid || submitSuccess}
+          disabled={isUploading || isSubmitting || submitSuccess}
+          aria-disabled={isUploading || isSubmitting || submitSuccess}
           aria-busy={isSubmitting}
         >
           {isSubmitting ? "Enviando..." : "Continuar para agendar "}
@@ -726,6 +786,7 @@ export default function QuestionnaireForm() {
           {submitError}
         </p>
       )}
+      <small className="questionnaire-required-note">* Campos obligatorios.</small>
     </form>
   );
 }

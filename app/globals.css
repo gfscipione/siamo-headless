@@ -5959,6 +5959,18 @@ html:has(.portfolio-page) {
   justify-content: center;
 }
 
+.questionnaire-required-note {
+  display: block;
+  width: 100%;
+  margin-top: 34px;
+  text-align: right;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8f8a82;
+  line-height: 1.2;
+}
+
 .questionnaire-submit:hover {
   background-color: var(--nav-cta-bg-hover, var(--nav-cta-bg, #F4F2EA));
   color: var(--nav-cta-ink, #111111);
@@ -6233,6 +6245,11 @@ html:has(.portfolio-page) {
     font-size: var(--hero-cta-fs-m, var(--nav-title-fs-m, var(--nav-title-fs, 12.5px)));
     padding: var(--hero-cta-pady-m, var(--hero-cta-pady, var(--nav-cta-pady, 8px)))
              var(--hero-cta-padx-m, var(--hero-cta-padx, var(--nav-cta-padx, 26px)));
+  }
+
+  .questionnaire-required-note {
+    margin-top: 24px;
+    font-size: 9.5px;
   }
 }
 

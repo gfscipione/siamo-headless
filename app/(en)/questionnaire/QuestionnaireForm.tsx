@@ -65,12 +65,83 @@ export default function QuestionnaireForm() {
     );
   };
 
+  const updateReferralValidity = () => {
+    if (!formRef.current) return;
+    const referralInputs = Array.from(
+      formRef.current.querySelectorAll<HTMLInputElement>(
+        'input[name="referralSources"]'
+      )
+    );
+    if (!referralInputs.length) return;
+
+    const hasSelection = referralInputs.some((input) => input.checked);
+    const message = hasSelection ? "" : "Select at least one option.";
+    referralInputs.forEach((input, index) =>
+      input.setCustomValidity(index === 0 ? message : "")
+    );
+  };
+
+  const updatePlansValidity = () => {
+    const input = fileInputRef.current;
+    if (!input) return;
+
+    if (!projectType || hasNoPlans) {
+      input.setCustomValidity("");
+      return;
+    }
+
+    if (uploadedFiles.length === 0) {
+      input.setCustomValidity("Upload at least one file or select I don't have plans.");
+      return;
+    }
+
+    if (uploadedFiles.some((file) => file.status === "uploading")) {
+      input.setCustomValidity("Please wait for uploads to finish.");
+      return;
+    }
+
+    if (uploadedFiles.some((file) => file.status === "error")) {
+      input.setCustomValidity("Please remove failed uploads and try again.");
+      return;
+    }
+
+    const uploadedCount = uploadedFiles.filter((file) => file.status === "uploaded" && file.path)
+      .length;
+    input.setCustomValidity(
+      uploadedCount > 0 ? "" : "Upload at least one file or select I don't have plans."
+    );
+  };
+
+  const getInvalidFieldLabel = (form: HTMLFormElement) => {
+    const invalid = form.querySelector<HTMLElement>(":invalid");
+    if (!invalid) return "";
+
+    const inputId = invalid.getAttribute("id");
+    if (inputId) {
+      const directLabel = form.querySelector<HTMLLabelElement>(`label[for="${inputId}"]`);
+      if (directLabel?.textContent) {
+        return directLabel.textContent.replace(/\s*\*+\s*$/, "").trim();
+      }
+    }
+
+    const fieldLabel = invalid
+      .closest(".questionnaire-field")
+      ?.querySelector<HTMLElement>(".questionnaire-label");
+    if (fieldLabel?.textContent) {
+      return fieldLabel.textContent.replace(/\s*\*+\s*$/, "").trim();
+    }
+
+    return "";
+  };
+
   const updateFormValidity = () => {
     if (!formRef.current) {
       setIsFormValid(false);
       return;
     }
     updateAreaValidity();
+    updateReferralValidity();
+    updatePlansValidity();
     setIsFormValid(formRef.current.checkValidity());
   };
 
@@ -88,27 +159,7 @@ export default function QuestionnaireForm() {
 
   useEffect(() => {
     updateFormValidity();
-  }, [projectType, hasNoPlans]);
-
-  useEffect(() => {
-    const input = fileInputRef.current;
-    if (!input) return;
-    if (hasNoPlans) {
-      input.setCustomValidity("");
-      updateFormValidity();
-      return;
-    }
-    if (uploadedFiles.length === 0) {
-      input.setCustomValidity("Please upload at least one file.");
-    } else if (uploadedFiles.some((file) => file.status === "uploading")) {
-      input.setCustomValidity("Please wait for uploads to finish.");
-    } else if (uploadedFiles.some((file) => file.status === "error")) {
-      input.setCustomValidity("Please remove failed uploads and try again.");
-    } else {
-      input.setCustomValidity("");
-    }
-    updateFormValidity();
-  }, [uploadedFiles, hasNoPlans]);
+  }, [projectType, hasNoPlans, referralSources, uploadedFiles]);
 
   const formatFileSize = (bytes: number) => {
     if (bytes < 1024) return `${bytes} B`;
@@ -223,8 +274,16 @@ export default function QuestionnaireForm() {
     if (!formRef.current) return;
     setSubmitError(null);
     setSubmitSuccess(false);
+    updateFormValidity();
 
-    if (!formRef.current.reportValidity()) {
+    if (!formRef.current.checkValidity()) {
+      const fieldLabel = getInvalidFieldLabel(formRef.current);
+      setSubmitError(
+        fieldLabel
+          ? `Please complete the required field: ${fieldLabel}.`
+          : "Please complete all required fields."
+      );
+      formRef.current.reportValidity();
       return;
     }
 
@@ -436,6 +495,7 @@ export default function QuestionnaireForm() {
           name="venue"
           type="text"
           placeholder="E.g. 742 Evergreen Terrace, Springfield"
+          required
         />
       </div>
 
@@ -666,7 +726,7 @@ export default function QuestionnaireForm() {
 
           <div className="questionnaire-field">
             <label className="questionnaire-label" htmlFor="notes">
-              Additional comments
+              Additional comments (optional)
             </label>
             <textarea
               className="questionnaire-textarea"
@@ -678,7 +738,7 @@ export default function QuestionnaireForm() {
           </div>
 
           <div className="questionnaire-field">
-            <label className="questionnaire-label">How did you hear about us?</label>
+            <label className="questionnaire-label">How did you hear about us? *</label>
             <div className="questionnaire-checklist">
               {[
                 { value: "google", label: "Google" },
@@ -710,8 +770,8 @@ export default function QuestionnaireForm() {
         <button
           className="questionnaire-submit"
           type="submit"
-          disabled={!isFormValid || isUploading || isSubmitting || submitSuccess}
-          aria-disabled={!isFormValid || submitSuccess}
+          disabled={isUploading || isSubmitting || submitSuccess}
+          aria-disabled={isUploading || isSubmitting || submitSuccess}
           aria-busy={isSubmitting}
         >
           {isSubmitting ? "Sending..." : "Continue to Scheduling "}
@@ -728,6 +788,7 @@ export default function QuestionnaireForm() {
           Thanks! We received your details. Next, schedule your video call below.
         </p>
       )}
+      <small className="questionnaire-required-note">* Required fields.</small>
     </form>
   );
 }
