@@ -145,19 +145,25 @@ export async function POST(request: Request) {
   // Emit server-side conversion event (no PII).
   // NOTE: This should never block the submission flow.
   try {
-    const apiKey = process.env.NEXT_PUBLIC_INSIGHTS_API_KEY ?? "";
+    const apiKey = process.env.INSIGHTS_SERVER_API_KEY ?? "";
     const endpoint = "https://insights-dashboard-six.vercel.app/api/events";
-	    const payload = {
-	      site_id: "siamo",
-	      api_key: apiKey,
-	      event_name: "contact_form_submit",
-	      // Duplicate the join keys as top-level fields as well as metadata to support
-	      // ingestion pipelines that only persist known columns and ignore nested metadata.
-	      source: "server_submit",
-	      submission_id: submissionId,
-	      page_path: pagePath,
-	      referrer,
-	      ref_domain: referrer ? getRefDomain(referrer) : "",
+
+    if (!apiKey) {
+      console.warn(
+        "[questionnaire/submit] INSIGHTS_SERVER_API_KEY is missing; skipping server_submit analytics event."
+      );
+    } else {
+      const payload = {
+        site_id: "siamo",
+        api_key: apiKey,
+        event_name: "contact_form_submit",
+        // Duplicate the join keys as top-level fields as well as metadata to support
+        // ingestion pipelines that only persist known columns and ignore nested metadata.
+        source: "server_submit",
+        submission_id: submissionId,
+        page_path: pagePath,
+        referrer,
+        ref_domain: referrer ? getRefDomain(referrer) : "",
       utm_source: safeString(insightsFromBody.utm_source),
       utm_medium: safeString(insightsFromBody.utm_medium),
       utm_campaign: safeString(insightsFromBody.utm_campaign),
@@ -169,22 +175,29 @@ export async function POST(request: Request) {
       session_id: insightsSessionId,
       language: acceptLanguage,
       country,
-	      metadata: {
-	        submission_id: submissionId,
-	        email_hash: emailHash || undefined,
-	        source: "server_submit",
-	        form_id: "questionnaire",
-	      },
-	    };
+        metadata: {
+          submission_id: submissionId,
+          email_hash: emailHash || undefined,
+          source: "server_submit",
+          form_id: "questionnaire",
+        },
+      };
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 1500);
-    await fetch(endpoint, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-    }).finally(() => clearTimeout(timeout));
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 1500);
+      const analyticsRes = await fetch(endpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      }).finally(() => clearTimeout(timeout));
+
+      if (!analyticsRes.ok) {
+        console.warn(
+          `[questionnaire/submit] server_submit analytics request failed with status ${analyticsRes.status}.`
+        );
+      }
+    }
   } catch {
     // ignore analytics errors
   }
