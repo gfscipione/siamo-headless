@@ -47,9 +47,21 @@ const nextConfig = (phase: string): NextConfig => {
       { source: "/portafolio/:path*", destination: "/es/portafolio/:path*", permanent: true },
 
       // Legacy WPML-style English folder (seen in GSC).
+      { source: "/english", destination: "/", permanent: true },
+      { source: "/english/", destination: "/", permanent: true },
+      { source: "/english/services", destination: "/services/", permanent: true },
+      { source: "/english/services/", destination: "/services/", permanent: true },
       { source: "/english/portafolio", destination: "/portfolio/", permanent: true },
       { source: "/english/portafolio/", destination: "/portfolio/", permanent: true },
       { source: "/english/portafolio/:path*", destination: "/portfolio/:path*", permanent: true },
+
+      // `/en/` prefix is not used on this site; send old links to EN homepage.
+      { source: "/en", destination: "/", permanent: true },
+      { source: "/en/", destination: "/", permanent: true },
+
+      // Legacy author archive from WP.
+      { source: "/author/stephania", destination: "/get-to-know-us/", permanent: true },
+      { source: "/author/stephania/", destination: "/get-to-know-us/", permanent: true },
 
       // Yoast sitemap legacy service slugs (EN).
       {
