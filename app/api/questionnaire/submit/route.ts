@@ -1,7 +1,8 @@
+import { createHash, randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import nodemailer from "nodemailer";
-import { buildQuestionnaireEmail } from "../emailTemplate";
+import { buildQuestionnaireEmail, type QuestionnairePayload } from "../emailTemplate";
 
 export const runtime = "nodejs";
 
@@ -15,6 +16,161 @@ const supabase =
         auth: { persistSession: false },
       })
     : null;
+
+const INSIGHTS_SUBMIT_URL =
+  "https://insights-dashboard-six.vercel.app/api/leads/submit";
+const INSIGHTS_SESSION_COOKIE = "__insights_sid_siamo";
+const INSIGHTS_VISITOR_COOKIE = "__insights_vid_siamo";
+
+type SubmitBody = {
+  email?: unknown;
+  files?: unknown;
+  submissionId?: unknown;
+  locale?: unknown;
+  pagePath?: unknown;
+};
+
+function readNonEmptyString(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : null;
+}
+
+function normalizeEmail(value: unknown): string | null {
+  const email = readNonEmptyString(value);
+  if (!email) return null;
+  return email.toLowerCase();
+}
+
+function hashEmailSha256(value: string | null): string | null {
+  if (!value) return null;
+  return createHash("sha256").update(value).digest("hex");
+}
+
+function readCookieValue(cookieHeader: string | null, name: string): string | null {
+  if (!cookieHeader) return null;
+  const parts = cookieHeader.split(";").map((part) => part.trim());
+  for (const part of parts) {
+    if (!part.startsWith(`${name}=`)) continue;
+    const raw = part.slice(name.length + 1);
+    try {
+      const decoded = decodeURIComponent(raw).trim();
+      return decoded.length > 0 ? decoded : null;
+    } catch {
+      return raw.length > 0 ? raw : null;
+    }
+  }
+  return null;
+}
+
+function readPagePath(bodyPagePath: unknown, refererHeader: string | null): string | null {
+  const explicitPath = readNonEmptyString(bodyPagePath);
+  if (explicitPath) return explicitPath;
+
+  if (!refererHeader) return null;
+  try {
+    const refererUrl = new URL(refererHeader);
+    return refererUrl.pathname || null;
+  } catch {
+    return null;
+  }
+}
+
+function readLocale(bodyLocale: unknown, pagePath: string | null): "en" | "es" {
+  const explicitLocale = readNonEmptyString(bodyLocale);
+  if (explicitLocale === "en" || explicitLocale === "es") return explicitLocale;
+  return pagePath?.startsWith("/es/") ? "es" : "en";
+}
+
+function readStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      const clean = readNonEmptyString(item);
+      return clean ?? String(item ?? "").trim();
+    })
+    .filter((item) => item.length > 0);
+}
+
+function readStringRecord(value: unknown): Record<string, string> {
+  if (!value || typeof value !== "object") return {};
+  const record = value as Record<string, unknown>;
+  const result: Record<string, string> = {};
+  for (const [key, raw] of Object.entries(record)) {
+    const normalized = readNonEmptyString(raw);
+    if (normalized) result[key] = normalized;
+  }
+  return result;
+}
+
+async function submitInsightsLeadAudit({
+  submissionId,
+  submittedAt,
+  emailHash,
+  sessionId,
+  visitorId,
+  locale,
+  pagePath,
+}: {
+  submissionId: string;
+  submittedAt: string;
+  emailHash: string | null;
+  sessionId: string | null;
+  visitorId: string | null;
+  locale: "en" | "es";
+  pagePath: string | null;
+}) {
+  const apiKey = readNonEmptyString(process.env.INSIGHTS_SERVER_API_KEY);
+  if (!apiKey) {
+    console.warn(
+      `[insights] missing INSIGHTS_SERVER_API_KEY, skipping lead audit submission_id=${submissionId}`
+    );
+    return;
+  }
+
+  const payload = {
+    site_id: "siamo",
+    submission_id: submissionId,
+    submitted_at: submittedAt,
+    email_hash: emailHash,
+    status: "accepted",
+    session_id: sessionId,
+    visitor_id: visitorId,
+    metadata: {
+      source: "server_submit",
+      form_id: "questionnaire",
+      locale,
+      page_path: pagePath,
+    },
+  };
+
+  try {
+    const response = await fetch(INSIGHTS_SUBMIT_URL, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      const responseSnippet = (await response.text()).replace(/\s+/g, " ").slice(0, 200);
+      console.warn(
+        `[insights] lead audit failed status=${response.status} submission_id=${submissionId} body=${responseSnippet}`
+      );
+      return;
+    }
+
+    console.info(`[insights] lead audit accepted submission_id=${submissionId}`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.warn(
+      `[insights] lead audit request error submission_id=${submissionId} message=${message}`
+    );
+  }
+}
 
 export async function POST(request: Request) {
   const smtpHost = process.env.SMTP_HOST ?? "";
@@ -39,23 +195,52 @@ export async function POST(request: Request) {
     );
   }
 
-  const body = await request.json().catch(() => null);
-  if (!body) {
+  const body = (await request.json().catch(() => null)) as SubmitBody | null;
+  if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
   }
+  const payloadSource = body as Record<string, unknown>;
 
   const files = Array.isArray(body.files) ? body.files : [];
   const signedFiles = await Promise.all(
-    files.map(async (file: { name?: string; size?: number; path?: string }) => {
-      if (!file?.path) return { ...file, signedUrl: "" };
+    files.map(async (rawFile) => {
+      const file = typeof rawFile === "object" && rawFile !== null ? rawFile : {};
+      const name = readNonEmptyString((file as { name?: unknown }).name) ?? "";
+      const sizeValue = (file as { size?: unknown }).size;
+      const size = typeof sizeValue === "number" ? sizeValue : undefined;
+      const path = readNonEmptyString((file as { path?: unknown }).path);
+
+      if (!path) {
+        return { name, size, path: "", signedUrl: "" };
+      }
+
       const { data } = await supabase.storage
         .from(supabaseBucket)
-        .createSignedUrl(file.path, 60 * 60 * 24 * 7);
-      return { ...file, signedUrl: data?.signedUrl ?? "" };
+        .createSignedUrl(path, 60 * 60 * 24 * 7);
+      return { name, size, path, signedUrl: data?.signedUrl ?? "" };
     })
   );
 
-  const { html, text } = buildQuestionnaireEmail(body, signedFiles);
+  const emailPayload: QuestionnairePayload = {
+    contactName: readNonEmptyString(payloadSource.contactName) ?? "",
+    email: readNonEmptyString(payloadSource.email) ?? "",
+    phoneCountry: readNonEmptyString(payloadSource.phoneCountry) ?? "",
+    phone: readNonEmptyString(payloadSource.phone) ?? "",
+    projectType: readNonEmptyString(payloadSource.projectType) ?? "",
+    venue: readNonEmptyString(payloadSource.venue) ?? "",
+    draw: readNonEmptyString(payloadSource.draw) ?? "",
+    notes: readNonEmptyString(payloadSource.notes) ?? "",
+    budgetVirtual: readNonEmptyString(payloadSource.budgetVirtual) ?? "",
+    budgetFull: readNonEmptyString(payloadSource.budgetFull) ?? "",
+    propertyStatusOther: readNonEmptyString(payloadSource.propertyStatusOther) ?? "",
+    hasNoPlans: payloadSource.hasNoPlans === true,
+    referralSources: readStringArray(payloadSource.referralSources),
+    propertyStatus: readStringArray(payloadSource.propertyStatus),
+    areas: readStringRecord(payloadSource.areas),
+  };
+
+  const { html, text } = buildQuestionnaireEmail(emailPayload, signedFiles);
+  const replyTo = readNonEmptyString(payloadSource.email) ?? undefined;
 
   const transporter = nodemailer.createTransport({
     host: smtpHost,
@@ -70,11 +255,31 @@ export async function POST(request: Request) {
   await transporter.sendMail({
     from: fromAddress,
     to: toAddress,
-    replyTo: body.email || undefined,
+    replyTo,
     subject: "New Questionnaire Submission",
     html,
     text,
   });
 
-  return NextResponse.json({ ok: true });
+  const submissionId = readNonEmptyString(payloadSource.submissionId) ?? randomUUID();
+  const normalizedEmail = normalizeEmail(payloadSource.email);
+  const emailHash = hashEmailSha256(normalizedEmail);
+  const cookieHeader = request.headers.get("cookie");
+  const refererHeader = request.headers.get("referer");
+  const pagePath = readPagePath(payloadSource.pagePath, refererHeader);
+  const locale = readLocale(payloadSource.locale, pagePath);
+  const sessionId = readCookieValue(cookieHeader, INSIGHTS_SESSION_COOKIE);
+  const visitorId = readCookieValue(cookieHeader, INSIGHTS_VISITOR_COOKIE);
+
+  await submitInsightsLeadAudit({
+    submissionId,
+    submittedAt: new Date().toISOString(),
+    emailHash,
+    sessionId,
+    visitorId,
+    locale,
+    pagePath,
+  });
+
+  return NextResponse.json({ ok: true, submissionId });
 }

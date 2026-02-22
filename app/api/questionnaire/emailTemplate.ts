@@ -1,4 +1,4 @@
-type QuestionnairePayload = {
+export type QuestionnairePayload = {
   contactName?: string;
   email?: string;
   phoneCountry?: string;
