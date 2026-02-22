@@ -11,6 +11,13 @@ type UploadedFile = {
   status: UploadStatus;
 };
 
+function createSubmissionId() {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `sub_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
 export default function QuestionnaireForm() {
   const [projectType, setProjectType] = useState("");
   const [hasNoPlans, setHasNoPlans] = useState(false);
@@ -25,6 +32,7 @@ export default function QuestionnaireForm() {
   const [fileError, setFileError] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const submissionIdRef = useRef<string>(createSubmissionId());
 
   const MAX_FILES = 10;
   const MAX_FILE_SIZE_MB = 10;
@@ -342,6 +350,9 @@ export default function QuestionnaireForm() {
       })();
 
       const payload = {
+        submissionId: submissionIdRef.current,
+        locale: "en",
+        pagePath: typeof window !== "undefined" ? window.location.pathname : "/questionnaire/",
         contactName: String(formData.get("contactName") ?? ""),
         phoneCountry: String(formData.get("phoneCountry") ?? ""),
         phone: String(formData.get("phone") ?? ""),
