@@ -42,6 +42,10 @@ const nextConfig = (phase: string): NextConfig => {
       { source: "/es/portfolio/:path*", destination: "/es/portafolio/:path*", permanent: true },
 
       // Legacy WP Spanish paths without `/es/` prefix (seen in GSC): keep backlinks alive.
+      { source: "/conocenos", destination: "/es/conocenos/", permanent: true },
+      { source: "/conocenos/", destination: "/es/conocenos/", permanent: true },
+      { source: "/servicios", destination: "/es/servicios/", permanent: true },
+      { source: "/servicios/", destination: "/es/servicios/", permanent: true },
       { source: "/portafolio", destination: "/es/portafolio/", permanent: true },
       { source: "/portafolio/", destination: "/es/portafolio/", permanent: true },
       { source: "/portafolio/:path*", destination: "/es/portafolio/:path*", permanent: true },
