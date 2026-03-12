@@ -18,7 +18,9 @@ function getSiteUrl() {
 
 const paths = [
   "/",
+  "/es/",
   "/get-to-know-us/",
+  "/es/conocenos/",
   "/services/",
   "/es/servicios/",
   "/services/virtual-design/",
@@ -37,6 +39,9 @@ const paths = [
   "/es/portafolio/mayan-sanctuary/",
   "/es/portafolio/naturaleza-atemporal/",
   "/es/portafolio/tuluminati-house/",
+  "/es/portafolio/mid-century-waves/",
+  "/es/portafolio/raices-tulum/",
+  "/es/portafolio/retiro-contemporaneo/",
   "/portfolio/mid-century-waves/",
   "/portfolio/roots-tulum/",
   "/portfolio/contemporary-retreat/",
