@@ -26,7 +26,6 @@ export function GET(_request: NextRequest) {
         "Allow: /",
         "",
         `Sitemap: ${getSiteUrl()}/sitemap.xml`,
-        `Sitemap: ${getSiteUrl()}/sitemap_index.xml`,
         "",
       ]
     : ["User-Agent: *", "Disallow: /", ""];

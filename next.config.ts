@@ -104,10 +104,6 @@ const nextConfig = (phase: string): NextConfig => {
         { source: "/es/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
       ],
       afterFiles: [
-        // Yoast sitemap (WP origin) during hybrid.
-        { source: "/sitemap_index.xml", destination: `${wpOrigin}/sitemap_index.xml` },
-        { source: "/:path*-sitemap.xml", destination: `${wpOrigin}/:path*-sitemap.xml` },
-
         // WPForms questionnaire (WP origin).
         ...(useWpQuestionnaire
           ? [
@@ -146,13 +142,6 @@ const nextConfig = (phase: string): NextConfig => {
         { source: "/wp-includes/:path*", destination: `${wpOrigin}/wp-includes/:path*` },
         { source: "/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
         { source: "/wp-admin/admin-ajax.php", destination: `${wpOrigin}/wp-admin/admin-ajax.php` },
-      ],
-      fallback: [
-        // Spanish fallback: serve any non-migrated `/es/*` page from WP (origin) without leaking the origin host.
-        // WordPress issues absolute redirects on trailing-slash canonicalization, so always proxy with a trailing slash.
-        { source: "/es", destination: `${wpOrigin}/es/` },
-        { source: "/es/", destination: `${wpOrigin}/es/` },
-        { source: "/es/:path*/", destination: `${wpOrigin}/es/:path*/` },
       ],
     };
   },
