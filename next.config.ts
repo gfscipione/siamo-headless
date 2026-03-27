@@ -67,6 +67,10 @@ const nextConfig = (phase: string): NextConfig => {
       { source: "/author/stephania", destination: "/get-to-know-us/", permanent: true },
       { source: "/author/stephania/", destination: "/get-to-know-us/", permanent: true },
 
+      // Legacy WP thank-you path should resolve to the new ES thank-you page.
+      { source: "/es/thank-you", destination: "/es/gracias/", permanent: true },
+      { source: "/es/thank-you/", destination: "/es/gracias/", permanent: true },
+
       // Yoast sitemap legacy service slugs (EN).
       {
         source: "/services/virtual-design-interior-design/:path*",

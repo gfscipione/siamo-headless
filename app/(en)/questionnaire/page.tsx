@@ -20,6 +20,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: canonicalPath,
   },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
   openGraph: {
     type: "article",
     locale: "es_ES",

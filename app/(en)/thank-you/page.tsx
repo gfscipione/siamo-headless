@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/thank-you/",
   },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
   openGraph: {
     type: "article",
     locale: "en_US",

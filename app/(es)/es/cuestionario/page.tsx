@@ -25,6 +25,14 @@ export const metadata: Metadata = {
       "x-default": "/questionnaire/",
     },
   },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
   openGraph: {
     type: "article",
     locale: "es_ES",
