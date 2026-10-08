@@ -238,21 +238,21 @@ export default function SereneJungleEsPage() {
       location: "Tulum",
       summary: "Un refugio sereno que integra artesanía local, piedra caliza y vegetación exuberante.",
       image: "/assets/mayan-sanctuary/lounge-terrace-3.webp",
-      href: "/portfolio/mayan-sanctuary",
+      href: "/es/portafolio/mayan-sanctuary/",
     },
     {
       title: "Soul in Concrete",
       location: "Tulum",
       summary: "Calidez brutalista con volúmenes de concreto esculpidos y capas suaves y texturales.",
       image: "/assets/soul-in-concrete/master-bedroom-4.webp",
-      href: "/portfolio/soul-in-concrete",
+      href: "/es/portafolio/soul-in-concrete/",
     },
     {
       title: "Timeless Nature",
       location: "Puerto Morelos",
       summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
-      href: "/portfolio/timeless-nature",
+      href: "/es/portafolio/naturaleza-atemporal/",
     },
   ];
 
@@ -272,6 +272,7 @@ export default function SereneJungleEsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <ProjectPage
+      lang="es"
         title="Serene Jungle"
         styleVars={styleVars}
         navLangHref="/portfolio/serene-jungle/"

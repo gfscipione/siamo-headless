@@ -200,7 +200,7 @@ export default function RetiroContemporaneoPageEs() {
       location: "Puerto Morelos",
       summary: "Una fusión atemporal entre elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
-      href: "/portfolio/timeless-nature",
+      href: "/es/portafolio/naturaleza-atemporal/",
     },
     {
       title: "Raices Tulum",
@@ -253,6 +253,7 @@ export default function RetiroContemporaneoPageEs() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <ProjectPage
+      lang="es"
         title="Retiro Contemporáneo"
         styleVars={styleVars}
         footerLegal={{

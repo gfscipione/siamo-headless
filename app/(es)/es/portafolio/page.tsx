@@ -212,6 +212,7 @@ export default function PortfolioPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <PortfolioNav
+        lang="es"
         styleVars={{
           ['--nav-col-gap' as any]: "0px",
           ['--nav-inner-maxw' as any]: "1700px",

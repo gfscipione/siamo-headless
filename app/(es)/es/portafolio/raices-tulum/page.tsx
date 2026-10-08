@@ -125,7 +125,7 @@ export default function RaicesTulumPageEs() {
       location: "Puerto Morelos",
       summary: "Una fusión atemporal entre elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
-      href: "/portfolio/timeless-nature",
+      href: "/es/portafolio/naturaleza-atemporal/",
     },
     {
       title: "Olas Mid-Century",
@@ -139,7 +139,7 @@ export default function RaicesTulumPageEs() {
       location: "Cancún",
       summary: "Una celebración de materiales naturales y artesanía local.",
       image: "/assets/tuluminati-house/living-room-7.jpg",
-      href: "/portfolio/tuluminati-house",
+      href: "/es/portafolio/tuluminati-house/",
     },
   ];
 
@@ -154,6 +154,7 @@ export default function RaicesTulumPageEs() {
 
   return (
     <ProjectPage
+      lang="es"
       title="Raíces Tulum"
       styleVars={styleVars}
       navLabels={{

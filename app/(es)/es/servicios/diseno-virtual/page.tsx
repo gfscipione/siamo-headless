@@ -311,6 +311,7 @@ export default function VirtualDesignPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <PortfolioNav
+        lang="es"
         styleVars={styleVars}
         isHero
         langHref="/services/virtual-design/"

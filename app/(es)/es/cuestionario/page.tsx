@@ -141,6 +141,7 @@ export default function CuestionarioPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <PortfolioNav
+        lang="es"
         styleVars={styleVars}
         langHref="/questionnaire/"
         hideCta

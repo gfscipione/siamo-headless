@@ -57,7 +57,7 @@ export default function GraciasPage() {
 
   return (
     <>
-      <PortfolioNav styleVars={styleVars} langHref="/thank-you/" />
+      <PortfolioNav lang="es" styleVars={styleVars} langHref="/thank-you/" />
       <main className="questionnaire-page thankyou-page">
         <section className="questionnaire-hero" aria-label="Gracias">
           <div className="questionnaire-inner">

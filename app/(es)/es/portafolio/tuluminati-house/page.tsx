@@ -256,21 +256,21 @@ export default function TuluminatiHousePage() {
       location: "Puerto Morelos",
       summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
-      href: "/portfolio/timeless-nature",
+      href: "/es/portafolio/naturaleza-atemporal/",
     },
     {
       title: "Roots Tulum",
       location: "Tulum",
       summary: "Una expresión atemporal de materiales puros y naturales.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
-      href: "/portfolio/roots-tulum",
+      href: "/es/portafolio/raices-tulum/",
     },
     {
       title: "Mid-Century Waves",
       location: "Akumal",
       summary: "Un refugio sereno y textural con tonos cálidos y calma costera.",
       image: "/assets/mid-century-waves/terrace-1.jpg",
-      href: "/portfolio/mid-century-waves",
+      href: "/es/portafolio/mid-century-waves/",
     },
   ];
 
@@ -291,6 +291,7 @@ export default function TuluminatiHousePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <ProjectPage
+      lang="es"
         title="Tuluminati House"
         styleVars={styleVars}
         navLangHref="/portfolio/tuluminati-house/"

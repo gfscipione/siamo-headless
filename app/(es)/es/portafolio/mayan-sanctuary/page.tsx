@@ -280,21 +280,21 @@ export default function MayanSanctuaryEsPage() {
       location: "Puerto Morelos",
       summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
-      href: "/portfolio/timeless-nature",
+      href: "/es/portafolio/naturaleza-atemporal/",
     },
     {
       title: "Soul in Concrete",
       location: "Tulum",
       summary: "Calidez brutalista con volúmenes de concreto esculpidos y capas suaves y texturales.",
       image: "/assets/soul-in-concrete/master-bedroom-4.webp",
-      href: "/portfolio/soul-in-concrete",
+      href: "/es/portafolio/soul-in-concrete/",
     },
     {
       title: "Roots Tulum",
       location: "Tulum",
       summary: "Una expresión atemporal de materiales puros y naturales.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
-      href: "/portfolio/roots-tulum",
+      href: "/es/portafolio/raices-tulum/",
     },
   ];
 
@@ -314,6 +314,7 @@ export default function MayanSanctuaryEsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <ProjectPage
+      lang="es"
         title="Mayan Sanctuary"
         styleVars={styleVars}
         navLangHref="/portfolio/mayan-sanctuary/"

@@ -35,6 +35,7 @@ type SocialItem = {
 };
 
 type ProjectPageProps = {
+  lang?: "en" | "es";
   title: string;
   styleVars?: CSSProperties;
   navLabels?: {
@@ -93,6 +94,7 @@ type ProjectPageProps = {
 };
 
 export default function ProjectPage({
+  lang = "en",
   title,
   styleVars,
   navLabels,
@@ -138,6 +140,7 @@ export default function ProjectPage({
   return (
     <>
       <PortfolioNav
+        lang={lang}
         styleVars={styleVars || {}}
         isHero
         langHref={navLangHref}
@@ -451,9 +454,9 @@ export default function ProjectPage({
 
             <div className="footer-explore" aria-label="Explore and social">
               <nav className="explore" aria-label="Explore">
-                <a href="/services">{footerServicesLabel}</a>
-                <a href="/portfolio">{footerPortfolioLabel}</a>
-                <a href="/get-to-know-us">{footerAboutLabel}</a>
+                <a href={lang === "es" ? "/es/servicios/" : "/services"}>{footerServicesLabel}</a>
+                <a href={lang === "es" ? "/es/portafolio/" : "/portfolio"}>{footerPortfolioLabel}</a>
+                <a href={lang === "es" ? "/es/conocenos/" : "/get-to-know-us"}>{footerAboutLabel}</a>
                 <a href="mailto:hello@siamodesign.com" aria-label="Email us">{footerEmailLabel}</a>
                 <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
                   {footerWhatsAppLabel}

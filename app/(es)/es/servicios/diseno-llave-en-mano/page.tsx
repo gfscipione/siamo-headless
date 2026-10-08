@@ -359,6 +359,7 @@ export default function FullServicePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <PortfolioNav
+        lang="es"
         styleVars={styleVars}
         isHero
         langHref="/services/full-service/"

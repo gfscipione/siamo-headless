@@ -216,21 +216,21 @@ export default function TimelessNatureEsPage() {
       location: "Tulum",
       summary: "Una expresión atemporal de materiales puros y naturales.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
-      href: "/portfolio/roots-tulum",
+      href: "/es/portafolio/raices-tulum/",
     },
     {
       title: "Mid-Century Waves",
       location: "Akumal",
       summary: "Un refugio sereno y textural con tonos cálidos y calma costera.",
       image: "/assets/mid-century-waves/terrace-1.jpg",
-      href: "/portfolio/mid-century-waves",
+      href: "/es/portafolio/mid-century-waves/",
     },
     {
       title: "Tuluminati House",
       location: "Cancún",
       summary: "Una celebración de los materiales naturales de Tulum y la artesanía local.",
       image: "/assets/tuluminati-house/living-room-7.jpg",
-      href: "/portfolio/tuluminati-house",
+      href: "/es/portafolio/tuluminati-house/",
     },
   ];
 
@@ -251,6 +251,7 @@ export default function TimelessNatureEsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <ProjectPage
+      lang="es"
         title="Naturaleza Atemporal"
         styleVars={styleVars}
         navLangHref="/portfolio/timeless-nature/"

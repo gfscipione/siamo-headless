@@ -6,6 +6,7 @@ import { playfairFont } from "../fonts";
 import QuestionnaireCtaLink from "./QuestionnaireCtaLink";
 
 type PortfolioNavProps = {
+  lang?: "en" | "es";
   styleVars: CSSProperties;
   isHero?: boolean; // allow hero contrast (e.g., services) without affecting other pages
   variant?: "default" | "services" | "gtku";
@@ -29,29 +30,30 @@ type PortfolioNavProps = {
 };
 
 export default function PortfolioNav({
+  lang = "en",
   styleVars,
   isHero = false,
   variant = "default",
-  langHref = "/es/",
-  getToKnowUsHref = "/get-to-know-us",
-  servicesHref = "/services",
-  portfolioHref = "/portfolio",
-  ctaHref = "/questionnaire/",
+  langHref = lang === "es" ? "/" : "/es/",
+  getToKnowUsHref = lang === "es" ? "/es/conocenos/" : "/get-to-know-us",
+  servicesHref = lang === "es" ? "/es/servicios/" : "/services",
+  portfolioHref = lang === "es" ? "/es/portafolio/" : "/portfolio",
+  ctaHref = lang === "es" ? "/es/cuestionario/" : "/questionnaire/",
   hideCta = false,
   labels,
 }: PortfolioNavProps) {
   const [navSolid, setNavSolid] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const getToKnowUsLabel = labels?.getToKnowUs ?? "GET TO KNOW US";
-  const servicesLabel = labels?.services ?? "SERVICES";
-  const portfolioLabel = labels?.portfolio ?? "PORTFOLIO";
-  const langDesktopLabel = labels?.langDesktop ?? "ESPAÑOL";
-  const langMobileLabel = labels?.langMobile ?? "ES";
-  const ctaLabel = labels?.cta ?? "LET'S TALK";
-  const menuOpenLabel = labels?.menuOpen ?? "MENU";
-  const menuCloseLabel = labels?.menuClose ?? "CLOSE";
-  const followLabel = labels?.follow ?? "Follow";
+  const getToKnowUsLabel = labels?.getToKnowUs ?? (lang === "es" ? "CONÓCENOS" : "GET TO KNOW US");
+  const servicesLabel = labels?.services ?? (lang === "es" ? "SERVICIOS" : "SERVICES");
+  const portfolioLabel = labels?.portfolio ?? (lang === "es" ? "PORTAFOLIO" : "PORTFOLIO");
+  const langDesktopLabel = labels?.langDesktop ?? (lang === "es" ? "ENGLISH" : "ESPAÑOL");
+  const langMobileLabel = labels?.langMobile ?? (lang === "es" ? "EN" : "ES");
+  const ctaLabel = labels?.cta ?? (lang === "es" ? "CONTÁCTANOS" : "LET'S TALK");
+  const menuOpenLabel = labels?.menuOpen ?? (lang === "es" ? "MENÚ" : "MENU");
+  const menuCloseLabel = labels?.menuClose ?? (lang === "es" ? "CERRAR" : "CLOSE");
+  const followLabel = labels?.follow ?? (lang === "es" ? "Síguenos" : "Follow");
 
   useEffect(() => {
     // Keep it simple: listen only to the viewport scroll.
@@ -107,7 +109,7 @@ export default function PortfolioNav({
       <div className="site-nav__inner">
         <button
           className="menu-toggle"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-label={menuOpen ? (lang === "es" ? "Cerrar menú" : "Close menu") : (lang === "es" ? "Abrir menú" : "Open menu")}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           onClick={() => setMenuOpen((v) => !v)}
@@ -120,7 +122,7 @@ export default function PortfolioNav({
           <li><a className="nav-link" href={portfolioHref}>{portfolioLabel}</a></li>
         </ul>
 
-        <a href="/" className="brand-mark" aria-label="Siamo Design">
+        <a href={lang === "es" ? "/es/" : "/"} className="brand-mark" aria-label="Siamo Design">
           <Image
             src="/assets/img/logotipo.png"
             alt="Siamo Design"
@@ -137,7 +139,7 @@ export default function PortfolioNav({
             <span className="lang-mbl">{langMobileLabel}</span>
           </a>
           {!hideCta && (
-            <QuestionnaireCtaLink className="cta nav-cta is-visible" href={ctaHref}>
+            <QuestionnaireCtaLink className="cta nav-cta is-visible" href={ctaHref} loadingText={lang === "es" ? "Cargando cuestionario…" : undefined}>
               {ctaLabel} <span aria-hidden="true">→</span>
             </QuestionnaireCtaLink>
           )}
@@ -172,12 +174,12 @@ export default function PortfolioNav({
             <button
               type="button"
               className="m-close"
-              aria-label="Close menu"
+              aria-label={lang === "es" ? "Cerrar menú" : "Close menu"}
               onClick={() => setMenuOpen(false)}
             >
               {menuCloseLabel}
             </button>
-            <a className="m-brand" href="/">
+            <a className="m-brand" href={lang === "es" ? "/es/" : "/"}>
               <Image
                 src="/assets/img/logotipo.png"
                 alt="Siamo Design"
@@ -226,8 +228,8 @@ export default function PortfolioNav({
           </div>
           {!hideCta && (
             <>
-              <p className={`m-cta-label ${playfairFont.className}`}>Have a project in mind?</p>
-              <QuestionnaireCtaLink className="cta m-cta" href={ctaHref}>
+              <p className={`m-cta-label ${playfairFont.className}`}>{lang === "es" ? "¿Tienes un proyecto en mente?" : "Have a project in mind?"}</p>
+              <QuestionnaireCtaLink className="cta m-cta" href={ctaHref} loadingText={lang === "es" ? "Cargando cuestionario…" : undefined}>
                 {ctaLabel} <span aria-hidden="true">→</span>
               </QuestionnaireCtaLink>
             </>
