@@ -204,7 +204,7 @@ export default function RaicesTulumPageEs() {
       contents={contents}
       meta={{
         location: "Tulum",
-        workLinkHref: "/contact",
+        workLinkHref: "/es/cuestionario/",
         shareLinks: [
           { label: "Facebook", href: "#", aria: "Share on Facebook" },
           { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

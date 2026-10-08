@@ -62,14 +62,14 @@ const projects: Project[] = [
     location: "Tulum",
     summary: "Una expresión atemporal de materiales puros y naturales.",
     image: "/assets/raices-tulum/bedroom-4.jpg",
-    href: "/es/portafolio/roots-tulum",
+    href: "/es/portafolio/raices-tulum/",
   },
   {
     title: "Contemporary Retreat",
     location: "Cancún",
     summary: "Arquitectura moderna con materiales refinados y de alta gama.",
     image: "/assets/retiro-contemporaneo/living-room-1.png",
-    href: "/es/portafolio/contemporary-retreat",
+    href: "/es/portafolio/retiro-contemporaneo/",
   },
 ];
 

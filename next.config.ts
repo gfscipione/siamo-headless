@@ -36,6 +36,16 @@ const nextConfig = (phase: string): NextConfig => {
       // WP blog is empty/legacy: keep traffic safe.
       { source: "/blog/:path*", destination: "/", permanent: true },
 
+      // Resolve translated project slugs before the generic portfolio aliases.
+      { source: "/es/portfolio/roots-tulum", destination: "/es/portafolio/raices-tulum/", permanent: true },
+      { source: "/es/portfolio/roots-tulum/", destination: "/es/portafolio/raices-tulum/", permanent: true },
+      { source: "/es/portafolio/roots-tulum", destination: "/es/portafolio/raices-tulum/", permanent: true },
+      { source: "/es/portafolio/roots-tulum/", destination: "/es/portafolio/raices-tulum/", permanent: true },
+      { source: "/es/portfolio/contemporary-retreat", destination: "/es/portafolio/retiro-contemporaneo/", permanent: true },
+      { source: "/es/portfolio/contemporary-retreat/", destination: "/es/portafolio/retiro-contemporaneo/", permanent: true },
+      { source: "/es/portafolio/contemporary-retreat", destination: "/es/portafolio/retiro-contemporaneo/", permanent: true },
+      { source: "/es/portafolio/contemporary-retreat/", destination: "/es/portafolio/retiro-contemporaneo/", permanent: true },
+
       // Common legacy mismatch: some systems use `/es/portfolio/*` but live site uses `/es/portafolio/*`.
       { source: "/es/portfolio", destination: "/es/portafolio/", permanent: true },
       { source: "/es/portfolio/", destination: "/es/portafolio/", permanent: true },

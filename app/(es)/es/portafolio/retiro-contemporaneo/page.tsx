@@ -309,7 +309,7 @@ export default function RetiroContemporaneoPageEs() {
         contents={contents}
         meta={{
           location: "Cacun",
-          workLinkHref: "/contact",
+          workLinkHref: "/es/cuestionario/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
