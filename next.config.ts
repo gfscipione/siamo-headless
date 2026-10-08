@@ -36,6 +36,10 @@ const nextConfig = (phase: string): NextConfig => {
       // WP blog is empty/legacy: keep traffic safe.
       { source: "/blog/:path*", destination: "/", permanent: true },
 
+      // Preserve the former WordPress Tuluminati project address.
+      { source: "/es/tuluminati-house", destination: "/es/portafolio/tuluminati-house/", permanent: true },
+      { source: "/es/tuluminati-house/", destination: "/es/portafolio/tuluminati-house/", permanent: true },
+
       // Resolve translated project slugs before the generic portfolio aliases.
       { source: "/es/portfolio/roots-tulum", destination: "/es/portafolio/raices-tulum/", permanent: true },
       { source: "/es/portfolio/roots-tulum/", destination: "/es/portafolio/raices-tulum/", permanent: true },
