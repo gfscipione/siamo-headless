@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   description: yoastDescription,
   alternates: {
     canonical: canonicalPath,
+    languages: {
+      en: canonicalPath,
+      es: "/es/servicios/diseno-virtual/",
+      "x-default": canonicalPath,
+    },
   },
   openGraph: {
     type: "article",
