@@ -1,7 +1,7 @@
 import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 
 export const metadata = {
-  title: "Raíces Tulum — Siamo Design",
+  title: { absolute: "Raíces Tulum — Siamo Design" },
   description: "Una expresión atemporal de materiales puros y naturales.",
   alternates: {
     canonical: "/es/portafolio/raices-tulum/",

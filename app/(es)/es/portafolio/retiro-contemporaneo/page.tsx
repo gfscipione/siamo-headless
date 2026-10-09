@@ -2,7 +2,7 @@ import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
 export const metadata = {
-  title: "Retiro Contemporáneo - Siamo Design",
+  title: { absolute: "Retiro Contemporáneo - Siamo Design" },
   description:
     "Puerto Cancún · 90 m² · 2 habitaciones · 2 baños. Un refugio contemporáneo con materiales refinados y tonos neutros, cálido, elegante y atemporal.",
   openGraph: {

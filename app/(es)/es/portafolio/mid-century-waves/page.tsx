@@ -1,7 +1,7 @@
 import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 
 export const metadata = {
-  title: "Olas Mid-Century — Siamo Design",
+  title: { absolute: "Olas Mid-Century — Siamo Design" },
   description:
     "Un refugio sereno y lleno de textura, diseñado con tonos cálidos y una calma costera en Akumal.",
   alternates: {
