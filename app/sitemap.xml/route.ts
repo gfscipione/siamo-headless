@@ -47,7 +47,7 @@ const paths = [
   "/portfolio/contemporary-retreat/",
 ];
 
-const lastmod = new Date().toISOString();
+// Omit lastmod until a reliable per-page content revision date is available.
 
 function escapeXml(value: string) {
   return value
@@ -67,7 +67,7 @@ export function GET(_request: NextRequest) {
     paths
       .map((path) => {
         const loc = `${siteUrl}${path}`;
-        return `  <url>\n    <loc>${escapeXml(loc)}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>\n`;
+        return `  <url>\n    <loc>${escapeXml(loc)}</loc>\n  </url>\n`;
       })
       .join("") +
     `</urlset>\n`;

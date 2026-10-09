@@ -3474,23 +3474,6 @@ h1 .caret { letter-spacing: 0; }
   height: 64px;
 }
 
-.promise-card__icon-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: #f4f2ea;
-  -webkit-mask-image: url("/assets/services/trophy.svg");
-  mask-image: url("/assets/services/trophy.svg");
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-mode: alpha;
-  mask-mode: alpha;
-}
-
 .promise-card__icon svg {
   width: 100%;
   height: 100%;

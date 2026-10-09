@@ -58,10 +58,18 @@ const nextConfig = (phase: string): NextConfig => {
       { source: "/es/portafolio/contemporary-retreat", destination: "/es/portafolio/retiro-contemporaneo/", permanent: true },
       { source: "/es/portafolio/contemporary-retreat/", destination: "/es/portafolio/retiro-contemporaneo/", permanent: true },
 
+      // Resolve legacy unprefixed project aliases directly to the confirmed ES pages.
+      { source: "/portafolio/timeless-nature", destination: "/es/portafolio/naturaleza-atemporal/", permanent: true },
+      { source: "/portafolio/timeless-nature/", destination: "/es/portafolio/naturaleza-atemporal/", permanent: true },
+      { source: "/portafolio/roots-tulum", destination: "/es/portafolio/raices-tulum/", permanent: true },
+      { source: "/portafolio/roots-tulum/", destination: "/es/portafolio/raices-tulum/", permanent: true },
+      { source: "/portafolio/contemporary-retreat", destination: "/es/portafolio/retiro-contemporaneo/", permanent: true },
+      { source: "/portafolio/contemporary-retreat/", destination: "/es/portafolio/retiro-contemporaneo/", permanent: true },
+
       // Common legacy mismatch: some systems use `/es/portfolio/*` but live site uses `/es/portafolio/*`.
       { source: "/es/portfolio", destination: "/es/portafolio/", permanent: true },
       { source: "/es/portfolio/", destination: "/es/portafolio/", permanent: true },
-      { source: "/es/portfolio/:path*", destination: "/es/portafolio/:path*", permanent: true },
+      { source: "/es/portfolio/:path*", destination: "/es/portafolio/:path*/", permanent: true },
 
       // Legacy WP Spanish paths without `/es/` prefix (seen in GSC): keep backlinks alive.
       { source: "/conocenos", destination: "/es/conocenos/", permanent: true },
@@ -70,7 +78,7 @@ const nextConfig = (phase: string): NextConfig => {
       { source: "/servicios/", destination: "/es/servicios/", permanent: true },
       { source: "/portafolio", destination: "/es/portafolio/", permanent: true },
       { source: "/portafolio/", destination: "/es/portafolio/", permanent: true },
-      { source: "/portafolio/:path*", destination: "/es/portafolio/:path*", permanent: true },
+      { source: "/portafolio/:path*", destination: "/es/portafolio/:path*/", permanent: true },
 
       // Legacy WPML-style English folder (seen in GSC).
       { source: "/english", destination: "/", permanent: true },
@@ -79,7 +87,7 @@ const nextConfig = (phase: string): NextConfig => {
       { source: "/english/services/", destination: "/services/", permanent: true },
       { source: "/english/portafolio", destination: "/portfolio/", permanent: true },
       { source: "/english/portafolio/", destination: "/portfolio/", permanent: true },
-      { source: "/english/portafolio/:path*", destination: "/portfolio/:path*", permanent: true },
+      { source: "/english/portafolio/:path*", destination: "/portfolio/:path*/", permanent: true },
 
       // `/en/` prefix is not used on this site; send old links to EN homepage.
       { source: "/en", destination: "/", permanent: true },
