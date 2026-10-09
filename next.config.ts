@@ -41,6 +41,10 @@ const nextConfig = (phase: string): NextConfig => {
       { source: "/es/tuluminati-house/", destination: "/es/portafolio/tuluminati-house/", permanent: true },
 
       // Resolve translated project slugs before the generic portfolio aliases.
+      { source: "/es/portafolio/timeless-nature", destination: "/es/portafolio/naturaleza-atemporal/", permanent: true },
+      { source: "/es/portafolio/timeless-nature/", destination: "/es/portafolio/naturaleza-atemporal/", permanent: true },
+      { source: "/es/portfolio/timeless-nature", destination: "/es/portafolio/naturaleza-atemporal/", permanent: true },
+      { source: "/es/portfolio/timeless-nature/", destination: "/es/portafolio/naturaleza-atemporal/", permanent: true },
       { source: "/es/portfolio/roots-tulum", destination: "/es/portafolio/raices-tulum/", permanent: true },
       { source: "/es/portfolio/roots-tulum/", destination: "/es/portafolio/raices-tulum/", permanent: true },
       { source: "/es/portafolio/roots-tulum", destination: "/es/portafolio/raices-tulum/", permanent: true },
