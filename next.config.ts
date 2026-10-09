@@ -114,9 +114,8 @@ const nextConfig = (phase: string): NextConfig => {
 
   async rewrites() {
     return {
-      // Run these first so WP-generated asset URLs like `/es/wp-content/...css` don't 404 on Vercel.
+      // Keep WordPress endpoints available before matching Next routes.
       beforeFiles: [
-        { source: "/es/wp-content/:path*", destination: `${wpOrigin}/wp-content/:path*` },
         { source: "/es/wp-includes/:path*", destination: `${wpOrigin}/wp-includes/:path*` },
         { source: "/es/wp-admin/:path*", destination: `${wpOrigin}/wp-admin/:path*` },
         { source: "/es/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
@@ -155,7 +154,8 @@ const nextConfig = (phase: string): NextConfig => {
             ]
           : []),
 
-        // Minimal WP endpoints/assets required for the questionnaire + uploads.
+        // Serve migrated public files first; retain WP fallback for other assets.
+        { source: "/es/wp-content/:path*", destination: `${wpOrigin}/wp-content/:path*` },
         { source: "/wp-content/:path*", destination: `${wpOrigin}/wp-content/:path*` },
         { source: "/wp-includes/:path*", destination: `${wpOrigin}/wp-includes/:path*` },
         { source: "/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
