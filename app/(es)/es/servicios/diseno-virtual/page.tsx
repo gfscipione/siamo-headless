@@ -10,7 +10,7 @@ import { getSiteUrl } from "../../../../lib/siteUrl";
 const TITLE = "Diseño de Interiores Virtual | Asesoría Online Personalizada";
 const DESCRIPTION =
   "Transforma tu espacio con diseño de interiores virtual: concepto, distribución, paleta de color y lista de compras. Servicio online, claro y profesional.";
-const OG_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/06/Virtual-design.png";
+const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/05/Virtual-design.png";
 const canonicalPath = "/es/servicios/diseno-virtual/";
 
 export const metadata: Metadata = {
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: OG_IMAGE,
-        width: 64,
-        height: 64,
+        width: 750,
+        height: 400,
         type: "image/png",
       },
     ],
@@ -83,8 +83,8 @@ export default function VirtualDesignPage() {
         "@id": `${canonicalUrl}#primaryimage`,
         url: OG_IMAGE,
         contentUrl: OG_IMAGE,
-        width: 64,
-        height: 64,
+        width: 750,
+        height: 400,
         caption: "Diseño de Interiores Virtual",
       },
       {

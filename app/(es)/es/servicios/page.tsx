@@ -10,7 +10,7 @@ import { getSiteUrl } from "../../../lib/siteUrl";
 const TITLE = "Servicios - Siamo Design";
 const DESCRIPTION =
   "Nuestros servicios de diseño de interiores Diseño Virtual Experimenta la transformacion virtual de tus espacios. Este servicio nos permite diseñar según tus gustos y necesidades para adaptar tus espacios a tu estilo de vida. Con esta herramienta de diseño virtual, podrás explorar opciones guiadas por profesionales y visualizar cómo lucirían tus espacios antes de tomar [...]";
-const OG_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/06/Virtual-design.png";
+const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/05/Virtual-design.png";
 
 export const metadata = {
   title: { absolute: TITLE },
