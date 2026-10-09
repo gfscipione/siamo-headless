@@ -235,11 +235,11 @@ export default function TimelessNatureEsPage() {
   ];
 
   const socialItems = [
-    { image: "/assets/timeless-nature/living-room-12.jpg", text: "Momento textural de sala." },
-    { image: "/assets/timeless-nature/living-room-16.jpg", text: "Viñeta de asientos en capas." },
+    { image: "/assets/timeless-nature/living-room-10.jpg", text: "Momento textural de sala." },
+    { image: "/assets/timeless-nature/living-room-15.jpg", text: "Viñeta de asientos en capas." },
     { image: "/assets/timeless-nature/master-bedroom-2.jpg", text: "Detalle sereno de la recámara principal." },
     { image: "/assets/timeless-nature/living-room-17.jpg", text: "Composición de materiales naturales." },
-    { image: "/assets/timeless-nature/master-bedroom-5.jpg", text: "Estilismo cálido de buró." },
+    { image: "/assets/timeless-nature/master-bedroom-4.jpg", text: "Estilismo cálido de buró." },
     { image: "/assets/timeless-nature/guest-bedroom-8.jpg", text: "Texturas de la suite de invitados." },
   ];
 

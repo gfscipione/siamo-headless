@@ -254,11 +254,11 @@ export default function SereneJunglePage() {
   ];
 
   const socialItems = [
-    { image: "/assets/serene-jungle/living-room-1.jpg", text: "Sunlit lounge framed by the jungle." },
-    { image: "/assets/serene-jungle/kitchen-1.jpg", text: "Open shelving with crafted ceramics." },
-    { image: "/assets/serene-jungle/guest-room-1.jpg", text: "Guest suite calm with woven texture." },
-    { image: "/assets/serene-jungle/living-room-2.jpg", text: "Soft seating facing greenery." },
-    { image: "/assets/serene-jungle/guest-room-4.jpg", text: "Bedside detail with warm light." },
+    { image: "/assets/serene-jungle/living-room-1.webp", text: "Sunlit lounge framed by the jungle." },
+    { image: "/assets/serene-jungle/kitchen-1.webp", text: "Open shelving with crafted ceramics." },
+    { image: "/assets/serene-jungle/guest-room-1.webp", text: "Guest suite calm with woven texture." },
+    { image: "/assets/serene-jungle/living-room-2.webp", text: "Soft seating facing greenery." },
+    { image: "/assets/serene-jungle/guest-room-4.webp", text: "Bedside detail with warm light." },
   ];
 
   return (

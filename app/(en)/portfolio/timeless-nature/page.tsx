@@ -233,11 +233,11 @@ export default function TimelessNaturePage() {
   ];
 
   const socialItems = [
-    { image: "/assets/timeless-nature/living-room-12.jpg", text: "Textural living room moment." },
-    { image: "/assets/timeless-nature/living-room-16.jpg", text: "Layered seating vignette." },
+    { image: "/assets/timeless-nature/living-room-10.jpg", text: "Textural living room moment." },
+    { image: "/assets/timeless-nature/living-room-15.jpg", text: "Layered seating vignette." },
     { image: "/assets/timeless-nature/master-bedroom-2.jpg", text: "Serene master bedroom detail." },
     { image: "/assets/timeless-nature/living-room-17.jpg", text: "Natural materials composition." },
-    { image: "/assets/timeless-nature/master-bedroom-5.jpg", text: "Warm bedside styling." },
+    { image: "/assets/timeless-nature/master-bedroom-4.jpg", text: "Warm bedside styling." },
     { image: "/assets/timeless-nature/guest-bedroom-8.jpg", text: "Guest suite textures." },
   ];
 

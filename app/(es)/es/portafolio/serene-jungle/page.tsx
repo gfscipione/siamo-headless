@@ -257,11 +257,11 @@ export default function SereneJungleEsPage() {
   ];
 
   const socialItems = [
-    { image: "/assets/serene-jungle/living-room-1.jpg", text: "Sala iluminada por el sol enmarcada por la selva." },
-    { image: "/assets/serene-jungle/kitchen-1.jpg", text: "Repisas abiertas con cerámica artesanal." },
-    { image: "/assets/serene-jungle/guest-room-1.jpg", text: "Calma en la suite de invitados con texturas tejidas." },
-    { image: "/assets/serene-jungle/living-room-2.jpg", text: "Asientos suaves frente a la vegetación." },
-    { image: "/assets/serene-jungle/guest-room-4.jpg", text: "Detalle de buró con luz cálida." },
+    { image: "/assets/serene-jungle/living-room-1.webp", text: "Sala iluminada por el sol enmarcada por la selva." },
+    { image: "/assets/serene-jungle/kitchen-1.webp", text: "Repisas abiertas con cerámica artesanal." },
+    { image: "/assets/serene-jungle/guest-room-1.webp", text: "Calma en la suite de invitados con texturas tejidas." },
+    { image: "/assets/serene-jungle/living-room-2.webp", text: "Asientos suaves frente a la vegetación." },
+    { image: "/assets/serene-jungle/guest-room-4.webp", text: "Detalle de buró con luz cálida." },
   ];
 
   return (
