@@ -19,6 +19,22 @@ const nextConfig: NextConfig = {
       // WP blog is empty/legacy: keep traffic safe.
       { source: "/blog/:path*", destination: "/", permanent: true },
 
+      // Preserve seven confirmed historical WordPress redirects before generic aliases.
+      { source: "/portafolio/tuluminati-house-2", destination: "/es/portafolio/mid-century-waves/", permanent: true },
+      { source: "/portafolio/tuluminati-house-2/", destination: "/es/portafolio/mid-century-waves/", permanent: true },
+      { source: "/cuestionario", destination: "/questionnaire/", permanent: true },
+      { source: "/cuestionario/", destination: "/questionnaire/", permanent: true },
+      { source: "/portfolio/naturaleza-atemporal", destination: "/portfolio/timeless-nature/", permanent: true },
+      { source: "/portfolio/naturaleza-atemporal/", destination: "/portfolio/timeless-nature/", permanent: true },
+      { source: "/portfolio/raices-tulum", destination: "/portfolio/roots-tulum/", permanent: true },
+      { source: "/portfolio/raices-tulum/", destination: "/portfolio/roots-tulum/", permanent: true },
+      { source: "/portfolio/retiro-contemporaneo", destination: "/portfolio/contemporary-retreat/", permanent: true },
+      { source: "/portfolio/retiro-contemporaneo/", destination: "/portfolio/contemporary-retreat/", permanent: true },
+      { source: "/services/virtual-design-2", destination: "/services/virtual-design/", permanent: true },
+      { source: "/services/virtual-design-2/", destination: "/services/virtual-design/", permanent: true },
+      { source: "/services/project-design-and-execution-2", destination: "/services/full-service/", permanent: true },
+      { source: "/services/project-design-and-execution-2/", destination: "/services/full-service/", permanent: true },
+
       // Preserve the former WordPress Tuluminati project address.
       { source: "/es/tuluminati-house", destination: "/es/portafolio/tuluminati-house/", permanent: true },
       { source: "/es/tuluminati-house/", destination: "/es/portafolio/tuluminati-house/", permanent: true },
