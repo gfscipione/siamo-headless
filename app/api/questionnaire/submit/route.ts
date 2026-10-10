@@ -4,6 +4,8 @@ import { createClient } from "@supabase/supabase-js";
 import nodemailer from "nodemailer";
 import { buildQuestionnaireEmail, type QuestionnairePayload } from "../emailTemplate";
 
+import { classifyQuestionnaireAnalytics, type AnalyticsClassification } from "../analyticsClassification";
+
 export const runtime = "nodejs";
 
 const supabaseUrl = process.env.SUPABASE_URL ?? "";
@@ -136,6 +138,7 @@ function readStringRecord(value: unknown): Record<string, string> {
 async function submitLegacyInsightsEvent({
   submissionId,
   emailHash,
+  analyticsClassification,
   pagePath,
   referrer,
   entryPage,
@@ -147,6 +150,7 @@ async function submitLegacyInsightsEvent({
 }: {
   submissionId: string;
   emailHash: string | null;
+  analyticsClassification: AnalyticsClassification;
   pagePath: string | null;
   referrer: string | null;
   entryPage: string | null;
@@ -169,6 +173,7 @@ async function submitLegacyInsightsEvent({
       site_id: INSIGHTS_SITE_ID,
       api_key: apiKey,
       event_name: "contact_form_submit",
+      is_internal: analyticsClassification !== "external",
       source: "server_submit",
       submission_id: submissionId,
       page_path: pagePath ?? "",
@@ -190,6 +195,8 @@ async function submitLegacyInsightsEvent({
         email_hash: emailHash ?? undefined,
         source: "server_submit",
         form_id: "questionnaire",
+        lead_classification: analyticsClassification,
+        is_internal: analyticsClassification !== "external",
       },
     };
 
@@ -217,6 +224,7 @@ async function submitInsightsLeadAudit({
   submissionId,
   submittedAt,
   emailHash,
+  analyticsClassification,
   sessionId,
   visitorId,
   locale,
@@ -225,6 +233,7 @@ async function submitInsightsLeadAudit({
   submissionId: string;
   submittedAt: string;
   emailHash: string | null;
+  analyticsClassification: AnalyticsClassification;
   sessionId: string | null;
   visitorId: string | null;
   locale: "en" | "es";
@@ -243,7 +252,7 @@ async function submitInsightsLeadAudit({
     submission_id: submissionId,
     submitted_at: submittedAt,
     email_hash: emailHash,
-    status: "accepted",
+    status: analyticsClassification === "external" ? "accepted" : "test",
     session_id: sessionId,
     visitor_id: visitorId,
     metadata: {
@@ -251,6 +260,8 @@ async function submitInsightsLeadAudit({
       form_id: "questionnaire",
       locale,
       page_path: pagePath,
+      lead_classification: analyticsClassification,
+      is_internal: analyticsClassification !== "external",
     },
   };
 
@@ -316,6 +327,7 @@ export async function POST(request: Request) {
     randomUUID();
   const normalizedEmail = normalizeEmail(body.email);
   const emailHash = hashEmailSha256(normalizedEmail);
+  const analyticsClassification = classifyQuestionnaireAnalytics(body.contactName);
 
   const cookieHeader = request.headers.get("cookie");
   const cookies = parseCookieHeader(cookieHeader);
@@ -398,6 +410,7 @@ export async function POST(request: Request) {
   await submitLegacyInsightsEvent({
     submissionId,
     emailHash,
+    analyticsClassification,
     pagePath,
     referrer,
     entryPage,
@@ -412,6 +425,7 @@ export async function POST(request: Request) {
     submissionId,
     submittedAt: new Date().toISOString(),
     emailHash,
+    analyticsClassification,
     sessionId,
     visitorId,
     locale,
