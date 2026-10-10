@@ -1,23 +1,6 @@
 import type { NextConfig } from "next";
-import { PHASE_DEVELOPMENT_SERVER } from "next/constants";
 
-const wpOrigin = (process.env.WP_ORIGIN_URL ?? "https://origin.siamodesign.com").replace(/\/+$/, "");
-const wpQuestionnaireHosts = ["siamodesign.com", "www.siamodesign.com"];
-
-const nextConfig = (phase: string): NextConfig => {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
-  const isLocal =
-    siteUrl.includes("localhost") ||
-    siteUrl.includes("127.0.0.1") ||
-    siteUrl.includes("0.0.0.0");
-  const isDev = phase === PHASE_DEVELOPMENT_SERVER;
-  const useWpQuestionnaire =
-    !isDev &&
-    process.env.VERCEL_ENV === "production" &&
-    process.env.NODE_ENV === "production" &&
-    !isLocal;
-
-  return {
+const nextConfig: NextConfig = {
   // NOTE: App Router no longer supports `i18n` in next.config.*.
   // We handle locales via routes (e.g. `/es/...`) and optional middleware.
 
@@ -128,58 +111,6 @@ const nextConfig = (phase: string): NextConfig => {
     ];
   },
 
-  async rewrites() {
-    return {
-      // Keep WordPress endpoints available before matching Next routes.
-      beforeFiles: [
-        { source: "/es/wp-includes/:path*", destination: `${wpOrigin}/wp-includes/:path*` },
-        { source: "/es/wp-admin/:path*", destination: `${wpOrigin}/wp-admin/:path*` },
-        { source: "/es/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
-      ],
-      afterFiles: [
-        // WPForms questionnaire (WP origin).
-        ...(useWpQuestionnaire
-          ? [
-              ...wpQuestionnaireHosts.map((host) => ({
-                source: "/questionnaire/:path*",
-                has: [{ type: "host" as const, value: host }],
-                destination: `${wpOrigin}/questionnaire/:path*`,
-              })),
-              ...wpQuestionnaireHosts.map((host) => ({
-                source: "/es/cuestionario/:path*",
-                has: [{ type: "host" as const, value: host }],
-                destination: `${wpOrigin}/es/cuestionario/:path*`,
-              })),
-            ]
-          : []),
-
-        // WPForms thank-you pages (currently served by WP).
-        // NOTE: These are inverted on the live site: EN → /gracias/ and ES → /es/thank-you/.
-        ...(useWpQuestionnaire
-          ? [
-              ...wpQuestionnaireHosts.map((host) => ({
-                source: "/gracias/:path*",
-                has: [{ type: "host" as const, value: host }],
-                destination: `${wpOrigin}/gracias/:path*`,
-              })),
-              ...wpQuestionnaireHosts.map((host) => ({
-                source: "/es/thank-you/:path*",
-                has: [{ type: "host" as const, value: host }],
-                destination: `${wpOrigin}/es/thank-you/:path*`,
-              })),
-            ]
-          : []),
-
-        // Serve migrated public files first; retain WP fallback for other assets.
-        { source: "/es/wp-content/:path*", destination: `${wpOrigin}/wp-content/:path*` },
-        { source: "/wp-content/:path*", destination: `${wpOrigin}/wp-content/:path*` },
-        { source: "/wp-includes/:path*", destination: `${wpOrigin}/wp-includes/:path*` },
-        { source: "/wp-json/:path*", destination: `${wpOrigin}/wp-json/:path*` },
-        { source: "/wp-admin/admin-ajax.php", destination: `${wpOrigin}/wp-admin/admin-ajax.php` },
-      ],
-    };
-  },
-
   async headers() {
     const noStore = [
       { key: "Cache-Control", value: "no-store, max-age=0" },
@@ -210,14 +141,8 @@ const nextConfig = (phase: string): NextConfig => {
         headers: [{ key: "X-Robots-Tag", value: "noindex, follow" }, ...noStore],
       },
 
-      // Avoid caching for WPForms endpoints and WP REST responses.
-      { source: "/wp-admin/admin-ajax.php", headers: noStore },
-      { source: "/wp-json/:path*", headers: noStore },
-      { source: "/es/wp-admin/admin-ajax.php", headers: noStore },
-      { source: "/es/wp-json/:path*", headers: noStore },
     ];
   },
-  };
 };
 
 export default nextConfig;
