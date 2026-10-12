@@ -188,8 +188,8 @@ export default function FullServicePage() {
       icon: "space",
     },
     {
-      title: "Shopping List with Links",
-      copy: "We’ll deliver a curated shopping list with direct links to each selected item, so you can implement it at your own pace.",
+      title: "Furniture Selection & Specification",
+      copy: "A coordinated selection of furniture and décor guides purchasing and installation as part of the agreed project scope.",
       icon: "leaf",
     },
     {
@@ -287,9 +287,12 @@ export default function FullServicePage() {
       ),
     },
     {
-      question: "Do you work with clients outside of your local area?",
-      answer:
-        "Yes. We serve clients both locally and remotely. For on-site projects, we travel as needed; for remote projects, our Virtual Interior Design service keeps everything coordinated from afar.",
+      question: "Can you coordinate my home project if I live abroad?",
+      answer: (
+        <>
+          Living abroad does not automatically mean you need virtual interior design. If your home is in the Riviera Maya and you need design, sourcing and installation coordinated on site, tell us about the project through our {" "}<a href="/questionnaire/" style={{ fontWeight: 600, textDecoration: "underline" }}>questionnaire</a>. We will review its location and scope to determine whether full-service is suitable. Virtual interior design is a separate option when you want a design plan to implement yourself.
+        </>
+      ),
     },
     {
       question: "What interior design styles do you specialize in?",
@@ -402,9 +405,7 @@ export default function FullServicePage() {
 
         <section className="about-story" aria-label="About Siamo story">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Full-service interior design—handled from start to finish. We manage the design,
-            sourcing, ordering, and installation, so your home is ready to live in (or rent)
-            without the stress.
+            Siamo coordinates the design, furniture sourcing and installation of your home in the Riviera Maya. Full-service interior design brings these stages together, whether you live nearby or manage your property from abroad.
           </h2>
         </section>
 

@@ -194,9 +194,8 @@ export default function FullServicePage() {
       icon: "space",
     },
     {
-      title: "Lista de compras con enlaces",
-      copy:
-        "Te entregaremos una lista de compras curada con enlaces directos a cada elemento seleccionado, para que puedas implementarla a tu ritmo.",
+      title: "Selección y especificación de mobiliario",
+      copy: "La selección coordinada de mobiliario y decoración guía las compras y la instalación según el alcance acordado para el proyecto.",
       icon: "leaf",
     },
     {
@@ -303,9 +302,12 @@ export default function FullServicePage() {
       ),
     },
     {
-      question: "¿Trabajan con clientes fuera de su zona local?",
-      answer:
-        "Sí. Atendemos clientes tanto locales como remotos. Para proyectos en sitio, viajamos cuando es necesario; para proyectos a distancia, nuestro servicio de Diseño de Interiores Virtual mantiene todo coordinado desde lejos.",
+      question: "¿Pueden coordinar el proyecto de mi vivienda si vivo en el extranjero?",
+      answer: (
+        <>
+          Vivir en el extranjero no significa que debas contratar diseño virtual. Si tu vivienda está en Riviera Maya y necesitas coordinar diseño, selección de mobiliario e instalación en sitio, cuéntanos el proyecto mediante el {" "}<a href="/es/cuestionario/" style={{ fontWeight: 600, textDecoration: "underline" }}>cuestionario</a>. Revisaremos su ubicación y alcance para determinar si el servicio llave en mano es adecuado. El diseño virtual es una opción distinta para quienes quieren un plan de diseño que puedan ejecutar por su cuenta.
+        </>
+      ),
     },
     {
       question: "¿En qué estilos de diseño de interiores se especializan?",
@@ -439,9 +441,7 @@ export default function FullServicePage() {
 
         <section className="about-story" aria-label="Descripción del servicio">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Diseño de interiores llave en mano de principio a fin. Gestionamos el diseño, la
-            selección, las compras y la instalación para que tu hogar esté listo para vivir (o
-            rentar) sin estrés.
+            Siamo coordina el diseño, la selección de mobiliario y la instalación de tu vivienda en Riviera Maya. El servicio llave en mano reúne estas etapas, tanto si vives cerca como si gestionas tu propiedad desde el extranjero.
           </h2>
         </section>
 
