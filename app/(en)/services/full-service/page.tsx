@@ -8,12 +8,13 @@ import { playfairFont, poppinsFont } from "../../../fonts";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/services/full-service/";
-const yoastDescription =
-  "Our design and project execution service combines the creativity of design with the practical experience of execution, achieving the materialization of spaces that reflect your style and are functional in your daily life with the help of professionals in design and project execution.";
+const TITLE = "Full-Service Interior Design in Riviera Maya | Siamo Design";
+const DESCRIPTION =
+  "Full-service interior design in the Riviera Maya. Siamo coordinates design, furniture sourcing and installation for a home ready to live in.";
 
 export const metadata: Metadata = {
-  title: { absolute: "Project Design and Execution - Siamo Design" },
-  description: yoastDescription,
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: canonicalPath,
     languages: {
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     locale: "en_US",
-    title: "Project Design and Execution - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     url: canonicalPath,
     images: [
       {
@@ -39,6 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
   },
 };
 
@@ -53,14 +56,14 @@ export default function FullServicePage() {
         "@type": "WebPage",
         "@id": canonicalUrl,
         url: canonicalUrl,
-        name: "Project Design and Execution - Siamo Design",
+        name: TITLE,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
         image: { "@id": `${canonicalUrl}#primaryimage` },
         thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
         datePublished: "2025-04-23T23:56:03+00:00",
         dateModified: "2025-04-24T00:00:41+00:00",
-        description: yoastDescription,
+        description: DESCRIPTION,
         breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
         inLanguage: "en",
         potentialAction: [
@@ -86,7 +89,7 @@ export default function FullServicePage() {
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl.replace(/\/$/, "")}/` },
           { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl.replace(/\/$/, "")}/services/` },
-          { "@type": "ListItem", position: 3, name: "Project Design and Execution" },
+          { "@type": "ListItem", position: 3, name: "Full-Service Interior Design" },
         ],
       },
       {

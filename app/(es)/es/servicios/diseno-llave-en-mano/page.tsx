@@ -9,7 +9,7 @@ import { getSiteUrl } from "../../../../lib/siteUrl";
 
 const TITLE = "Diseño de Interiores Llave en Mano en Riviera Maya | Siamo Design";
 const DESCRIPTION =
-  "Servicio llave en mano en Tulum y Riviera Maya: diseño, compras, coordinación e instalación completa. Nosotros hacemos todo; tú solo te mudas.";
+  "Diseño de interiores llave en mano en Riviera Maya: diseño, selección de mobiliario, coordinación de compras e instalación para tu vivienda.";
 const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png";
 const canonicalPath = "/es/servicios/diseno-llave-en-mano/";
 
