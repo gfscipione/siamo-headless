@@ -36,6 +36,7 @@ type SocialItem = {
 
 type ProjectPageProps = {
   lang?: "en" | "es";
+  sharedTextLanguage?: "en" | "es";
   title: string;
   styleVars?: CSSProperties;
   navLabels?: {
@@ -95,6 +96,7 @@ type ProjectPageProps = {
 
 export default function ProjectPage({
   lang = "en",
+  sharedTextLanguage = "en",
   title,
   styleVars,
   navLabels,
@@ -125,6 +127,8 @@ export default function ProjectPage({
     );
   };
 
+  const spanishSharedText = sharedTextLanguage === "es";
+
   const locationLabel = metaLabels?.location ?? "Location";
   const workWithUsLabel = metaLabels?.workWithUs ?? "Work with us";
   const bookConsultationLabel = metaLabels?.bookConsultation ?? "Book consultation";
@@ -144,13 +148,13 @@ export default function ProjectPage({
         styleVars={styleVars || {}}
         isHero
         langHref={navLangHref}
-        labels={navLabels}
+        labels={spanishSharedText ? { ...navLabels, menuNavigation: "Menú móvil" } : navLabels}
       />
 
       <main className="services-page overscroll-safe">
         <section
           className="services-hero"
-          aria-label="Project hero"
+          aria-label={spanishSharedText ? "Presentación del proyecto" : "Project hero"}
           style={{
             alignItems: hero.align || "center",
             ["--project-hero-title-size" as any]: hero.titleSize || "64px",
@@ -175,7 +179,7 @@ export default function ProjectPage({
           </div>
         </section>
 
-        <section className="project-contents" aria-label="Project contents">
+        <section className="project-contents" aria-label={spanishSharedText ? "Contenido del proyecto" : "Project contents"}>
           <div className="project-contents__inner">
             <div className="project-contents__title project-contents__title--project">{title}</div>
             <div className="project-contents__title project-contents__title--right">{contentsTitleRight}</div>
@@ -197,7 +201,7 @@ export default function ProjectPage({
 
         <section
           className="project-details project-details--m-pad"
-          aria-label="Project sections"
+          aria-label={spanishSharedText ? "Secciones del proyecto" : "Project sections"}
           style={{
             ["--project-meta-pad-bottom" as any]: "110px",
           }}
@@ -325,7 +329,7 @@ export default function ProjectPage({
 
         <section
           className="featured-projects featured-projects--row"
-          aria-label="Featured projects"
+          aria-label={spanishSharedText ? "Proyectos destacados" : "Featured projects"}
           style={{ paddingTop: "3rem", paddingBottom: "2.5rem", background: "#f8f6f2" }}
         >
           <div className="featured-projects__inner">
@@ -374,7 +378,7 @@ export default function ProjectPage({
 
         <section
           className="social-follow"
-          aria-label="Follow on social"
+          aria-label={spanishSharedText ? "Síguenos en redes sociales" : "Follow on social"}
         >
           <div className="social-follow__inner">
             <div className="social-follow__title-col">
@@ -398,7 +402,7 @@ export default function ProjectPage({
                   <div className="social-card__media">
                     <Image
                       src={item.image}
-                      alt="Siamo Design post"
+                      alt={spanishSharedText ? item.text : "Siamo Design post"}
                       fill
                       sizes="(max-width: 768px) 90vw, 240px"
                       priority={false}
@@ -424,45 +428,45 @@ export default function ProjectPage({
           }}
         >
           <div className="footer-inner">
-            <section className="footer-seo" aria-label="Service areas and keyword index">
+            <section className="footer-seo" aria-label={spanishSharedText ? "Servicios y zonas de atención" : "Service areas and keyword index"}>
               <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design playa del carmen</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores en Playa del Carmen" : "Interior design playa del carmen"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Servicios de diseño de interiores en Playa del Carmen" : "Interior design services playa del carmen"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Preparación de viviendas para venta o renta en Playa del Carmen" : "Home staging playa del carmen"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores comerciales en Playa del Carmen" : "Commercial interior design playa del carmen"}</li>
               </ul>
               <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design riviera maya</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores en Riviera Maya" : "Interior design riviera maya"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseñadores de interiores y decoradores en Riviera Maya" : "Interior designers and decorators riviera maya"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Preparación de viviendas para venta o renta en Riviera Maya" : "Home staging riviera maya"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores comerciales en Riviera Maya" : "Commercial interior design riviera maya"}</li>
               </ul>
               <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design Cancun</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores en Cancún" : "Interior design Cancun"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseñadores de interiores y decoradores en Cancún" : "Interior designers and decorators Cancun"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Preparación de viviendas para venta o renta en Cancún" : "Home staging Cancun"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores comerciales en Cancún" : "Commercial interior design Cancun"}</li>
               </ul>
               <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design tulum</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores en Tulum" : "Interior design tulum"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Servicios de diseño de interiores en Tulum" : "Interior design services tulum"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseñadores de interiores y decoradores en Tulum" : "Interior designers and decorators tulum"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Preparación de viviendas para venta o renta en Tulum" : "Home staging tulum"}</li>
+                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores comerciales en Tulum" : "Commercial interior design tulum"}</li>
               </ul>
             </section>
 
-            <div className="footer-explore" aria-label="Explore and social">
-              <nav className="explore" aria-label="Explore">
+            <div className="footer-explore" aria-label={spanishSharedText ? "Explora y redes sociales" : "Explore and social"}>
+              <nav className="explore" aria-label={spanishSharedText ? "Explora" : "Explore"}>
                 <a href={lang === "es" ? "/es/servicios/" : "/services"}>{footerServicesLabel}</a>
                 <a href={lang === "es" ? "/es/portafolio/" : "/portfolio"}>{footerPortfolioLabel}</a>
                 <a href={lang === "es" ? "/es/conocenos/" : "/get-to-know-us"}>{footerAboutLabel}</a>
-                <a href="mailto:hello@siamodesign.com" aria-label="Email us">{footerEmailLabel}</a>
-                <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+                <a href="mailto:hello@siamodesign.com" aria-label={spanishSharedText ? "Escríbenos por correo" : "Email us"}>{footerEmailLabel}</a>
+                <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label={spanishSharedText ? "Chatea por WhatsApp" : "Chat on WhatsApp"}>
                   {footerWhatsAppLabel}
                 </a>
               </nav>
-              <div className="social" aria-label="Social profiles">
+              <div className="social" aria-label={spanishSharedText ? "Perfiles sociales" : "Social profiles"}>
                 <a className="social__link" href="https://www.linkedin.com/company/siamo-design/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M6.5 9h2.9v9H6.5V9Zm1.4-4.5a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4ZM10.8 9h2.8v1.2h.1c.4-.8 1.4-1.6 2.9-1.6 3.1 0 3.7 2 3.7 4.6V18h-2.9v-4.2c0-1-.1-2.3-1.5-2.3-1.5 0-1.8 1.1-1.8 2.2V18h-2.9V9Z" />
@@ -489,7 +493,7 @@ export default function ProjectPage({
               </div>
             </div>
 
-            <div className="footer-legal" aria-label="Legal information">
+            <div className="footer-legal" aria-label={spanishSharedText ? "Información legal" : "Legal information"}>
               {footerLegal ? (
                 <>
                   <p className="legal-line">{footerLegal.line1}</p>

@@ -148,22 +148,22 @@ export default function RetiroContemporaneoPageEs() {
       title: "Sala",
       mainImage: {
         src: "/assets/retiro-contemporaneo/living-room-2.png",
-        alt: "Living room interior",
+        alt: "Interior de la sala",
       },
       isSquare: true,
       duoImages: [
         {
           src: "/assets/retiro-contemporaneo/living-room-1.png",
-          alt: "Living room detail 1",
+          alt: "Detalle de la sala 1",
         },
         {
           src: "/assets/retiro-contemporaneo/living-room-5.png",
-          alt: "Living room detail 2",
+          alt: "Detalle de la sala 2",
         },
       ],
       secondaryImage: {
         src: "/assets/retiro-contemporaneo/living-room-4.png",
-        alt: "Living room detail secondary",
+        alt: "Vista adicional de la sala",
         isSquare: true,
       },
     },
@@ -171,19 +171,19 @@ export default function RetiroContemporaneoPageEs() {
       title: "Dormitorio",
       mainImage: {
         src: "/assets/retiro-contemporaneo/bedroom-1.png",
-        alt: "Bedroom interior",
+        alt: "Interior del dormitorio",
       },
       isSquare: true,
       duoImages: [
-        { src: "/assets/retiro-contemporaneo/bedroom-3.png", alt: "Bedroom detail 1" },
-        { src: "/assets/retiro-contemporaneo/bedroom-4.png", alt: "Bedroom detail 2" },
+        { src: "/assets/retiro-contemporaneo/bedroom-3.png", alt: "Detalle del dormitorio 1" },
+        { src: "/assets/retiro-contemporaneo/bedroom-4.png", alt: "Detalle del dormitorio 2" },
       ],
     },
     {
       title: "Plano Amueblado En 2D",
       mainImage: {
         src: "/assets/retiro-contemporaneo/floor-plan.png",
-        alt: "2D furnished floor plan",
+        alt: "Plano amueblado en 2D",
       },
       isFloorplan: true,
     },
@@ -221,27 +221,27 @@ export default function RetiroContemporaneoPageEs() {
   const socialItems = [
     {
       image: "/assets/img/post1.jpeg",
-      text: "Layered neutrals and warm materials that invite you to linger.",
+      text: "Tonos neutros y materiales cálidos que invitan a quedarse.",
     },
     {
       image: "/assets/img/post2.jpeg",
-      text: "Warm wood, teal ceramics, and soft lighting for a serene dining nook.",
+      text: "Madera cálida, cerámica turquesa e iluminación suave para un comedor sereno.",
     },
     {
       image: "/assets/img/post3.jpeg",
-      text: "Ocean-view terrace with teak furnishings and soft blue textiles.",
+      text: "Terraza con vista al mar, muebles de teca y textiles en tonos azules suaves.",
     },
     {
       image: "/assets/img/post4.jpeg",
-      text: "Terrace detail",
+      text: "Detalle de la terraza",
     },
     {
       image: "/assets/img/post5.jpeg",
-      text: "Open-concept kitchen and dining with brass accents.",
+      text: "Cocina y comedor de concepto abierto con detalles de latón.",
     },
     {
       image: "/assets/img/post6.jpeg",
-      text: "Gallery hallway with lantern pendants and warm marble floors.",
+      text: "Pasillo tipo galería con lámparas colgantes y pisos de mármol en tonos cálidos.",
     },
   ];
 
@@ -253,7 +253,8 @@ export default function RetiroContemporaneoPageEs() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       <ProjectPage
-      lang="es"
+        lang="es"
+        sharedTextLanguage="es"
         title="Retiro Contemporáneo"
         styleVars={styleVars}
         footerLegal={{
@@ -309,12 +310,12 @@ export default function RetiroContemporaneoPageEs() {
         }}
         contents={contents}
         meta={{
-          location: "Cacun",
+          location: "Cancún",
           workLinkHref: "/es/cuestionario/",
           shareLinks: [
-            { label: "Facebook", href: "#", aria: "Share on Facebook" },
-            { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
-            { label: "Email", href: "#", aria: "Share via Email" },
+            { label: "Facebook", href: "#", aria: "Compartir en Facebook" },
+            { label: "Pinterest", href: "#", aria: "Compartir en Pinterest" },
+            { label: "Correo", href: "#", aria: "Compartir por correo" },
           ],
         }}
         sections={sections}

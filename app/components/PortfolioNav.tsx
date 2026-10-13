@@ -26,6 +26,7 @@ type PortfolioNavProps = {
     menuOpen?: string;
     menuClose?: string;
     follow?: string;
+    menuNavigation?: string;
   };
 };
 
@@ -190,7 +191,7 @@ export default function PortfolioNav({
               />
             </a>
           </div>
-          <nav className="m-nav" aria-label="Mobile menu">
+          <nav className="m-nav" aria-label={labels?.menuNavigation ?? "Mobile menu"}>
             <a className="m-link" href={getToKnowUsHref}>{getToKnowUsLabel}</a>
             <a className="m-link" href={servicesHref}>{servicesLabel}</a>
             <a className="m-link" href={portfolioHref}>{portfolioLabel}</a>
