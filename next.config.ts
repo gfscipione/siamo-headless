@@ -35,6 +35,14 @@ const nextConfig: NextConfig = {
       { source: "/services/project-design-and-execution-2", destination: "/services/full-service/", permanent: true },
       { source: "/services/project-design-and-execution-2/", destination: "/services/full-service/", permanent: true },
 
+      // Preserve legacy inquiry entry points in the appropriate questionnaire language.
+      { source: "/formulario", destination: "/questionnaire/", permanent: true },
+      { source: "/formulario/", destination: "/questionnaire/", permanent: true },
+      { source: "/cuestionariov1", destination: "/es/cuestionario/", permanent: true },
+      { source: "/cuestionariov1/", destination: "/es/cuestionario/", permanent: true },
+      { source: "/es/formulario", destination: "/es/cuestionario/", permanent: true },
+      { source: "/es/formulario/", destination: "/es/cuestionario/", permanent: true },
+
       // Preserve the former WordPress Tuluminati project address.
       { source: "/es/tuluminati-house", destination: "/es/portafolio/tuluminati-house/", permanent: true },
       { source: "/es/tuluminati-house/", destination: "/es/portafolio/tuluminati-house/", permanent: true },
