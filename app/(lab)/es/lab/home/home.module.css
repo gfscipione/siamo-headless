@@ -351,6 +351,9 @@
 .socialGrid a { display: block; }
 .socialGrid img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
 .footer {
+  bottom: 0;
+  transform: none;
+  will-change: auto;
   background: var(--lab-footer);
   color: #fff;
   padding: 70px 24px;
