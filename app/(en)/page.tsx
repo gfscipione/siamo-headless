@@ -1,6 +1,5 @@
-import { headers } from "next/headers";
 import type { Metadata } from "next";
-import ParallaxDemo from "../components/ParallaxDemo";
+import HomeView from "../(lab)/es/lab/home/HomeView";
 import { getSiteUrl } from "../lib/siteUrl";
 
 const HOME_TITLE =
@@ -39,12 +38,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
-  const ua = (await headers()).get("user-agent") || "";
-  const initialIsMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(
-    ua
-  );
-
+export default function Home() {
   const siteUrl = getSiteUrl();
   const canonical = `${siteUrl}/`;
 
@@ -122,7 +116,7 @@ export default async function Home() {
         className="yoast-schema-graph"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
-      <ParallaxDemo initialIsMobile={initialIsMobile} />
+      <HomeView locale="en" routeMode="public" />
     </>
   );
 }
