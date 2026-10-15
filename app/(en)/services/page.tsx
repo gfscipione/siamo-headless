@@ -57,6 +57,7 @@ const services: Service[] = [
     description:
       "We take your project from concept to install, managing vendors, timelines, purchases, and finishing touches so the final space feels effortless, elevated, and move-in ready.",
     image: "/assets/People/full-service.mp4",
+    poster: "/assets/People/full-service-poster.webp",
     cta: "Find out more",
     href: "/services/full-service",
     mediaType: "video",

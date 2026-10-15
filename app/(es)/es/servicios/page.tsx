@@ -60,6 +60,7 @@ const services: Service[] = [
     description:
       "Llevamos tu proyecto de concepto a instalación, gestionando proveedores, tiempos, compras y cada detalle para entregarte un espacio elevado y listo para habitar.",
     image: "/assets/People/full-service.mp4",
+    poster: "/assets/People/full-service-poster.webp",
     cta: "Conoce más",
     href: "/es/servicios/diseno-llave-en-mano/",
     mediaType: "video",

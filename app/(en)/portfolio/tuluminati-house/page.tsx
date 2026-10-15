@@ -3,18 +3,19 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/tuluminati-house/";
-const yoastDescription =
-  "Tuluminati House 100 M2 2 Rooms 2 Bathrooms Tuluminati House This project pays homage to the essence of Tulum with a design that incorporates natural materials and local craftsmanship. With a neutral color palette and the use of chukum, this decor blends modern design with a local touch. Every detail reflects Tulum’s relaxed and spiritual aesthetic, creating […]";
+const TITLE = "Tuluminati House: Interior Design in Tulum | Siamo Design";
+const DESCRIPTION =
+  "Explore Tuluminati House, a residential interior design project in Tulum with natural materials, chukum finishes, local craftsmanship and outdoor spaces.";
 const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/02/1-.png";
 const OG_IMAGE_WIDTH = 594;
 const OG_IMAGE_HEIGHT = 420;
 const OG_IMAGE_TYPE = "image/png";
 const DATE_PUBLISHED = "2025-02-20T04:41:57+00:00";
-const DATE_MODIFIED = "2025-03-27T22:14:33+00:00";
+const DATE_MODIFIED = "2026-10-15T18:33:33Z";
 
 export const metadata: Metadata = {
-  title: { absolute: "Tuluminati House - Siamo Design" },
-  description: yoastDescription,
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: canonicalPath,
     languages: {
@@ -26,8 +27,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     locale: "en_US",
-    title: "Tuluminati House - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     url: canonicalPath,
     siteName: "Siamo Design",
     images: [
@@ -36,8 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tuluminati House - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     images: [OG_IMAGE],
   },
 };
@@ -53,7 +54,8 @@ export default function TuluminatiHousePage() {
         "@type": "WebPage",
         "@id": canonical,
         url: canonical,
-        name: "Tuluminati House - Siamo Design",
+        name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -151,6 +153,7 @@ export default function TuluminatiHousePage() {
     "Bathrooms",
     "Terrace",
     "2D Furnished Floor Plan",
+    "Project Overview",
   ];
 
   const sections = [
@@ -246,6 +249,11 @@ export default function TuluminatiHousePage() {
       },
       isFloorplan: true,
     },
+    {
+      title: "Project Overview",
+      description:
+        "Tuluminati House brings the relaxed character of Tulum into a residential interior defined by natural materials, local craftsmanship and a neutral palette. Chukum finishes and woven details add texture, while warm tones run through the living room, primary suite, guest room and bathrooms. The balcony and terrace extend the spaces for resting and spending time outdoors, with seating and greenery. Explore the rooms and furnished floor plan to see how these elements come together in a home that combines contemporary design with local character.",
+    },
   ];
 
   const featuredProjects = [
@@ -301,10 +309,11 @@ export default function TuluminatiHousePage() {
           padBottom: "clamp(4rem, 8vh, 7rem)",
           contentPadX: "24px",
         }}
+        metaLabels={{ bookConsultation: "Explore full-service interior design" }}
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/questionnaire/",
+          workLinkHref: "/services/full-service/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

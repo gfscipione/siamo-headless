@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
 const canonicalPath = "/es/portafolio/soul-in-concrete/";
-const TITLE = "Soul in Concrete - Siamo Design";
+const TITLE = "Soul in Concrete: Diseño de Interiores en Tulum | Siamo Design";
 const DESCRIPTION =
-  "Proyecto de interiorismo en Tulum con concreto aparente, textiles cálidos y luz orgánica que equilibran fuerza brutalista y calidez.";
+  "Descubre Soul in Concrete, un proyecto de interiorismo residencial en Tulum que combina concreto aparente, textiles cálidos, iluminación y terrazas.";
 const OG_IMAGE_PATH = "/assets/soul-in-concrete/master-bedroom-3.webp";
 
 export const metadata: Metadata = {
@@ -50,6 +50,7 @@ export default function SoulInConcretePageEs() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${esRoot}#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -141,6 +142,7 @@ export default function SoulInConcretePageEs() {
     "Suite principal",
     "Suite de invitados",
     "Terrazas",
+    "Resumen del Proyecto",
   ];
 
   const sections = [
@@ -212,25 +214,30 @@ export default function SoulInConcretePageEs() {
         isSquare: true,
       },
     },
+    {
+      title: "Resumen del Proyecto",
+      description:
+        "Soul in Concrete explora el equilibrio entre el concreto aparente y la calidez de un hogar en Tulum. En la sala, los asientos de formas curvas y las texturas suavizan las líneas de la arquitectura, mientras la iluminación escultórica aporta carácter. La suite principal y la de invitados combinan superficies de concreto con textiles suaves, luz cálida y una paleta neutra. En el exterior, las terrazas reúnen asientos de concreto, vegetación y zonas para comer y descansar. El conjunto muestra una propuesta de diseño de interiores residencial que equilibra la fuerza de los materiales con la comodidad cotidiana.",
+    },
   ];
 
   const featuredProjects = [
     {
-      title: "Timeless Nature",
+      title: "Naturaleza Atemporal",
       location: "Puerto Morelos",
       summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
       href: "/es/portafolio/naturaleza-atemporal/",
     },
     {
-      title: "Roots Tulum",
+      title: "Raíces Tulum",
       location: "Tulum",
       summary: "Una expresión atemporal de materiales puros y naturales.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
       href: "/es/portafolio/raices-tulum/",
     },
     {
-      title: "Mid-Century Waves",
+      title: "Olas Mid-Century",
       location: "Akumal",
       summary: "Un refugio sereno y textural con tonos cálidos y calma costera.",
       image: "/assets/mid-century-waves/terrace-1.jpg",
@@ -269,7 +276,7 @@ export default function SoulInConcretePageEs() {
         metaLabels={{
           location: "Ubicación",
           workWithUs: "Trabaja con nosotros",
-          bookConsultation: "Agendar consulta",
+          bookConsultation: "Conoce nuestro servicio de diseño llave en mano",
         }}
         sectionLabels={{
           contentsTitleRight: "Contenido",
@@ -308,7 +315,7 @@ export default function SoulInConcretePageEs() {
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/es/cuestionario/",
+          workLinkHref: "/es/servicios/diseno-llave-en-mano/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Compartir en Facebook" },
             { label: "Pinterest", href: "#", aria: "Compartir en Pinterest" },

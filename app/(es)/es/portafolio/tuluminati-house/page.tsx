@@ -2,15 +2,15 @@ import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 import type { Metadata } from "next";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
-const TITLE = "Tuluminati House - Siamo Design";
+const TITLE = "Tuluminati House: Diseño de Interiores en Tulum | Siamo Design";
 const DESCRIPTION =
-  "Tuluminati House 100 M2 2 Habitaciones 2 Baños Tuluminati House Es un proyecto que rinde homenaje a la esencia de Tulum con un diseño que incorpora materiales naturales y artesanías locales. Con una paleta de colores neutros y el uso del chukum, esta decoración combina el diseño moderno con un toque local. Cada detalle refleja […]";
+  "Descubre Tuluminati House: diseño de interiores residencial en Tulum con materiales naturales, chukum, artesanía local y espacios al aire libre.";
 const OG_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/02/1-.png";
 const OG_IMAGE_WIDTH = 594;
 const OG_IMAGE_HEIGHT = 420;
 const OG_IMAGE_TYPE = "image/png";
 const DATE_PUBLISHED = "2025-02-17T17:34:42+00:00";
-const DATE_MODIFIED = "2025-03-27T23:30:27+00:00";
+const DATE_MODIFIED = "2026-10-15T18:33:33Z";
 const canonicalPath = "/es/portafolio/tuluminati-house/";
 
 export const metadata: Metadata = {
@@ -56,6 +56,7 @@ export default function TuluminatiHousePage() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${esRoot}#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -153,6 +154,7 @@ export default function TuluminatiHousePage() {
     "Baños",
     "Terraza",
     "Plano amueblado 2D",
+    "Resumen del Proyecto",
   ];
 
   const sections = [
@@ -248,25 +250,30 @@ export default function TuluminatiHousePage() {
       },
       isFloorplan: true,
     },
+    {
+      title: "Resumen del Proyecto",
+      description:
+        "Tuluminati House lleva el carácter relajado de Tulum a un interior residencial definido por materiales naturales, artesanía local y una paleta neutra. Los acabados de chukum y los detalles tejidos aportan textura, mientras los tonos cálidos dan continuidad a la sala, la suite principal, la habitación de invitados y los baños. El balcón y la terraza ofrecen espacios para descansar y disfrutar al aire libre, entre asientos y vegetación. Recorre los ambientes y el plano amueblado para descubrir cómo estos elementos se reúnen en una vivienda que combina diseño contemporáneo y carácter local.",
+    },
   ];
 
   const featuredProjects = [
     {
-      title: "Timeless Nature",
+      title: "Naturaleza Atemporal",
       location: "Puerto Morelos",
       summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
       href: "/es/portafolio/naturaleza-atemporal/",
     },
     {
-      title: "Roots Tulum",
+      title: "Raíces Tulum",
       location: "Tulum",
       summary: "Una expresión atemporal de materiales puros y naturales.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
       href: "/es/portafolio/raices-tulum/",
     },
     {
-      title: "Mid-Century Waves",
+      title: "Olas Mid-Century",
       location: "Akumal",
       summary: "Un refugio sereno y textural con tonos cálidos y calma costera.",
       image: "/assets/mid-century-waves/terrace-1.jpg",
@@ -306,7 +313,7 @@ export default function TuluminatiHousePage() {
         metaLabels={{
           location: "Ubicación",
           workWithUs: "Trabaja con nosotros",
-          bookConsultation: "Agendar consulta",
+          bookConsultation: "Conoce nuestro servicio de diseño llave en mano",
         }}
         sectionLabels={{
           contentsTitleRight: "Contenido",
@@ -345,7 +352,7 @@ export default function TuluminatiHousePage() {
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/es/cuestionario/",
+          workLinkHref: "/es/servicios/diseno-llave-en-mano/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Compartir en Facebook" },
             { label: "Pinterest", href: "#", aria: "Compartir en Pinterest" },

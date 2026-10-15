@@ -3,12 +3,13 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/contemporary-retreat/";
-const yoastDescription =
-  "Contemporary Retreat · 90 m² · 2 rooms · 2 bathrooms. Designed for my client’s retired parents, this Puerto Cancún apartment blends modern architecture with refined materials and neutral tones to achieve a warm, elegant, timeless feel.";
+const TITLE = "Contemporary Retreat: Interior Design in Cancún | Siamo Design";
+const DESCRIPTION =
+  "Explore Contemporary Retreat, a 90 m² apartment in Puerto Cancún with residential interiors, refined materials and a warm, neutral palette.";
 
 export const metadata: Metadata = {
-  title: { absolute: "Contemporary Retreat - Siamo Design" },
-  description: yoastDescription,
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: canonicalPath,
     languages: {
@@ -20,8 +21,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     locale: "en_US",
-    title: "Contemporary Retreat - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     url: canonicalPath,
     images: [
       {
@@ -34,6 +35,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["https://siamodesign.com/wp-content/uploads/2025/02/1-1-4.png"],
   },
 };
 
@@ -48,13 +52,14 @@ export default function ContemporaryRetreatPage() {
         "@type": "WebPage",
         "@id": canonicalUrl,
         url: canonicalUrl,
-        name: "Contemporary Retreat - Siamo Design",
+        name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
         image: { "@id": `${canonicalUrl}#primaryimage` },
         thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/02/1-1-4.png",
         datePublished: "2025-02-20T05:02:47+00:00",
-        dateModified: "2025-03-27T22:26:13+00:00",
+        dateModified: "2026-10-15T19:13:51Z",
         breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
         inLanguage: "en",
         potentialAction: [
@@ -190,7 +195,7 @@ export default function ContemporaryRetreatPage() {
     {
       title: "Project Overview",
       description:
-        "Designed for my client’s retired parents, this Puerto Cancún apartment was created as a calm, comfortable retreat for everyday living. The concept blends modern architecture with refined materials and a neutral palette to achieve a warm, elegant, timeless feel. Every detail—from layout to lighting—was selected to create a cozy, functional home that supports this new stage of life with ease and tranquility.",
+        "Contemporary Retreat is a 90 m² apartment in Puerto Cancún, conceived as a calm, comfortable home for retired parents. Its residential interior design combines a neutral palette, refined materials and considered lighting to create a welcoming setting for everyday life. The living room and bedroom continue this balance of contemporary lines and soft tones, with a focus on comfort and practical use. Explore the spaces and furnished floor plan to see how the layout and furnishings support a home with a warm, timeless character.",
     },
   ];
 
@@ -264,10 +269,11 @@ export default function ContemporaryRetreatPage() {
           padBottom: "clamp(4rem, 8vh, 7rem)",
           contentPadX: "24px",
         }}
+        metaLabels={{ bookConsultation: "Explore full-service interior design" }}
         contents={contents}
         meta={{
-          location: "Cacun",
-          workLinkHref: "/questionnaire/",
+          location: "Cancún",
+          workLinkHref: "/services/full-service/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

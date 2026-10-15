@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/soul-in-concrete/";
-const TITLE = "Soul in Concrete - Siamo Design";
+const TITLE = "Soul in Concrete: Interior Design in Tulum | Siamo Design";
 const DESCRIPTION =
-  "Brutalist warmth with sculpted concrete volumes, softened by layered textiles and organic light in Tulum.";
+  "Explore Soul in Concrete, a residential interior design project in Tulum with exposed concrete, warm textiles, soft lighting and outdoor living spaces.";
 const OG_IMAGE_PATH = "/assets/soul-in-concrete/master-bedroom-3.webp";
 
 export const metadata: Metadata = {
@@ -49,6 +49,7 @@ export default function SoulInConcretePage() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -138,6 +139,7 @@ export default function SoulInConcretePage() {
     "Master Suite",
     "Guest Suite",
     "Terraces",
+    "Project Overview",
   ];
 
   const sections = [
@@ -209,6 +211,11 @@ export default function SoulInConcretePage() {
         isSquare: true,
       },
     },
+    {
+      title: "Project Overview",
+      description:
+        "Soul in Concrete explores the balance between exposed concrete and a warm, comfortable home in Tulum. In the living room, curved seating and layered textures soften the architectural lines, while sculptural lighting adds character. The master and guest suites pair concrete surfaces with soft bedding, warm light and a neutral palette. Outside, the terraces bring together concrete seating, planting and areas for dining and relaxing. Together, these spaces show a residential interior design approach that balances the strength of the materials with the comfort of everyday living.",
+    },
   ];
 
   const featuredProjects = [
@@ -263,10 +270,11 @@ export default function SoulInConcretePage() {
           padBottom: "clamp(5rem, 10vh, 8rem)",
           contentPadX: "24px",
         }}
+        metaLabels={{ bookConsultation: "Explore full-service interior design" }}
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/questionnaire/",
+          workLinkHref: "/services/full-service/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

@@ -1,14 +1,18 @@
 import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
+const TITLE = "Retiro Contemporáneo: Diseño de Interiores | Siamo Design";
+const DESCRIPTION =
+  "Conoce Retiro Contemporáneo, un departamento de 90 m² en Puerto Cancún con diseño de interiores residencial, materiales refinados y tonos neutros.";
+
 export const metadata = {
-  title: { absolute: "Retiro Contemporáneo - Siamo Design" },
+  title: { absolute: TITLE },
   description:
-    "Puerto Cancún · 90 m² · 2 habitaciones · 2 baños. Un refugio contemporáneo con materiales refinados y tonos neutros, cálido, elegante y atemporal.",
+    DESCRIPTION,
   openGraph: {
-    title: "Retiro Contemporáneo - Siamo Design",
+    title: TITLE,
     description:
-      "Puerto Cancún · 90 m² · 2 habitaciones · 2 baños. Un refugio contemporáneo con materiales refinados y tonos neutros, cálido, elegante y atemporal.",
+      DESCRIPTION,
     url: "/es/portafolio/retiro-contemporaneo/",
     siteName: "Siamo Design",
     type: "website",
@@ -24,9 +28,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Retiro Contemporáneo - Siamo Design",
+    title: TITLE,
     description:
-      "Puerto Cancún · 90 m² · 2 habitaciones · 2 baños. Un refugio contemporáneo con materiales refinados y tonos neutros, cálido, elegante y atemporal.",
+      DESCRIPTION,
     images: ["/assets/retiro-contemporaneo/living-room-4.png"],
   },
   alternates: {
@@ -52,7 +56,8 @@ export default function RetiroContemporaneoPageEs() {
         "@type": "WebPage",
         "@id": canonical,
         url: canonical,
-        name: "Retiro Contemporáneo - Siamo Design",
+        name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${siteEsRoot}#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -190,7 +195,7 @@ export default function RetiroContemporaneoPageEs() {
     {
       title: "Resumen del Proyecto",
       description:
-        "Este departamento en Puerto Cancún fue diseñado para los padres jubilados de mi cliente, con el objetivo de crear un hogar sereno, cómodo y fácil de habitar. La propuesta combina arquitectura contemporánea, materiales refinados y una paleta neutra para lograr una estética cálida, elegante y atemporal. Cada detalle—desde la distribución hasta la iluminación—fue cuidadosamente seleccionado para construir un ambiente acogedor y funcional, ideal para disfrutar esta nueva etapa con tranquilidad.",
+        "Retiro Contemporáneo es un departamento de 90 m² en Puerto Cancún, concebido como un hogar sereno y cómodo para los padres jubilados de un cliente. Su diseño de interiores combina una paleta neutra, materiales refinados y una iluminación cuidada para crear espacios acogedores para la vida cotidiana. La sala y el dormitorio mantienen una continuidad de líneas contemporáneas y tonos suaves, con énfasis en la comodidad y el uso práctico. Recorre los ambientes y el plano amueblado para conocer una propuesta cálida y atemporal.",
     },
   ];
 
@@ -203,7 +208,7 @@ export default function RetiroContemporaneoPageEs() {
       href: "/es/portafolio/naturaleza-atemporal/",
     },
     {
-      title: "Raices Tulum",
+      title: "Raíces Tulum",
       location: "Tulum",
       summary: "Una expresión atemporal de materiales puros y naturales.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
@@ -283,7 +288,7 @@ export default function RetiroContemporaneoPageEs() {
         metaLabels={{
           location: "Ubicación",
           workWithUs: "Trabajemos juntos",
-          bookConsultation: "Agenda una consulta",
+          bookConsultation: "Conoce nuestro servicio de diseño llave en mano",
           share: "Compartir",
         }}
         sectionLabels={{
@@ -311,7 +316,7 @@ export default function RetiroContemporaneoPageEs() {
         contents={contents}
         meta={{
           location: "Cancún",
-          workLinkHref: "/es/cuestionario/",
+          workLinkHref: "/es/servicios/diseno-llave-en-mano/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Compartir en Facebook" },
             { label: "Pinterest", href: "#", aria: "Compartir en Pinterest" },
