@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import styles from "./PortfolioIntro.module.css";
 import { playfairFont, poppinsFont } from "../../fonts";
 import PortfolioNav from "../../components/PortfolioNav";
 import { getSiteUrl } from "../../lib/siteUrl";
@@ -51,7 +52,7 @@ const projects: Project[] = [
   {
     title: "Mid-Century Waves",
     location: "Akumal",
-    summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
+    summary: "Mid-century and coastal interiors with local wood and orange and blue accents.",
     image: "/assets/mid-century-waves/terrace-1.jpg",
     href: "/portfolio/mid-century-waves",
   },
@@ -72,12 +73,14 @@ const projects: Project[] = [
 ];
 
 const canonicalPath = "/portfolio/";
-const yoastDescription =
-  "Discover the unique value we can bring to your project. Get a quote by filling out our form and let us provide you with a quality service. We are ready to bring your vision to life!";
+const TITLE = "Residential Interior Design Portfolio | Siamo Design";
+const DESCRIPTION =
+  "Explore residential interior design projects by Siamo Design and discover full-service design for your home in the Riviera Maya.";
+const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/02/1-Despues.jpg";
 
 export const metadata: Metadata = {
-  title: { absolute: "Portfolio - Siamo Design" },
-  description: yoastDescription,
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: canonicalPath,
     languages: {
@@ -87,10 +90,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    type: "article",
+    type: "website",
     locale: "en_US",
-    title: "Portfolio - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     url: canonicalPath,
     images: [
       {
@@ -103,6 +106,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [{ url: OG_IMAGE, width: 1400, height: 933, type: "image/jpeg" }],
   },
 };
 
@@ -117,14 +123,14 @@ export default function PortfolioPage() {
         "@type": "WebPage",
         "@id": canonicalUrl,
         url: canonicalUrl,
-        name: "Portfolio - Siamo Design",
+        name: TITLE,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
         image: { "@id": `${canonicalUrl}#primaryimage` },
         thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/02/1-Despues-768x512.jpg",
         datePublished: "2024-03-20T01:42:49+00:00",
-        dateModified: "2025-03-27T22:52:55+00:00",
-        description: yoastDescription,
+        dateModified: "2026-10-15T15:44:30Z",
+        description: DESCRIPTION,
         breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
         inLanguage: "en",
         potentialAction: [
@@ -231,9 +237,14 @@ export default function PortfolioPage() {
           <div className="portfolio-crumb">
             <a href="/" aria-label="Go to homepage">HOME</a> • PORTFOLIO
           </div>
-          <h1 className={`portfolio-hero-title ${playfairFont.className}`}>
+          <h1 className={`portfolio-hero-title ${playfairFont.className} ${styles.title}`}>
             Portfolio
           </h1>
+          <div className={`${styles.intro} ${poppinsFont.className}`}>
+            <p className={styles.description}>Explore residential interiors by Siamo Design, from living spaces and bedrooms to kitchens and terraces. Discover the materials, textures and details that give each project its character.</p>
+            <p className={styles.question}>Planning your home in the Riviera Maya?</p>
+            <a className={styles.link} href="/services/full-service/">Explore full-service interior design</a>
+          </div>
           <div className="portfolio-filter-row">
             <button className="portfolio-filter-btn">
               FILTER <span className="chevron">⌄</span>

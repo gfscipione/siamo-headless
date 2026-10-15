@@ -1,0 +1,37 @@
+/* Keep the index introduction independent of shared portfolio styles. */
+.title.title {
+  margin-bottom: 1.5rem;
+}
+
+.intro {
+  width: 100%;
+  max-width: 60ch;
+  margin-bottom: 2rem;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.description {
+  margin: 0;
+}
+
+.question {
+  margin: 1.25rem 0 0.375rem;
+}
+
+.link {
+  display: inline-block;
+  max-width: 100%;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.link:hover {
+  text-decoration-thickness: 2px;
+}
+
+.link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}

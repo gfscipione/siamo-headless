@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import styles from "../../../(en)/portfolio/PortfolioIntro.module.css";
 import { playfairFont, poppinsFont } from "../../../fonts";
 import PortfolioNav from "../../../components/PortfolioNav";
 import { getSiteUrl } from "../../../lib/siteUrl";
@@ -51,21 +52,21 @@ const projects: Project[] = [
     href: "/es/portafolio/tuluminati-house",
   },
   {
-    title: "Mid-Century Waves",
+    title: "Olas Mid-Century",
     location: "Akumal",
-    summary: "Un refugio sereno y textural con tonos cálidos y calma costera.",
+    summary: "Interiores de estilo mid-century y costero, con madera local y acentos naranjas y azules.",
     image: "/assets/mid-century-waves/terrace-1.jpg",
     href: "/es/portafolio/mid-century-waves",
   },
   {
-    title: "Roots Tulum",
+    title: "Raíces Tulum",
     location: "Tulum",
     summary: "Una expresión atemporal de materiales puros y naturales.",
     image: "/assets/raices-tulum/bedroom-4.jpg",
     href: "/es/portafolio/raices-tulum/",
   },
   {
-    title: "Contemporary Retreat",
+    title: "Retiro Contemporáneo",
     location: "Cancún",
     summary: "Arquitectura moderna con materiales refinados y de alta gama.",
     image: "/assets/retiro-contemporaneo/living-room-1.png",
@@ -73,9 +74,9 @@ const projects: Project[] = [
   },
 ];
 
-const TITLE = "Portafolio - Siamo Design";
+const TITLE = "Portafolio de Diseño de Interiores Residencial | Siamo Design";
 const DESCRIPTION =
-  "Descubre el valor único que podemos aportar a tu proyecto. Cotiza con nosotros llenando nuestro formulario y permítenos brindarte una atención de calidad. ¡Estamos listos para dar vida a tu visión! Empezar un proyecto Naturaleza Atemporal Then Formerly Equilibra lo natural y lo contemporáneo, creando un espacio sofisticado, acogedor y atemporal. Raíces Tulum Then Formerly […]";
+  "Explora los proyectos de diseño de interiores residencial de Siamo Design y conoce nuestro servicio integral para tu vivienda en Riviera Maya.";
 const OG_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/02/1-Despues-3.jpg";
 const canonicalPath = "/es/portafolio/";
 
@@ -91,7 +92,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    type: "article",
+    type: "website",
     locale: "es_ES",
     title: TITLE,
     description: DESCRIPTION,
@@ -132,7 +133,7 @@ export default function PortfolioPage() {
         image: { "@id": `${canonicalUrl}#primaryimage` },
         thumbnailUrl: "https://siamodesign.com/es/wp-content/uploads/2025/02/1-Despues-3-768x512.jpg",
         datePublished: "2024-03-20T01:42:49+00:00",
-        dateModified: "2025-03-27T23:49:30+00:00",
+        dateModified: "2026-10-15T15:44:30Z",
         description: DESCRIPTION,
         breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
         inLanguage: "es",
@@ -256,9 +257,14 @@ export default function PortfolioPage() {
           <div className="portfolio-crumb">
             <a href="/es/" aria-label="Ir a inicio">INICIO</a> • PORTAFOLIO
           </div>
-          <h1 className={`portfolio-hero-title ${playfairFont.className}`}>
+          <h1 className={`portfolio-hero-title ${playfairFont.className} ${styles.title}`}>
             Portafolio
           </h1>
+          <div className={`${styles.intro} ${poppinsFont.className}`}>
+            <p className={styles.description}>Explora los interiores residenciales de Siamo Design, desde salas y recámaras hasta cocinas y terrazas. Conoce los materiales, las texturas y los detalles que dan carácter a cada proyecto.</p>
+            <p className={styles.question}>¿Planeas tu vivienda en Riviera Maya?</p>
+            <a className={styles.link} href="/es/servicios/diseno-llave-en-mano/">Conoce nuestro servicio de diseño llave en mano</a>
+          </div>
           <div className="portfolio-filter-row">
             <button className="portfolio-filter-btn">
               FILTRAR <span className="chevron">⌄</span>
