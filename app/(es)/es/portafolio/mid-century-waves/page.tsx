@@ -1,9 +1,24 @@
 import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 
+const projectTitle = "Olas Mid-Century: Diseño de Interiores en Akumal — Siamo Design";
+const projectDescription =
+  "Descubre Olas Mid-Century, un departamento frente al mar en Akumal con interiores de estilo mid-century, madera local y plano amueblado.";
+
 export const metadata = {
-  title: { absolute: "Olas Mid-Century — Siamo Design" },
-  description:
-    "Un refugio sereno y lleno de textura, diseñado con tonos cálidos y una calma costera en Akumal.",
+  title: { absolute: projectTitle },
+  description: projectDescription,
+  openGraph: {
+    type: "website",
+    siteName: "Siamo Design",
+    url: "/es/portafolio/mid-century-waves/",
+    title: projectTitle,
+    description: projectDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: projectTitle,
+    description: projectDescription,
+  },
   alternates: {
     canonical: "/es/portafolio/mid-century-waves/",
     languages: {
@@ -121,7 +136,7 @@ export default function MidCenturyWavesPageEs() {
     {
       title: "Resumen del Proyecto",
       description:
-        "Una fusión del estilo mid-century con la frescura del diseño costero en un departamento frente al mar en Akumal. Madera local y acabados contemporáneos se combinan con acentos en naranjas y azules para reflejar la energía y la calma del océano. El resultado: un lujo relajado, sereno y atemporal, inspirado en la estética de los años 50.",
+        "Olas Mid-Century combina el estilo mid-century y el diseño costero en un departamento frente al mar en Akumal. La madera local, los acabados contemporáneos y los acentos naranjas y azules definen sus interiores. Recorre la sala, los dormitorios y la terraza, junto con el plano amueblado en 2D.",
     },
   ];
 
@@ -174,8 +189,8 @@ export default function MidCenturyWavesPageEs() {
       navLangHref="/portfolio/mid-century-waves"
       metaLabels={{
         location: "Ubicación",
-        workWithUs: "Trabajemos juntos",
-        bookConsultation: "Agenda una consulta",
+        workWithUs: "¿Planeas tu vivienda?",
+        bookConsultation: "Conoce el servicio llave en mano",
         share: "Compartir",
       }}
       sectionLabels={{
@@ -211,7 +226,7 @@ export default function MidCenturyWavesPageEs() {
       contents={contents}
       meta={{
         location: "Akumal",
-        workLinkHref: "/es/cuestionario/",
+        workLinkHref: "/es/servicios/diseno-llave-en-mano/",
         shareLinks: [
           { label: "Facebook", href: "#", aria: "Share on Facebook" },
           { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

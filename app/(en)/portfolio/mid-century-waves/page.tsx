@@ -3,8 +3,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/mid-century-waves/";
-const yoastDescription =
-  "Mid-Century Waves 140 M2 2 Rooms 2 Bathrooms Mid-Century Waves Blends classic mid-century style with the freshness of coastal design in an oceanfront apartment in Akumal. Local wood and modern finishes merge with vibrant orange and blue hues, creating a unique ambiance that captures the energy and tranquility of the sea. This project offers relaxed […]";
+const projectTitle = "Mid-Century Waves: Interior Design in Akumal — Siamo Design";
+const projectDescription =
+  "Explore Mid-Century Waves, a beachfront apartment in Akumal with mid-century and coastal interiors, local wood and a furnished floor plan.";
 const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/02/1-1-2.png";
 const OG_IMAGE_WIDTH = 594;
 const OG_IMAGE_HEIGHT = 420;
@@ -13,8 +14,8 @@ const DATE_PUBLISHED = "2025-02-20T04:43:43+00:00";
 const DATE_MODIFIED = "2025-03-27T22:22:34+00:00";
 
 export const metadata: Metadata = {
-  title: { absolute: "Mid-Century Waves - Siamo Design" },
-  description: yoastDescription,
+  title: { absolute: projectTitle },
+  description: projectDescription,
   alternates: {
     canonical: canonicalPath,
     languages: {
@@ -26,8 +27,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     locale: "en_US",
-    title: "Mid-Century Waves - Siamo Design",
-    description: yoastDescription,
+    title: projectTitle,
+    description: projectDescription,
     url: canonicalPath,
     siteName: "Siamo Design",
     images: [
@@ -36,8 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mid-Century Waves - Siamo Design",
-    description: yoastDescription,
+    title: projectTitle,
+    description: projectDescription,
     images: [OG_IMAGE],
   },
 };
@@ -53,7 +54,7 @@ export default function MidCenturyWavesPage() {
         "@type": "WebPage",
         "@id": canonical,
         url: canonical,
-        name: "Mid-Century Waves - Siamo Design",
+        name: projectTitle,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -229,7 +230,7 @@ export default function MidCenturyWavesPage() {
     {
       title: "Project Overview",
       description:
-        "A fusion of mid-century classics and coastal ease in a beachfront apartment in Akumal. Local wood and contemporary finishes are paired with bold orange and blue accents to echo the ocean’s energy and calm. The result is relaxed luxury—serene, timeless, and inspired by the elegance of the 1950s.",
+        "Mid-Century Waves combines mid-century and coastal design in a beachfront apartment in Akumal. Local wood, contemporary finishes, and orange and blue accents shape the interiors. Explore the living room, bedrooms and terrace, along with the furnished 2D floor plan.",
     },
   ];
 
@@ -287,9 +288,13 @@ export default function MidCenturyWavesPage() {
           contentPadX: "24px",
         }}
         contents={contents}
+        metaLabels={{
+          workWithUs: "Planning your home?",
+          bookConsultation: "Explore full-service design",
+        }}
         meta={{
           location: "Akumal",
-          workLinkHref: "/questionnaire/",
+          workLinkHref: "/services/full-service/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
