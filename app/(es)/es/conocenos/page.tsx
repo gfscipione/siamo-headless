@@ -5,9 +5,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 import DragScroll from "../../../(en)/get-to-know-us/DragScroll";
 
-const TITLE = "Conocenos - Siamo Design";
+const TITLE = "Conócenos | Estudio de Interiorismo Siamo Design";
 const DESCRIPTION =
-  "¿Quiénes somos? Siamo Design nace de la iniciativa de Stephania Scipione y Krystle Torres, quienes observaron que muchas personas se sentían insatisfechas con sus hogares a pesar de haber invertido tiempo y dinero en ellos.";
+  "Conoce a Stephania Scipione y Krystle Torres, el equipo de Siamo Design, y nuestra forma de diseñar interiores residenciales en Riviera Maya y Cancún.";
 const OG_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/03/Diseno-sin-titulo-1.webp";
 
 export const metadata: Metadata = {
@@ -56,7 +56,7 @@ export default function ConocenosPage() {
         image: { "@id": `${canonical}#primaryimage` },
         thumbnailUrl: OG_IMAGE,
         datePublished: "2024-03-19T15:56:34+00:00",
-        dateModified: "2025-03-27T22:51:20+00:00",
+        dateModified: "2026-10-15T20:51:03Z",
         breadcrumb: { "@id": `${canonical}#breadcrumb` },
         inLanguage: "es",
         potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
@@ -117,7 +117,7 @@ export default function ConocenosPage() {
     {
       title: "Diseño de Interiores Llave en Mano",
       copy:
-        "Nos encargamos de todo, de principio a fin: diseño, compras, coordinación de contratistas, entregas e instalación, hasta el styling final. Tú solo llegas a habitarlo.",
+        "Diseño, compras e instalación en un mismo servicio para una vivienda completa. Para propietarios que quieren delegar el proceso, tanto si viven cerca como en otro país.",
       icon: (
         <svg
           viewBox="0 0 24 24"
@@ -136,9 +136,9 @@ export default function ConocenosPage() {
       ),
     },
     {
-      title: "Diseño Virtual a Distancia",
+      title: "Diseño de Interiores Virtual",
       copy:
-        "Un servicio remoto para cualquier parte del mundo: definimos el concepto, seleccionamos materiales y mobiliario, y te entregamos un plan claro para ejecutarlo a tu ritmo.",
+        "Un plan profesional que tú llevas a la práctica. Desarrollamos el concepto, la distribución y la selección de mobiliario; tú gestionas las compras y avanzas con la ejecución a tu ritmo.",
       icon: (
         <svg
           viewBox="0 0 24 24"
@@ -276,7 +276,7 @@ export default function ConocenosPage() {
 
         <section className="about-story" aria-label="Historia de Siamo">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Siamo Design es un estudio de diseño interior multidisciplinario que crea espacios cálidos y atemporales, con un estilo que se siente a la vez clásico y actual.
+            Diseñamos viviendas completas en Riviera Maya y Cancún, pensadas para quienes las habitan.
           </h2>
 
           <div className="about-story__grid">
@@ -294,10 +294,10 @@ export default function ConocenosPage() {
                 Nuestra misión es crear interiores que eleven tu forma de vivir.
               </h3>
               <p className={poppinsFont.className}>
-                En Siamo Design creemos que un espacio no es solo algo que ves: es algo que sientes. Y como lo habitas todos los días —comes, descansas y desconectas— tu entorno influye directamente en tu bienestar y en cómo experimentas la vida. Nuestro propósito es hacer consciente ese impacto y convertirlo en interiores pensados para vivirse, a través de servicios de diseño interior intencionales.
+                Creemos que una vivienda debe responder a tu vida diaria y reflejar tus gustos. Combinamos distribuciones funcionales, materiales naturales y distintas texturas para crear interiores cálidos y personales.
               </p>
               <p className={poppinsFont.className}>
-                Las cofundadoras, Stephania Scipione y Krystle Torres, notaron que amueblar y decorar un hogar suele volverse estresante e incierto. Por eso creamos un proceso claro y guiado: para que trabajar con nuestras diseñadoras se sienta fluido, organizado y genuinamente disfrutable de principio a fin.
+                Stephania Scipione y Krystle Torres fundaron Siamo Design para ayudar a los propietarios a tomar decisiones sobre sus espacios con mayor claridad. Juntas prestan atención al diseño, los materiales y los detalles que hacen que una vivienda se sienta propia.
               </p>
               <h3
                 className={`about-story__title about-story__title--spaced ${playfairFont.className}`}
@@ -308,10 +308,10 @@ export default function ConocenosPage() {
                 “Siamo Design” significa “Somos diseño”. Para nosotras, cada persona es diseño a su manera: tus gustos, tu estilo, tus colores y esas formas que te hacen sentir en casa. Esa idea es la base de nuestro trabajo y el punto de partida de cada proyecto.
               </p>
               <p className={poppinsFont.className}>
-                Por eso vemos cada proyecto como una oportunidad de transformar un espacio en un verdadero hogar: equilibrando belleza y funcionalidad mediante materiales bien elegidos, texturas en capas y una sensibilidad real hacia tu forma de vivir.
+                {"Las viviendas de nuestro "}<a href="/es/portafolio/">{"portafolio residencial"}</a>{" muestran cómo distintos materiales, texturas y distribuciones pueden responder a diferentes formas de habitar."}
               </p>
               <p className={poppinsFont.className}>
-                Acompañamos a nuestros clientes durante todo el recorrido —desde el primer concepto hasta la instalación final— afinando cada detalle para que el resultado se sienta auténtico, elevado y completamente tuyo.
+                {"Nuestro "}<a href="/es/servicios/diseno-llave-en-mano/">{"diseño de interiores llave en mano"}</a>{" reúne diseño, compras e instalación para tu vivienda, aunque vivas en otro país. Si prefieres gestionar la ejecución por tu cuenta, el "}<a href="/es/servicios/diseno-virtual/">{"diseño de interiores virtual"}</a>{" ofrece otra modalidad."}
               </p>
             </div>
           </div>
@@ -362,10 +362,10 @@ export default function ConocenosPage() {
           <div className="about-cta__inner">
             <div className="about-cta__text">
               <h3 className={`about-cta__headline ${playfairFont.className}`}>
-                ¿Tienes un proyecto en mente?<br />Conoce nuestros servicios de diseño
+                ¿Tienes un proyecto en mente?<br />Encuentra el servicio adecuado.
               </h3>
             </div>
-            <a className="about-cta__btn" href="/es/servicios/">Conoce más</a>
+            <a className="about-cta__btn" href="/es/servicios/">Conoce nuestros servicios</a>
             <div className="about-cta__media">
               <img src="/assets/img/post5.jpeg" alt="Comedor diseñado por Siamo Design" loading="lazy" />
             </div>
@@ -386,33 +386,6 @@ export default function ConocenosPage() {
           }}
         >
           <div className="footer-inner">
-            <section className="footer-seo" aria-label="Service areas and keyword index">
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design playa del carmen</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design riviera maya</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design Cancun</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design tulum</li>
-              </ul>
-            </section>
 
             <div className="footer-explore" aria-label="Explorar y redes">
               <nav className="explore" aria-label="Explorar">

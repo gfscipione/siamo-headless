@@ -7,9 +7,9 @@ import HeroVideo from "./HeroVideo";
 import { playfairFont, poppinsFont } from "../../fonts";
 import { getSiteUrl } from "../../lib/siteUrl";
 
-const TITLE = "Services - Siamo Design";
+const TITLE = "Interior Design Services in Riviera Maya | Siamo Design";
 const DESCRIPTION =
-  "Explore our interior design services—from Virtual Design to full-service execution—tailored to your lifestyle across the Riviera Maya.";
+  "Explore full-service interior design for homes in the Riviera Maya and Cancún, or virtual design with a plan you can carry out yourself. Discover Siamo Design.";
 const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/05/Virtual-design.png";
 
 export const metadata = {
@@ -34,6 +34,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
 };
 
@@ -53,28 +56,28 @@ type Service = {
 const services: Service[] = [
   {
     title: "Full-Service Interior Design",
-    subtitle: "Design, sourcing, and coordination done for you.",
+    subtitle: "Your whole home, from design to installation.",
     description:
-      "We take your project from concept to install, managing vendors, timelines, purchases, and finishing touches so the final space feels effortless, elevated, and move-in ready.",
+      "For homeowners who want to leave the details in experienced hands. We bring together the design, furniture sourcing, purchases and installation so your home is ready to enjoy, even if you live elsewhere.",
     image: "/assets/People/full-service.mp4",
     poster: "/assets/People/full-service-poster.webp",
-    cta: "Find out more",
-    href: "/services/full-service",
+    cta: "Explore full-service design",
+    href: "/services/full-service/",
     mediaType: "video",
     playbackThreshold: 1,
   },
   {
     title: "Virtual Interior Design",
-    subtitle: "Professional design, wherever you are in the world.",
+    subtitle: "A design plan you bring to life.",
     description:
-      "Get a clear plan, tailored layouts, and a curated shopping list you can execute at your pace. Perfect if you’re abroad, busy, or want expert direction without an on-site build.",
+      "For those who want professional guidance and prefer to manage purchases and implementation themselves. Receive layouts and a curated shopping list, with the flexibility to move forward at your own pace.",
     image: "/assets/services/virtual-design-1.mp4",
     mediaType: "video",
     playbackThreshold: 1,
     preload: "metadata",
     poster: "/assets/services/virtual-design-1.webp",
-    cta: "Find out more",
-    href: "/services/virtual-design",
+    cta: "Explore virtual design",
+    href: "/services/virtual-design/",
   },
 ];
 
@@ -82,19 +85,19 @@ const promises = [
   {
     title: "Proven Track Record",
     copy:
-      "Our designers bring years of experience and a collaborative process that pairs tailored perspectives with flawless delivery.",
+      "Our residential portfolio brings together different homes, materials and ways of living. It offers a starting point for imagining your own project.",
     icon: "desk",
   },
   {
     title: "Detail-Oriented Planning",
     copy:
-      "From finish schedules to procurement and installation, every step is managed with precision, keeping you as involved as you want to be.",
+      "With full-service design, we coordinate the design, sourcing and installation. With virtual design, you receive a plan to guide your own implementation.",
     icon: "checklist",
   },
   {
     title: "Intentional Design",
     copy:
-      "We curate spaces that feel elevated and timeless, with every project crafted uniquely for the client and their lifestyle.",
+      "We work with your tastes, needs and daily routines to create interiors that feel personal, comfortable and considered.",
     icon: "cabinet",
   },
 ];
@@ -125,37 +128,26 @@ const featuredProjects = [
 
 const faqs = [
   {
-    question: "What is the difference between Full Service Interior Design and Virtual Interior Design?",
+    question: "What is the difference between full-service and virtual interior design?",
     answer:
-      "Full Service Interior Design involves larger scale projects and include in-person consultations, comprehensive project management, site visits, furniture procurement, and hands-on installation. Virtual Interior Design offers a more flexible, remote approach for one space at a time to create custom design plans and shopping lists that can be implemented on your own as time and budget allow.",
+      "Full-service brings the design, sourcing, purchases and installation together for a complete home. Virtual design provides layouts and a shopping list that you implement yourself. The main difference is who manages the work, rather than where you live.",
   },
   {
     question: "How do I know which service is right for me?",
     answer: (
       <>
-        To help you choose the service that best fits you and your lifestyle, there are a few key
-        factors to consider—your available time, the size and scope of the project, your budget,
-        and how hands-on you’d like to be.
-        <br />
-        <br />
-        If you’re short on time, you’re not located where the project is, or you simply want
-        everything ready when you arrive without having to manage a thing, then our{" "}
+        {"If you want to delegate the design, purchases and installation of your home, explore our "}
         <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-          Full-Service Interior Design
-        </a>{" "}
-        is the ideal fit.
+          {"Full-Service Interior Design"}
+        </a>
+        {". Living outside the area does not mean you need virtual design."}
         <br />
         <br />
-        If, on the other hand, you do have the time, prefer to execute your project in phases,
-        you’re local, and you mainly need professional direction to bring your ideas into focus,
-        then our{" "}
-        <a
-          href="/services/virtual-design/"
-          style={{ fontWeight: 600, textDecoration: "underline" }}
-        >
-          Virtual Interior Design
-        </a>{" "}
-        is perfect for you.
+        {"If you prefer to manage purchases and implementation yourself, "}
+        <a href="/services/virtual-design/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"Virtual Interior Design"}
+        </a>
+        {" gives you a professional plan to follow."}
       </>
     ),
   },
@@ -163,14 +155,11 @@ const faqs = [
     question: "How much do your design services cost?",
     answer: (
       <>
-        Our fees vary depending on the scope of the project, the size of the spaces, and each
-        client’s specific needs. We invite you to{" "}
+        {"Fees depend on the size of your home and the scope of the work. Tell us about your project through "}
         <a href="/questionnaire/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-          complete our questionnaire
-        </a>{" "}
-        to schedule a consultation—this helps us understand your project and prepare a personalized
-        proposal, including a fixed design fee and an estimated furniture/investment budget, with
-        no obligation.
+          {"our questionnaire"}
+        </a>
+        {" so we can understand what you need and discuss the appropriate service and next steps."}
       </>
     ),
   },
@@ -191,9 +180,16 @@ const faqs = [
     ),
   },
   {
-    question: "Do you work with clients outside of your local area?",
-    answer:
-      "Yes. We serve clients both locally and remotely. For on-site projects, we travel as needed; for remote projects, our Virtual Interior Design service keeps everything coordinated from afar.",
+    question: "Can I use full-service design if I live outside Mexico?",
+    answer: (
+      <>
+        {"Yes. If your home is in the Riviera Maya or Cancún and you want the design, sourcing and installation managed locally, "}
+        <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"full-service"}
+        </a>
+        {" may be the right fit. Virtual design is a separate option for clients who prefer a design plan they can implement themselves."}
+      </>
+    ),
   },
   {
     question: "What interior design styles do you specialize in?",
@@ -259,7 +255,7 @@ export default function ServicesPage() {
         image: { "@id": `${canonical}#primaryimage` },
         thumbnailUrl: OG_IMAGE,
         datePublished: "2024-03-19T03:12:16+00:00",
-        dateModified: "2025-06-03T23:35:50+00:00",
+        dateModified: "2026-10-15T20:09:21Z",
         breadcrumb: { "@id": `${canonical}#breadcrumb` },
         inLanguage: "en",
         potentialAction: [{ "@type": "ReadAction", target: [canonical] }],
@@ -372,17 +368,12 @@ export default function ServicesPage() {
             <p
               className={`services-hero__lead services-hero__lead--desktop ${playfairFont.className}`}
             >
-              Siamo Design offers full-service interior design and virtual interior design services.
-              We combine thoughtful materials and layered textures to create spaces that support
-              well-being. Based in the Riviera Maya, we design relaxed, refined interiors for local
-              residential projects and for clients worldwide—turning every space into a true home.
+              For homes in the Riviera Maya and Cancún, our full-service interior design brings design, sourcing and installation together. Prefer to manage the project yourself? Our virtual service provides a design plan you can put into practice, wherever you live.
             </p>
             <p
               className={`services-hero__lead services-hero__lead--mobile ${playfairFont.className}`}
             >
-              Siamo Design offers full-service and virtual interior design. We create warm, refined
-              homes with thoughtful materials and layered textures—based in the Riviera Maya,
-              working locally and worldwide.
+              Full-service interior design for homes in the Riviera Maya and Cancún, or virtual design with a plan you carry out yourself.
             </p>
           </div>
         </section>
@@ -612,33 +603,6 @@ export default function ServicesPage() {
           }}
         >
           <div className="footer-inner">
-            <section className="footer-seo" aria-label="Service areas and keyword index">
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design playa del carmen</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design riviera maya</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design Cancun</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design tulum</li>
-              </ul>
-            </section>
 
             <div className="footer-explore" aria-label="Explore and social">
               <nav className="explore" aria-label="Explore">

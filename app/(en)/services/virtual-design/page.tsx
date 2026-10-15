@@ -7,13 +7,15 @@ import VideoWithOverlay from "../../../components/VideoWithOverlay";
 import { playfairFont, poppinsFont } from "../../../fonts";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
+const TITLE = "Virtual Interior Design | Online Design by Siamo Design";
+const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/05/Virtual-design.png";
 const canonicalPath = "/services/virtual-design/";
-const yoastDescription =
-  "This service allows us to design according to your tastes and needs to adapt your spaces to your lifestyle. With this virtual design tool, you can explore options guided by professionals and visualize how your spaces will look before making decisions, all from the comfort of your home.";
+const DESCRIPTION =
+  "Get a virtual interior design plan for your space: concept, layout, furniture selections and shopping links. Manage purchases and implementation yourself.";
 
 export const metadata: Metadata = {
-  title: { absolute: "Virtual Design - Siamo Design" },
-  description: yoastDescription,
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: canonicalPath,
     languages: {
@@ -25,20 +27,23 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     locale: "en_US",
-    title: "Virtual Design - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     url: canonicalPath,
     images: [
       {
-        url: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
-        width: 64,
-        height: 64,
+        url: OG_IMAGE,
+        width: 750,
+        height: 400,
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
 };
 
@@ -53,14 +58,14 @@ export default function VirtualDesignPage() {
         "@type": "WebPage",
         "@id": canonicalUrl,
         url: canonicalUrl,
-        name: "Virtual Design - Siamo Design",
+        name: TITLE,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonicalUrl}#primaryimage` },
         image: { "@id": `${canonicalUrl}#primaryimage` },
-        thumbnailUrl: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
+        thumbnailUrl: OG_IMAGE,
         datePublished: "2025-04-23T23:51:40+00:00",
-        dateModified: "2025-04-23T23:59:46+00:00",
-        description: yoastDescription,
+        dateModified: "2026-10-15T23:06:35Z",
+        description: DESCRIPTION,
         breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
         inLanguage: "en",
         potentialAction: [
@@ -74,11 +79,11 @@ export default function VirtualDesignPage() {
         "@type": "ImageObject",
         inLanguage: "en",
         "@id": `${canonicalUrl}#primaryimage`,
-        url: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
-        contentUrl: "https://siamodesign.com/wp-content/uploads/2025/03/briefing.png",
-        width: 64,
-        height: 64,
-        caption: "Virtual Design",
+        url: OG_IMAGE,
+        contentUrl: OG_IMAGE,
+        width: 750,
+        height: 400,
+        caption: "Virtual Interior Design",
       },
       {
         "@type": "BreadcrumbList",
@@ -157,18 +162,18 @@ export default function VirtualDesignPage() {
 
   const benefits = [
     {
-      title: "Cost Effective",
-      copy: "Save on traditional designer fees while still receiving transformed home designs.",
+      title: "Plan Before You Buy",
+      copy: "Explore the layout, materials and furniture selections before deciding what to purchase.",
       icon: "wallet",
     },
     {
-      title: "Flexible Implementation",
-      copy: "Maximise your time by working through the design process from your own home.",
+      title: "Implementation at Your Pace",
+      copy: "You manage purchases and implementation, following the design plan at a pace that works for you.",
       icon: "clock",
     },
     {
-      title: "Expert Designers",
-      copy: "Receive a custom design plan tailored to your style preferences.",
+      title: "Design Shaped Around You",
+      copy: "A proposal based on your space, preferences and the way you want to use your home.",
       icon: "spark",
     },
   ];
@@ -176,97 +181,90 @@ export default function VirtualDesignPage() {
   const deliverables = [
     {
       title: "Mood Board",
-      copy: "An important foundation! Your designer will curate a group of images, colors, and design elements to inspire the look and concept of your project.",
+      copy: "A visual direction for your space, bringing together colors, materials and furniture references.",
       icon: "mood",
     },
     {
       title: "3D Modeling",
-      copy: "See your space fully furnished and styled before making any purchases or starting fabrication. Through 3D modeling, our designers define every detail—selecting furniture based on your lifestyle, scale, color palette, and budget.",
+      copy: "Visualize the proposed layout, furniture and finishes before putting the design into practice.",
       icon: "space",
     },
     {
       title: "Shopping List with Links",
-      copy: "We’ll deliver a curated shopping list with direct links to each selected item, so you can implement it at your own pace.",
+      copy: "A selection of furniture and accessories with shopping links, so you can manage your own purchases.",
       icon: "leaf",
     },
     {
       title: "Project Documentation",
-      copy: "The blueprint of your project. It includes technical drawings for fabrication, electrical, and installations—ensuring precise execution.",
+      copy: "Design information and drawings defined for your project. Your proposal specifies which documents are included.",
       icon: "cabinet",
     },
   ];
 
   const faqs = [
     {
-      question: "What is the difference between Full Service Interior Design and Virtual Interior Design?",
+      question: "What is the difference between full-service and virtual interior design?",
       answer:
-        "Full Service Interior Design involves larger scale projects and include in-person consultations, comprehensive project management, site visits, furniture procurement, and hands-on installation. Virtual Interior Design offers a more flexible, remote approach for one space at a time to create custom design plans and shopping lists that can be implemented on your own as time and budget allow.",
+        "Virtual design gives you a professional plan that you implement yourself. Full-service brings design, sourcing, purchases and installation together for a complete home. The main difference is who manages the work, rather than where you live.",
     },
     {
       question: "How do I know which service is right for me?",
       answer: (
         <>
-          To help you choose the service that best fits you and your lifestyle, there are a few key
-          factors to consider—your available time, the size and scope of the project, your budget,
-          and how hands-on you’d like to be.
-          <br />
-          <br />
-          If you’re short on time, you’re not located where the project is, or you simply want
-          everything ready when you arrive without having to manage a thing, then our{" "}
-          <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            Full-Service Interior Design
-          </a>{" "}
-          is the ideal fit.
-          <br />
-          <br />
-          If, on the other hand, you do have the time, prefer to execute your project in phases,
-          you’re local, and you mainly need professional direction to bring your ideas into focus,
-          then our{" "}
-          <a
-            href="/services/virtual-design/"
-            style={{ fontWeight: 600, textDecoration: "underline" }}
-          >
-            Virtual Interior Design
-          </a>{" "}
-          is perfect for you.
+        {"If you want design guidance and prefer to manage purchases and implementation yourself, "}
+        <a href="/services/virtual-design/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"Virtual Interior Design"}
+        </a>
+        {" may be the right fit."}
+        <br />
+        <br />
+        {"If you want to delegate the design, purchases and installation of your home, explore our "}
+        <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"Full-Service Interior Design"}
+        </a>
+        {", even if you live outside the area."}
         </>
       ),
     },
     {
-      question: "How much do your design services cost?",
+      question: "How much does virtual interior design cost?",
       answer: (
         <>
-          Our fees vary depending on the scope of the project, the size of the spaces, and each
-          client’s specific needs. We invite you to{" "}
-          <a href="/questionnaire/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            complete our questionnaire
-          </a>{" "}
-          to schedule a consultation—this helps us understand your project and prepare a personalized
-          proposal, including a fixed design fee and an estimated furniture/investment budget, with
-          no obligation.
+        {"Fees depend on the space and the scope of the design work. Tell us about your project through "}
+        <a href="/questionnaire/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"our questionnaire"}
+        </a>
+        {" so we can understand what you need and discuss the proposal and next steps."}
         </>
       ),
     },
     {
-      question: "Can I see examples of your past work?",
+      question: "Can I see examples of Siamo’s work?",
       answer: (
         <>
-          Yes. Our portfolio features a selection of recent projects across different styles, since
-          each design is based on each client’s tastes, needs, and lifestyle. While all projects
-          carry the essence of Siamo Design, every one is unique and created to fit the client.
-          Our portfolio is meant to inspire you and help you imagine what we can create together.
-          <br />
-          <br />
-          <a href="/portfolio" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            View Portfolio
-          </a>
+        {"Explore our "}
+        <a href="/portfolio/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"residential portfolio"}
+        </a>
+        {" to get to know our approach to materials, layouts and different ways of living. We can discuss the scope of your virtual project through "}
+        <a href="/questionnaire/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"the questionnaire"}
+        </a>
+        {"."}
         </>
       ),
     },
     {
-      question: "Do you work with clients outside of your local area?",
-      answer:
-        "Yes. We serve clients both locally and remotely. For on-site projects, we travel as needed; for remote projects, our Virtual Interior Design service keeps everything coordinated from afar.",
+      question: "Can I use virtual design if I live abroad?",
+      answer: (
+        <>
+        {"Virtual design is delivered remotely for clients who want to manage purchases and implementation themselves. If your home is in the Riviera Maya or Cancún and you want a team to manage the project locally, explore our "}
+        <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"full-service interior design"}
+        </a>
+        {" instead."}
+        </>
+      ),
     },
     {
       question: "What interior design styles do you specialize in?",
@@ -352,7 +350,7 @@ export default function VirtualDesignPage() {
 
         <section className="about-story" aria-label="About Siamo story">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Discover the convenience and flexibility of Siamo Design's Virtual Interior Design Services—an efficient alternative to our traditional full-service projects. Ideal for clients who prefer an approach that can be adapted to their lifestyle and executed on their own terms.
+            A professional design plan for a space you’ll bring to life yourself. We develop the concept, layout and furniture selections; you manage the purchases and implementation at your own pace.
           </h2>
         </section>
 
@@ -614,33 +612,6 @@ export default function VirtualDesignPage() {
           }}
         >
           <div className="footer-inner">
-            <section className="footer-seo" aria-label="Service areas and keyword index">
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging playa del carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design playa del carmen</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging riviera maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design riviera maya</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Cancun</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design Cancun</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Interior design tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior design services tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Commercial interior design tulum</li>
-              </ul>
-            </section>
 
             <div className="footer-explore" aria-label="Explore and social">
               <nav className="explore" aria-label="Explore">

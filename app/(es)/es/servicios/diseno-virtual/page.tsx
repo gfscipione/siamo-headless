@@ -7,9 +7,9 @@ import VideoWithOverlay from "../../../../components/VideoWithOverlay";
 import { playfairFont, poppinsFont } from "../../../../fonts";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
-const TITLE = "Diseño de Interiores Virtual | Asesoría Online Personalizada";
+const TITLE = "Diseño de Interiores Virtual | Siamo Design";
 const DESCRIPTION =
-  "Transforma tu espacio con diseño de interiores virtual: concepto, distribución, paleta de color y lista de compras. Servicio online, claro y profesional.";
+  "Recibe un plan de diseño de interiores virtual: concepto, distribución, mobiliario y enlaces de compra. Tú gestionas las compras y la ejecución a tu ritmo.";
 const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/05/Virtual-design.png";
 const canonicalPath = "/es/servicios/diseno-virtual/";
 
@@ -66,7 +66,7 @@ export default function VirtualDesignPage() {
         image: { "@id": `${canonicalUrl}#primaryimage` },
         thumbnailUrl: OG_IMAGE,
         datePublished: "2025-04-23T23:51:40+00:00",
-        dateModified: "2025-04-23T23:59:46+00:00",
+        dateModified: "2026-10-15T23:06:35Z",
         description: DESCRIPTION,
         breadcrumb: { "@id": `${canonicalUrl}#breadcrumb` },
         inLanguage: "es",
@@ -164,18 +164,18 @@ export default function VirtualDesignPage() {
 
   const benefits = [
     {
-      title: "Costo Eficiente",
-      copy: "Ahorra en honorarios tradicionales sin renunciar a un diseño transformador.",
+      title: "Planea Antes de Comprar",
+      copy: "Explora la distribución, los materiales y el mobiliario antes de decidir qué comprar.",
       icon: "wallet",
     },
     {
-      title: "Implementación Flexible",
-      copy: "Aprovecha tu tiempo trabajando el proceso de diseño desde tu casa.",
+      title: "Ejecución a Tu Ritmo",
+      copy: "Gestionas las compras y la ejecución siguiendo el plan de diseño, al ritmo que te funcione.",
       icon: "clock",
     },
     {
-      title: "Diseñadoras Expertas",
-      copy: "Recibe un plan de diseño personalizado según tus preferencias.",
+      title: "Diseño Pensado para Ti",
+      copy: "Una propuesta basada en tu espacio, tus gustos y la forma en que quieres vivir tu hogar.",
       icon: "spark",
     },
   ];
@@ -184,102 +184,93 @@ export default function VirtualDesignPage() {
     {
       title: "Mood Board",
       copy:
-        "Una base esencial. Tu diseñadora curará un conjunto de imágenes, colores y elementos de diseño para inspirar el look y el concepto de tu proyecto.",
+        "Una guía visual para tu espacio que reúne colores, materiales y referencias de mobiliario.",
       icon: "mood",
     },
     {
       title: "Modelado 3D",
       copy:
-        "Visualiza tu espacio completamente amueblado y estilizado antes de hacer compras o iniciar la fabricación. A través del modelado 3D, nuestras diseñadoras definen cada detalle, seleccionando mobiliario según tu estilo de vida, escala, paleta de color y presupuesto.",
+        "Visualiza la distribución, el mobiliario y los acabados propuestos antes de llevar el diseño a la práctica.",
       icon: "space",
     },
     {
       title: "Lista de compras con enlaces",
       copy:
-        "Te entregaremos una lista de compras curada con enlaces directos a cada elemento seleccionado, para que puedas implementarla a tu ritmo.",
+        "Una selección de mobiliario y accesorios con enlaces de compra para que gestiones tus propias compras.",
       icon: "leaf",
     },
     {
       title: "Documentación del Proyecto",
       copy:
-        "El plano maestro de tu proyecto. Incluye planos técnicos para fabricación, eléctricos e instalaciones, asegurando una ejecución precisa.",
+        "La información de diseño y los planos definidos para tu proyecto. La propuesta especifica qué documentos están incluidos.",
       icon: "cabinet",
     },
   ];
 
   const faqs = [
     {
-      question:
-        "¿Cuál es la diferencia entre Diseño de Interiores Llave en Mano y Diseño de Interiores Virtual?",
+      question: "¿Cuál es la diferencia entre el diseño llave en mano y el diseño virtual?",
       answer:
-        "El diseño interior llave en mano abarca proyectos de mayor escala e incluye consultas presenciales, gestión integral del proyecto, visitas a obra, compra de mobiliario e instalación. El diseño interior virtual ofrece un enfoque remoto y flexible, pensado para un solo espacio a la vez, con planes de diseño personalizados y listas de compras que puedes implementar según tu tiempo y presupuesto.",
+        "El diseño virtual te ofrece un plan profesional que ejecutas por tu cuenta. El servicio llave en mano reúne diseño, compras e instalación para una vivienda completa. La diferencia principal es quién gestiona el proyecto, no dónde vives.",
     },
     {
-      question: "¿Cómo sé cuál servicio es el adecuado para mí?",
+      question: "¿Cómo sé qué servicio es el adecuado para mí?",
       answer: (
         <>
-          Para ayudarte a elegir el servicio que mejor se adapta a ti y a tu estilo de vida, hay
-          algunos factores clave a considerar: el tiempo disponible, el tamaño y alcance del
-          proyecto, tu presupuesto y qué tan involucrado quieres estar.
-          <br />
-          <br />
-          Si tienes poco tiempo, no estás en el lugar donde está el proyecto, o simplemente quieres
-          que todo esté listo cuando llegues sin tener que gestionar nada, entonces nuestro{" "}
-          <a href="/es/servicios/diseno-llave-en-mano/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            Diseño de Interiores Llave en Mano
-          </a>{" "}
-          es la opción ideal.
-          <br />
-          <br />
-          Si, por el contrario, sí tienes tiempo, prefieres ejecutar tu proyecto por fases, estás
-          local y principalmente necesitas dirección profesional para enfocar tus ideas, entonces
-          nuestro{" "}
-          <a
-            href="/es/servicios/diseno-virtual/"
-            style={{ fontWeight: 600, textDecoration: "underline" }}
-          >
-            Diseño de Interiores Virtual
-          </a>{" "}
-          es perfecto para ti.
+        {"Si buscas orientación de diseño y prefieres gestionar las compras y la ejecución, el "}
+        <a href="/es/servicios/diseno-virtual/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"Diseño de Interiores Virtual"}
+        </a>
+        {" puede ser la opción adecuada."}
+        <br />
+        <br />
+        {"Si quieres delegar el diseño, las compras y la instalación de tu vivienda, conoce nuestro "}
+        <a href="/es/servicios/diseno-llave-en-mano/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"Diseño de Interiores Llave en Mano"}
+        </a>
+        {", aunque vivas fuera de la zona."}
         </>
       ),
     },
     {
-      question: "¿Cuánto cuestan sus servicios de diseño?",
+      question: "¿Cuánto cuesta el diseño de interiores virtual?",
       answer: (
         <>
-          Nuestros honorarios varían según el alcance del proyecto, el tamaño de los espacios y las
-          necesidades específicas de cada cliente. Te invitamos a{" "}
-          <a href="/es/cuestionario/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            completar nuestro cuestionario
-          </a>{" "}
-          para agendar una consulta—esto nos ayuda a entender tu proyecto y preparar una propuesta
-          personalizada, que incluye una tarifa de diseño fija y un presupuesto estimado de
-          mobiliario/inversión, sin compromiso.
+        {"Los honorarios dependen del espacio y del alcance del trabajo de diseño. Cuéntanos sobre tu proyecto en "}
+        <a href="/es/cuestionario/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"nuestro cuestionario"}
+        </a>
+        {" para entender qué necesitas y conversar sobre la propuesta y los siguientes pasos."}
         </>
       ),
     },
     {
-      question: "¿Puedo ver ejemplos de su trabajo anterior?",
+      question: "¿Puedo ver ejemplos del trabajo de Siamo?",
       answer: (
         <>
-          Sí. Nuestro portafolio muestra una selección de proyectos recientes en distintos estilos,
-          ya que cada diseño se basa en los gustos, necesidades y estilo de vida de cada cliente.
-          Aunque todos mantienen la esencia de Siamo Design, cada proyecto es único y creado a
-          medida. Nuestro portafolio está pensado para inspirarte y ayudarte a imaginar lo que
-          podemos crear juntos.
-          <br />
-          <br />
-          <a href="/es/portafolio/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            Ver Portafolio
-          </a>
+        {"Explora nuestro "}
+        <a href="/es/portafolio/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"portafolio residencial"}
+        </a>
+        {" para conocer cómo trabajamos con materiales, distribuciones y diferentes formas de habitar. Podemos conversar sobre el alcance de tu proyecto virtual a través "}
+        <a href="/es/cuestionario/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"del cuestionario"}
+        </a>
+        {"."}
         </>
       ),
     },
     {
-      question: "¿Trabajan con clientes fuera de su zona local?",
-      answer:
-        "Sí. Atendemos a clientes tanto locales como remotos. Para proyectos en sitio, viajamos cuando es necesario; para proyectos a distancia, nuestro servicio de Diseño de Interiores Virtual mantiene todo coordinado.",
+      question: "¿Puedo contratar diseño virtual si vivo en otro país?",
+      answer: (
+        <>
+        {"El diseño virtual se realiza a distancia para quienes quieren gestionar las compras y la ejecución por su cuenta. Si tu vivienda está en Riviera Maya o Cancún y prefieres que un equipo gestione el proyecto en la zona, conoce nuestro "}
+        <a href="/es/servicios/diseno-llave-en-mano/" style={{ fontWeight: 600, textDecoration: "underline" }}>
+          {"diseño de interiores llave en mano"}
+        </a>
+        {"."}
+        </>
+      ),
     },
     {
       question: "¿En qué estilos de diseño de interiores se especializan?",
@@ -387,9 +378,7 @@ export default function VirtualDesignPage() {
 
         <section className="about-story" aria-label="Descripción del servicio">
           <h2 className={`about-story__headline ${playfairFont.className}`}>
-            Descubre la comodidad y flexibilidad del Diseño de Interiores Virtual de Siamo Design:
-            una asesoría online personalizada que te permite avanzar a tu ritmo con claridad y
-            dirección profesional.
+            Un plan profesional para un espacio que tú llevarás a la práctica. Desarrollamos el concepto, la distribución y la selección de mobiliario; tú gestionas las compras y la ejecución a tu ritmo.
           </h2>
         </section>
 
@@ -700,33 +689,6 @@ export default function VirtualDesignPage() {
           }}
         >
           <div className="footer-inner">
-            <section className="footer-seo" aria-label="Áreas de servicio y palabras clave">
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Playa del Carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Servicios de diseño de interiores Playa del Carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Playa del Carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Playa del Carmen</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Riviera Maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseñadores de interiores y decoradores Riviera Maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Riviera Maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Riviera Maya</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Cancún</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseñadores de interiores y decoradores Cancún</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Cancún</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Cancún</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Servicios de diseño de interiores Tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseñadores de interiores y decoradores Tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Tulum</li>
-              </ul>
-            </section>
 
             <div className="footer-explore" aria-label="Explorar y redes">
               <nav className="explore" aria-label="Explorar">
