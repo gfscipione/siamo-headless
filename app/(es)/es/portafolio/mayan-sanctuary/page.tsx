@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
 const canonicalPath = "/es/portafolio/mayan-sanctuary/";
-const TITLE = "Mayan Sanctuary - Siamo Design";
+const TITLE = "Mayan Sanctuary: Diseño de Interiores Residencial | Siamo Design";
 const DESCRIPTION =
-  "Un refugio sereno que entreteje piedra caliza, artesanía local y vegetación exuberante para crear un santuario de calma en Playa del Carmen.";
+  "Descubre Mayan Sanctuary: diseño de interiores residencial con piedra caliza, madera, artesanía local y espacios sociales, recámaras y terrazas.";
 const OG_IMAGE_PATH = "/assets/mayan-sanctuary/details-1.webp";
 
 export const metadata: Metadata = {
@@ -146,6 +146,7 @@ export default function MayanSanctuaryEsPage() {
     "Terraza lounge",
     "Sala multimedia",
     "Suite infantil",
+    "Resumen del proyecto",
   ];
 
   const sections = [
@@ -272,6 +273,11 @@ export default function MayanSanctuaryEsPage() {
         isSquare: true,
       },
     },
+    {
+      title: "Resumen del proyecto",
+      description:
+        "Mayan Sanctuary combina diseño de interiores residencial, piedra caliza, madera y artesanía local en una vivienda de atmósfera serena. Las texturas tejidas, los textiles y la vegetación conectan las áreas sociales, los dormitorios y las terrazas. Recorre el comedor, la sala principal y la cocina, junto con las recámaras, la sala multimedia y los espacios junto a la alberca. El mobiliario, la iluminación y los materiales naturales aportan carácter a cada ambiente y mantienen una propuesta de diseño coherente.",
+    },
   ];
 
   const featuredProjects = [
@@ -328,8 +334,8 @@ export default function MayanSanctuaryEsPage() {
         }}
         metaLabels={{
           location: "Ubicación",
-          workWithUs: "Trabaja con nosotros",
-          bookConsultation: "Agendar consulta",
+          workWithUs: "¿Planeas tu vivienda?",
+          bookConsultation: "Conoce nuestro servicio de diseño llave en mano",
         }}
         sectionLabels={{
           contentsTitleRight: "Contenido",
@@ -368,7 +374,7 @@ export default function MayanSanctuaryEsPage() {
         contents={contents}
         meta={{
           location: "Playa del Carmen",
-          workLinkHref: "/es/cuestionario/",
+          workLinkHref: "/es/servicios/diseno-llave-en-mano/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Compartir en Facebook" },
             { label: "Pinterest", href: "#", aria: "Compartir en Pinterest" },

@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/mayan-sanctuary/";
-const TITLE = "Mayan Sanctuary - Siamo Design";
+const TITLE = "Mayan Sanctuary: Residential Interior Design | Siamo Design";
 const DESCRIPTION =
-  "A serene retreat weaving limestone, local craft, and lush greenery into a calm sanctuary in Playa del Carmen.";
+  "Explore Mayan Sanctuary, a residential interior design project with limestone, warm wood, local craft and connected living spaces, bedrooms and terraces.";
 const OG_IMAGE_PATH = "/assets/mayan-sanctuary/details-1.webp";
 
 export const metadata: Metadata = {
@@ -143,6 +143,7 @@ export default function MayanSanctuaryPage() {
     "Lounge Terrace",
     "Media Room",
     "Kids Suite",
+    "Project Overview",
   ];
 
   const sections = [
@@ -266,6 +267,11 @@ export default function MayanSanctuaryPage() {
         isSquare: true,
       },
     },
+    {
+      title: "Project Overview",
+      description:
+        "Mayan Sanctuary brings together residential interior design, limestone, warm wood and local craft in a calm, cohesive home. Woven textures, layered textiles and greenery connect the living spaces, bedrooms and outdoor terraces. Explore the dining room, main lounge and kitchen, followed by the bedrooms, media room and poolside spaces. Throughout the project, furniture, lighting and natural materials give each room its own character while maintaining a consistent design language.",
+    },
   ];
 
   const featuredProjects = [
@@ -321,9 +327,13 @@ export default function MayanSanctuaryPage() {
           contentPadX: "24px",
         }}
         contents={contents}
+        metaLabels={{
+          workWithUs: "Planning your home?",
+          bookConsultation: "Explore full-service interior design",
+        }}
         meta={{
           location: "Playa del Carmen",
-          workLinkHref: "/questionnaire/",
+          workLinkHref: "/services/full-service/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
