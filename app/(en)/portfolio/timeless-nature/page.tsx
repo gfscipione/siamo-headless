@@ -3,18 +3,19 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/timeless-nature/";
-const yoastDescription =
-  "Timeless Nature 90 M2 2 Rooms 2 Bathrooms Timeless Nature It’s the perfect fusion of natural materials and contemporary design in the Riviera Maya. Wood, jute, and organic textures blend seamlessly with clean lines, LED lighting, and black metal accents to create a modern, sophisticated, and inviting space. This design balances elegance and nature, offering […]";
+const TITLE = "Timeless Nature: Residential Interior Design | Siamo Design";
+const DESCRIPTION =
+  "Explore Timeless Nature, a residential interior design project in Puerto Morelos, with natural wood, woven textures and contemporary details.";
 const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/02/1-1-1.png";
 const OG_IMAGE_WIDTH = 594;
 const OG_IMAGE_HEIGHT = 420;
 const OG_IMAGE_TYPE = "image/png";
 const DATE_PUBLISHED = "2025-02-20T04:15:16+00:00";
-const DATE_MODIFIED = "2025-03-27T21:56:03+00:00";
+const DATE_MODIFIED = "2026-10-15T16:40:23Z";
 
 export const metadata: Metadata = {
-  title: { absolute: "Timeless Nature - Siamo Design" },
-  description: yoastDescription,
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: canonicalPath,
     languages: {
@@ -26,8 +27,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     locale: "en_US",
-    title: "Timeless Nature - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     url: canonicalPath,
     siteName: "Siamo Design",
     images: [
@@ -36,8 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Timeless Nature - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     images: [OG_IMAGE],
   },
 };
@@ -53,7 +54,8 @@ export default function TimelessNaturePage() {
         "@type": "WebPage",
         "@id": canonical,
         url: canonical,
-        name: "Timeless Nature - Siamo Design",
+        name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -149,6 +151,7 @@ export default function TimelessNaturePage() {
     "Master Bedroom",
     "Guest Bedroom",
     "2D Furnished Floor Plan",
+    "Project Overview",
   ];
 
   const sections = [
@@ -206,6 +209,11 @@ export default function TimelessNaturePage() {
       },
       isFloorplan: true,
     },
+    {
+      title: "Project Overview",
+      description:
+        "Timeless Nature pairs natural materials with contemporary interior design in Puerto Morelos. Warm wood, woven textures and soft neutral fabrics sit alongside clean lines, black accents and integrated lighting. The contrast gives the living areas and bedrooms a calm, modern character without losing warmth. Explore the living room, primary bedroom and guest bedroom, followed by a furnished floor plan. Wood detailing, tactile textiles and a restrained palette carry the design from one room to the next, creating a coherent residential interior.",
+    },
   ];
 
   const featuredProjects = [
@@ -219,7 +227,7 @@ export default function TimelessNaturePage() {
     {
       title: "Mid-Century Waves",
       location: "Akumal",
-      summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
+      summary: "Mid-century and coastal interiors with local wood and orange and blue accents.",
       image: "/assets/mid-century-waves/terrace-1.jpg",
       href: "/portfolio/mid-century-waves",
     },
@@ -261,10 +269,11 @@ export default function TimelessNaturePage() {
           padBottom: "clamp(5rem, 10vh, 8rem)",
           contentPadX: "24px",
         }}
+        metaLabels={{ bookConsultation: "Explore full-service interior design" }}
         contents={contents}
         meta={{
           location: "Puerto Morelos",
-          workLinkHref: "/questionnaire/",
+          workLinkHref: "/services/full-service/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

@@ -1,8 +1,13 @@
 import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: { absolute: "Raíces Tulum — Siamo Design" },
-  description: "Una expresión atemporal de materiales puros y naturales.",
+const TITLE = "Raíces Tulum: Diseño de Interiores | Siamo Design";
+const DESCRIPTION = "Conoce Raíces Tulum, un proyecto de diseño de interiores residencial de Siamo Design que combina madera, fibras tejidas y texturas naturales.";
+const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/02/1-1-3.png";
+
+export const metadata: Metadata = {
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: "/es/portafolio/raices-tulum/",
     languages: {
@@ -10,6 +15,21 @@ export const metadata = {
       "es": "/es/portafolio/raices-tulum/",
       "x-default": "/portfolio/roots-tulum/",
     },
+  },
+  openGraph: {
+    type: "article",
+    locale: "es_ES",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/es/portafolio/raices-tulum/",
+    siteName: "Siamo Design",
+    images: [{ url: OG_IMAGE, width: 594, height: 420, type: "image/png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
 };
 
@@ -115,7 +135,7 @@ export default function RaicesTulumPageEs() {
     {
       title: "Resumen del Proyecto",
       description:
-        "Raíces Tulum celebra la autenticidad de los materiales naturales en su forma más pura. Madera sólida, fibras tejidas y detalles en soga se combinan con tonos gris plomo y verde hoja para crear un espacio cálido, con carácter y sofisticación. El resultado: un interior orgánico y contemporáneo, diseñado para sentirse único, funcional y memorable —ideal para una casa de descanso o renta vacacional en Tulum.",
+        "Raíces Tulum combina diseño de interiores residencial, madera natural y texturas tejidas en una vivienda de Tulum. El mobiliario de madera, las lámparas colgantes y los detalles en soga se complementan con tonos gris plomo y verde hoja para crear interiores cálidos y de carácter orgánico. La galería recorre la sala, la suite principal, el dormitorio de invitados, los baños y la terraza, junto con un plano amueblado. Los materiales naturales y los acabados contemporáneos conectan los distintos ambientes mediante una paleta coherente de colores y texturas.",
     },
   ];
 
@@ -169,7 +189,7 @@ export default function RaicesTulumPageEs() {
       metaLabels={{
         location: "Ubicación",
         workWithUs: "Trabajemos juntos",
-        bookConsultation: "Agenda una consulta",
+        bookConsultation: "Conoce nuestro servicio de diseño llave en mano",
         share: "Compartir",
       }}
       sectionLabels={{
@@ -205,7 +225,7 @@ export default function RaicesTulumPageEs() {
       contents={contents}
       meta={{
         location: "Tulum",
-        workLinkHref: "/es/cuestionario/",
+        workLinkHref: "/es/servicios/diseno-llave-en-mano/",
         shareLinks: [
           { label: "Facebook", href: "#", aria: "Share on Facebook" },
           { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/serene-jungle/";
-const TITLE = "Serene Jungle - Siamo Design";
+const TITLE = "Serene Jungle: Residential Interior Design | Siamo Design";
 const DESCRIPTION =
-  "Soft, airy interiors nestled in the jungle canopy with warm woods, natural light, and a calm Riviera Maya palette.";
+  "Explore Serene Jungle, a residential interior design project in Tulum, with warm wood, woven textures and living spaces connected to greenery.";
 const OG_IMAGE_PATH = "/assets/serene-jungle/terrace-2.webp";
 
 export const metadata: Metadata = {
@@ -49,6 +49,7 @@ export default function SereneJunglePage() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -139,6 +140,7 @@ export default function SereneJunglePage() {
     "Master Suite",
     "Guest Suite",
     "Terrace",
+    "Project Overview",
   ];
 
   const sections = [
@@ -227,6 +229,11 @@ export default function SereneJunglePage() {
         isSquare: true,
       },
     },
+    {
+      title: "Project Overview",
+      description:
+        "Serene Jungle brings natural light, warm wood and woven textures into a residential interior in Tulum. Soft seating, neutral textiles and views of the surrounding greenery create a relaxed connection between the indoor spaces and the terrace. Explore the living room, kitchen, primary suite and guest suite before stepping out to the terrace. Wood cabinetry, ceramics and textured furnishings give each space its own details while maintaining a calm, consistent design throughout the home.",
+    },
   ];
 
   const featuredProjects = [
@@ -281,10 +288,11 @@ export default function SereneJunglePage() {
           padBottom: "clamp(5rem, 10vh, 8rem)",
           contentPadX: "24px",
         }}
+        metaLabels={{ bookConsultation: "Explore full-service interior design" }}
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/questionnaire/",
+          workLinkHref: "/services/full-service/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },

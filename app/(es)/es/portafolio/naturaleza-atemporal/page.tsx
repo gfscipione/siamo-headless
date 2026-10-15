@@ -2,15 +2,15 @@ import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 import type { Metadata } from "next";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
-const TITLE = "Naturaleza Atemporal - Siamo Design";
+const TITLE = "Naturaleza Atemporal: Diseño de Interiores | Siamo Design";
 const DESCRIPTION =
-  "Naturaleza Atemporal 90 M2 2 Habitaciones 2 Baños Naturaleza Atemporal Es la fusión perfecta entre materiales naturales y diseño contemporáneo en la Riviera Maya. La madera, el yute y las texturas orgánicas se combinan con líneas limpias, iluminación LED y detalles en metal negro para crear un espacio moderno, sofisticado y acogedor. Este diseño equilibra […]";
+  "Conoce Naturaleza Atemporal, un proyecto de diseño de interiores residencial en Puerto Morelos con madera, texturas naturales y detalles contemporáneos.";
 const OG_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/02/1-1-1.png";
 const OG_IMAGE_WIDTH = 594;
 const OG_IMAGE_HEIGHT = 420;
 const OG_IMAGE_TYPE = "image/png";
 const DATE_PUBLISHED = "2025-02-20T01:48:10+00:00";
-const DATE_MODIFIED = "2025-03-27T23:18:50+00:00";
+const DATE_MODIFIED = "2026-10-15T16:40:23Z";
 const canonicalPath = "/es/portafolio/naturaleza-atemporal/";
 
 export const metadata: Metadata = {
@@ -56,6 +56,7 @@ export default function TimelessNatureEsPage() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${esRoot}#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -151,6 +152,7 @@ export default function TimelessNatureEsPage() {
     "Recámara principal",
     "Recámara de invitados",
     "Plano amueblado 2D",
+    "Resumen del Proyecto",
   ];
 
   const sections = [
@@ -208,20 +210,25 @@ export default function TimelessNatureEsPage() {
       },
       isFloorplan: true,
     },
+    {
+      title: "Resumen del Proyecto",
+      description:
+        "Naturaleza Atemporal une materiales naturales y diseño de interiores contemporáneo en Puerto Morelos. La madera, las texturas tejidas y los textiles de tonos neutros se combinan con líneas limpias, acentos negros e iluminación integrada. El contraste aporta a la sala y las recámaras un carácter moderno y sereno, sin perder calidez. Recorre la sala, la recámara principal y la de invitados, junto con un plano amueblado. Los detalles de madera, los textiles y una paleta contenida conectan los distintos ambientes y dan coherencia al diseño residencial.",
+    },
   ];
 
   const featuredProjects = [
     {
-      title: "Roots Tulum",
+      title: "Raíces Tulum",
       location: "Tulum",
       summary: "Una expresión atemporal de materiales puros y naturales.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
       href: "/es/portafolio/raices-tulum/",
     },
     {
-      title: "Mid-Century Waves",
+      title: "Olas Mid-Century",
       location: "Akumal",
-      summary: "Un refugio sereno y textural con tonos cálidos y calma costera.",
+      summary: "Interiores de estilo mid-century y costero, con madera local y acentos naranjas y azules.",
       image: "/assets/mid-century-waves/terrace-1.jpg",
       href: "/es/portafolio/mid-century-waves/",
     },
@@ -266,7 +273,7 @@ export default function TimelessNatureEsPage() {
         metaLabels={{
           location: "Ubicación",
           workWithUs: "Trabaja con nosotros",
-          bookConsultation: "Agendar consulta",
+          bookConsultation: "Conoce nuestro servicio de diseño llave en mano",
         }}
         sectionLabels={{
           contentsTitleRight: "Contenido",
@@ -305,7 +312,7 @@ export default function TimelessNatureEsPage() {
         contents={contents}
         meta={{
           location: "Puerto Morelos",
-          workLinkHref: "/es/cuestionario/",
+          workLinkHref: "/es/servicios/diseno-llave-en-mano/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Compartir en Facebook" },
             { label: "Pinterest", href: "#", aria: "Compartir en Pinterest" },

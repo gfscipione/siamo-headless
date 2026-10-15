@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
 const canonicalPath = "/es/portafolio/serene-jungle/";
-const TITLE = "Serene Jungle - Siamo Design";
+const TITLE = "Serene Jungle: Diseño de Interiores | Siamo Design";
 const DESCRIPTION =
-  "Interiores suaves y luminosos, enmarcados por la selva, con maderas cálidas, luz natural y una paleta serena de la Riviera Maya.";
+  "Conoce Serene Jungle, un proyecto de diseño de interiores residencial en Tulum con madera, texturas tejidas y espacios conectados con la vegetación.";
 const OG_IMAGE_PATH = "/assets/serene-jungle/terrace-2.webp";
 
 export const metadata: Metadata = {
@@ -50,6 +50,7 @@ export default function SereneJungleEsPage() {
         "@id": canonical,
         url: canonical,
         name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${esRoot}#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -142,6 +143,7 @@ export default function SereneJungleEsPage() {
     "Suite principal",
     "Suite de invitados",
     "Terraza",
+    "Resumen del Proyecto",
   ];
 
   const sections = [
@@ -230,6 +232,11 @@ export default function SereneJungleEsPage() {
         isSquare: true,
       },
     },
+    {
+      title: "Resumen del Proyecto",
+      description:
+        "Serene Jungle reúne luz natural, madera y texturas tejidas en un proyecto de diseño de interiores residencial en Tulum. Los asientos suaves, los textiles neutros y las vistas a la vegetación conectan los espacios interiores con la terraza y aportan una atmósfera relajada. Recorre la sala, la cocina, la suite principal y la de invitados antes de salir a la terraza. El mobiliario de madera, la cerámica y las texturas dan detalles propios a cada ambiente y mantienen una propuesta de diseño serena y coherente en toda la vivienda.",
+    },
   ];
 
   const featuredProjects = [
@@ -248,7 +255,7 @@ export default function SereneJungleEsPage() {
       href: "/es/portafolio/soul-in-concrete/",
     },
     {
-      title: "Timeless Nature",
+      title: "Naturaleza Atemporal",
       location: "Puerto Morelos",
       summary: "Una mezcla atemporal de elementos naturales y diseño contemporáneo.",
       image: "/assets/timeless-nature/living-room-19.jpg",
@@ -287,7 +294,7 @@ export default function SereneJungleEsPage() {
         metaLabels={{
           location: "Ubicación",
           workWithUs: "Trabaja con nosotros",
-          bookConsultation: "Agendar consulta",
+          bookConsultation: "Conoce nuestro servicio de diseño llave en mano",
         }}
         sectionLabels={{
           contentsTitleRight: "Contenido",
@@ -326,7 +333,7 @@ export default function SereneJungleEsPage() {
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/es/cuestionario/",
+          workLinkHref: "/es/servicios/diseno-llave-en-mano/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Compartir en Facebook" },
             { label: "Pinterest", href: "#", aria: "Compartir en Pinterest" },

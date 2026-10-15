@@ -3,18 +3,19 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/roots-tulum/";
-const yoastDescription =
-  "Roots Tulum 120 M2 2 Rooms 2 Bathrooms Roots Tulum highlights the authenticity of natural materials in their purest form. Solid wood furniture, like tree trunks repurposed as nightstands or TV stands, blends with rustic woven lamps to create a space full of character and personality. Walls in lead gray and deep green add depth and sophistication, […]";
+const TITLE = "Roots Tulum: Residential Interior Design | Siamo Design";
+const DESCRIPTION =
+  "Explore Roots Tulum, a residential interior design project by Siamo Design combining wood, woven lighting and natural textures in Tulum.";
 const OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/02/1-1-3.png";
 const OG_IMAGE_WIDTH = 594;
 const OG_IMAGE_HEIGHT = 420;
 const OG_IMAGE_TYPE = "image/png";
 const DATE_PUBLISHED = "2025-02-20T04:35:56+00:00";
-const DATE_MODIFIED = "2025-03-27T22:06:00+00:00";
+const DATE_MODIFIED = "2026-10-15T16:28:45Z";
 
 export const metadata: Metadata = {
-  title: { absolute: "Roots Tulum - Siamo Design" },
-  description: yoastDescription,
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: canonicalPath,
     languages: {
@@ -26,8 +27,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     locale: "en_US",
-    title: "Roots Tulum - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     url: canonicalPath,
     siteName: "Siamo Design",
     images: [
@@ -36,8 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Roots Tulum - Siamo Design",
-    description: yoastDescription,
+    title: TITLE,
+    description: DESCRIPTION,
     images: [OG_IMAGE],
   },
 };
@@ -53,7 +54,8 @@ export default function RootsTulumPage() {
         "@type": "WebPage",
         "@id": canonical,
         url: canonical,
-        name: "Roots Tulum - Siamo Design",
+        name: TITLE,
+        description: DESCRIPTION,
         isPartOf: { "@id": `${siteUrl}/#website` },
         primaryImageOfPage: { "@id": `${canonical}#primaryimage` },
         image: { "@id": `${canonical}#primaryimage` },
@@ -226,7 +228,7 @@ export default function RootsTulumPage() {
     {
       title: "Project Overview",
       description:
-        "Raíces Tulum highlights the pure beauty of natural materials. Solid wood pieces, woven lighting, and rope details pair with deep gray and leafy green tones to create warmth, character, and quiet sophistication. The result is an organic yet contemporary interior—designed to feel distinctive, functional, and memorable, whether as a personal retreat or a vacation rental in Tulum.",
+        "Roots Tulum combines residential interior design, natural wood and woven textures in a home in Tulum. Wood furniture, pendant lighting and rope details complement deep gray and leafy green tones, giving the interiors a warm, organic character. The project gallery follows the living room, primary suite, guest room, bathrooms and terrace, alongside a furnished floor plan. Across these spaces, natural materials and contemporary finishes connect the different rooms through a consistent palette of colors and textures.",
     },
   ];
 
@@ -283,10 +285,11 @@ export default function RootsTulumPage() {
           padBottom: "clamp(4rem, 8vh, 7rem)",
           contentPadX: "24px",
         }}
+        metaLabels={{ bookConsultation: "Explore full-service interior design" }}
         contents={contents}
         meta={{
           location: "Tulum",
-          workLinkHref: "/questionnaire/",
+          workLinkHref: "/services/full-service/",
           shareLinks: [
             { label: "Facebook", href: "#", aria: "Share on Facebook" },
             { label: "Pinterest", href: "#", aria: "Share on Pinterest" },
