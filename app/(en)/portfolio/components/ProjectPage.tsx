@@ -428,33 +428,7 @@ export default function ProjectPage({
           }}
         >
           <div className="footer-inner">
-            <section className="footer-seo" aria-label={spanishSharedText ? "Servicios y zonas de atención" : "Service areas and keyword index"}>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores en Playa del Carmen" : "Interior design playa del carmen"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Servicios de diseño de interiores en Playa del Carmen" : "Interior design services playa del carmen"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Preparación de viviendas para venta o renta en Playa del Carmen" : "Home staging playa del carmen"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores comerciales en Playa del Carmen" : "Commercial interior design playa del carmen"}</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores en Riviera Maya" : "Interior design riviera maya"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseñadores de interiores y decoradores en Riviera Maya" : "Interior designers and decorators riviera maya"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Preparación de viviendas para venta o renta en Riviera Maya" : "Home staging riviera maya"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores comerciales en Riviera Maya" : "Commercial interior design riviera maya"}</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores en Cancún" : "Interior design Cancun"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseñadores de interiores y decoradores en Cancún" : "Interior designers and decorators Cancun"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Preparación de viviendas para venta o renta en Cancún" : "Home staging Cancun"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores comerciales en Cancún" : "Commercial interior design Cancun"}</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores en Tulum" : "Interior design tulum"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Servicios de diseño de interiores en Tulum" : "Interior design services tulum"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseñadores de interiores y decoradores en Tulum" : "Interior designers and decorators tulum"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Preparación de viviendas para venta o renta en Tulum" : "Home staging tulum"}</li>
-                <li><span className="check" aria-hidden="true">✓</span> {spanishSharedText ? "Diseño de interiores comerciales en Tulum" : "Commercial interior design tulum"}</li>
-              </ul>
-            </section>
+
 
             <div className="footer-explore" aria-label={spanishSharedText ? "Explora y redes sociales" : "Explore and social"}>
               <nav className="explore" aria-label={spanishSharedText ? "Explora" : "Explore"}>

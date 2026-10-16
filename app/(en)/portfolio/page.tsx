@@ -298,33 +298,7 @@ export default function PortfolioPage() {
       }}
     >
       <div className="footer-inner">
-        <section className="footer-seo" aria-label="Service areas and keyword index">
-          <ul className="seo-col">
-            <li><span className="check" aria-hidden="true">✓</span> Interior design playa del carmen</li>
-            <li><span className="check" aria-hidden="true">✓</span> Interior design services playa del carmen</li>
-            <li><span className="check" aria-hidden="true">✓</span> Home staging playa del carmen</li>
-            <li><span className="check" aria-hidden="true">✓</span> Commercial interior design playa del carmen</li>
-          </ul>
-          <ul className="seo-col">
-            <li><span className="check" aria-hidden="true">✓</span> Interior design riviera maya</li>
-            <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators riviera maya</li>
-            <li><span className="check" aria-hidden="true">✓</span> Home staging riviera maya</li>
-            <li><span className="check" aria-hidden="true">✓</span> Commercial interior design riviera maya</li>
-          </ul>
-          <ul className="seo-col">
-            <li><span className="check" aria-hidden="true">✓</span> Interior design Cancun</li>
-            <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators Cancun</li>
-            <li><span className="check" aria-hidden="true">✓</span> Home staging Cancun</li>
-            <li><span className="check" aria-hidden="true">✓</span> Commercial interior design Cancun</li>
-          </ul>
-          <ul className="seo-col">
-            <li><span className="check" aria-hidden="true">✓</span> Interior design tulum</li>
-            <li><span className="check" aria-hidden="true">✓</span> Interior design services tulum</li>
-            <li><span className="check" aria-hidden="true">✓</span> Interior designers and decorators tulum</li>
-            <li><span className="check" aria-hidden="true">✓</span> Home staging tulum</li>
-            <li><span className="check" aria-hidden="true">✓</span> Commercial interior design tulum</li>
-          </ul>
-        </section>
+
 
         <div className="footer-explore" aria-label="Explore and social">
           <nav className="explore" aria-label="Explore">

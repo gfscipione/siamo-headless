@@ -834,33 +834,7 @@ export default function FullServicePage() {
           }}
         >
           <div className="footer-inner">
-            <section className="footer-seo" aria-label="Áreas de servicio y palabras clave">
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Playa del Carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Servicios de diseño de interiores Playa del Carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Playa del Carmen</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Playa del Carmen</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Riviera Maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseñadores de interiores y decoradores Riviera Maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Riviera Maya</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Riviera Maya</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Cancún</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseñadores de interiores y decoradores Cancún</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Cancún</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Cancún</li>
-              </ul>
-              <ul className="seo-col">
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores Tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Servicios de diseño de interiores Tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseñadores de interiores y decoradores Tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Home staging Tulum</li>
-                <li><span className="check" aria-hidden="true">✓</span> Diseño de interiores comercial Tulum</li>
-              </ul>
-            </section>
+
 
             <div className="footer-explore" aria-label="Explorar y redes">
               <nav className="explore" aria-label="Explorar">
