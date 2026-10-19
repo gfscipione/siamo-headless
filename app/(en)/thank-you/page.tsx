@@ -57,7 +57,7 @@ export default function ThankYouPage() {
 
   return (
     <>
-      <PortfolioNav styleVars={styleVars} langHref="/es/thank-you/" />
+      <PortfolioNav logoOnly styleVars={styleVars} langHref="/es/thank-you/" />
       <main className="questionnaire-page thankyou-page">
         <section className="questionnaire-hero" aria-label="Thank you">
           <div className="questionnaire-inner">
