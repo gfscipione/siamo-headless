@@ -270,7 +270,7 @@ export default function MayanSanctuaryPage() {
     {
       title: "Project Overview",
       description:
-        "Mayan Sanctuary brings together residential interior design, limestone, warm wood and local craft in a calm, cohesive home. Woven textures, layered textiles and greenery connect the living spaces, bedrooms and outdoor terraces. Explore the dining room, main lounge and kitchen, followed by the bedrooms, media room and poolside spaces. Throughout the project, furniture, lighting and natural materials give each room its own character while maintaining a consistent design language.",
+        "Mayan Sanctuary is a three-level family home in Senderos Mayakoba, Playa del Carmen. Its owners wanted a personalized home ready to use. Siamo joined while the property was still under construction, allowing the team to contribute to design decisions before the finishes were completed. Alongside furniture and décor selection, Siamo designed the kitchen and laundry room and selected finishes that had not yet been purchased. Proposals were developed with the client and passed to the builder for execution. The team also coordinated electrical and lighting adjustments in selected areas with the construction electrician. Limestone, wood, local craftsmanship and woven textures connect the living spaces, bedrooms and terraces. The work brought finishes, furniture and lighting choices closer to the family’s preferences while maintaining a cohesive design throughout the home.",
     },
   ];
 
