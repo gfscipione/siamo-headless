@@ -319,21 +319,21 @@ export default function FullServicePage() {
       location: "Puerto Morelos",
       summary: "A timeless blend of natural elements and contemporary design.",
       image: "/assets/timeless-nature/living-room-19.jpg",
-      href: "/portfolio/timeless-nature",
+      href: "/portfolio/timeless-nature/",
     },
     {
       title: "Roots Tulum",
       location: "Tulum",
       summary: "A timeless expression of pure, natural materials.",
       image: "/assets/raices-tulum/bedroom-4.jpg",
-      href: "/portfolio/roots-tulum",
+      href: "/portfolio/roots-tulum/",
     },
     {
       title: "Mid-Century Waves",
       location: "Akumal",
       summary: "A calm, textural retreat shaped around warm tones and coastal serenity.",
       image: "/assets/mid-century-waves/terrace-1.jpg",
-      href: "/portfolio/mid-century-waves",
+      href: "/portfolio/mid-century-waves/",
     },
   ];
 
@@ -744,7 +744,7 @@ export default function FullServicePage() {
             <h2 className={`featured-projects__title ${playfairFont.className}`}>Featured Projects</h2>
             <div className="featured-projects__grid">
               {featuredProjects.map((project) => (
-                <article key={project.title} className="featured-project">
+                <a key={project.title} className="featured-project" href={project.href}>
                   <div className="featured-project__media">
                     <Image
                       src={project.image}
@@ -765,7 +765,7 @@ export default function FullServicePage() {
                       {project.location}
                     </p>
                   </div>
-                </article>
+                </a>
               ))}
             </div>
           </div>
