@@ -11,7 +11,7 @@ type ProjectSectionImage = {
 
 type ProjectSection = {
   title: string;
-  description?: string;
+  description?: string | string[];
   mainImage?: ProjectSectionImage;
   mainSizes?: string;
   isSquare?: boolean;
@@ -247,7 +247,13 @@ export default function ProjectPage({
                           <span className="project-detail__step">{step}</span>
                           <h2 className={`project-detail__title ${playfairFont.className}`}>{section.title}</h2>
                         </div>
-                        {section.description ? (
+                        {Array.isArray(section.description) ? (
+                          section.description.map(paragraph => (
+                            <p className="project-detail__description" key={paragraph}>
+                              {paragraph}
+                            </p>
+                          ))
+                        ) : section.description ? (
                           <p className="project-detail__description">
                             {section.description}
                           </p>

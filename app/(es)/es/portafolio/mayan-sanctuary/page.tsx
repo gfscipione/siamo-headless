@@ -276,7 +276,11 @@ export default function MayanSanctuaryEsPage() {
     {
       title: "Resumen del proyecto",
       description:
-        "Mayan Sanctuary es una vivienda familiar de tres niveles en Senderos Mayakoba, Playa del Carmen. Sus propietarios buscaban una casa personalizada y lista para usar. Siamo se incorporó mientras la propiedad seguía en construcción, lo que permitió participar en decisiones de diseño antes de completar los acabados. Además de seleccionar mobiliario y decoración, Siamo diseñó la cocina y la lavandería y seleccionó acabados pendientes de compra. Las propuestas se definieron con el cliente y se trasladaron al constructor para su ejecución. El equipo también coordinó con el electricista de la obra ajustes eléctricos y de iluminación en algunas áreas. La propuesta combina piedra caliza, madera, artesanía local y texturas tejidas para conectar las áreas sociales, las recámaras y las terrazas. El trabajo permitió adaptar decisiones de acabados, mobiliario e iluminación a los gustos de la familia, manteniendo una relación coherente entre los distintos espacios.",
+        [
+          "Mayan Sanctuary es una vivienda familiar de tres niveles en Senderos Mayakoba, Playa del Carmen. Sus propietarios buscaban una casa personalizada y lista para usar. Siamo se incorporó mientras la propiedad seguía en construcción, lo que permitió participar en decisiones de diseño antes de completar los acabados.",
+          "Además de seleccionar mobiliario y decoración, Siamo diseñó la cocina y la lavandería y seleccionó acabados pendientes de compra. Las propuestas se definieron con el cliente y se trasladaron al constructor para su ejecución. El equipo también coordinó con el electricista de la obra ajustes eléctricos y de iluminación en algunas áreas.",
+          "La propuesta combina piedra caliza, madera, artesanía local y texturas tejidas para conectar las áreas sociales, las recámaras y las terrazas. El trabajo permitió adaptar decisiones de acabados, mobiliario e iluminación a los gustos de la familia, manteniendo una relación coherente entre los distintos espacios.",
+        ],
     },
   ];
 
