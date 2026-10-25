@@ -195,7 +195,7 @@ export default function FullServicePage() {
     },
     {
       title: "Selección y especificación de mobiliario",
-      copy: "La selección coordinada de mobiliario y decoración guía las compras y la instalación según el alcance acordado para el proyecto.",
+      copy: "La selección coordinada de mobiliario y decoración guía las compras y la instalación según el alcance acordado para el proyecto. Una lista personalizable de electrodomésticos, artículos domésticos y amenidades te permite elegir lo que necesitas para tu vivienda, añadiendo o quitando artículos según el proyecto.",
       icon: "leaf",
     },
     {
@@ -207,7 +207,7 @@ export default function FullServicePage() {
     {
       title: "Compras y Coordinación con Proveedores",
       copy:
-        "Nuestro equipo coordina con proveedores y bodegas para ordenar, dar seguimiento y resolver cualquier incidencia relacionada con tu mobiliario y decoración. Tendrás acceso al estatus de cada artículo.",
+        "Nuestro equipo coordina con proveedores y bodegas para ordenar, dar seguimiento y resolver cualquier incidencia relacionada con tu mobiliario y decoración. Tendrás acceso al estatus de cada artículo. Las propuestas de compra incluyen tiendas, enlaces y opciones de precio que puedes consultar.",
       icon: "checklist",
     },
     {
@@ -305,7 +305,9 @@ export default function FullServicePage() {
       question: "¿Pueden coordinar el proyecto de mi vivienda si vivo en el extranjero?",
       answer: (
         <>
-          Vivir en el extranjero no significa que debas contratar diseño virtual. Si tu vivienda está en Riviera Maya y necesitas coordinar diseño, selección de mobiliario e instalación en sitio, cuéntanos el proyecto mediante el {" "}<a href="/es/cuestionario/" style={{ fontWeight: 600, textDecoration: "underline" }}>cuestionario</a>. Revisaremos su ubicación y alcance para determinar si el servicio llave en mano es adecuado. El diseño virtual es una opción distinta para quienes quieren un plan de diseño que puedan ejecutar por su cuenta.
+          <p style={{ margin: "0 0 1em" }}>{"Vivir en el extranjero no significa que debas contratar diseño virtual. Si tu vivienda está en Riviera Maya y necesitas coordinar diseño, selección de mobiliario e instalación en sitio, cuéntanos el proyecto mediante el "}<a href="/es/cuestionario/" style={{ fontWeight: 600, textDecoration: "underline" }}>cuestionario</a>{". Revisaremos su ubicación y alcance para determinar si el servicio llave en mano es adecuado."}</p>
+          <p style={{ margin: "0 0 1em" }}>{"Durante el diseño revisamos las propuestas en videollamadas y compartimos mood boards y selecciones de artículos en Drive, donde puedes dejar comentarios y confirmar tus elecciones."}</p>
+          <p style={{ margin: 0 }}>{"El diseño virtual es una opción distinta para quienes quieren un plan de diseño que puedan ejecutar por su cuenta."}</p>
         </>
       ),
     },

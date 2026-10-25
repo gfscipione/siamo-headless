@@ -189,7 +189,7 @@ export default function FullServicePage() {
     },
     {
       title: "Furniture Selection & Specification",
-      copy: "A coordinated selection of furniture and décor guides purchasing and installation as part of the agreed project scope.",
+      copy: "A coordinated selection of furniture and décor guides purchasing and installation as part of the agreed project scope. A customizable list of appliances, household items and amenities lets you choose what you need for your home, adding or removing items to suit the project.",
       icon: "leaf",
     },
     {
@@ -199,7 +199,7 @@ export default function FullServicePage() {
     },
     {
       title: "Purchasing & Vendor Coordination",
-      copy: "Our team coordinates with vendors and warehouses to order, track, and resolve any issues related to your furniture and décor. You’ll have access to the status of every item.",
+      copy: "Our team coordinates with vendors and warehouses to order, track, and resolve any issues related to your furniture and décor. You’ll have access to the status of every item. Purchasing proposals include stores, links and price options you can review.",
       icon: "checklist",
     },
     {
@@ -290,7 +290,9 @@ export default function FullServicePage() {
       question: "Can you coordinate my home project if I live abroad?",
       answer: (
         <>
-          Living abroad does not automatically mean you need virtual interior design. If your home is in the Riviera Maya and you need design, sourcing and installation coordinated on site, tell us about the project through our {" "}<a href="/questionnaire/" style={{ fontWeight: 600, textDecoration: "underline" }}>questionnaire</a>. We will review its location and scope to determine whether full-service is suitable. Virtual interior design is a separate option when you want a design plan to implement yourself.
+          <p style={{ margin: "0 0 1em" }}>{"Living abroad does not automatically mean you need virtual interior design. If your home is in the Riviera Maya and you need design, sourcing and installation coordinated on site, tell us about the project through our "}<a href="/questionnaire/" style={{ fontWeight: 600, textDecoration: "underline" }}>questionnaire</a>{". We will review its location and scope to determine whether full-service is suitable."}</p>
+          <p style={{ margin: "0 0 1em" }}>{"During the design process, we review proposals in video calls and share mood boards and item selections through Drive, where you can leave comments and confirm your choices."}</p>
+          <p style={{ margin: 0 }}>{"Virtual interior design is a separate option when you want a design plan to implement yourself."}</p>
         </>
       ),
     },
