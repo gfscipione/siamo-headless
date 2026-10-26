@@ -1,7 +1,7 @@
 // Approved ES copy and destinations; presentation/motion live separately.
 export const homepageCopy = {
   title: { desktop: "Tu nuevo hogar,\nsin tener que coordinarlo todo", mobile: "Tu nuevo hogar,\nsin tener que\ncoordinarlo todo" },
-  subline: "Diseño de interiores llave en mano en Riviera Maya. Coordinamos mobiliario, compras e instalación, aunque vivas en el extranjero.",
+  subline: "Diseño de interiores llave en mano en Riviera Maya y Cancún. Coordinamos el diseño, mobiliario, compras e instalación de tu hogar.",
   serviceAction: { label: "Servicio llave en mano", href: "/es/servicios/diseno-llave-en-mano/" },
   projectAction: { label: "Cuéntanos tu proyecto", href: "/es/cuestionario/" },
 } as const;

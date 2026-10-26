@@ -229,29 +229,9 @@ export default function FullServicePage() {
       question: "How do I know which service is right for me?",
       answer: (
         <>
-          To help you choose the service that best fits you and your lifestyle, there are a few key
-          factors to consider—your available time, the size and scope of the project, your budget,
-          and how hands-on you’d like to be.
-          <br />
-          <br />
-          If you’re short on time, you’re not located where the project is, or you simply want
-          everything ready when you arrive without having to manage a thing, then our{" "}
-          <a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>
-            Full-Service Interior Design
-          </a>{" "}
-          is the ideal fit.
-          <br />
-          <br />
-          If, on the other hand, you do have the time, prefer to execute your project in phases,
-          you’re local, and you mainly need professional direction to bring your ideas into focus,
-          then our{" "}
-          <a
-            href="/services/virtual-design/"
-            style={{ fontWeight: 600, textDecoration: "underline" }}
-          >
-            Virtual Interior Design
-          </a>{" "}
-          is perfect for you.
+          <p style={{ margin: "0 0 1em" }}>{"To help you choose the service that best fits you and your lifestyle, there are a few key factors to consider—your available time, the size and scope of the project, your budget, and how hands-on you’d like to be."}</p>
+          <p style={{ margin: "0 0 1em" }}>{"If you want to delegate the design, furniture sourcing, purchases and installation of your home, our "}<a href="/services/full-service/" style={{ fontWeight: 600, textDecoration: "underline" }}>Full-Service Interior Design</a>{" may be the right fit. This applies whether you live nearby or manage the project from abroad."}</p>
+          <p style={{ margin: 0 }}>{"If you prefer a professional design plan and want to manage purchases and implementation yourself, explore "}<a href="/services/virtual-design/" style={{ fontWeight: 600, textDecoration: "underline" }}>Virtual Interior Design</a>{". We review your project's location and scope to confirm the appropriate service."}</p>
         </>
       ),
     },
@@ -274,12 +254,8 @@ export default function FullServicePage() {
       question: "Can I see examples of your past work?",
       answer: (
         <>
-          Yes. Our portfolio features a selection of recent projects across different styles, since
-          each design is based on each client’s tastes, needs, and lifestyle. While all projects
-          carry the essence of Siamo Design, every one is unique and created to fit the client.
-          Our portfolio is meant to inspire you and help you imagine what we can create together.
-          <br />
-          <br />
+          <p style={{ margin: "0 0 1em" }}>{"Explore "}<a href="/portfolio/mayan-sanctuary/" style={{ fontWeight: 600, textDecoration: "underline" }}>Mayan Sanctuary</a>{", a family home in Senderos Mayakoba, Playa del Carmen, and "}<a href="/portfolio/contemporary-retreat/" style={{ fontWeight: 600, textDecoration: "underline" }}>Contemporary Retreat</a>{", an apartment in Puerto Cancún."}</p>
+          <p style={{ margin: "0 0 1em" }}>{"Each project page shows the spaces and design details; Mayan Sanctuary also describes Siamo's work with the owners and builder. The scope of each project is different."}</p>
           <a href="/portfolio" style={{ fontWeight: 600, textDecoration: "underline" }}>
             View Portfolio
           </a>

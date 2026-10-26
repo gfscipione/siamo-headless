@@ -240,32 +240,9 @@ export default function FullServicePage() {
       question: "¿Cómo sé cuál servicio es el adecuado para mí?",
       answer: (
         <>
-          Para ayudarte a elegir el servicio que mejor se adapta a ti y a tu estilo de vida, hay
-          algunos factores clave a considerar: el tiempo que tienes disponible, el tamaño y alcance
-          del proyecto, tu presupuesto y qué tan involucrada/o quieres estar.
-          <br />
-          <br />
-          Si tienes poco tiempo, no estás donde está el proyecto, o simplemente quieres que todo
-          esté listo cuando llegues sin tener que gestionar nada, entonces nuestro{" "}
-          <a
-            href="/es/servicios/diseno-llave-en-mano/"
-            style={{ fontWeight: 600, textDecoration: "underline" }}
-          >
-            Diseño de Interiores Llave en Mano
-          </a>{" "}
-          es la opción ideal.
-          <br />
-          <br />
-          Si por el contrario sí tienes tiempo, prefieres ejecutar tu proyecto por etapas, estás
-          localmente y principalmente necesitas dirección profesional para enfocar tus ideas,
-          entonces nuestro{" "}
-          <a
-            href="/es/servicios/diseno-virtual/"
-            style={{ fontWeight: 600, textDecoration: "underline" }}
-          >
-            Diseño de Interiores Virtual
-          </a>{" "}
-          es perfecto para ti.
+          <p style={{ margin: "0 0 1em" }}>{"Para ayudarte a elegir el servicio que mejor se adapta a ti y a tu estilo de vida, hay algunos factores clave a considerar: el tiempo que tienes disponible, el tamaño y alcance del proyecto, tu presupuesto y qué tan involucrada/o quieres estar."}</p>
+          <p style={{ margin: "0 0 1em" }}>{"Si quieres delegar el diseño, la selección de mobiliario, las compras y la instalación de tu vivienda, nuestro "}<a href="/es/servicios/diseno-llave-en-mano/" style={{ fontWeight: 600, textDecoration: "underline" }}>Diseño de Interiores Llave en Mano</a>{" puede ser la opción adecuada. Puedes explorarlo tanto si vives cerca como si gestionas el proyecto desde el extranjero."}</p>
+          <p style={{ margin: 0 }}>{"Si prefieres un plan profesional de diseño y quieres gestionar las compras y la ejecución por tu cuenta, conoce nuestro "}<a href="/es/servicios/diseno-virtual/" style={{ fontWeight: 600, textDecoration: "underline" }}>Diseño de Interiores Virtual</a>{". Revisamos la ubicación y el alcance de tu proyecto para confirmar el servicio adecuado."}</p>
         </>
       ),
     },
@@ -288,13 +265,8 @@ export default function FullServicePage() {
       question: "¿Puedo ver ejemplos de su trabajo anterior?",
       answer: (
         <>
-          Sí. Nuestro portafolio muestra una selección de proyectos recientes en distintos estilos,
-          ya que cada diseño se basa en los gustos, necesidades y estilo de vida de cada cliente.
-          Aunque todos los proyectos conservan la esencia de Siamo Design, cada uno es único y
-          creado para el cliente. Nuestro portafolio busca inspirarte y ayudarte a imaginar lo que
-          podemos crear juntos.
-          <br />
-          <br />
+          <p style={{ margin: "0 0 1em" }}>{"Conoce "}<a href="/es/portafolio/mayan-sanctuary/" style={{ fontWeight: 600, textDecoration: "underline" }}>Mayan Sanctuary</a>{", una vivienda familiar en Senderos Mayakoba, Playa del Carmen, y "}<a href="/es/portafolio/retiro-contemporaneo/" style={{ fontWeight: 600, textDecoration: "underline" }}>Retiro Contemporáneo</a>{", un departamento en Puerto Cancún."}</p>
+          <p style={{ margin: "0 0 1em" }}>{"Cada página muestra los espacios y detalles de diseño; Mayan Sanctuary también explica el trabajo de Siamo con los propietarios y el constructor. El alcance de cada proyecto es diferente."}</p>
           <a href="/es/portafolio/" style={{ fontWeight: 600, textDecoration: "underline" }}>
             Ver Portafolio
           </a>

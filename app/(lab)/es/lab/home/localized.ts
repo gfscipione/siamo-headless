@@ -24,7 +24,7 @@ const en = {
   ...es,
   hero: {
     title: { desktop: "Your new home,\nwithout managing it all", mobile: "Your new home,\nwithout managing\nit all" },
-    subline: "Full-service interior design in Riviera Maya. We coordinate furniture, purchasing and installation—even while you live abroad.",
+    subline: "Full-service interior design in Riviera Maya and Cancún. We coordinate the design, furniture, purchasing and installation of your home.",
     serviceAction: { label: "Full-Service Design", href: "/services/full-service/" },
     projectAction: { label: "Tell us about your project", href: "/questionnaire/" },
   },
