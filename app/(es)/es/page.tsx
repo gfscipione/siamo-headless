@@ -5,7 +5,7 @@ import { getSiteUrl } from "../../lib/siteUrl";
 const HOME_TITLE =
   "Siamo Design - Diseño de interiores en la Riviera Maya, Playa del Carmen, Tulum, Cancún.";
 const HOME_DESCRIPTION =
-  "Creamos interiores a medida en Tulum y Playa del Carmen. En Siamo Design, diseñamos espacios funcionales y elegantes listos para habitar. ¡Descubre nuestro enfoque del diseño de interiores en la Riviera Maya!";
+  "Diseño de interiores residencial en Playa del Carmen, Cancún y Riviera Maya. Coordinamos diseño, mobiliario, compras e instalación de tu hogar.";
 const HOME_OG_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/03/SD.webp";
 const HOME_SCHEMA_IMAGE = "https://siamodesign.com/es/wp-content/uploads/2025/03/SD.webp";
 

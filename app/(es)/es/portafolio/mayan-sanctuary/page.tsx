@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
 const canonicalPath = "/es/portafolio/mayan-sanctuary/";
-const TITLE = "Mayan Sanctuary: Diseño de Interiores Residencial | Siamo Design";
+const TITLE = "Mayan Sanctuary: Interiorismo en Playa del Carmen | Siamo";
 const DESCRIPTION =
-  "Descubre Mayan Sanctuary: diseño de interiores residencial con piedra caliza, madera, artesanía local y espacios sociales, recámaras y terrazas.";
+  "Una casa familiar en Senderos Mayakoba, Playa del Carmen. Conoce el diseño de Siamo, la selección de mobiliario y la coordinación con el constructor.";
 const OG_IMAGE_PATH = "/assets/mayan-sanctuary/details-1.webp";
 
 export const metadata: Metadata = {

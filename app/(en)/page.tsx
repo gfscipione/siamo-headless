@@ -5,7 +5,7 @@ import { getSiteUrl } from "../lib/siteUrl";
 const HOME_TITLE =
   "Siamo Design - Interior design in the Mayan Riviera, Playa del Carmen, Tulum, Cancun.";
 const HOME_DESCRIPTION =
-  "We create bespoke interiors in Tulum and Playa del Carmen. At Siamo Design, we design functional, elegant spaces ready to live in. Discover our approach to interior design in the Mayan Riviera!";
+  "Residential interior design in Playa del Carmen, Cancún and the Riviera Maya. Siamo coordinates design, furniture sourcing and installation for your home.";
 const HOME_OG_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/03/SD-150x100.webp";
 const HOME_SCHEMA_IMAGE = "https://siamodesign.com/wp-content/uploads/2025/03/SD.webp";
 

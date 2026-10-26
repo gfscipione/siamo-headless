@@ -1,7 +1,7 @@
 import ProjectPage from "../../../../(en)/portfolio/components/ProjectPage";
 import { getSiteUrl } from "../../../../lib/siteUrl";
 
-const TITLE = "Retiro Contemporáneo: Diseño de Interiores | Siamo Design";
+const TITLE = "Retiro Contemporáneo: Interiorismo en Cancún | Siamo Design";
 const DESCRIPTION =
   "Conoce Retiro Contemporáneo, un departamento de 90 m² en Puerto Cancún con diseño de interiores residencial, materiales refinados y tonos neutros.";
 

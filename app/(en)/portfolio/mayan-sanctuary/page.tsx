@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import { getSiteUrl } from "../../../lib/siteUrl";
 
 const canonicalPath = "/portfolio/mayan-sanctuary/";
-const TITLE = "Mayan Sanctuary: Residential Interior Design | Siamo Design";
+const TITLE = "Mayan Sanctuary: Interior Design in Playa del Carmen | Siamo";
 const DESCRIPTION =
-  "Explore Mayan Sanctuary, a residential interior design project with limestone, warm wood, local craft and connected living spaces, bedrooms and terraces.";
+  "A family home in Senderos Mayakoba, Playa del Carmen. Explore Siamo's interior design, furniture selections and coordination with the builder.";
 const OG_IMAGE_PATH = "/assets/mayan-sanctuary/details-1.webp";
 
 export const metadata: Metadata = {
