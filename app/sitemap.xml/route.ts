@@ -19,6 +19,7 @@ function getSiteUrl() {
 const paths = [
   "/",
   "/es/",
+  "/es/guias/planificar-diseno-equipamiento-vivienda/",
   "/get-to-know-us/",
   "/es/conocenos/",
   "/services/",

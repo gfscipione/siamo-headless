@@ -1,3 +1,4 @@
+import PlanningGuideLink from "../../../../components/PlanningGuideLink";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -422,6 +423,7 @@ export default function FullServicePage() {
         <section className="how-it-works" aria-label="Cómo funciona">
           <div className="how-it-works__inner">
             <h2 className={`how-it-works__title ${playfairFont.className}`}>Cómo funciona</h2>
+            <p style={{ textAlign: "center", margin: "18px auto 32px", maxWidth: "620px", padding: "0 20px" }}>Antes de empezar, consulta nuestra <PlanningGuideLink contextual />.</p>
             <div className="how-it-works__grid">
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>1</div>
@@ -812,6 +814,7 @@ export default function FullServicePage() {
 
             <div className="footer-explore" aria-label="Explorar y redes">
               <nav className="explore" aria-label="Explorar">
+                <PlanningGuideLink />
                 <a href="/es/servicios/">Servicios</a>
                 <a href="/es/portafolio/">Portafolio</a>
                 <a href="/es/conocenos/">Conócenos</a>

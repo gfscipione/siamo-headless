@@ -1,3 +1,4 @@
+import PlanningGuideLink from "../../../components/PlanningGuideLink";
 import Image from "next/image";
 import Link from "next/link";
 import PortfolioNav from "../../../components/PortfolioNav";
@@ -630,6 +631,7 @@ export default function ServicesPage() {
 
             <div className="footer-explore" aria-label="Explorar y redes">
               <nav className="explore" aria-label="Explorar">
+                <PlanningGuideLink />
                 <a href="/es/servicios/">Servicios</a>
                 <a href="/es/portafolio/">Portafolio</a>
                 <a href="/es/conocenos/">Conócenos</a>

@@ -1,3 +1,4 @@
+import PlanningGuideLink from "../../../components/PlanningGuideLink";
 import PortfolioNav from "../../../components/PortfolioNav";
 import { playfairFont, poppinsFont } from "../../../fonts";
 import AboutHeroVideo from "../../../(en)/get-to-know-us/video";
@@ -389,6 +390,7 @@ export default function ConocenosPage() {
 
             <div className="footer-explore" aria-label="Explorar y redes">
               <nav className="explore" aria-label="Explorar">
+                <PlanningGuideLink />
                 <a href="/es/servicios/">Servicios</a>
                 <a href="/es/portafolio/">Portafolio</a>
                 <a href="/es/conocenos/">Conócenos</a>

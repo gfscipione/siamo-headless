@@ -1,3 +1,4 @@
+import PlanningGuideLink from "../../../components/PlanningGuideLink";
 import Image from "next/image";
 import type { Metadata } from "next";
 import styles from "../../../(en)/portfolio/PortfolioIntro.module.css";
@@ -322,6 +323,7 @@ export default function PortfolioPage() {
 
         <div className="footer-explore" aria-label="Explorar y redes">
           <nav className="explore" aria-label="Explorar">
+                <PlanningGuideLink />
             <a href="/es/servicios/">Servicios</a>
             <a href="/es/portafolio/">Portafolio</a>
             <a href="/es/conocenos/">Conócenos</a>

@@ -1,3 +1,4 @@
+import PlanningGuideLink from "../../../../components/PlanningGuideLink";
 import Link from "next/link";
 import type { Metadata } from "next";
 import PortfolioNav from "../../../../components/PortfolioNav";
@@ -692,6 +693,7 @@ export default function VirtualDesignPage() {
 
             <div className="footer-explore" aria-label="Explorar y redes">
               <nav className="explore" aria-label="Explorar">
+                <PlanningGuideLink />
                 <a href="/es/servicios/">Servicios</a>
                 <a href="/es/portafolio/">Portafolio</a>
                 <a href="/es/conocenos/">Conócenos</a>
