@@ -20,6 +20,7 @@ const paths = [
   "/",
   "/es/",
   "/es/guias/planificar-diseno-equipamiento-vivienda/",
+  "/guides/planning-home-design-and-furnishing/",
   "/get-to-know-us/",
   "/es/conocenos/",
   "/services/",
@@ -48,7 +49,11 @@ const paths = [
   "/portfolio/contemporary-retreat/",
 ];
 
-// Omit lastmod until a reliable per-page content revision date is available.
+// Only the guide pair has a verified revision date in this change.
+const guideRevisionDate: Record<string, string> = {
+  "/es/guias/planificar-diseno-equipamiento-vivienda/": "2026-11-03",
+  "/guides/planning-home-design-and-furnishing/": "2026-11-03",
+};
 
 function escapeXml(value: string) {
   return value
@@ -68,7 +73,8 @@ export function GET(_request: NextRequest) {
     paths
       .map((path) => {
         const loc = `${siteUrl}${path}`;
-        return `  <url>\n    <loc>${escapeXml(loc)}</loc>\n  </url>\n`;
+        const lastmod = guideRevisionDate[path];
+        return `  <url>\n    <loc>${escapeXml(loc)}</loc>\n${lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : ""}  </url>\n`;
       })
       .join("") +
     `</urlset>\n`;

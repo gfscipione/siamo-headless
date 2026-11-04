@@ -442,7 +442,7 @@ export default function ProjectPage({
                 <a href={lang === "es" ? "/es/servicios/" : "/services"}>{footerServicesLabel}</a>
                 <a href={lang === "es" ? "/es/portafolio/" : "/portfolio"}>{footerPortfolioLabel}</a>
                 <a href={lang === "es" ? "/es/conocenos/" : "/get-to-know-us"}>{footerAboutLabel}</a>
-                {lang === "es" && <PlanningGuideLink />}
+                <PlanningGuideLink locale={lang === "es" ? "es" : "en"} />
                 <a href="mailto:hello@siamodesign.com" aria-label={spanishSharedText ? "Escríbenos por correo" : "Email us"}>{footerEmailLabel}</a>
                 <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label={spanishSharedText ? "Chatea por WhatsApp" : "Chat on WhatsApp"}>
                   {footerWhatsAppLabel}

@@ -1,3 +1,4 @@
+import PlanningGuideLink from "@/app/components/PlanningGuideLink";
 import PortfolioNav from "../../components/PortfolioNav";
 import { playfairFont, poppinsFont } from "../../fonts";
 import AboutHeroVideo from "./video";
@@ -375,6 +376,7 @@ export default function GetToKnowUsPage() {
                 <a href="/services">Services</a>
                 <a href="/portfolio">Portfolio</a>
                 <a href="/get-to-know-us">About</a>
+                <PlanningGuideLink locale="en" />
                 <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
                 <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
                   WhatsApp

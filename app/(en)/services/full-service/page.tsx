@@ -1,3 +1,4 @@
+import PlanningGuideLink from "@/app/components/PlanningGuideLink";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -390,6 +391,8 @@ export default function FullServicePage() {
         <section className="how-it-works" aria-label="How it works">
           <div className="how-it-works__inner">
             <h2 className={`how-it-works__title ${playfairFont.className}`}>How it Works</h2>
+            <p style={{ textAlign: "center", margin: "18px auto 32px", maxWidth: "620px", padding: "0 20px" }}>Not sure what to prepare or which tasks to delegate? Our homeowner guide can help you plan the first conversation.{" "}<PlanningGuideLink locale="en" contextual label="Planning your home’s design and furnishing" />.
+            </p>
             <div className="how-it-works__grid">
               <article className="how-step">
                 <div className={`how-step__number ${playfairFont.className}`}>1</div>
@@ -781,6 +784,7 @@ export default function FullServicePage() {
                 <a href="/services">Services</a>
                 <a href="/portfolio">Portfolio</a>
                 <a href="/get-to-know-us">About</a>
+                <PlanningGuideLink locale="en" />
                 <a href="mailto:hello@siamodesign.com" aria-label="Email us">Email</a>
                 <a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
                   WhatsApp
