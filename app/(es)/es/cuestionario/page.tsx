@@ -286,7 +286,7 @@ export default function CuestionarioPage() {
               <a
                 href="https://donebyelevator.com/website-redesign-service"
                 target="_blank"
-                rel="noopener noreferrer sponsored"
+                rel="noopener noreferrer"
               >
                 Designed & Built by Elevator
               </a>

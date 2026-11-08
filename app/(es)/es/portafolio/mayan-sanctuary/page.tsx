@@ -360,7 +360,7 @@ export default function MayanSanctuaryEsPage() {
             <a
               href="https://donebyelevator.com/website-redesign-service"
               target="_blank"
-              rel="noopener noreferrer sponsored"
+              rel="noopener noreferrer"
             >
               Diseñado y construido por Elevator
             </a>

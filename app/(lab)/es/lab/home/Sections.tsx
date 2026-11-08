@@ -71,6 +71,6 @@ export function Footer({ locale = "es", routeMode = "lab" }: { locale?: Locale; 
   return <footer className={styles.footer}><div className={styles.footerInner}>
     <div className={styles.footerExplore}><nav aria-label={copy.explore}>{copy.navigation.map(item => <InternalLink {...linkProps} key={item.href} href={item.href}>{item.label}</InternalLink>)}{routeMode === "public" && <PlanningGuideLink locale={locale} />}<a href="mailto:hello@siamodesign.com">{copy.email}</a><a href="https://wa.me/529842111989" target="_blank" rel="noopener noreferrer">WhatsApp</a></nav>
       <nav aria-label={copy.social}>{socialProfiles.map((item, i) => <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer" aria-label={item.label}><Image src={`/assets/home-lab/social-${i}.svg`} width={20} height={20} alt="" /></a>)}</nav></div>
-    <div className={styles.legal} lang="en"><p>Siamo Design | Interior Design Studio</p><p>© 2025 Siamo Design. All rights reserved.</p><a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer sponsored">Designed &amp; Built by Elevator</a></div>
+    <div className={styles.legal} lang="en"><p>Siamo Design | Interior Design Studio</p><p>© 2025 Siamo Design. All rights reserved.</p><a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer">Designed &amp; Built by Elevator</a></div>
   </div></footer>;
 }

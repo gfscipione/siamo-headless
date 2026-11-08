@@ -272,7 +272,7 @@ export default function RetiroContemporaneoPageEs() {
             </span>
           ),
           sig: (
-            <a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer sponsored">
+            <a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer">
               Diseñado y desarrollado por Elevator
             </a>
           ),

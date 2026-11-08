@@ -366,7 +366,7 @@ export default function PortfolioPage() {
             <p className="legal-line">
               <span className="legal-full">© 2025 Siamo Design. Todos los derechos reservados.</span>
             </p>
-            <p className="legal-sig"><a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer sponsored">Diseñado y construido por Elevator</a></p>
+            <p className="legal-sig"><a href="https://donebyelevator.com/website-redesign-service" target="_blank" rel="noopener noreferrer">Diseñado y construido por Elevator</a></p>
           </div>
         </div>
       </footer>
