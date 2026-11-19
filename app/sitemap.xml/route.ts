@@ -53,8 +53,8 @@ const paths = [
 
 // Only the guide pair has a verified revision date in this change.
 const guideRevisionDate: Record<string, string> = {
-  "/es/guias/planificar-diseno-equipamiento-vivienda/": "2026-11-03",
-  "/guides/planning-home-design-and-furnishing/": "2026-11-03",
+  "/es/guias/planificar-diseno-equipamiento-vivienda/": "2026-11-19",
+  "/guides/planning-home-design-and-furnishing/": "2026-11-19",
 };
 
 function escapeXml(value: string) {

@@ -112,6 +112,23 @@ export const guideCopy = {
       }
     },
     {
+      "id": "living-abroad",
+      "h2": "Living abroad: what to agree before work moves forward at your home",
+      "paragraphs": [
+        "You can review the design from another country, but deliveries and installation need coordination at the property. Before arranging those activities, clarify these points with the studio and the people involved:"
+      ],
+      "bullets": [
+        "Access: who can provide entry and what requirements or permitted hours the building or community administration sets for deliveries and work.",
+        "Checks: who will confirm measurements and site conditions before each item is purchased or installed.",
+        "Deliveries: who will receive items, check their condition and follow up if something is missing or damaged.",
+        "Changes: how alternatives will be proposed if an item becomes unavailable or its price changes, and what needs your approval before proceeding.",
+        "Review: how you will review the installed items and how outstanding matters will be followed up before your arrival."
+      ],
+      "after_list": [
+        "These points help define the scope and responsibilities; they are not tasks you need to take on personally. Explaining which ones you want to delegate helps establish the support your home needs. If you have a preferred date to start using it, share it so its feasibility can be discussed in light of the project’s condition and outstanding purchases."
+      ]
+    },
+    {
       "id": "mayan",
       "h2": "Mayan Sanctuary: how design decisions connect",
       "paragraphs": [

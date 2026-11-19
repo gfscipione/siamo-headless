@@ -105,6 +105,23 @@ export const guideCopy = {
       }
     },
     {
+      "id": "desde-otro-pais",
+      "h2": "Si vives en otro país: qué acordar para avanzar en la vivienda",
+      "paragraphs": [
+        "Puedes revisar el diseño a distancia, pero las entregas y la instalación necesitan coordinación en la propiedad. Antes de organizar esas actividades, aclara con el estudio y las personas involucradas:"
+      ],
+      "bullets": [
+        "Acceso: quién puede facilitar la entrada y qué requisitos u horarios establece la administración para entregas y trabajos.",
+        "Comprobaciones: quién confirmará las medidas y condiciones del espacio antes de comprar o instalar cada pieza.",
+        "Entregas: quién recibirá los artículos, revisará su estado y dará seguimiento si falta algo o llega dañado.",
+        "Cambios: cómo se propondrán alternativas si un artículo deja de estar disponible o cambia de precio, y qué necesita tu aprobación antes de continuar.",
+        "Revisión: cómo comprobarás lo instalado y cómo se dará seguimiento a lo que quede pendiente antes de tu llegada."
+      ],
+      "after_list": [
+        "Son puntos para definir el alcance y repartir responsabilidades, no tareas que debas asumir personalmente. Explicar cuáles necesitas delegar ayuda a revisar qué apoyo es adecuado para tu vivienda. Si ya tienes una fecha en la que te gustaría utilizarla, compártela para conversar sobre su viabilidad según el estado del proyecto y las compras pendientes."
+      ]
+    },
+    {
       "id": "mayan",
       "h2": "Un ejemplo: decisiones conectadas en Mayan Sanctuary",
       "paragraphs": [
