@@ -116,6 +116,10 @@ export const guideCopy = {
         {
           "label": "Ver el proyecto Mayan Sanctuary",
           "href": "https://siamodesign.com/es/portafolio/mayan-sanctuary/"
+        },
+        {
+          "label": "¿Tu casa sigue en construcción? Consulta cuándo incorporar el diseño de interiores.",
+          "href": "/es/guias/diseno-interiores-casa-en-construccion/"
         }
       ]
     },

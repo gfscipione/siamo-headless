@@ -123,6 +123,10 @@ export const guideCopy = {
         {
           "label": "View Mayan Sanctuary",
           "href": "https://siamodesign.com/portfolio/mayan-sanctuary/"
+        },
+        {
+          "label": "Is your home still under construction? See when to involve an interior designer.",
+          "href": "/guides/interior-design-during-home-construction/"
         }
       ]
     },

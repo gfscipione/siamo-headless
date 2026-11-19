@@ -1,6 +1,7 @@
 import PlanningGuideLink from "@/app/components/PlanningGuideLink";
 import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import PortfolioNav from "../../../components/PortfolioNav";
 import { playfairFont, poppinsFont } from "../../../fonts";
 import QuestionnaireCtaLink from "../../../components/QuestionnaireCtaLink";
@@ -13,6 +14,7 @@ type ProjectSectionImage = {
 type ProjectSection = {
   title: string;
   description?: string | string[];
+  links?: readonly { href: string; label: string }[];
   mainImage?: ProjectSectionImage;
   mainSizes?: string;
   isSquare?: boolean;
@@ -259,6 +261,14 @@ export default function ProjectPage({
                             {section.description}
                           </p>
                         ) : null}
+                        {section.links?.map(link => (
+                          <p className="project-detail__description" key={link.href}>
+                            <Link href={link.href} prefetch={false}
+                              style={{ textDecoration: "underline", textUnderlineOffset: "4px" }}>
+                              {link.label}
+                            </Link>
+                          </p>
+                        ))}
                         {section.duoImages && (
                           <div className="project-detail__duo">
                             {section.duoImages.map((img) => (

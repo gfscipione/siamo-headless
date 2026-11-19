@@ -275,6 +275,7 @@ export default function MayanSanctuaryEsPage() {
     },
     {
       title: "Resumen del proyecto",
+      links: [{"href": "/es/guias/diseno-interiores-casa-en-construccion/", "label": "¿Estás preparando los interiores de una casa en construcción?"}],
       description:
         [
           "Mayan Sanctuary es una vivienda familiar de tres niveles en Senderos Mayakoba, Playa del Carmen. Sus propietarios buscaban una casa personalizada y lista para usar. Siamo se incorporó mientras la propiedad seguía en construcción, lo que permitió participar en decisiones de diseño antes de completar los acabados.",

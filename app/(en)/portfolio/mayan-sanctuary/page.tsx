@@ -269,6 +269,7 @@ export default function MayanSanctuaryPage() {
     },
     {
       title: "Project Overview",
+      links: [{"href": "/guides/interior-design-during-home-construction/", "label": "Planning the interiors of a home under construction?"}],
       description:
         [
           "Mayan Sanctuary is a three-level family home in Senderos Mayakoba, Playa del Carmen. Its owners wanted a personalized home ready to use. Siamo joined while the property was still under construction, allowing the team to contribute to design decisions before the finishes were completed.",

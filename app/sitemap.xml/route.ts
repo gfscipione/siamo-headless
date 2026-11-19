@@ -21,6 +21,8 @@ const paths = [
   "/es/",
   "/es/guias/planificar-diseno-equipamiento-vivienda/",
   "/guides/planning-home-design-and-furnishing/",
+  "/guides/interior-design-during-home-construction/",
+  "/es/guias/diseno-interiores-casa-en-construccion/",
   "/get-to-know-us/",
   "/es/conocenos/",
   "/services/",

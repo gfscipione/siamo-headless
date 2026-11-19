@@ -12,6 +12,8 @@ export type GuideSection = {
   id: string;
   h2: string;
   paragraphs: readonly string[];
+  bullets?: readonly string[];
+  after_list?: readonly string[];
   checklist?: readonly { label: string; text: string }[];
   comparison?: { columns: readonly string[]; rows: readonly (readonly string[])[] };
   questions?: readonly string[];
@@ -57,6 +59,10 @@ function SectionContent({ section }: { section: Section }) {
   const comparison = section.comparison;
   return <>
     {section.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+    {section.bullets && <ul>
+      {section.bullets.map(item => <li key={item}>{item}</li>)}
+    </ul>}
+    {section.after_list?.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
     {section.checklist && <ul className={styles.checklist}>
       {section.checklist.map(item => <li key={item.label}><label>
         <input type="checkbox" aria-label={item.label} />
@@ -82,17 +88,23 @@ function SectionContent({ section }: { section: Section }) {
   </>;
 }
 
-export default function PlanningGuideArticle({ copy, ui, locale }: {
+export default function PlanningGuideArticle({
+  copy, ui, locale,
+  alternateHref = planningGuides[locale === "es" ? "en" : "es"].path,
+  caseImageSrc = "/assets/mayan-sanctuary/dining-room-3.webp",
+}: {
   copy: GuideCopy;
   ui: GuideUI;
   locale: "en" | "es";
+  alternateHref?: string;
+  caseImageSrc?: string;
 }) {
   const closing = copy.sections[copy.sections.length - 1];
   const mainId = locale === "es" ? "contenido" : "content";
   const closingTitleId = locale === "es" ? "title-siguiente" : `title-${closing.id}`;
   return <div className={`${styles.page} ${homeFontClasses}`}>
     <a className={styles.skip} href={`#${mainId}`}>{ui.skip}</a>
-    <PortfolioNav lang={locale} langHref={planningGuides[locale === "es" ? "en" : "es"].path} styleVars={{}} />
+    <PortfolioNav lang={locale} langHref={alternateHref} styleVars={{}} />
     <main id={mainId} className={styles.main}>
       <div className={styles.shell}>
         <nav className={styles.crumbs} aria-label={ui.breadcrumb_label}>
@@ -124,7 +136,7 @@ export default function PlanningGuideArticle({ copy, ui, locale }: {
                 <div className={styles.sectionLabel}>{String(index + 1).padStart(2, "0")}</div>
                 <h2 id={`title-${section.id}`}>{section.h2}</h2>
                 {section.id === "mayan" ? <div className={styles.case}>
-                  <Image src="/assets/mayan-sanctuary/dining-room-3.webp" width={5040} height={3360}
+                  <Image src={caseImageSrc} width={5040} height={3360}
                     sizes="(max-width: 760px) 100vw, 60vw" alt={ui.case_alt} />
                   <div className={styles.caseCopy}><p className={styles.sectionLabel}>{ui.case_caption}</p>
                     <SectionContent section={section} />
@@ -135,11 +147,14 @@ export default function PlanningGuideArticle({ copy, ui, locale }: {
           </div>
         </div></div>
         <section className={styles.closing} id={closing.id} aria-labelledby={closingTitleId}>
-          <div className={styles.sectionLabel}>07</div><h2 id={closingTitleId}>{closing.h2}</h2>
+          <div className={styles.sectionLabel}>{String(copy.sections.length).padStart(2, "0")}</div><h2 id={closingTitleId}>{closing.h2}</h2>
           {closing.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
           {closing.cta && <Link className={styles.button} href={closing.cta.href} prefetch={false}>{closing.cta.label}
             <span aria-hidden="true">→</span>
           </Link>}
+          {closing.links?.map(link => <p key={link.href}>
+            <Link href={link.href} prefetch={false}>{link.label}</Link>
+          </p>)}
         </section>
       </div>
     </main>
