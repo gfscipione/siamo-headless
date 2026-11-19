@@ -66,6 +66,10 @@ export const guideCopy = {
         {
           "label": "Explore virtual interior design",
           "href": "https://siamodesign.com/services/virtual-design/"
+        },
+        {
+          "label": "Choosing a studio? See how to compare interior design proposals.",
+          "href": "/guides/choosing-an-interior-designer/"
         }
       ],
       "closing": "The same distinction applies if you manage your property from another country: living abroad does not automatically make virtual design the right service."
@@ -109,7 +113,13 @@ export const guideCopy = {
       "callout": {
         "title": "Before buying an item yourself",
         "text": "As a general check, consider whether it fits the available measurements, the pieces you are keeping and the way you need to use the space. If something is still unclear, bring that question to the conversation before making the purchase."
-      }
+      },
+      "links": [
+        {
+          "label": "Compare custom and ready-made furniture for your home.",
+          "href": "/guides/custom-vs-ready-made-furniture/"
+        }
+      ]
     },
     {
       "id": "living-abroad",

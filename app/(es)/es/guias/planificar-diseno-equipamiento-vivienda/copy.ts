@@ -65,6 +65,10 @@ export const guideCopy = {
         {
           "label": "Conoce el diseño virtual",
           "href": "https://siamodesign.com/es/servicios/diseno-virtual/"
+        },
+        {
+          "label": "¿Estás eligiendo estudio? Revisa cómo comparar propuestas de interiorismo.",
+          "href": "/es/guias/elegir-estudio-interiorismo/"
         }
       ],
       "closing": "Si gestionas tu propiedad desde otro país, la misma distinción sigue siendo útil: vivir fuera no convierte automáticamente tu proyecto en diseño virtual."
@@ -102,7 +106,13 @@ export const guideCopy = {
       "callout": {
         "title": "Antes de comprar por tu cuenta",
         "text": "Como comprobación general, pregúntate si la pieza encaja con las medidas disponibles, con lo que vas a conservar y con el uso que necesitas. Si algo sigue sin definirse, lleva esa duda a la conversación antes de decidir la compra."
-      }
+      },
+      "links": [
+        {
+          "label": "Compara muebles a medida y de catálogo para tu vivienda.",
+          "href": "/es/guias/muebles-a-medida-o-de-catalogo/"
+        }
+      ]
     },
     {
       "id": "desde-otro-pais",
